@@ -1,0 +1,184 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Choisir mesures pour commande" href="{{ path('adminCommandes_mesures_new')}}">Choisir mesures</a><span>&raquo;</span></li>
+                        <li><strong>Nouvelle commande</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End -->
+    <section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-4 col-xs-12">
+                <div class="col-main">
+                    <div class="cart">
+                        <div class="page-content page-order">
+                            <div class="page-title">
+                                <center><h2>Mesures pour commande de &nbsp; {{ mesure.titulaire|capitalize }}</h2></center>
+                            </div>
+                            <u>Tour de poitrine</u> = {{ mesure.poitrine }} cm; <br/>
+                            <u>Tour de taille</u> = {{ mesure.taille }} cm;<br/>
+                            <u>Tour de bassin</u> = {{ mesure.bassin }} cm;<br/>
+                            {% if mesure.epaules %}                                
+                            <u>Distance entre les épaules</u> = {{ mesure.epaules }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.seins %}
+                            <u>Distance entre les seins</u> = {{ mesure.seins }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.epauletaille %}
+                            <u>Distance épaule-taille</u> = {{ mesure.epauletaille }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.longueur %}
+                            <u>Longueur vêtement</u> = {{ mesure.longueur }} cm <br/>   
+                            {% endif %}   
+                            {% if mesure.hauteurPoitrine %}                                
+                            <u>Hauteur de poitrine</u> = {{ mesure.hauteurPoitrine }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.demiEcartPoitrine %}                                
+                            <u>Démi écart poitrine</u> = {{ mesure.demiEcartPoitrine }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.tourPetitesHanches %}                                
+                            <u>Tour des petites hanches</u> = {{ mesure.tourPetitesHanches }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.tourGrandesHanches %}                                
+                            <u>Tour des grandes hanches</u> = {{ mesure.tourGrandesHanches }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.demiTourEncolure %}                                
+                            <u>Demi tour d'encolure</u> = {{ mesure.demiTourEncolure }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.demiCarrureDos %}                                
+                            <u>Demi carrure dos</u> = {{ mesure.demiCarrureDos }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.demiCarrureDevant %}                                
+                            <u>Demi carrure devant</u> = {{ mesure.demiCarrureDevant }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.tailleDos %}                                
+                            <u>Longueur taille dos</u> = {{ mesure.tailleDos }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.tailleDevant %}                                
+                            <u>Longueur taille devant</u> = {{ mesure.tailleDevant }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.longueurEpaule %}                                
+                            <u>Longueur épaule</u> = {{ mesure.longueurEpaule }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.tourEmmanchure %}                                
+                            <u>Tour d'emmanchure</u> = {{ mesure.tourEmmanchure }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.hauteurDessousBras %}                                
+                            <u>Hauteur dessous bras</u> = {{ mesure.hauteurDessousBras }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.longueurBras %}                                
+                            <u>Longueur du bras</u> = {{ mesure.longueurBras }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.grosseurBras %}                                
+                            <u>Grosseur du bras</u> = {{ mesure.grosseurBras }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.hauteurCoude %}                                
+                            <u>Hauteur du coude</u> = {{ mesure.hauteurCoude }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.tourPoignet %}                                
+                            <u>Tour de poignet</u> = {{ mesure.tourPoignet }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.hauteurTailleHanche %}                                
+                            <u>Hauteur taille-hanches</u> = {{ mesure.hauteurTailleHanche }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.hauteurMontant %}                                
+                            <u>Hauteur de montant</u> = {{ mesure.hauteurMontant }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.enfourchure %}                                
+                            <u>Enfourchure</u> = {{ mesure.enfourchure }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.hauteurTailleGenou %}                                
+                            <u>Hauteur taille au genou</u> = {{ mesure.hauteurTailleGenou }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.hauteurTailleTerre %}                                
+                            <u>Hauteur taille à terre</u> = {{ mesure.hauteurTailleTerre }} cm;<br/>
+                            {% endif %}
+                            {% if mesure.hauteurTailleCoteTerre %}                                
+                            <u>Hauteur taille côté à terre</u> = {{ mesure.hauteurTailleCoteTerre }} cm;<br/>
+                            {% endif %}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-main col-sm-5 col-xs-12">
+                <div class="page-content page-order">
+                <h3><center>Finalisez la commande</center></h3>
+                    <form action="{{ path('adminCommandes_new') }}" method="POST" {{ form_enctype(form) }} class="col">
+                            {{ form_start(form) }}
+                            {{ form_errors(form) }}
+                            <div class="order-detail-content">
+                                <div class="box-border">
+                                    <ul>
+                                        <li class="row">
+                                            <div class="col-sm-6">
+                                                {{ form_row(form.intitule) }}
+                                            </div><!--/ [col] -->
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-12">
+                                                {{ form_row(form.contenu) }}
+                                            </div><!--/ [col] -->
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-5">
+                                                {{ form_row(form.categorie) }}
+                                            </div><!--/ [col] -->
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-4">
+                                                <label class="required">Première image*</label>
+                                                {{ form_widget(form.image.file) }}
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label class="required">Seconde image</label>
+                                                {{ form_widget(form.image.file2) }}
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label class="required">Troisième image</label>
+                                                {{ form_widget(form.image.file3) }}
+                                            </div><!--/ [col] -->
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                                <div class="cart_navigation"> 
+                                    <br>
+                                    <div>
+                                        <button type="submit" class="button"><i class="fa fa-check"></i>&nbsp; Validez la commande</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                            </form>
+                
+            </div>
+      </div>
+            <aside class="right sidebar col-sm-3 col-xs-12">
+                {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+                <br><br>
+                {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+            </aside>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

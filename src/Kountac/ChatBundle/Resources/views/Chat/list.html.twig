@@ -1,0 +1,8 @@
+<ul id="chat">
+{% for message in messages %}
+    
+    <div class="author"><span>{{ message.author }}</span> <span class="date">({{ message.insertDate|date("d/M/Y")}})</span></div>
+	<div class="msg_a">{{ message.message }}</div>
+   
+{% endfor %}
+</ul>

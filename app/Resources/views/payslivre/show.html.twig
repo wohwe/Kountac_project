@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Payslivre</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ paysLivre.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ paysLivre.nom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('adminPaysLivre_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('adminPaysLivre_edit', { 'id': paysLivre.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

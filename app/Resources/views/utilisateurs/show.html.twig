@@ -1,0 +1,195 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Voir tous les utilisateurs" href="{{ path('adminUtilisateurs_index')}}">Tous les utilisateurs</a><span>&raquo;</span></li>
+                        <li><strong>Détails utilisateur</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Container -->
+    
+    <section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-9 col-xs-12">
+                <div class="col-main">
+                    <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                                <h2>Détails utilisateur: {{ utilisateur.prenom|capitalize }} {{ utilisateur.nom|capitalize }}</h2>
+                            </div>
+
+                            <div class="order-detail-content">
+                                <div class="table-responsive">
+
+                                    <table class="table table-bordered table-compare">
+                                        <tr>
+                                            <td class="compare-label">Aperçu</td>
+                                            <td>
+                                                <div class="col-sm-6">
+                                                    <img src="{{ utilisateur.image.AssetPath|imagine_filter('commandeThumb') }}" alt="">
+                                                </div>
+                                                {% if utilisateur.image.path2 %}
+                                                    <div class="col-sm-6">
+                                                        <img src="{{ utilisateur.image.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Nom(s)</td>
+                                            <td><a>{{ utilisateur.nom|capitalize }}</a></td>
+                                     </tr>
+                                        {% if utilisateur.prenom %}
+                                        <tr>
+                                            <td class="compare-label">Prénom(s)</td>
+                                            <td><a>{{ utilisateur.prenom|capitalize }}</a></td>
+                                       </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td class="compare-label">Nom utilisateur</td>
+                                            <td><a>{{ utilisateur.username }}</a></td>
+                                       </tr>
+                                        <tr>
+                                            <td class="compare-label">E-mail</td>
+                                            <td><a>{{ utilisateur.email }}</a></td>
+                                       </tr>
+                                        {% if utilisateur.lastlogin %}
+                                        <tr>
+                                            <td class="compare-label">Dernière connexion</td>
+                                            <td><a>{{ utilisateur.lastlogin|date('d-m-Y') }}</a></td>
+                                        </tr>
+                                        {% endif %}
+                                        
+                                        <tr>
+                                            <td class="compare-label">Téléphone(s)</td>
+                                            <td><a>{{ utilisateur.telephone }} {% if utilisateur.telephonefix %} || {{ utilisateur.telephonefix }} {% endif %}</a></td>
+                                       </tr>
+                                        {% if utilisateur.servicelivraison %}
+                                        <tr>
+                                            <td class="compare-label">Service de livaison</td>
+                                            <td><a>{{ utilisateur.servicelivraison.nom }}</a></td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if utilisateur.servicepaiement %}
+                                        <tr>
+                                            <td class="compare-label">Service de livaison</td>
+                                            <td><a>{{ utilisateur.servicepaiement.nom }}</a></td>
+                                      </tr>
+                                        {% endif %}
+                                        {% if utilisateur.adresse %}
+                                        <tr>
+                                            <td class="compare-label">Adresse</td>
+                                            <td><a>{{ utilisateur.adresse|capitalize }}</a></td>
+                                       </tr>
+                                        {% endif %}
+                                        {% if utilisateur.cp %}
+                                        <tr>
+                                            <td class="compare-label">Code postal</td>
+                                            <td><a>{{ utilisateur.cp }}</a></td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if utilisateur.rue %}
+                                        <tr>
+                                            <td class="compare-label">Rue</td>
+                                            <td><a>{{ utilisateur.rue }}</a></td>
+                                       </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td class="compare-label">Ville</td>
+                                            <td><a>{{ utilisateur.ville|capitalize }}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Pays</td>
+                                            <td><a>{{ utilisateur.pays|upper }}</a></td>
+                                       </tr>
+                                        <tr>
+                                            <td class="compare-label">Type de compte</td>
+                                            <td class="availability in-stock">
+                                                <div class="col-sm-4">
+                                                    <span class="label">{% if utilisateur.roles[0] == 'ROLE_PRO' %}{{ ('Marque')|upper }}  {% elseif utilisateur.roles[0] == 'ROLE_ADMIN' %} {{ ('Administrateur')|upper }} {% else %} {{ ('Simple')|upper }} {% endif %}</span>
+                                                 </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Etat</td>
+                                            {% if utilisateur.enabled %}
+                                            <td class="availability in-stock">
+                                                <div class="col-sm-4">
+                                                    <span class="label">{{ ('activé')|upper }}</span>                                                   
+                                                 </div>
+                                            </td>
+                                            {% else %}
+                                            <td class="availability out-of-stock">
+                                                <div class="col-sm-4">
+                                                    <span class="label">{{ ('bloqué')|upper }}</span>                                                   
+                                                 </div>
+                                            </td>
+                                            {% endif %}
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">A propos marque</td>
+                                            {% if not utilisateur.marque %}
+                                            <td class="availability out-of-stock">
+                                                <div class="col-sm-4">
+                                                    <span class="label">{{ ('simple compte')|upper }}</span>
+                                                </div>
+                                            </td>
+                                            {% else %}
+                                            <td><p class="product-name"><a><u>Nom</u>:<strong> {{ utilisateur.marque|capitalize }} </strong></a></p><br>
+                                                    <small><u>Adresse:</u> {{ utilisateur.adresseentreprise }}<br>
+                                                           <u>Code postale:</u> {{ utilisateur.cpentreprise }}<br>
+                                                           <u>Rue:</u> {{ utilisateur.rueentreprise }}<br>
+                                                           <u>Ville:</u> {{ utilisateur.villeentreprise|capitalize }}<br>
+                                                           <u>Pays:</u> {{ utilisateur.paysentreprise|capitalize }}<br>
+                                                           <u>Mobile:</u> {{ utilisateur.telephoneentreprise }}<br>
+                                                        {% if utilisateur.telephonefixentreprise %}
+                                                            <u>Fixe:</u> {{ utilisateur.telephonefixentreprise }}<br>
+                                                        {% endif %}
+                                                           <br>
+                                                    </small>
+                                            </td>
+                                            {% endif %}
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td class="action">
+                                                <a title="Voir la liste de tous les utilisateurs" href="{{ path('adminUtilisateurs_index') }}"><button class="add-cart button button-sm"><i class="fa fa-backward"></i></button>&nbsp;&nbsp; <strong>Tous les utilisateurs</strong></a><br>
+                                                {% if utilisateur.enabled %}
+                                                    <a title="Bloquez ce compte utilisateur" href="{{ path('adminUtilisateurs_disabled', { 'id' : utilisateur.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-lock"></i></button>&nbsp;&nbsp; <strong>Bloquez</strong></a><br>
+                                                {% else %}
+                                                    <a title="Débloquez ce compte utilisateur" href="{{ path('adminUtilisateurs_enabled', { 'id' : utilisateur.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-unlock"></i></button>&nbsp;&nbsp; <strong>Débloquez</strong></a><br>
+                                                {% endif %}
+                                                <br><br><a title="Retirez le compte utilisateur" href="{{ path('adminUtilisateurs_delete', { 'id' : utilisateur.id }) }}"><button class="button button-sm"><i class="fa fa-trash"></i></button>&nbsp;&nbsp; <strong>Effacez</strong></a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <aside class="right sidebar col-sm-3 col-xs-12">
+                {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+                <br><br>
+                {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}

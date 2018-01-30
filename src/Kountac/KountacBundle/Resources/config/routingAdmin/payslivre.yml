@@ -1,0 +1,18 @@
+adminPaysLivre_index:
+    path:     /
+    defaults: { _controller: "KountacBundle:PaysLivre:index" }
+    methods:  GET
+    
+adminPaysLivre_new:
+    path:     /new
+    defaults: { _controller: "KountacBundle:PaysLivre:new" }
+    methods:  [GET, POST]
+
+adminPaysLivre_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "KountacBundle:PaysLivre:edit" }
+    methods:  [GET, POST]
+
+adminPaysLivre_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "KountacBundle:PaysLivre:delete" }

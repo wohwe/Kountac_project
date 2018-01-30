@@ -1,0 +1,153 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                        <li><strong>Toutes les commandes</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End -->
+    <section class="main-container col2-right-layout">
+  <div class="main container">
+    <div class="row">
+      <div class="col-main col-sm-9 col-xs-12">
+        <div class="col-main">
+                <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                            {% if commandes|length != 0 %}
+                                <h2>Liste de toutes les commandes </h2>
+                            {% endif %}
+                        </div>
+
+                        <div class="order-detail-content">
+                        {% if commandes|length == 0 %}
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td><center><h1>Liste de commandes vide !! Aucune commande à afficher</h1></center></td>
+                                    </tr>
+                                </table>
+                                <div class="cart_navigation"> <a class="continue-btn" href="{{ path('adminCommandes_mesures_new') }}"><i class="fa fa-arrow-left"> </i>&nbsp; Ajouter une nouvelle commande</a> </div>
+                            </div>  
+                        {% else %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th class="cart_product">Aperçu</th>
+                                            <th>Description</th>
+                                            <th>Prix commande</th>
+                                            <th>Date d'ajout</th>
+                                            <th>Etat</th>
+                                            <th  class="action">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for commande in commandes %}
+                                            <tr>
+                                                <td class="action"><a href="{{ path('adminCommandes_show', {'id' : commande.id}) }}">{{ commande.id }}</a>
+                                                </td>
+                                                <td class="cart_product">
+                                                    <a>
+                                                        <img src="{{ commande.image.AssetPath|imagine_filter('cartThumbItem') }}" alt="">
+                                                        {% if commande.image.path2 %}
+                                                            <br><br><img src="{{ commande.image.AssetPath2|imagine_filter('cartThumbItem') }}" alt="">
+                                                        {% endif %}
+                                                        {% if commande.image.path3 %}
+                                                            <br><br><img src="{{ commande.image.AssetPath3|imagine_filter('cartThumbItem') }}" alt="">
+                                                        {% endif %}
+                                                    </a>
+                                                </td>
+                                                <td class="cart_description"><p class="product-name"><a>{{ commande.intitule|capitalize }} </a></p><br>
+                                                    <small><a><u>Titulaire</u> : {{ commande.mesures.mesureCommande.titulaire|capitalize }}</a></small><br>
+                                                    <small><a><u>Description</u> : {{ commande.contenu|capitalize|truncate(50, false, ' ...') }}</a></small><br>
+                                                    <small><a><u>Catégorie</u> : {{ commande.categorie|capitalize }}</a></small><br>
+                                                {% if commande.prixCommande %}
+                                                     <br><small><a><u>Responsable commande</u> : {{ commande.marque.prenom }} {{ commande.marque.nom }} ({{ commande.marque.marque|capitalize }}) <br>
+                                                             &nbsp;&nbsp;&nbsp;&nbsp;<u>Tél(s)</u>: {{ commande.marque.telephoneentreprise }}{% if commande.marque.telephonefixentreprise %} | {{ commande.marque.telephonefixentreprise }} {% endif %}<br>
+                                                             &nbsp;&nbsp;&nbsp;&nbsp;<u>Email</u>: {{ commande.marque.email }}<br>
+                                                             &nbsp;&nbsp;&nbsp;&nbsp;<u>Adresse:</u> {{ commande.marque.adresseentreprise|capitalize }}Rue {{ commande.marque.rueentreprise }} {{ commande.marque.cpentreprise }} {{ commande.marque.villeentreprise|capitalize }} ({{ commande.marque.paysentreprise }})<br>
+                                                         </a>
+                                                     </small><br>
+                                                {% endif %}
+                                                <br>
+                                                {% if commande.utilisateur %}
+                                                     <small><a><u>Client commande</u> : {{ commande.utilisateur.prenom|capitalize }} {{ commande.utilisateur.nom|capitalize }}<br>
+                                                             &nbsp;&nbsp;&nbsp;&nbsp;<u>Tél(s)</u>: {{ commande.utilisateur.telephone }}{% if commande.utilisateur.telephonefix %} | {{ commande.utilisateur.telephonefix }} {% endif %}<br>
+                                                             &nbsp;&nbsp;&nbsp;&nbsp;<u>Email</u>: {{ commande.utilisateur.email }}<br>
+                                                             &nbsp;&nbsp;&nbsp;&nbsp;<u>Adresse:</u> {{ commande.utilisateur.adresse|capitalize }}Rue {{ commande.utilisateur.rue }} {{ commande.utilisateur.cp }} {{ commande.utilisateur.ville|capitalize }} ({{ commande.utilisateur.pays }})<br>
+                                                         </a>
+                                                     </small><br>
+                                                {% endif %}
+                                                </td>
+                                                <td class="price">
+                                                    {% if commande.produit.europrixCommande %}
+                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ commande.produit.europrixCommande|number_format(2) }} €</span> </span></div>
+                                                    {% else %}
+                                                        <span>En attente <br> d'acceptation</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="action">
+                                                    {{ commande.date|date('d M Y') }}
+                                                </td>
+                                                {% if commande.acheter %}
+                                                <td class="availability in-stock">
+                                                    <span class="label">{{ ('Acheté')|upper }}</span>
+                                                </td>
+                                                {% else %}
+                                                <td class="availability out-of-stock">
+                                                    <span class="label">{{ ('non payé')|upper }}</span>
+                                                </td>
+                                                {% endif %}
+                                                <td class="action">
+                                                    <a title="Regardez commande {{ commande.intitule|capitalize }} " href="{{ path('adminCommandes_show', { 'id' : commande.id }) }}"><i class="fa fa-search"></i></a><br><br>
+                                                    {% if user == commande.utilisateur %}
+                                                        <a title="Modifiez la commande {{ commande.intitule }}" href="{{ path('adminCommandes_edit', { 'id' : commande.id }) }}"><i class="fa fa-pencil"></i></a><br><br>
+                                                    {% endif %}    
+                                                    {% if commande.acheter %}
+                                                        <br><br><br><a title="Retirez commande {{ commande.intitule|capitalize }} de votre liste" href="{{ path('adminCommandes_delete', { 'id' : commande.id }) }}"><i class="fa fa-trash"></i></a>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="cart_navigation"> <a class="continue-btn" href="{{ path('adminCommandes_mesures_new') }}"><i class="fa fa-check"> </i>&nbsp; Ajoutez nouvelle commande</a></div>
+                        <div class="pagination-area ">
+                        </div>
+                            <center>
+                                {{ knp_pagination_render(commandes) }}
+                            </center>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <aside class="right sidebar col-sm-3 col-xs-12">
+        {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+        <br><br>
+        {% include 'FOSUserBundle:Profile:Navigation/informations.html.twig' %}
+      </aside>
+    </div>
+  </div>
+  </section>
+
+{% endblock %}

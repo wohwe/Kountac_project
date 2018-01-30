@@ -1,0 +1,50 @@
+<div class="sidebar-checkout block">
+    <div class="sidebar-bar-title">
+        <h3>Résumé commande</h3>
+    </div>
+    <div class="block-content">
+        <dl>
+            <dt class="complete"> Résumé commande <span class="separator">|</span> <a href="{{ path('panier') }}">Modifier</a> </dt>
+            {% for produit in produits %}
+                {% if produit.cfa %}
+                {% set prixReduction = 0 %}
+                {% set prixReduction = produit.cfa.prix - (produit.cfa.prix * produit.reduction/100) %}
+
+            <dd class="complete"><i class="fa fa-angle-right"></i> Nom : {{ produit.nom|capitalize }} <br>
+                &nbsp;&nbsp; Prix : {{ (prixReduction * panier[produit.id])|number_format(2) }} F CFA ( {{ prixReduction|number_format(2) }} F CFA x {{ panier[produit.id]}} )<br>
+                &nbsp;&nbsp; Matière : {{ produit.matiere|capitalize }} <br>
+                &nbsp;&nbsp; Taille : {{ produit.taille|upper }} <br><br>
+                {% endif %}
+            {% endfor %}
+            <br>
+            <dt class="complete"> Adresse livraison<span class="separator"> |</span> <a href="{{ path('Checkout_index1') }}">Modifier</a> </dt>
+            <dd class="complete">
+                <address>
+                    {% if user.sexe %}Mme. {% else %} M. {% endif %}
+                    {% if user.prenom %}
+                    {{ user.prenom|capitalize }}{% endif %}
+                    {{ user.nom|capitalize }}<br>
+                    {{ user.adresse|capitalize }}<br>
+                    Rue {{ user.rue}}<br>
+                    {{ user.ville|capitalize }} <br>
+                    {% if user.cp %}
+                    {{ user.cp }} {{ user.pays }}<br>
+                    {% endif %}
+                    Tel(s): {{ user.telephone }} <br>
+                    {% if user.telephonefix %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ user.telephonefix }}
+                    {% endif %}
+                </address>
+            </dd>
+            {% if user.servicelivraison %}
+            <dt class="complete"> Méthode livraison <span class="separator">|</span> <a href="{{ path('Checkout_index2') }}">Modifier</a> </dt>
+            <dd class="complete">&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i> {{ user.servicelivraison.nom }} <br>
+            {% endif %}
+            <br>
+            {% if user.servicepaiement %}
+            <dt class="complete"> Méthode paiement <span class="separator">|</span> <a href="{{ path('Checkout_index3') }}">Modifier</a> </dt>
+            <dd class="complete">&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i> {{ user.servicepaiement.nom }} <br>
+            {% endif %}
+        </dl>
+    </div>
+</div>

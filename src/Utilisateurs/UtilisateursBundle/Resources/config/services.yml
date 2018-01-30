@@ -1,0 +1,12 @@
+services:
+    ornoir_user_registration:
+        class: Utilisateurs\UtilisateursBundle\Form\RegistrationType
+        tags: 
+            - { name: form.type, alias: ornoir_user_registration }
+            
+    ornoir_pro_profile:
+        class: Utilisateurs\UtilisateursBundle\Form\ProfileProType
+        tags:
+            - { name: form.type, alias: ornoir_pro_profile }
+
+

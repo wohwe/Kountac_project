@@ -1,0 +1,208 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                    <li><strong>Ajout mesures</strong></li>
+                </ul>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert-box">
+                        <br><br>
+                        {{ flashMessage }}
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-5 col-xs-12">
+                <div class="col-main">
+                    <div class="cart">
+                        <div class="page-content page-order">
+                            <div class="page-title">
+                                <h2>Entrez vos mésures &nbsp;&nbsp;{% if user.sexe %}Mme.{% else %}M.{% endif %} {{ user.prenom|capitalize }} {{ user.nom|capitalize }}</h2>
+                            </div>
+                    <form action="{{ path('adminCommandes_mesures_new') }}" method="POST" {{ form_enctype(form_mesure) }} class="col">
+                            {{ form_start(form_mesure) }}
+                            {{ form_errors(form_mesure) }}
+                            <div class="order-detail-content">
+                                <div class="box-border">
+                                    <ul>
+                                        <li class="row">
+                                            <div class="col-sm-6">
+                                                {{ form_row(form_mesure.titulaire) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-6">
+                                                {{ form_row(form_mesure.genre) }}
+                                            </div><!--/ [col] -->
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.poitrine) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.hauteur_poitrine) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.demi_ecart_poitrine) }}
+                                            </div><!--/ [col] -->
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.hauteur_taille_terre) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.hauteur_taille_cote_terre) }}
+                                            </div>
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.demi_tour_encolure) }}
+                                            </div><!--/ [col] -->
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.demi_carrure_dos) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.demi_carrure_devant) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.seins) }}
+                                            </div>
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.bassin) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.enfourchure) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.taille) }}
+                                            </div>
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.epauletaille) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.longueur) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.taille_dos) }}
+                                            </div><!--/ [col] -->
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.taille_devant) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.longueur_epaule) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.tour_emmanchure) }}
+                                            </div><!--/ [col] -->
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.hauteur_dessous_bras) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.longueur_bras) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.grosseur_bras) }}
+                                            </div><!--/ [col] -->
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.hauteur_coude) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.tour_poignet) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.hauteur_taille_hanche) }}
+                                            </div><!--/ [col] -->
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.hauteur_montant) }}
+                                            </div><!--/ [col] -->
+                                           <div class="col-sm-4">
+                                                {{ form_row(form_mesure.epaules) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.hauteur_taille_genou) }}
+                                            </div><!--/ [col] -->
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.tour_petites_hanches) }}
+                                            </div><!--/ [col] -->
+                                            <div class="col-sm-4">
+                                                {{ form_row(form_mesure.tour_grandes_hanches) }}
+                                            </div><!--/ [col] -->
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="cart_navigation"> 
+                                    <div>
+                                        <button type="submit" class="button"><i class="fa fa-check"></i>&nbsp; Ajoutez mesures</button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form_mesure) }}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-main col-sm-4 col-xs-12">
+                {% if user.mesures|length != 0 %}
+                    <h3><center>Choisir une mésure pour la commande</center></h3>
+                    <form action="{{ path('adminCommandes_mesures_validation') }}" method="POST">
+                        <p class="reg-info">
+                            {% for mesure in user.mesures %}
+                            <div class="section clearfix">
+                                <table class="table cart_summary" style="border:0">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width:200px; height: 20px; text-align: left;"><input type="radio" name="mesure" value="{{ mesure.id }}" {% if loop.index0 == 0 %}checked="checked"{% endif %}><i></i>
+                                                Pour <strong> {{ mesure.titulaire|capitalize }}</strong> </th>
+                                            <td>
+                                                <a title="Retirez mesures de {{ mesure.titulaire|capitalize }} " href="{{ path ('commande_mesures_delete', { 'id': mesure.id }) }}"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% endfor %}
+                        </p> 
+                        <div>
+                            <button type="submit" class="button"><i class="fa fa-arrow-right"></i>&nbsp; Continuez votre commande</button>
+                        </div>
+                        <br /><br />
+                    </form>
+                {% endif %} 
+            </div>
+            <aside class="right sidebar col-sm-3 col-xs-12">
+                {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+                <br><br>
+                {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}

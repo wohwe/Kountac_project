@@ -1,0 +1,25 @@
+adminUtilisateurs_index:
+    path:     /
+    defaults: { _controller: "UtilisateursBundle:UtilisateursAdmin:index" }
+    methods:  GET
+    
+adminUtilisateurs_enabled:
+    path:     /enabled_{id}
+    defaults: { _controller: "UtilisateursBundle:UtilisateursAdmin:enabled" }
+    
+adminUtilisateurs_disabled:
+    path:     /disabled_{id}
+    defaults: { _controller: "UtilisateursBundle:UtilisateursAdmin:disabled" }
+
+adminUtilisateurs_show:
+    path:     /{id}/show
+    defaults: { _controller: "UtilisateursBundle:UtilisateursAdmin:show" }
+    methods:  GET
+
+adminUtilisateurs_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UtilisateursBundle:UtilisateursAdmin:delete" }
+
+admin_profile_show:
+    path:     /main
+    defaults: { _controller: "UtilisateursBundle:UtilisateursAdmin:profile" }

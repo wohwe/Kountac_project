@@ -1,0 +1,124 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+{% set total = 0 %}
+{% block bodyAdmin %}
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                    <li><strong>Tous les achats</strong></li>
+                </ul>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert-box">
+                        <br><br>
+                        {{ flashMessage }}
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% trans_default_domain 'FOSUserBundle' %}
+
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+  <div class="main container">
+    <div class="row">
+      <div class="col-main col-sm-9 col-xs-12">
+        <div class="col-main">
+                <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                            {% if achats|length != 0 %}
+                                <h2>Liste de tous les achats kountac</h2>
+                            {% endif %}
+                        </div>
+
+                        <div class="order-detail-content">
+                        {% if achats|length == 0 %}
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td><center><h1>Aucun Achat à afficher {% if user.sexe %}Mme.{% else %}M.{% endif %} {{ user.prenom|capitalize }} {{ user.nom|capitalize }}</h1></center></td>
+                                    </tr>
+                                </table>
+                            </div>  
+                        {% else %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Références</th>
+                                            <th>Description</th>
+                                            <th>Prix total</th>
+                                            <th  class="action">Factures</th>
+                                            <th  class="action"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for achat in achats %}
+                                            {% if not achat.cfa %}
+                                            <tr>
+                                                <td class="action">
+                                                    ref : {{ achat.reference|format('4') }}
+                                                </td>
+                                                <td class="cart_description"><p class="product-name"><a><u>Client</u> : {{ achat.utilisateur|capitalize }} </a></p>
+                                                    <small><a>Acheté le : {{ achat.date|date('d M Y') }}</a></small><br>
+                                                    {% if achat.effacer %} <br><strong>Commande retirée par le client</strong>{% endif %}
+                                                </td>
+                                                <td class="price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ achat.achat.prix|number_format(2) }} €</span> </span></div>
+                                                </td>
+                                                <td class="action">
+                                                    <a title="Voir la facture pour la commande {{ achat.reference }}" href="{{ path('facture_PDF', {'id' : achat.id}) }}"><i class="fa fa-file"></i></a>
+                                                </td>
+                                                <td class="action">
+                                                    <a title="Retirez achat {{ achat.reference }} de vos achats" href="{{ path('adminAchats_delete', {'id' : achat.id}) }}"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            {% else %}
+                                                <tr>
+                                                <td class="action">
+                                                    ref : {{ achat.reference|format('4') }}
+                                                </td>
+                                                <td class="cart_description"><p class="product-name"><a><u>Client</u> : {{ achat.utilisateur|capitalize }} </a></p>
+                                                    <small><a>Acheté le : {{ achat.date|date('d M Y') }}</a></small><br>
+                                                    {% if achat.effacer %} <br><strong>Commande retirée par le client</strong>{% endif %}
+                                                </td>
+                                                <td class="price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ achat.achat.prix|number_format(2) }} F CFA</span> </span></div>
+                                                </td>
+                                                <td class="action">
+                                                    <a title="Voir la facture pour la commande {{ achat.reference }}" href="{{ path('facture_PDF', {'id' : achat.id}) }}"><i class="fa fa-file"></i></a>
+                                                </td>
+                                                <td class="action">
+                                                    <a title="Retirez achat {{ achat.reference }} de vos achats" href="{{ path('adminAchats_delete', {'id' : achat.id}) }}"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="pagination-area ">
+                        </div>
+                            <center>
+                                {{ knp_pagination_render(achats) }}
+                            </center>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <aside class="right sidebar col-sm-3 col-xs-12">
+        {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+        <br><br>
+        {% include 'FOSUserBundle:Profile:Navigation/informations.html.twig' %}
+      </aside>
+    </div>
+  </div>
+  </section>
+{% endblock %}

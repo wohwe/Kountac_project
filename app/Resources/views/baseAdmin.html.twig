@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from htmlmystore.justthemevalley.com/Version5/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 23 Aug 2017 11:36:26 GMT -->
+<head>
+<!-- Basic page needs -->
+<meta charset="utf-8">
+<!--[if IE]>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <![endif]-->
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Kountac administration</title>
+<meta name="description" content="">
+
+<!-- Mobile specific metas  -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Favicon  -->
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+<!-- Google Fonts -->
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700' rel='stylesheet' type='text/css'>
+
+<!-- CSS Style -->
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/css/bootstrap.min.css') }}">
+
+<!-- font-awesome & simple line icons CSS -->
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/css/font-awesome.css') }}" media="all">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/simple-line-icons.css') }}" media="all">
+
+<!-- owl.carousel CSS -->
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/css/owl.carousel.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/css/owl.theme.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/css/owl.transitions.css') }}">
+
+<!-- animate CSS  -->
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/css/animate.css') }}" media="all">
+
+<!-- flexslider CSS -->
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/css/flexslider.css') }}" >
+
+<!-- jquery-ui.min CSS  -->
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/css/jquery-ui.css') }}">
+
+<!-- Mean Menu CSS -->
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/css/meanmenu.min.css') }}">
+
+<!-- nivo-slider css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/css/nivo-slider.css') }}">
+
+<!-- style CSS -->
+<link rel="stylesheet" type="text/css" href="{{ asset('admin/css/style.css') }}" media="all">
+</head>
+
+<body class="cms-index-index cms-home-page">
+
+
+<div id="page"> 
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="header-top">
+        <div class="container">
+          <div class="row">
+              
+            {% render(controller('KountacBundle:Devise:deviseMainAdmin')) %} 
+            
+            <!-- top links -->
+            <div class="headerlinkmenu col-lg-6 col-md-6 col-sm-7 col-xs-6 text-right">
+              <div class="links">
+                <div class="jtv-user-info">
+                  <div class="dropdown"> <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fa fa-user-md"></i><span> Administeur </span> <i class="fa fa-angle-down"></i></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <br>
+                      <li><a title="Compte administrateur" href="{{ path('admin_profile_show') }}">Mon compte</a></li>
+                      <li class="divider"></li>
+                      <li><a title="Se déconnecter" href="{{ path('fos_user_security_logout') }}"><i class="fa fa-lock"></i> Déconnexion</a></li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3 col-md-3 col-xs-12"> 
+            <!-- Header Logo -->
+            <div class="logo"><a title="Kountac" href="{{ path('kountac_homepage') }}"><img alt="Kountac" src="{{ asset('images/logo.png') }}"></a> </div>
+            <!-- End Header Logo --> 
+          </div><br>
+          <div class="col-xs-12 col-sm-5 col-md-5 col-lg-6"> 
+            <!-- Search -->
+            
+           {% render(controller('KountacBundle:Produit:recherche')) %}
+            
+            <!-- End Search --> 
+          </div>
+          <div class="col-lg-3 col-sm-4 col-xs-12 top-cart">
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- end header --> 
+  
+  <!-- Start Menu Area -->
+  <div class="menu-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 hidden-xs">
+          <div class="main-menu">
+            <nav>
+              <ul>
+                {% render(controller('KountacBundle:Menu:categorieAdmin')) %}
+              </ul>
+            </nav>
+            
+            <!-- END # MODAL LOGIN --> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Menu Area --> 
+  
+  <!-- Start Mobile Menu -->
+  <div class="mobile-menu hidden-sm hidden-md hidden-lg">
+    <nav><span class="mobile-menu-title">Catégories</span>
+      <ul>
+        {% render(controller('KountacBundle:Menu:categorieMobile')) %}
+      </ul>
+    </nav>
+  </div>
+  <!-- End Mobile Menu --> 
+  
+  <!-- main container -->
+  
+  <div class="container">
+    {% block body %}{% endblock %} 
+  </div>
+  
+  <!-- end main container --> 
+  
+  <!-- category area start -->
+  <div class="jtv-category-area">
+    <div class="container">
+      
+    </div>
+  </div>
+  <!-- category-area end --> 
+  
+  <!-- our clients Slider -->
+  
+  <div class="our-clients">
+    <div class="slider-items-products">
+      <div id="our-clients-slider" class="product-flexslider hidden-buttons">
+        <div class="slider-items slider-width-col6"> 
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="our-clients">
+    <div class="slider-items-products">
+      <div id="our-clients-slider" class="product-flexslider hidden-buttons">
+        <div class="slider-items slider-width-col6"> 
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-md-3 col-xs-12 col-lg-3 collapsed-block">
+          {% render(controller('KountacBundle:Menu:informationFooter')) %}
+        </div>
+        <div class="col-sm-6 col-md-3 col-xs-12 col-lg-3 collapsed-block">
+          {% render(controller('KountacBundle:Menu:insiderFooter')) %}
+        </div>
+        <div class="col-sm-6 col-md-2 col-xs-12 col-lg-3 collapsed-block">
+          {% render(controller('KountacBundle:Menu:menuCollectionFooter')) %}
+        </div>
+        <div class="col-sm-6 col-md-4 col-xs-12 col-lg-3">
+          {% render(controller('KountacBundle:Menu:contactUsFooter')) %}
+          <div class="social">
+            <ul class="inline-mode">
+              <li class="social-network fb"><a title="Connect us on Facebook" target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+              <li class="social-network googleplus"><a title="Connect us on Google+" target="_blank" href="https://plus.google.com/"><i class="fa fa-google-plus"></i></a></li>
+              <li class="social-network tw"><a title="Connect us on Twitter" target="_blank" href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
+              <li class="social-network linkedin"><a title="Connect us on Linkedin" target="_blank" href="https://www.pinterest.com/"><i class="fa fa-linkedin"></i></a></li>
+              <li class="social-network rss"><a title="Connect us on Instagram" target="_blank" href="https://instagram.com/"><i class="fa fa-rss"></i></a></li>
+              <li class="social-network instagram"><a title="Connect us on Instagram" target="_blank" href="https://instagram.com/"><i class="fa fa-instagram"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-coppyright">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-xs-12 coppyright"> Copyright © {{ "now"|date('Y') }} <a href="#"> Kountac </a>. Tous Droits Reservés. </div>
+          <div class="col-sm-6 col-xs-12">
+            <div class="payment">
+              <ul>
+                <li><a href="#"><img title="Visa" alt="Visa" src="images/visa.png"></a></li>
+                <li><a href="#"><img title="Paypal" alt="Paypal" src="images/paypal.png"></a></li>
+                <li><a href="#"><img title="Discover" alt="Discover" src="images/discover.png"></a></li>
+                <li><a href="#"><img title="Master Card" alt="Master Card" src="images/master-card.png"></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <a href="#" class="totop"> </a> 
+  
+   <!-- End Footer --> 
+ 
+  
+  </div>
+
+
+<!-- JS --> 
+
+<!-- jquery js --> 
+<script type="text/javascript" src="{{ asset('admin/js/jquery.min.js') }}"></script> 
+
+<!-- bootstrap js --> 
+<script type="text/javascript" src="{{ asset('admin/js/bootstrap.min.js') }}"></script> 
+
+<!-- Mean Menu js --> 
+<script type="text/javascript" src="{{ asset('admin/js/jquery.meanmenu.min.js') }}"></script>
+
+<!-- owl.carousel.min js --> 
+<script type="text/javascript" src="{{ asset('admin/js/owl.carousel.min.js') }}"></script> 
+
+<!-- bxslider js --> 
+<script type="text/javascript" src="{{ asset('admin/js/jquery.bxslider.js') }}"></script> 
+
+<!--jquery-ui.min js --> 
+<script type="text/javascript" src="{{ asset('admin/js/jquery-ui.js') }}"></script> 
+
+<!-- countdown js --> 
+<script type="text/javascript" src="{{ asset('admin/js/countdown.js') }}"></script> 
+
+<!-- wow JS --> 
+<script type="text/javascript" src="{{ asset('admin/js/wow.min.js') }}"></script> 
+
+<!-- main js --> 
+<script type="text/javascript" src="{{ asset('admin/js/main.js') }}"></script> 
+
+<!-- nivo slider js --> 
+<script type="text/javascript" src="{{ asset('admin/js/jquery.nivo.slider.js') }}"></script> 
+
+<!-- flexslider js --> 
+<script type="text/javascript" src="{{ asset('admin/js/jquery.flexslider.js') }}"></script> 
+<!-- Hot Deals Timer 1--> 
+<script type="text/javascript">
+      var dthen1 = new Date("12/25/16 11:59:00 PM");
+      start = "08/04/15 03:02:11 AM";
+      start_date = Date.parse(start);
+      var dnow1 = new Date(start_date);
+      if(CountStepper>0)
+          ddiff= new Date((dnow1)-(dthen1));
+      else
+          ddiff = new Date((dthen1)-(dnow1));
+      gsecs1 = Math.floor(ddiff.valueOf()/1000);
+      
+      var iid1 = "countbox_1";
+      CountBack_slider(gsecs1,"countbox_1", 1);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,231 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Voir tous les produits" href="{{ path('adminProduits_index')}}">Tous les produits</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Ajouter un nouveau produit" href="{{ path('adminProduits_new')}}">Nouveau produit</a><span>&raquo;</span></li>
+                    <li><strong>Nouveau motif</strong></li>
+                </ul>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert-box">
+                        <br><br>
+                        {{ flashMessage }}
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-9 col-xs-12">
+                <div class="page-content checkout-page">
+                    <div class="page-title">
+                        <h2 class="checkout-step">Ajout de motif ({{ produit_1.nom|capitalize }})</h2>
+                    </div>
+
+                    <div class="box-border">
+                        <ul>
+                            <li class="row">
+                                <div class="col-sm-2">
+                                    <div id="a_masquer" style="display:none;">
+                                        <form action="{{ path('adminProduits_new_motif', {'id' : produit_1.id}) }}" {{ form_enctype(form_motif) }}  method="POST">
+                                            {{ form_start(form_motif) }}
+                                            {{ form_errors(form_motif) }}
+                                            {{ form_row(form_motif.libelle) }}<br>
+                                            {{ form_row(form_motif.file) }}
+                                            <button class="button" type="submit"><i class="fa fa-check"></i>&nbsp; &nbsp;<span>Ajouter</span></button><br>
+                                            {{ form_end(form_motif) }}<br>
+                                        </form >
+                                    </div>
+                                    <input type="button" value="Autre motif" onclick="masquer_div('a_masquer');" />
+                                </div>
+                                {{ form_start(form) }}
+                                <div class="col-sm-3">
+                                    {{ form_row(form.libelle) }}
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="top-cart-contain">
+                                        <div class="mini-cart">
+                                            <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"> 
+                                                <a href>
+                                                    <div class="cart-icon">Voir motifs &nbsp;&nbsp;</div>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <div class="top-cart-content">
+                                                    <div class="block-subtitle hidden-xs"></div>
+                                                    <ul id="cart-sidebar" class="mini-products-list">
+                                                        {% for libelle in libelles %}
+                                                            <li class="item last odd"> 
+                                                                <a title="{{ libelle.libelle|capitalize }}" class="product-image">
+                                                                    <img src="{{ libelle.AssetPath|imagine_filter('cartThumbMenuItem') }}" alt="">
+                                                                </a>
+                                                                <div class="product-details">
+                                                                    <p class="product-name">
+                                                                        <a>{{ libelle.libelle|capitalize }}</a> 
+                                                                    </p>
+                                                            </li>
+                                                        {% endfor %}
+
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    {{ form_row(form.etat) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.reduction) }}
+                                </div><!--/ [col] -->
+
+                            </li>
+                            <br><br>
+                            <label> Image(s) du motif:</label>
+                            <li class="row">
+
+                                <div class="col-sm-4">
+                                    <label class="required">Première image*</label>
+                                    {{ form_widget(form.picture.file) }}
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="required">Seconde image</label>
+                                    {{ form_widget(form.picture.file2) }}
+                                </div><!--/ [col] -->
+                                <div class="col-sm-4">
+                                    <label class="required">Troisième image</label>
+                                    {{ form_widget(form.picture.file3) }}
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <h3 class="checkout-step">Vendez dans la zone € (Europe)</h3>
+                            <br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.europrix) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.europrixCommande) }}
+                                </div>
+                                {{ form_label(form.europays ) }}
+                                <div class="col-sm-6">
+                                    {% for i in form.europays %}
+                                        {{ form_row(i ) }}
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <h3 class="checkout-step">Vendez dans la zone CFA (Afrique)</h3>
+                            <br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.cfaprix) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.cfaprixCommande) }}
+                                </div>
+                                {{ form_label(form.cfapays ) }}
+                                <div class="col-sm-6">
+                                    {% for i in form.cfapays %}
+                                        {{ form_row(i ) }}
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <h3 class="checkout-step">Vendez dans la zone £ (Royaume uni)</h3>
+                            <br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.livreprix) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.livreprixCommande) }}
+                                </div>
+                                {{ form_label(form.livrepays ) }}
+                                <div class="col-sm-6">
+                                    {% for i in form.livrepays %}
+                                        {{ form_row(i ) }}
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <h3 class="checkout-step">Vendez dans la zone $ (Amériques)</h3>
+                            <br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.usaprix) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.usaprixCommande) }}
+                                </div>
+                                {{ form_label(form.usapays ) }}
+                                <div class="col-sm-6">
+                                    {% for i in form.usapays %}
+                                        {{ form_row(i ) }}
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <h3 class="checkout-step">Vendez au Nigéria (Afrique)</h3>
+                            <br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.nairaprix) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.nairaprixCommande) }}
+                                </div>
+                            </li>
+                            <br>
+                            <li>
+                                <button class="button pull-right" type="submit"><i class="fa fa-angle-double-right"></i>&nbsp; &nbsp;<span>Continuer</span></button>
+                            </li>
+                        </ul>
+                        {{ form_end(form) }}
+                    </div>
+                    <a href="{{ path('adminProduits_new_resume', { 'id' : produit_1.id }) }}"><button class="button pull-left">&nbsp;<span>Terminer</span>&nbsp; &nbsp;<i class="fa fa-check"></i></button></a><br><br>
+                </div>
+            </div>
+            <aside class="right sidebar col-sm-3 col-xs-12">
+                {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
+                <br><br>
+                {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+            </aside>
+        </div>
+
+    </div>
+</div>
+</section>
+
+<script type="text/javascript">
+    function masquer_div(id)
+    {
+        if (document.getElementById(id).style.display == 'none')
+        {
+            document.getElementById(id).style.display = 'block';
+        } else
+        {
+            document.getElementById(id).style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}

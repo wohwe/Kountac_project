@@ -1,0 +1,109 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Voir tous les commentaires" href="{{ path('adminCommentaires_index')}}">Tous les commentaires</a><span>&raquo;</span></li>
+                        <li><strong>Détails commentaire</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Container -->
+
+    <section class="main-container col2-right-layout">
+        <div class="main container">
+            <div class="row">
+                <div class="col-main col-sm-9 col-xs-12">
+                    <div class="col-main">
+                        <div class="cart">
+                            <div class="page-content page-order"><div class="page-title">
+                                    <h2>Détails commentaire: {{ commentaire.id }}</h2>
+                                </div>
+
+                                <div class="order-detail-content">
+                                    <div class="table-responsive">
+
+                                        <table class="table table-bordered table-compare">
+                                            <tr>
+                                                <td class="compare-label">Aperçu</td>
+                                                <td>
+                                                    <div class="col-sm-4">
+                                                        <img src="{{ commentaire.produit.picture.AssetPath|imagine_filter('commandeThumb') }}" alt="">
+                                                    </div>
+                                                    {% if commentaire.produit.picture.path2 %}
+                                                        <div class="col-sm-4">
+                                                            <img src="{{ commentaire.produit.picture.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if commentaire.produit.picture.path3 %}
+                                                        <div class="col-sm-4">
+                                                            <img src="{{ commentaire.produit.picture.AssetPath3|imagine_filter('commandeThumb') }}" alt="">
+                                                        </div>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="compare-label">A propos du produit</td>
+                                                <td>
+                                                    <u>Nom </u>: {{ commentaire.produit.produit1.nom|capitalize }} - {{ commentaire.produit.libelle.libelle|capitalize }}<br>
+                                                    <u>Description </u>: {{ commentaire.produit.produit1.description|capitalize }}<br>
+                                                    <u>Prix </u>: <strong>{{ commentaire.produit.europrix|number_format(2) }} € </strong><br>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="compare-label">Avis commentaire</td>
+                                                <td>
+                                                    <strong>{{ commentaire.titre|capitalize}}</strong><br>
+                                                    {% include 'KountacBundle:Default:produits/rating/rating.html.twig' %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="compare-label">Commentaire</td>
+                                                <td>{{ commentaire.contenu|capitalize }}.</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="compare-label">Ajouté le</td>
+                                                <td><a>{% if commentaire.date %}{{ commentaire.date|date('d-m-Y') }}{% endif %}</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="compare-label">Ajouté par</td>
+                                                <td><strong><a>{{ commentaire.pseudo }}</a></strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="compare-label"></td>
+                                                <td class="action">
+                                                    <a title="Voir la liste de tous les commentaires" href="{{ path('adminCommentaires_index') }}"><button class="add-cart button button-sm"><i class="fa fa-backward"></i></button>&nbsp;&nbsp; <strong>Tous les commentaires</strong></a><br>
+                                                    <a title="Modifiez ce commentaire" href="{{ path('adminCommentaires_edit', { 'id' : commentaire.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp; <strong>Modifiez</strong></a><br>
+                                                    <br><br><a title="Retirez commentaire" href="{{ path('adminCommentaires_delete', { 'id' : commentaire.id }) }}"><button class="button button-sm"><i class="fa fa-trash"></i></button>&nbsp;&nbsp; <strong>Effacez</strong></a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="right sidebar col-sm-3 col-xs-12">
+                    {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+                    <br><br>
+                    {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+                </aside>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

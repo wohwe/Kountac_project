@@ -1,0 +1,68 @@
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Aller à mon profil professionnel" href="{{ path('pro_user_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Voir tous mes produits" href="{{ path('produit_pro_index')}}">Mes produits</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Ajouter un nouveau produit" href="{{ path('produit_pro_new_1')}}">Nouveau produit</a><span>&raquo;</span></li>
+                    <li><strong>Nouveau motif</strong></li>
+                </ul>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert-box">
+                        <br><br>
+                        {{ flashMessage }}
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-7 col-xs-12">
+                <div class="page-content checkout-page">
+                    <div class="page-title">
+                        <h2 class="checkout-step">Modification produit (3/3)</h2>
+                    </div>
+                    
+                    {{ form_start(form) }}
+
+                    <div class="box-border">
+                        <ul>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    {{ form_row(form.taille) }}
+                                </div>                                
+                                <div class="col-sm-6">
+                                    {{ form_row(form.stock) }}
+                                </div>
+                            </li>
+                            <br>
+                            <li>
+                                <button class="button pull-right" type="submit"><i class="fa fa-check"></i>&nbsp; &nbsp;<span>Modifier taille & stock</span></button>
+                            </li>
+                        </ul>
+                    </div>
+                   {{ form_end(form) }}
+                   <a href="{{ path('produit_pro_edit_2', { 'id' : produit3.produit2.produit1.id }) }}"><button class="button "><i class="fa fa-image"></i>&nbsp; &nbsp;<span>Modification de(s) motif(s)</span></button></a><br><br>
+                   
+                </div>
+            </div>
+        <aside class="right sidebar col-sm-3 col-xs-12">
+            {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
+            <br><br>
+            {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+        </aside>
+        </div>
+        
+    </div>
+</div>
+</section>
+

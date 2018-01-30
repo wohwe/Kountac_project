@@ -1,0 +1,41 @@
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Accueil</a><span>&raquo;</span></li>
+                    <li><strong>Mon profil pro.</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% trans_default_domain 'FOSUserBundle' %}
+<section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="shop-inner">
+        <div class="row">
+            <aside class="right sidebar col-sm-3 col-xs-12">
+                {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
+            </aside>
+
+            <aside class="left sidebar col-sm-3 col-xs-12">
+                {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+            </aside>
+
+            
+                <center>
+                    <h1> Bonjour <br> 
+                        <br><strong> {{ user.prenom }} {{ user.nom }}  </strong>
+                    </h1>
+                    {% if user.image %}
+                        <a href="#" class="pic">
+                            <span class="active"><em><img src="{{ user.image.AssetPath|imagine_filter('photoProfil') }}" alt="" width="195" ></em></span>
+                        </a>
+                    {% endif %} 
+                </center>
+            </div>
+        </div>
+    </div>
+</section>
+

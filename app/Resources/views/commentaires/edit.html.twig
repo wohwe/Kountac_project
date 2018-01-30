@@ -1,0 +1,94 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Voir tous les commentaires" href="{{ path('adminCommentaires_index')}}">Tous les commentaires</a><span>&raquo;</span></li>
+                        <li><strong>Modification commentaire</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End -->
+    
+    <section class="main-container col2-right-layout">
+        <div class="main container">
+            <div class="row">
+                <div class="col-main col-sm-9 col-xs-12">
+                    <div class="page-content checkout-page">
+                        <div class="page-title">
+                            <h2 class="checkout-step">Ajout d'un commentaire</h2>
+                        </div>
+                        <div class="box-border">
+                            <ul>
+                                {{ form_start(form) }}
+                                <li class="row">
+                                    <div class="col-sm-6">
+                                        {{ form_row(form.produit) }}
+                                        <br><img src="{{ commentaire.produit.picture.AssetPath|imagine_filter('produitCommentaireThumb') }}" alt="">
+                                        {% if commentaire.produit.picture.path2 %}&nbsp; &nbsp; <img src="{{ commentaire.produit.picture.AssetPath2|imagine_filter('produitCommentaireThumb') }}" alt="">{% endif %}
+                                        {% if commentaire.produit.picture.path3 %}&nbsp; &nbsp; <img src="{{ commentaire.produit.picture.AssetPath3|imagine_filter('produitCommentaireThumb') }}" alt="">{% endif %}
+                                    </div><!--/ [col] -->
+                                    <div class="col-sm-6">
+                                        {{ form_row(form.titre) }}
+                                    </div><!--/ [col] -->
+                                </li>
+                                <li class="row">
+                                    <div class="col-sm-6">
+                                        {{ form_row(form.contenu) }}
+                                    </div><!--/ [col] -->
+                                    <div class="col-sm-6">
+                                        {{ form_row(form.pseudo) }}
+                                    </div><!--/ [col] -->
+                                </li>
+                                <br>
+                                <li>
+                                    <button class="button pull-left" type="submit"><i class="icon-check"></i>&nbsp; <span>Mettre à jour</span></button>
+                                </li>
+                                {{ form_end(form) }}
+                                
+                                <a title="Effacez commentaire" href="{{ path('adminCommentaires_delete', { 'id' : commentaire.id }) }}"><button class="button pull-right"><i class="fa fa-trash"></i>&nbsp; <span>Effacez</span></button></a>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+                <aside class="right sidebar col-sm-3 col-xs-12">
+                    {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+                    <br><br>
+                    {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+                
+    <h1>Commentaire edit</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Edit" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('adminCommentaires_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <input type="submit" value="Delete">
+        </li>
+    </ul>
+{% endblock %}

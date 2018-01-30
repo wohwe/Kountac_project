@@ -1,0 +1,96 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                        <li><strong>Toutes les pays zone F CFA</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End -->
+    
+<section class="main-container col2-right-layout">
+  <div class="main container">
+    <div class="row">
+      <div class="col-main col-sm-6 col-xs-12">
+        <div class="col-main">
+                <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                            {% if paysCfas|length != 0 %}
+                                <h2>Liste des pays de la zone F CFA</h2>
+                            {% endif %}
+                        </div>
+
+                        <div class="order-detail-content">
+                        {% if paysCfas|length == 0 %}
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td><center><h1>Liste des pays vide !! Aucune pays de la zone F CFA à afficher</h1></center></td>
+                                    </tr>
+                                </table>
+                                <div class="cart_navigation"> <a class="continue-btn" href="{{ path('adminPaysCfa_new') }}"><i class="fa fa-arrow-left"> </i>&nbsp; Ajouter un nouveau pays dans la zone F CFA</a> </div>
+                            </div>  
+                        {% else %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Pays</th>
+                                            <th class="action">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for paysCfa in paysCfas %}
+                                            <tr>
+                                                <td class="action"><a> {{ paysCfa.id }} </a></td>
+                                                <td class="cart_description"><p class="product-name"><a>{{ paysCfa.nom|capitalize }} </a></p>
+                                                </td>
+                                                <td class="action">
+                                                    <a title="Modifier Pays {{ paysCfa.nom|capitalize }} " href="{{ path('adminPaysCfa_edit', {'id' : paysCfa.id}) }}"><i class="fa fa-pencil"></i></a>
+                                                    <br><a title="Retirer {{ paysCfa.nom|capitalize }} de vos catégories" href="{{ path('adminPaysCfa_delete', {'id' : paysCfa.id}) }}"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="cart_navigation"> <a class="continue-btn" href="{{ path('adminPaysCfa_new') }}"><i class="fa fa-arrow-left"> </i>&nbsp; Ajouter un nouveau produit dans la zone F CFA</a> </div>
+                        <div class="pagination-area ">
+                        </div>
+                            <center>
+                                {{ knp_pagination_render(paysCfas) }}
+                            </center>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <aside class="right sidebar col-sm-3 col-xs-12">
+        {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+        <br><br>
+        {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+      </aside>
+    </div>
+  </div>
+  </section>
+   
+{% endblock %}
+

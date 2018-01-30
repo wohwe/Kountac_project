@@ -1,0 +1,19 @@
+resume_achat:
+    path:     /resume
+    defaults: { _controller: "UtilisateursBundle:Achat:resumeAchat" }
+    
+validation_achat_final:
+    path:  /api/banque_{id}
+    defaults: { _controller: "UtilisateursBundle:Achat:validationAchatFinal" }
+    
+achat_index:
+    path: /mes_achats
+    defaults: { _controller: UtilisateursBundle:Achat:achatIndex }
+    
+achat_delete:
+    path: /supprimer_{id}
+    defaults: { _controller: UtilisateursBundle:Achat:achatDelete }
+    
+facture_PDF:
+    path: /facture_pdf/{id}
+    defaults: { _controller: UtilisateursBundle:Achat:facturePDF }

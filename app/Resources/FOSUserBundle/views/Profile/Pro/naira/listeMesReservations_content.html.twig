@@ -1,0 +1,124 @@
+<div class="breadcrumbs">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <ul>
+            <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Accueil</a><span>&raquo;</span></li>
+            <li class="home"> <a title="Aller à mon profil" href="{{ path('pro_user_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+            <li class="home"> <a title="Toutes les réservvations" href="{{ path('reservation_pro_all')}}">Toutes les réservations</a><span>&raquo;</span></li>
+            <li><strong>Mes réservations</strong></li>
+          </ul>
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert-box">
+                <br><br>
+                {{ flashMessage }}
+                <br><br>
+            </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+  <div class="main container">
+    <div class="row">
+      <div class="col-main col-sm-9 col-xs-12">
+        <div class="col-main">
+                <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                            {% if reservations|length != 0 %}
+                                <h2>Liste de toutes mes produits réservés</h2>
+                            {% endif %}
+                        </div>
+
+                        <div class="order-detail-content">
+                        {% if reservations|length == 0 %}
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td><center><h1>Liste de mes produits réservés vide !! Aucune réservation à afficher</h1></center></td>
+                                    </tr>
+                                </table>
+                            </div>  
+                        {% else %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart_product">Aperçu</th>
+                                            <th>Description du produit</th>
+                                            <th>Commande sur mesure</th>
+                                            <th>Date de réservation</th>
+                                            <th>Etat</th>
+                                            <th  class="action">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for reservation in reservations %}
+                                            {% if reservation.produit.produit2.nairaprix %}
+                                            <tr>
+                                                <td class="cart_product"><img src="{{ reservation.produit.produit2.picture.AssetPath|imagine_filter('cartThumbItem') }}" alt="">{% if reservation.produit.produit2.picture.path2 %}&nbsp;&nbsp;<img src="{{ reservation.produit.produit2.picture.AssetPath2|imagine_filter('cartThumbItem') }}" alt="">{% endif %}</td>
+                                                <td class="cart_description"><p class="product-name"><a>{{ reservation.produit.produit2.produit1.nom|capitalize }} - {{ reservation.produit.produit2.libelle.libelle|capitalize }}</a></p><br>
+                                                    <small><a><u>Description</u> : {{ reservation.produit.produit2.produit1.description|capitalize|truncate(50, false, ' ...') }}.</a></small><br>
+                                                    <small><a><u>Prix</u> : {{ reservation.produit.produit2.nairaprix|number_format(2) }} ₦</a></small><br>
+                                                    <small><a><u>Catégorie</u> : {{ reservation.produit.produit2.produit1.categorie|capitalize }}</a></small><br>
+                                                    <small><a><u>Client</u> : {% if reservation.utilisateur.prenom %} {{ reservation.utilisateur.prenom }} {% endif %} {{ reservation.utilisateur.nom }} <br>
+                                                             &nbsp;&nbsp;&nbsp;&nbsp;<u>Tél(s)</u>: {{ reservation.utilisateur.telephone }}{% if reservation.utilisateur.telephonefix %} | {{ reservation.utilisateur.telephonefix }} {% endif %}<br>
+                                                             &nbsp;&nbsp;&nbsp;&nbsp;<u>Email</u>: {{ reservation.utilisateur.email }}<br>
+                                                             &nbsp;&nbsp;&nbsp;&nbsp;<u>Adresse:</u> {% if reservation.utilisateur.adresse %} {{ reservation.utilisateur.adresse|capitalize }} {% endif %}{% if reservation.utilisateur.rue %}  Rue  {{ reservation.utilisateur.rue }} {% endif %} {% if reservation.utilisateur.cp %} {{ reservation.utilisateur.cp }} {% endif %} {% if reservation.utilisateur.ville %} {{ reservation.utilisateur.ville|capitalize }} {% endif %} {% if reservation.utilisateur.pays %} ({{ reservation.utilisateur.pays }}){% endif %}<br>
+                                                         </a>
+                                                     </small><br>
+                                                </td>
+                                                {% if reservation.produit.produit2.nairaprixCommande  %}
+                                                    <td class="availability in-stock">
+                                                        <span class="label">{{ ('Oui')|upper }}</span>
+                                                    </td>
+                                                {% else %}
+                                                    <td class="availability out-of-stock">
+                                                        <span class="label">{{ ('Non')|upper }}</span>
+                                                    </td>
+                                                {% endif %}
+                                                <td class="action">
+                                                    {{ reservation.date|date('d M Y') }}
+                                                </td>
+                                                {% if reservation.produit.stock >= 1  %}
+                                                    <td class="availability in-stock">
+                                                        <span class="label">{{ ('Disponible')|upper }}</span>
+                                                    </td>
+                                                {% else %}
+                                                    <td class="availability out-of-stock">
+                                                        <span class="label">{{ ('Stock épuisé')|upper }}</span>
+                                                    </td>
+                                                {% endif %}
+                                                <td class="action">
+                                                    <a title="Regarder produit {{ reservation.produit.produit2.produit1.nom|capitalize }} " href="{{ path('produit_pro_show', { 'id' : reservation.produit.produit2.produit1.id }) }}"><i class="fa fa-search"></i></a><br><br>
+                                                    <a title="Modifier produit {{ reservation.produit.produit2.produit1.nom|capitalize }} - {{ reservation.produit.produit2.libelle.libelle|capitalize }}" href="{{ path('produit_pro_edit_21', { 'id' : reservation.produit.produit2.id }) }}"><i class="fa fa-pencil"></i></a><br>
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="pagination-area ">
+                        </div>
+                            <center>
+                                {{ knp_pagination_render(reservations) }}
+                            </center>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <aside class="right sidebar col-sm-3 col-xs-12">
+        {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
+        <br><br>
+        {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+      </aside>
+    </div>
+  </div>
+  </section>

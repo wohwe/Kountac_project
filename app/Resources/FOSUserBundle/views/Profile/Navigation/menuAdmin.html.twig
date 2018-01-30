@@ -1,0 +1,71 @@
+<div class="sidebar-checkout block">
+    <div class="sidebar-bar-title">
+        &nbsp;&nbsp;<h3>MENU</h3>
+    </div><br>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Produits</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('adminProduits_stock_epuise') }}" class="alert-danger"><i class="icon-info"></i> Stock épuisé </a></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('adminProduits_index') }}"><i class="fa fa-angle-right"></i> Tous les produits</a></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('adminAchats_index') }}"><i class="fa fa-angle-right"></i> Produits achetés</a></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('adminProduits_new') }}"><i class="fa fa-angle-right"></i> Ajouter </a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Commandes</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a href="{{ path('adminCommandes_index') }}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Toutes les commandes</a></li>
+            <li><a href="{{ path('adminCommandes_mesures_new') }}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Ajouter </a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Catégories</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a href="{{ path('adminCategories_index') }}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Toutes les catégories</a></li>
+            <li><a href="{{ path('adminCategories_new')}}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Ajouter </a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Collection</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a href="{{ path('adminCollections_index') }}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Toutes les collections</a></li>
+            <li><a href="{{ path('adminCollections_new')}}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Ajouter </a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Commentaires</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a href="{{ path('adminCommentaires_index') }}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Tous les commentaires</a></li>
+            <li><a href="{{ path('adminCommentaires_new') }}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Ajouter </a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Utilisateurs</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a href="{{ path('adminUtilisateurs_index') }}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Tous les utilisateurs</a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Gestion des pays</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a href="{{ path('adminPaysEuro_index') }}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Pays de la zone Euro (€)</a></li>
+            <li><a href="{{ path('adminPaysCfa_index') }}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Pays de la zone F CFA</a></li>
+            <li><a href="{{ path('adminPaysUsa_index') }}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Pays de la zone Amérique USD ($)</a></li>
+            <li><a href="{{ path('adminPaysLivre_index') }}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Pays de la zone Livre sterling (£)</a></li>
+          </ul>
+        </div>
+      </div>
+</div>

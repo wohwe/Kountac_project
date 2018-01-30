@@ -1,0 +1,27 @@
+chat:
+    resource: "@ChatBundle/Resources/config/routing.yml"
+    prefix:   /chat
+
+commentaires:
+    resource: "@CommentairesBundle/Resources/config/routing.yml"
+
+kountac:
+    resource: "@KountacBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+utilisateurs:
+    resource: "@UtilisateursBundle/Resources/config/routing.yml"
+    
+pro_register:
+    resource: "@UtilisateursBundle/Resources/config/routing/pro-registration.xml"
+    prefix: /register/pro
+    
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+    
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

@@ -1,0 +1,42 @@
+<form id="chatForm" action="{{ path('chat_form', {'channel': 'channel'}) }}" onsubmit="return postMessage();" method="post">
+    <label for="chatMessage">Message</label>
+    <input type="text" name="message" id="chatMessage" />
+    <input type="submit" value="submit" />
+</form>
+{% render(controller('ChatBundle:Chat:list', {'channel': channel})) %}
+<script>
+function myFunction() {
+var comment=$(".chatMessage").val;
+if(comment)
+  {
+    alert(comment);
+	}
+}
+</script>
+
+<script type="text/javascript">
+function postMessage()
+{
+    $.post('{{ path('chat_form', {'channel': 'default'}) }}', 
+           { 'message': $("#chatMessage").val() },
+           function(data) {
+             // Check that the post function completed
+             if (data === 'Successful') {
+               updateChat();
+             }
+           }
+          );
+    $("#chatMessage").val('');
+}
+function updateChat()
+{
+    if (this.timer)
+        clearTimeout(this.timer);
+
+    $.post('{{ path('chat_list', {'channel': channel}) }}', function(data) {
+        $('#chat').html(data);
+    });
+    this.timer = setTimeout('updateChat()', 100);
+}
+updateChat();
+</script>

@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Facture</title>
+        <style>
+            h1 {
+            position:absolute;
+            color:#9F551E;
+            font-size:65px;
+            }
+            .center {
+                text-align:center;
+            }
+            .color {
+                color:#926D27;
+            }
+            .strong {
+                font-weight:bold;
+            }
+            .min {
+                font-size:15px;
+            }
+            img {
+                position:absolute;
+                top:80px;
+                left:30px;
+            }
+            ul#coordonnes {
+                float:left;
+                margin-top:30px;
+                margin-left:400px;
+                list-style:none;
+            }
+            ul#coordonnes li {
+                height:25px;
+            }
+            table#enTete {
+                position:absolute;
+                top:5px;
+                right:330px;
+                text-align:center;
+            }
+            table#enTete h1 {
+                color:#785E2F;
+                font-weight:bold;
+                font-size:30px;
+            }
+            table#entity {
+                float:left;
+                margin-top:30px;
+                text-align:center;
+            }
+            table#entity td {
+                height:45px;
+                border-bottom:1px solid #0088cc;
+            }
+            table#total {
+                float:right;
+                margin-left:495px;
+                border-bottom:1px solid #0088cc;
+                border-right:1px solid #0088cc;
+                border-left:1px solid #0088cc;
+                font-size:20px;
+            }
+            table#total td {
+                height:35px;
+            }
+
+            #footer { 
+                position:absolute;
+                bottom:0px;width:100%;
+                text-align:center;
+                line-height:25px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1><strong>KounTac</strong></h1>
+        <table id="enTete">
+            <tr>
+                <td colspan="1"></td>
+                <td colspan="1"><h1>Facture</h1></td>
+                <td colspan="1"></td>
+            </tr>
+            <tr>
+                <td width="80">Page</td>
+                <td width="100">Date</td>
+                <td width="120">Ref</td>
+            </tr>
+            <tr>
+                <td class="color">[[page_nb]]</td>
+                <td class="color">{{ facture.date|date('d-m-Y') }}</td>
+                <td class="color">{{ facture.reference }}</td>
+            </tr>
+        </table>
+            
+        <ul id="coordonnes">
+            <li><h3><u>Adresse de livraison</u></h3></li>
+            
+            <li>{{ facture.achat.facturation.nom }} {{ facture.achat.facturation.prenom }}</li>
+            <li>{{ facture.achat.facturation.adresse}}</li>
+            <li>{{ facture.achat.facturation.cp }} {{ facture.achat.facturation.ville }} - {{ facture.achat.facturation.pays }}</li>
+        </ul>
+        {% if facture.euro %}
+        <table id="entity">
+            <tr>
+                <td width="280">DESIGNATION</td>
+                <td width="105">QUANTITE</td>
+                <td width="120">PRIX UNITAIRE</td>
+                <td width="105">PRIX</td>
+            </tr>
+            {% for produit in facture.achat.produit %}
+                {% if produit.prix %}
+                <tr>
+                    <td class="color">{{ produit.reference|capitalize }} - {{ produit.motif|capitalize }}</td>
+                    <td class="color">{{ produit.quantite }}</td>
+                    <td class="color">{{ produit.prix|number_format(2) }} €</td>
+                    <td class="color">{{ (produit.prix * produit.quantite)|number_format(2) }} €</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            {% if facture.achat.commande is defined %}
+            {% for commande in facture.achat.commande %}
+                <tr>
+                    <td class="color">{{ commande.reference|capitalize }} - {{ commande.motif|capitalize }} (Commande sur mesure)</td>
+                    <td class="color">1</td>
+                    <td class="color">{{ commande.prix|number_format(2) }} €</td>
+                    <td class="color">{{ commande.prix|number_format(2) }} €</td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+        <table id="total">
+            <tr>
+                <td width="100"><strong>TOTAL :</strong></td>
+                <td width="130" class="color"><strong>{{ (facture.achat.prix + facture.achat.prixCommande)|number_format(2) }} €</strong></td>
+            </tr>
+        </table>
+        {% elseif  facture.livre %}
+        <table id="entity">
+            <tr>
+                <td width="280">DESIGNATION</td>
+                <td width="105">QUANTITE</td>
+                <td width="120">PRIX UNITAIRE</td>
+                <td width="105">PRIX</td>
+            </tr>
+            {% for produit in facture.achat.produit %}
+                {% if produit.prix %}
+                <tr>
+                    <td class="color">{{ produit.reference|capitalize }} - {{ produit.motif|capitalize }}</td>
+                    <td class="color">{{ produit.quantite }}</td>
+                    <td class="color">{{ produit.prix|number_format(2) }} £</td>
+                    <td class="color">{{ (produit.prix * produit.quantite)|number_format(2) }} £</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            {% if facture.achat.commande is defined %}
+            {% for commande in facture.achat.commande %}
+                <tr>
+                    <td class="color">{{ commande.reference|capitalize }} - {{ commande.motif|capitalize }} (Commande sur mesure)</td>
+                    <td class="color">1</td>
+                    <td class="color">{{ commande.prix|number_format(2) }} £</td>
+                    <td class="color">{{ commande.prix|number_format(2) }} £</td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+        <table id="total">
+            <tr>
+                <td width="100"><strong>TOTAL :</strong></td>
+                <td width="130" class="color"><strong>{{ (facture.achat.prix + facture.achat.prixCommande)|number_format(2) }} £</strong></td>
+            </tr>
+        </table>
+        {% elseif  facture.usa %}
+        <table id="entity">
+            <tr>
+                <td width="280">DESIGNATION</td>
+                <td width="105">QUANTITE</td>
+                <td width="120">PRIX UNITAIRE</td>
+                <td width="105">PRIX</td>
+            </tr>
+            {% for produit in facture.achat.produit %}
+                {% if produit.prix %}
+                <tr>
+                    <td class="color">{{ produit.reference|capitalize }} - {{ produit.motif|capitalize }}</td>
+                    <td class="color">{{ produit.quantite }}</td>
+                    <td class="color">{{ produit.prix|number_format(2) }} $</td>
+                    <td class="color">{{ (produit.prix * produit.quantite)|number_format(2) }} $</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            {% if facture.achat.commande is defined %}
+            {% for commande in facture.achat.commande %}
+                <tr>
+                    <td class="color">{{ commande.reference|capitalize }} - {{ commande.motif|capitalize }} (Commande sur mesure)</td>
+                    <td class="color">1</td>
+                    <td class="color">{{ commande.prix|number_format(2) }} $</td>
+                    <td class="color">{{ commande.prix|number_format(2) }} $</td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+        <table id="total">
+            <tr>
+                <td width="100"><strong>TOTAL :</strong></td>
+                <td width="130" class="color"><strong>{{ (facture.achat.prix + facture.achat.prixCommande)|number_format(2) }} $</strong></td>
+            </tr>
+        </table>
+        {% elseif  facture.naira %}
+        <table id="entity">
+            <tr>
+                <td width="280">DESIGNATION</td>
+                <td width="105">QUANTITE</td>
+                <td width="120">PRIX UNITAIRE</td>
+                <td width="105">PRIX</td>
+            </tr>
+            {% for produit in facture.achat.produit %}
+                {% if produit.prix %}
+                <tr>
+                    <td class="color">{{ produit.reference|capitalize }} - {{ produit.motif|capitalize }}</td>
+                    <td class="color">{{ produit.quantite }}</td>
+                    <td class="color">{{ produit.prix|number_format(2) }} {{ '₦' }} </td>
+                    <td class="color">{{ (produit.prix * produit.quantite)|number_format(2) }} {{ '₦' }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            {% if facture.achat.commande is defined %}
+            {% for commande in facture.achat.commande %}
+                <tr>
+                    <td class="color">{{ commande.reference|capitalize }} - {{ commande.motif|capitalize }} (Commande sur mesure)</td>
+                    <td class="color">1</td>
+                    <td class="color">{{ commande.prix|number_format(2) }} ₦</td>
+                    <td class="color">{{ commande.prix|number_format(2) }} ₦</td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+        <table id="total">
+            <tr>
+                <td width="100"><strong>TOTAL :</strong></td>
+                <td width="130" class="color"><strong>{{ (facture.achat.prix + facture.achat.prixCommande)|number_format(2) }} ₦</strong></td>
+            </tr>
+        </table>
+        {% elseif  facture.cfa %}
+        <table id="entity">
+            <tr>
+                <td width="280">DESIGNATION</td>
+                <td width="105">QUANTITE</td>
+                <td width="120">PRIX UNITAIRE</td>
+                <td width="105">PRIX</td>
+            </tr>
+            {% for produit in facture.achat.produit %}
+                {% if produit.prix %}
+                <tr>
+                    <td class="color">{{ produit.reference|capitalize }} - {{ produit.motif|capitalize }}</td>
+                    <td class="color">{{ produit.quantite }}</td>
+                    <td class="color">{{ produit.prix|number_format(2) }} F CFA</td>
+                    <td class="color">{{ (produit.prix * produit.quantite)|number_format(2) }} F CFA</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            {% if facture.achat.commande is defined %}
+            {% for commande in facture.achat.commande %}
+                <tr>
+                    <td class="color">{{ commande.reference|capitalize }} - {{ commande.motif|capitalize }} (Commande sur mesure)</td>
+                    <td class="color">1</td>
+                    <td class="color">{{ commande.prix|number_format(2) }} F CFA</td>
+                    <td class="color">{{ commande.prix|number_format(2) }} F CFA</td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+        <table id="total">
+            <tr>
+                <td width="100"><strong>TOTAL :</strong></td>
+                <td width="130" class="color"><strong>{{ (facture.achat.prix + facture.achat.prixCommande)|number_format(2) }} F CFA</strong></td>
+            </tr>
+        </table>
+        {% endif %}
+        <div id="footer">
+            <span class="color strong">Adresse Kountac</span>
+            <br />
+            Tel KOUNTAC
+        </div>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Accueil</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Aller à la page de connexion" href="{{ path('fos_user_security_login')}}">Connexion</a><span>&raquo;</span></li>
+                    <li><strong>Réinitialisation</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="main-container col1-layout">
+    <div class="main container">
+{% trans_default_domain 'FOSUserBundle' %}
+        <div class="page-content">
+            <div class="account-login">
+                <div class="box-authentication">
+                    <h3>Reinitialiser mot de passe</h3><br>
+                    <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+                        <label for="username">{{ 'resetting.request.username'|trans }}<span class="required">*</span></label>
+                        <input class="input form-control" type="text" id="username" name="username" required="required" />
+                        <br>
+                        <button class="button" type="submit" id="_submit" name="_submit"><i class="fa fa-lock"></i>&nbsp; <span>{{ 'resetting.request.submit'|trans }}</span></button>
+                    </form>
+                </div>
+                <div class="box-authentication">
+                    <h2>Mot de passe oublié ?</h2>
+                    <p>Entrer les informations demandées, <br> un email vous sera envoyé afin  <br> de recuprérer votre mot de passe !</p> 											
+                </div>
+             </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,106 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                        <li><strong>Tous les commentaires</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End -->
+    
+    <section class="main-container col2-right-layout">
+  <div class="main container">
+    <div class="row">
+      <div class="col-main col-sm-9 col-xs-12">
+        <div class="col-main">
+                <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                            {% if commentaires|length != 0 %}
+                                <h2>Liste de tous les commentaires</h2>
+                            {% endif %}
+                        </div>
+
+                        <div class="order-detail-content">
+                        {% if commentaires|length == 0 %}
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td><center><h1>Liste de commentaires vide !! Aucun commentaire à afficher</h1></center></td>
+                                    </tr>
+                                </table>
+                                <div class="cart_navigation"> <a class="continue-btn" href="{{ path('adminCommentaires_new') }}"><i class="fa fa-arrow-left"> </i>&nbsp; Ajoutez un nouveau commentaire</a> </div>
+                            </div>  
+                        {% else %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th class="cart_product">Aperçu</th>
+                                            <th>Description</th>
+                                            <th>Date d'ajout</th>
+                                            <th  class="action">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for commentaire in commentaires %}
+                                            <tr>
+                                                <td class="action"><a href="{{ path('adminCommentaires_show', {'id' : commentaire.id}) }}"> {{ commentaire.id }} </a></td>
+                                                <td class="cart_product">
+                                                    <a><img src="{{ commentaire.produit.picture.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></a>
+                                                    <br>{{ commentaire.produit.produit1.nom|capitalize }} - {{ commentaire.produit.libelle.libelle|capitalize }}
+                                                </td>
+                                                <td class="cart_description"><p class="product-name"><a><u>Avis</u> : "{{ commentaire.titre|capitalize }}" </a></p><br>
+                                                    <small><a><u>Commentaire</u> : {{ commentaire.contenu|capitalize|truncate(50, false, ' ...') }}</a></small><br>
+                                                    <br><u>Ajouté par</u> : <strong>{{ commentaire.pseudo }}</strong> <br>
+                                                   
+                                                </td>
+                                                <td class="action">
+                                                    {{ commentaire.date|date('d M Y') }}
+                                                </td>
+                                                <td class="action">
+                                                    <a title="Regardez commentaire " href="{{ path('adminCommentaires_show', {'id' : commentaire.id}) }}"><i class="fa fa-search"></i></a><br>
+                                                    <a title="Modifiez ce commentaire " href="{{ path('adminCommentaires_edit', {'id' : commentaire.id}) }}"><i class="fa fa-pencil"></i></a><br>
+                                                    <br><br><a title="Retirez ce commentaire" href="{{ path('adminCommentaires_delete', {'id' : commentaire.id}) }}"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="cart_navigation"> <a class="continue-btn" href="{{ path('adminCommentaires_new') }}"><i class="fa fa-arrow-left"> </i>&nbsp; Ajoutez un nouveau commentaire</a> </div>
+                        <div class="pagination-area ">
+                        </div>
+                            <center>
+                                {{ knp_pagination_render(commentaires) }}
+                            </center>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <aside class="right sidebar col-sm-3 col-xs-12">
+        {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+        <br><br>
+        {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+      </aside>
+    </div>
+  </div>
+  </section>
+{% endblock %}

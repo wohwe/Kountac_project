@@ -1,0 +1,121 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% block fos_user_content %}
+    <!-- Breadcrumbs -->
+
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Go to Home Page" href="index.html">Home</a><span>&raquo;</span></li>
+
+                        <li><strong>Checkout</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End --> 
+
+    <!-- Main Container -->
+    <section class="main-container col2-right-layout">
+        <div class="main container">
+            <div class="row">
+                <div class="col-main col-sm-9 col-xs-12">
+
+
+                    <div class="page-content checkout-page"><div class="page-title">
+                            <h2>Finalisation de la commande (2/4)</h2>
+                        </div>
+                        <h4 class="checkout-sep"></h4>
+                        <h4 class="checkout-sep">1. Information de livraison (adresse de livraison)</h4>
+                        <div class="box-border">
+                            <ul>
+                                <li class="row">
+                                    <div class="col-sm-6">
+                                        <label><u>Nom(s)</u> :</label>
+                                                {{ user.nom|upper }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label><u>Prénom(s)</u> :</label>
+                                                {{ user.prenom|upper }}
+                                    </div>
+                                </li>
+                                <li class="row"> 
+                                    <div class="col-sm-6">
+                                        <label><u>E-mail</u> :</label>
+                                                {{ user.email }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label><u>Adresse</u> :</label>
+                                                {{ user.adresse|upper }}
+                                    </div>
+                                </li>
+                                <li class="row">
+                                    <div class="col-sm-6">
+                                        <label><u>Rue</u> :</label>
+                                                {{ user.rue|upper }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label><u>Ville</u> :</label>
+                                                {{ user.ville|upper }}
+                                    </div>
+                                </li>
+                                <li class="row">
+                                    <div class="col-sm-6">
+                                        <label><u>Code postal</u> :</label>
+                                                {{ user.cp|upper }}
+                                    </div><!--/ [col] -->
+                                    <div  class="col-sm-6">
+                                        <label><u>Pays</u> :</label>
+                                                {{ user.pays|upper }}
+                                    </div>
+                                </li>
+                                <li class="row">
+                                    <div class="col-sm-6">
+                                        <label><u>Téléphone mobile</u> :</label>
+                                                {{ user.telephone|capitalize }}
+                                    </div><!--/ [col] -->
+                                    <div class="col-sm-6">
+                                        <label><u>Téléphone fix</u> :</label>
+                                                {{ user.telephonefix|capitalize }}
+                                    </div><!--/ [col] -->
+                                </li><!--/ .row -->
+                            </ul>
+                            </form>
+                        </div>
+                        <br>
+                        <h4 class="checkout-sep"></h4>
+                        <h4 class="checkout-sep">2. Service de livraison</h4>
+                        <div class="box-border">
+                                <ul>
+                                    <form class="col" action="{{ path('Checkout_index2') }}" method="POST" {{ form_enctype(form) }} class="form">
+                                        {{ form_start(form) }}
+                                        {{ form_errors(form) }}
+
+                                    <li class="row">
+                                        <div class="col-sm-8">
+                                            {{ form_row(form.nom) }}
+                                        </div>
+                                    </li>
+                                    <br>
+                                    <button class="button pull-right" type="submit"><i class="fa fa-angle-double-right"></i>&nbsp; <span>Continuer</span></button>
+                                        {{ form_end(form) }}
+                                    </form>
+                                    <br>
+                                    <a href="{{ path('Checkout_index1') }}"><button class="button pull-left" type="submit"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
+                                        
+                                </ul>
+                        </div>
+                    </div>
+                </div>
+                <aside class="right sidebar col-sm-3 col-xs-12">
+                    {% include 'UtilisateursBundle:Checkout:resumeCheckout/resumeCheckout.html.twig' %}
+                </aside>
+            </div>
+        </div>
+    </section>
+    <!-- Main Container End -->
+
+{% endblock fos_user_content %}

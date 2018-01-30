@@ -1,0 +1,12 @@
+<div class="manufacturer-area">
+    <h2 class="saider-bar-title">Mon panier</h2>
+    <div class="saide-bar-menu">
+        <ul>
+            {% if produits|length != 0 %}
+                <li><a title="Voir votre panier" href="{{ path('panier')}}"><i class="fa fa-angle-right"></i> <strong>{{ produits|length }} produit(s)</strong></a></li>
+            {% else %}
+                <li><a title="Vous n'avez aucun produit dans votre panier"><i class="fa fa-angle-right"></i><strong> Panier vide</strong></a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

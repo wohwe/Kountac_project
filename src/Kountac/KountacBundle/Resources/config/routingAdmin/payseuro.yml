@@ -1,0 +1,18 @@
+adminPaysEuro_index:
+    path:     /
+    defaults: { _controller: "KountacBundle:PaysEuro:index" }
+    methods:  GET
+
+adminPaysEuro_new:
+    path:     /new
+    defaults: { _controller: "KountacBundle:PaysEuro:new" }
+    methods:  [GET, POST]
+
+adminPaysEuro_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "KountacBundle:PaysEuro:edit" }
+    methods:  [GET, POST]
+
+adminPaysEuro_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "KountacBundle:PaysEuro:delete" }

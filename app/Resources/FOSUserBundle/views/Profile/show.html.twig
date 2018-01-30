@@ -1,0 +1,7 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% block fos_user_content %}
+{% include "@FOSUser/Profile/show_content.html.twig" %}
+{% include 'ChatBundle:Chat:list_chat.html.twig' %}
+{% include 'ChatBundle:Chat:chat2.html.twig' %}
+{% endblock fos_user_content %}

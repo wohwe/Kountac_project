@@ -1,0 +1,67 @@
+<div class="sidebar-checkout block">
+    <div class="sidebar-bar-title">
+        &nbsp;&nbsp;<h3>INFORMATIONS</h3> &nbsp;&nbsp; <a href="{{ path('pro_user_profile_edit') }}" class="icon-pencil"></a>
+    </div>
+    <div class="block-content">
+
+      <div class="manufacturer-area">
+          <h2 class="saider-bar-title">Responsable</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><u>Nom(s):</u> {{ user.prenom }} {{ user.nom }}</li>
+            <li><u>Adresse:</u> {{ user.adresse }}</li>
+            <li><u>Code postale:</u> {{ user.cp }}</li>
+            <li><u>Rue:</u> {{ user.rue }}</li>
+            <li><u>Ville:</u> {{ user.ville }}</li>
+            <li><u>Pays:</u> {{ user.pays }}</li>
+            <li><u>Mobile:</u> {{ user.telephone }}</li>
+            {% if user.telephonefix %}
+                <li><u>Fixe:</u> {{ user.telephonefix }}</li>
+            {% endif %}
+           </ul>
+        </div>
+      </div>
+      <br>    
+      <div class="manufacturer-area">
+          <h2 class="saider-bar-title">Marque</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><u>Nom:</u> {{ user.marque }}</li>
+            <li><u>Adresse:</u> {{ user.adresseentreprise }}</li>
+            <li><u>Code postale:</u> {{ user.cpentreprise }}</li>
+            <li><u>Rue:</u> {{ user.rueentreprise }}</li>
+            <li><u>Ville:</u> {{ user.villeentreprise }}</li>
+            <li><u>Pays:</u> {{ user.paysentreprise }}</li>
+            <li><u>Mobile:</u> {{ user.telephoneentreprise }}</li>
+            {% if user.telephonefixentreprise %}
+                <li><u>Fixe:</u> {{ user.telephonefixentreprise }}</li>
+            {% endif %}
+           </ul>
+        </div>
+      </div>
+            
+      {% if user.servicelivraison %}     
+      <div class="manufacturer-area">
+        <h2 class="saider-bar-title">Service de livraison</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a title="{{ user.servicelivraison.description|capitalize }}"><i class="fa fa-angle-right"></i> {{ user.servicelivraison.nom }}</a></li>
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+      
+      {% if user.servicepaiement %}     
+      <div class="manufacturer-area">
+        <h2 class="saider-bar-title">Mode de paiement</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a title="Titulaire de la carte : {{ user.servicepaiement.titulaire|capitalize }}"><i class="fa fa-angle-right"></i> {{ user.servicepaiement.nom }}</a></li>
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+      
+      {% render(controller('KountacBundle:Menu:menuPanier')) %}
+</div>
+</div>

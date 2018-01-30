@@ -1,0 +1,19 @@
+adminPaysCfa_index:
+    path:     /
+    defaults: { _controller: "KountacBundle:PaysCfa:index" }
+    methods:  GET
+
+adminPaysCfa_new:
+    path:     /new
+    defaults: { _controller: "KountacBundle:PaysCfa:new" }
+    methods:  [GET, POST]
+
+adminPaysCfa_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "KountacBundle:PaysCfa:edit" }
+    methods:  [GET, POST]
+
+adminPaysCfa_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "KountacBundle:PaysCfa:delete" }
+ 

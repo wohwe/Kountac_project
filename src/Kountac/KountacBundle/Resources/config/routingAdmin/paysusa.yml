@@ -1,0 +1,18 @@
+adminPaysUsa_index:
+    path:     /
+    defaults: { _controller: "KountacBundle:PaysUsa:index" }
+    methods:  GET
+
+adminPaysUsa_new:
+    path:     /new
+    defaults: { _controller: "KountacBundle:PaysUsa:new" }
+    methods:  [GET, POST]
+
+adminPaysUsa_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "KountacBundle:PaysUsa:edit" }
+    methods:  [GET, POST]
+
+adminPaysUsa_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "KountacBundle:PaysUsa:delete" }

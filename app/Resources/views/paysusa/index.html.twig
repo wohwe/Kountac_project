@@ -1,0 +1,94 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                        <li><strong>Toutes les pays zone Amérique USD ($)</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End -->
+    
+<section class="main-container col2-right-layout">
+  <div class="main container">
+    <div class="row">
+      <div class="col-main col-sm-6 col-xs-12">
+        <div class="col-main">
+                <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                            {% if paysUsas|length != 0 %}
+                                <h2>Liste des pays de la zone Amérique USD ($)</h2>
+                            {% endif %}
+                        </div>
+
+                        <div class="order-detail-content">
+                        {% if paysUsas|length == 0 %}
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td><center><h1>Liste des pays vide !! Aucune pays de la zone Amérique ($) à afficher</h1></center></td>
+                                    </tr>
+                                </table>
+                                <div class="cart_navigation"> <a class="continue-btn" href="{{ path('adminPaysUsa_new') }}"><i class="fa fa-arrow-left"> </i>&nbsp; Ajouter un nouveau pays dans la zone Amérique ($)</a> </div>
+                            </div>  
+                        {% else %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Pays</th>
+                                            <th class="action">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for paysUsa in paysUsas %}
+                                            <tr>
+                                                <td class="action"><a> {{ paysUsa.id }} </a></td>
+                                                <td class="cart_description"><p class="product-name"><a>{{ paysUsa.nom|capitalize }} </a></p>
+                                                </td>
+                                                <td class="action">
+                                                    <a title="Modifier Pays {{ paysUsa.nom|capitalize }} " href="{{ path('adminPaysUsa_edit', {'id' : paysUsa.id}) }}"><i class="fa fa-pencil"></i></a>
+                                                    <br><a title="Retirer {{ paysUsa.nom|capitalize }} de vos catégories" href="{{ path('adminPaysUsa_delete', {'id' : paysUsa.id}) }}"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="cart_navigation"> <a class="continue-btn" href="{{ path('adminPaysUsa_new') }}"><i class="fa fa-arrow-left"> </i>&nbsp; Ajouter un nouveau produit dans la zone Amérique ($)</a> </div>
+                        <div class="pagination-area ">
+                        </div>
+                            <center>
+                                {{ knp_pagination_render(paysUsas) }}
+                            </center>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <aside class="right sidebar col-sm-3 col-xs-12">
+        {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+        <br><br>
+        {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+      </aside>
+    </div>
+  </div>
+  </section>
+   
+{% endblock %}

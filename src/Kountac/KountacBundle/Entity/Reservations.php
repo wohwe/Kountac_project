@@ -1,0 +1,163 @@
+<?php
+
+namespace Kountac\KountacBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Categories
+ *
+ * @ORM\Table(name="reservations")
+ * @ORM\Entity(repositoryClass="Kountac\KountacBundle\Repository\ReservationsRepository")
+ */
+class Reservations
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+   
+    /**
+     * @ORM\ManyToOne(targetEntity="Kountac\KountacBundle\Entity\Produits_3", inversedBy="reservation", cascade={"persist"})
+     * @ORM\JoinColumn(name="produit_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $produit;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Utilisateurs\UtilisateursBundle\Entity\Utilisateurs", inversedBy="reservation", cascade={"persist"})
+     * @ORM\JoinColumn(name="utilisateur_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $utilisateur;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Utilisateurs\UtilisateursBundle\Entity\Utilisateurs", inversedBy="reservation_marque", cascade={"persist"})
+     * @ORM\JoinColumn(name="marque_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $marque;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateajout", type="date", nullable=true)
+     */
+    private $date;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    public function __toString()
+    {
+    }
+
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Reservations
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set utilisateur
+     *
+     * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $utilisateur
+     *
+     * @return Reservations
+     */
+    public function setUtilisateur(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $utilisateur = null)
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    /**
+     * Get utilisateur
+     *
+     * @return \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs
+     */
+    public function getUtilisateur()
+    {
+        return $this->utilisateur;
+    }
+
+
+    /**
+     * Set produit
+     *
+     * @param \Kountac\KountacBundle\Entity\Produits_3 $produit
+     *
+     * @return Reservations
+     */
+    public function setProduit(\Kountac\KountacBundle\Entity\Produits_3 $produit = null)
+    {
+        $this->produit = $produit;
+
+        return $this;
+    }
+
+    /**
+     * Get produit
+     *
+     * @return \Kountac\KountacBundle\Entity\Produits_3
+     */
+    public function getProduit()
+    {
+        return $this->produit;
+    }
+
+    /**
+     * Set marque
+     *
+     * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $marque
+     *
+     * @return Reservations
+     */
+    public function setMarque(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $marque = null)
+    {
+        $this->marque = $marque;
+
+        return $this;
+    }
+
+    /**
+     * Get marque
+     *
+     * @return \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs
+     */
+    public function getMarque()
+    {
+        return $this->marque;
+    }
+}

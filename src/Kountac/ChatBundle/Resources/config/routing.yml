@@ -1,0 +1,16 @@
+chat_homepage:
+    path:     /chat/{channel}
+    defaults: { _controller:ChatBundle:Chat:show }
+
+chat_form:
+    path:   /post/{channel}
+    defaults: { _controller:ChatBundle:Chat:post }
+    
+chat_list:
+    path:   /list/{channel}
+    defaults: { _controller: ChatBundle:Chat:list }
+    
+chat_list_autor:
+    path:   /list_autor/{channel}
+    defaults: { _controller: ChatBundle:Chat:list_autor }
+    

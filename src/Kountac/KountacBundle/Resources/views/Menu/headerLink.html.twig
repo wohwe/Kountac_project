@@ -1,0 +1,24 @@
+<!-- top links -->
+<div class="headerlinkmenu col-lg-8 col-md-7 col-sm-8 col-xs-12">
+    <div class="links">
+        <div class="language-currency-wrapper">
+            <div class="wishlist"><a title="Ma liste de souhaits [ {{ souhaitProduits|length }} produit(s) ]" href="{{ path('wishlist') }}"><i class="fa fa-heart"></i><span class="hidden-xs">Souhaits</span></a></div>
+            <div class="blog"><a title="Ornoir Magazine" target = "_blank"  href="http://www.ornoir-mag.kountac.fr/"><i class="fa fa-rss"></i><span class="hidden-xs">Blog</span></a></div>
+        </div>
+        {% render(controller('KountacBundle:Menu:usersHeaders')) %}
+    </div>
+    <div class="language-currency-wrapper">
+    <div class="language-currency-wrapper">
+        <div class="inner-cl">
+            <div class="block block-language form-language">
+                <div class="lg-cur"> <span> <img src="{{ asset('images/flag-default.jpg') }}" alt="français"> <span class="lg-fr">Français</span> <i class="fa fa-angle-down"></i> </span> </div>
+                <ul>
+                    <li> <a class="selected" href="#"> <img src="{{ asset('images/flag-english.jpg') }}" alt="english"> <span>English</span> </a> </li>
+                </ul>
+            </div>
+                
+            {% render(controller('KountacBundle:Devise:deviseMain')) %}
+        </div>
+    </div>
+    </div>
+</div>

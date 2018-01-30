@@ -1,0 +1,93 @@
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Aller à mon profil professionnel" href="{{ path('pro_user_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Voir tous mes produits" href="{{ path('produit_pro_index')}}">Mes produits</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Modification produit (1/2)" href="{{ path('produit_pro_edit', { 'id' : produit.id })}}">Modification (1/2)</a><span>&raquo;</span></li>
+                    <li><strong>Modification produit (2/2)</strong></li>
+                </ul>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert-box">
+                        <br><br>
+                        {{ flashMessage }}
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-9 col-xs-12">
+                <div class="page-content checkout-page">
+                    <div class="page-title">
+                        <h2 class="checkout-step">Modification produit (2/2)</h2>
+                    </div>
+                    <form action="{{ path('produit_pro_edit_pays', { 'id' : produit.id }) }}" method="POST">
+                    {{ form_start(form_pays) }}
+                    <div class="box-border">
+                        <ul>
+                            <h3 class="checkout-step">Vendez dans la zone Euro</h3>
+                            <br>
+                           <li class="row">
+                                <div class="col-sm-6">
+                                    {{ form_row(form_pays.euro.prix) }}
+                                </div>
+                                <div class="col-sm-6">
+                                    {{ form_row(form_pays.euro.prixCommande) }}
+                                </div>
+                            </li>
+                            <br>
+                            <li class="row">
+                                <div class="col-sm-12">
+                                    {{ form_row(form_pays.euro.pays) }}
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <h3 class="checkout-step">Vendez dans la zone CFA (Afrique)</h3>
+                            <br>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    {{ form_row(form_pays.cfa.prix) }}
+                                </div>
+                                <div class="col-sm-6">
+                                    {{ form_row(form_pays.cfa.prixCommande) }}
+                                </div>
+                            </li>
+                            <br>
+                            <li class="row">
+                                <div class="col-sm-12">
+                                    {{ form_row(form_pays.cfa.pays) }}
+                                </div>
+                            </li>
+                            
+                            <br><br><br>
+                            <li>
+                                <button class="button" type="submit"><i class="icon-check"></i>&nbsp; <span>Mettre à jour</span></button>
+                            </li>
+                        </ul>
+                    </div>
+                    {{ form_end(form_pays) }}
+                    </form>
+                </div>
+            </div>
+        <aside class="right sidebar col-sm-3 col-xs-12">
+            {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
+            <br><br>
+            {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+        </aside>
+        </div>
+        
+    </div>
+</div>
+</section>
+

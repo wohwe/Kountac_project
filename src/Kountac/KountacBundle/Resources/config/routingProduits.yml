@@ -1,0 +1,55 @@
+all_products:
+    path:     /all/
+    defaults: { _controller: KountacBundle:Produit:allProducts }
+
+quickViewAllProducts:
+    path:     /quickView_all/{id}/
+    defaults: { _controller: KountacBundle:Produit:quickViewAllProducts }
+    
+quickView:
+    path:     /quickView/{id}/
+    defaults: { _controller: KountacBundle:Produit:quickVue }
+
+quickViewEspaceMarque:
+    path:     /quickView_marque/{id}/
+    defaults: { _controller: KountacBundle:Produit:quickViewEspaceMarque }
+    
+espace_marque:
+    path:     /mark_space/{id}
+    defaults: { _controller: KountacBundle:Produit:espace_marque }
+    
+product:
+    path:     /single/{id}/
+    defaults: { _controller: KountacBundle:Produit:product }
+    
+categorie_3:
+    path:     /catalog_3/{categorie}/
+    defaults: { _controller: KountacBundle:Produit:categorie_3 }
+    
+categorie_2:
+    path:     /catalog_2/{categorie}/
+    defaults: { _controller: KountacBundle:Produit:categorie_2 }
+    
+categorie_1:
+    path:     /catalog_1/{categorie}/
+    defaults: { _controller: KountacBundle:Produit:categorie_1 }
+    
+collection:
+    path:     /collection/{collection}/
+    defaults: { _controller: KountacBundle:Produit:collection }
+    
+rechercheProduits:
+    pattern: /find
+    defaults: { _controller: KountacBundle:Produit:rechercheTraitement } 
+    
+reserve_new:
+    path:     /reserve/new_{id}/
+    defaults: { _controller: UtilisateursBundle:Reservations:new }
+
+reserve_delete:
+    path:     /reserve/delete_{id}/
+    defaults: { _controller: UtilisateursBundle:Reservations:delete }    
+    
+reserve_index:
+    path:     /reserve/
+    defaults: { _controller: UtilisateursBundle:Reservations:index }

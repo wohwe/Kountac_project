@@ -1,0 +1,17 @@
+<div class="top-search">
+    <div id="search">
+        <form action="{{ path('rechercheProduits') }}" method="POST">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="input-group">
+                {{ form_widget(form.recherche) }}
+                <select class="cate-dropdown hidden-xs hidden-sm" size="1"  onChange="location = this.options[this.selectedIndex].value;">
+                    <option value="0" selected disabled>Opt. avancée</option>
+                    <option value="{{ path('all_products') }}">Rech. avancée</option>
+                  </select>
+                <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>
+            </div>
+            {{ form_end(form) }}
+        </form>
+    </div>
+</div>

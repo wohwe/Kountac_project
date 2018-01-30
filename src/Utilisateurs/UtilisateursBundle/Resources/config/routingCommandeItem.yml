@@ -1,0 +1,21 @@
+commande_new_item:
+    path:     /new_item/{id}
+    defaults: { _controller: "UtilisateursBundle:CommandeItem:new" }
+    methods:  [GET, POST]
+   
+commande_mesures_new_item:
+    path:     /new_mesures_item/{id}
+    defaults: { _controller: "UtilisateursBundle:CommandeItem:newMesures" }
+    methods:  [GET, POST]  
+    
+commande_mesures_validation_item:
+    path: /validation_mesures_item/{id}
+    defaults: { _controller: UtilisateursBundle:CommandeItem:validationMesure }
+    
+commande_mesures_delete_item:
+    path:     /{id}_{idMesure}/delete_mesures_item
+    defaults: { _controller: UtilisateursBundle:CommandeItem:deleteMesures }
+    
+commande_delete_item:
+    path:     /{id}/delete_item
+    defaults: { _controller: UtilisateursBundle:CommandeItem:delete }

@@ -1,0 +1,21 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    
+    <section class="main-container col1-layout">
+    <div class="main container">
+    <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+    <br />
+    {% if is_granted('ROLE_PRO') %}
+        <p><h2><strong><a href="{{ path('pro_user_profile_show') }}">Voir mon espace (pro de la vente)</a></strong></h2></p>
+    {% else %}
+        <p><h2><strong><a href="{{ path('fos_user_profile_show') }}">Voir mon espace</a></strong></h2></p>
+    {% endif %}
+    {% if targetUrl %}
+    <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+    {% endif %}
+    </div>
+    </section>
+{% endblock fos_user_content %}

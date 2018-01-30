@@ -1,0 +1,61 @@
+adminProduits_index:
+    path:     /
+    defaults: { _controller: "KountacBundle:ProduitsAdmin:index" }
+    methods:  GET
+
+adminProduits_show:
+    path:     /{id}/show
+    defaults: { _controller: "KountacBundle:ProduitsAdmin:show" }
+    methods:  [GET, POST]
+
+adminProduits_new:
+    path:     /new
+    defaults: { _controller: "KountacBundle:ProduitsAdmin:new1" }
+    methods:  [GET, POST]
+    
+adminProduits_new2:
+    path:     /new2_{id}
+    defaults: { _controller: "KountacBundle:ProduitsAdmin:new2" }
+    
+adminProduits_new3:
+    path:     /add_new_taille_{id}
+    defaults: { _controller: "KountacBundle:ProduitsAdmin:new3" }
+    
+adminProduits_new_motif:
+    path:     /add_new_motif_{id}
+    defaults: { _controller: "KountacBundle:ProduitsAdmin:addMotif" }
+    methods:  [GET, POST]
+
+adminProduits_new_resume:
+    path:     /new_resume_{id}
+    defaults: { _controller: "KountacBundle:ProduitsAdmin:newResume" }
+    methods:  [GET, POST]
+
+adminProduits_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "KountacBundle:ProduitsAdmin:edit" }
+    methods:  [GET, POST]
+    
+adminProduits_edit_pays:
+    path:     /{id}/edit_pays
+    defaults: { _controller: "KountacBundle:ProduitsAdmin:editPays" }
+    methods:  [GET, POST]
+    
+adminProduits_stock_epuise:
+    path:     /stock_épuisé
+    defaults: { _controller: "KountacBundle:ProduitsAdmin:stock" }
+    methods:  GET
+    
+adminProduits_add_stock:
+    path:     /{id}/add_stock
+    defaults: { _controller: "KountacBundle:ProduitsAdmin:addStock" }
+    methods:  [GET, POST]
+    
+adminProduits_add_prix_commande_cfa:
+    path:     /{id}/add_prix_commande_cfa
+    defaults: { _controller: "KountacBundle:ProduitsAdmin:addprixCommandeCfa" }
+    methods:  [GET, POST]
+
+adminProduits_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "KountacBundle:ProduitsAdmin:delete" }    

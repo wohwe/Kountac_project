@@ -1,0 +1,696 @@
+<?php
+
+namespace Kountac\KountacBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Produits
+ *
+ * @ORM\Table(name="produits")
+ * @ORM\Entity(repositoryClass="Kountac\KountacBundle\Repository\ProduitsRepository")
+ */
+class Produits
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Kountac\KountacBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    private $picture;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Kountac\KountacBundle\Entity\Collections", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    private $collection;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Kountac\CommentairesBundle\Entity\Commentaires", mappedBy="produit", cascade={"persist"})
+     */
+    private $commentaire;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Kountac\KountacBundle\Entity\Reservations", mappedBy="produit", cascade={"persist"})
+     */
+    private $reservation;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Kountac\KountacBundle\Entity\Devises", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $euro;
+    
+        /**
+     * @ORM\ManyToOne(targetEntity="Kountac\KountacBundle\Entity\Devises", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $cfa;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Kountac\KountacBundle\Entity\Commandes", mappedBy="produit", cascade={"persist"})
+     */
+    private $commande;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Kountac\KountacBundle\Entity\Categories", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    private $categorie;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Utilisateurs\UtilisateursBundle\Entity\Utilisateurs", inversedBy="produit_marque", cascade={"persist"})
+     * @ORM\JoinColumn(name="marque_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $marque;
+  
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=100)
+     */
+    private $nom;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="etat", type="boolean")
+     */
+    private $etat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="matiere", type="string", length=100)
+     */
+    private $matiere;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="stock", type="integer")
+     */
+    private $stock;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="taille", type="string", length=100)
+     */
+    private $taille;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="reduction", type="float")
+     */
+    private $reduction;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="popularite", type="integer", nullable=true)
+     */
+    private $popularite;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateajout", type="date", nullable=true)
+     */
+    private $dateajout;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateupdate", type="date", nullable=true)
+     */
+    private $dateupdate;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateachat", type="date", nullable=true)
+     */
+    private $dateachat;
+   
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return Produits
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param boolean $etat
+     * @return Produits
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return boolean 
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * Set matiere
+     *
+     * @param string $matiere
+     * @return Produits
+     */
+    public function setMatiere($matiere)
+    {
+        $this->matiere = $matiere;
+
+        return $this;
+    }
+
+    /**
+     * Get matiere
+     *
+     * @return string 
+     */
+    public function getMatiere()
+    {
+        return $this->matiere;
+    }
+
+    /**
+     * Set stock
+     *
+     * @param integer $stock
+     * @return Produits
+     */
+    public function setStock($stock)
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * Get stock
+     *
+     * @return integer 
+     */
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    /**
+     * Set taille
+     *
+     * @param array $taille
+     * @return Produits
+     */
+    public function setTaille($taille)
+    {
+        $this->taille = $taille;
+
+        return $this;
+    }
+
+    /**
+     * Get taille
+     *
+     * @return array 
+     */
+    public function getTaille()
+    {
+        return $this->taille;
+    }
+
+    
+    
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Produits
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set reduction
+     *
+     * @param boolean $reduction
+     * @return Produits
+     */
+    public function setReduction($reduction)
+    {
+        $this->reduction = $reduction;
+
+        return $this;
+    }
+
+    /**
+     * Get reduction
+     *
+     * @return boolean 
+     */
+    public function getReduction()
+    {
+        return $this->reduction;
+    }
+
+
+    /**
+     * Set picture
+     *
+     * @param \Kountac\KountacBundle\Entity\Media $picture
+     * @return Produits
+     */
+    public function setPicture(\Kountac\KountacBundle\Entity\Media $picture)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return \Kountac\KountacBundle\Entity\Media 
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+
+    
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+
+    /**
+     * Set marque
+     *
+     * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $marque
+     * @return Produits
+     */
+    public function setMarque(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $marque = null)
+    {
+        $this->marque = $marque;
+
+        return $this;
+    }
+
+    /**
+     * Get marque
+     *
+     * @return \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs 
+     */
+    public function getMarque()
+    {
+        return $this->marque;
+    }
+
+    /**
+     * Set categorie
+     *
+     * @param \Kountac\KountacBundle\Entity\Categories $categorie
+     * @return Produits
+     */
+    public function setCategorie(\Kountac\KountacBundle\Entity\Categories $categorie = null)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return \Kountac\KountacBundle\Entity\Categories 
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
+    }
+    
+    public function __construct() 
+    {
+        $this->commentaire = new ArrayCollection();
+    }
+
+    /**
+     * Add commentaire
+     *
+     * @param \Kountac\CommentairesBundle\Entity\commentaires $commentaire
+     * @return Produits
+     */
+    public function addCommentaire(\Kountac\CommentairesBundle\Entity\commentaires $commentaire)
+    {
+        $this->commentaire[] = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentaire
+     *
+     * @param \Kountac\CommentairesBundle\Entity\commentaires $commentaire
+     */
+    public function removeCommentaire(\Kountac\CommentairesBundle\Entity\commentaires $commentaire)
+    {
+        $this->commentaire->removeElement($commentaire);
+    }
+
+    /**
+     * Get commentaire
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
+    }
+
+    /**
+     * Set popularite
+     *
+     * @param integer $popularite
+     * @return Produits
+     */
+    public function setPopularite($popularite)
+    {
+        $this->popularite = $popularite;
+
+        return $this;
+    }
+
+    /**
+     * Get popularite
+     *
+     * @return integer 
+     */
+    public function getPopularite()
+    {
+        return $this->popularite;
+    }
+
+    /**
+     * Add picture
+     *
+     * @param \Kountac\KountacBundle\Entity\Media $picture
+     * @return Produits
+     */
+    public function addPicture(\Kountac\KountacBundle\Entity\Media $picture)
+    {
+        $this->picture[] = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Remove picture
+     *
+     * @param \Kountac\KountacBundle\Entity\Media $picture
+     */
+    public function removePicture(\Kountac\KountacBundle\Entity\Media $picture)
+    {
+        $this->picture->removeElement($picture);
+    }
+
+    /**
+     * Add devise
+     *
+     * @param \Kountac\KountacBundle\Entity\Devises $devise
+     * @return Produits
+     */
+    public function addDevise(\Kountac\KountacBundle\Entity\Devises $devise)
+    {
+        $this->devise[] = $devise;
+
+        return $this;
+    }
+
+    /**
+     * Remove devise
+     *
+     * @param \Kountac\KountacBundle\Entity\Devises $devise
+     */
+    public function removeDevise(\Kountac\KountacBundle\Entity\Devises $devise)
+    {
+        $this->devise->removeElement($devise);
+    }
+
+    /**
+     * Get devise
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDevise()
+    {
+        return $this->devise;
+    }
+
+    /**
+     * Set euro
+     *
+     * @param \Kountac\KountacBundle\Entity\Devises $euro
+     * @return Produits
+     */
+    public function setEuro(\Kountac\KountacBundle\Entity\Devises $euro = null)
+    {
+        $this->euro = $euro;
+
+        return $this;
+    }
+
+    /**
+     * Get euro
+     *
+     * @return \Kountac\KountacBundle\Entity\Devises 
+     */
+    public function getEuro()
+    {
+        return $this->euro;
+    }
+
+    /**
+     * Set cfa
+     *
+     * @param \Kountac\KountacBundle\Entity\Devises $cfa
+     * @return Produits
+     */
+    public function setCfa(\Kountac\KountacBundle\Entity\Devises $cfa = null)
+    {
+        $this->cfa = $cfa;
+
+        return $this;
+    }
+
+    /**
+     * Get cfa
+     *
+     * @return \Kountac\KountacBundle\Entity\Devises 
+     */
+    public function getCfa()
+    {
+        return $this->cfa;
+    }
+
+    /**
+     * Set dateajout
+     *
+     * @param \DateTime $dateajout
+     * @return Produits
+     */
+    public function setDateajout($dateajout)
+    {
+        $this->dateajout = $dateajout;
+
+        return $this;
+    }
+
+    /**
+     * Get dateajout
+     *
+     * @return \DateTime 
+     */
+    public function getDateajout()
+    {
+        return $this->dateajout;
+    }
+
+    /**
+     * Set dateupdate
+     *
+     * @param \DateTime $dateupdate
+     *
+     * @return Produits
+     */
+    public function setDateupdate($dateupdate)
+    {
+        $this->dateupdate = $dateupdate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateupdate
+     *
+     * @return \DateTime
+     */
+    public function getDateupdate()
+    {
+        return $this->dateupdate;
+    }
+
+    /**
+     * Set dateachat
+     *
+     * @param \DateTime $dateachat
+     *
+     * @return Produits
+     */
+    public function setDateachat($dateachat)
+    {
+        $this->dateachat = $dateachat;
+
+        return $this;
+    }
+
+    /**
+     * Get dateachat
+     *
+     * @return \DateTime
+     */
+    public function getDateachat()
+    {
+        return $this->dateachat;
+    }
+
+    /**
+     * Set collection
+     *
+     * @param \Kountac\KountacBundle\Entity\Collections $collection
+     *
+     * @return Produits
+     */
+    public function setCollection(\Kountac\KountacBundle\Entity\Collections $collection = null)
+    {
+        $this->collection = $collection;
+
+        return $this;
+    }
+
+    /**
+     * Get collection
+     *
+     * @return \Kountac\KountacBundle\Entity\Collections
+     */
+    public function getCollection()
+    {
+        return $this->collection;
+    }
+
+    /**
+     * Add reservation
+     *
+     * @param \Kountac\KountacBundle\Entity\Reservations $reservation
+     *
+     * @return Produits
+     */
+    public function addReservation(\Kountac\KountacBundle\Entity\Reservations $reservation)
+    {
+        $this->reservation[] = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservation
+     *
+     * @param \Kountac\KountacBundle\Entity\Reservations $reservation
+     */
+    public function removeReservation(\Kountac\KountacBundle\Entity\Reservations $reservation)
+    {
+        $this->reservation->removeElement($reservation);
+    }
+
+    /**
+     * Get reservation
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservation()
+    {
+        return $this->reservation;
+    }
+}

@@ -1,0 +1,40 @@
+commande_index:
+    path:     /
+    defaults: { _controller: "UtilisateursBundle:Commande:index" }
+    methods:  GET
+
+commande_new:
+    path:     /new
+    defaults: { _controller: "UtilisateursBundle:Commande:new" }
+    methods:  [GET, POST]
+
+commande_show:
+    path:     /{id}/show
+    defaults: { _controller: "UtilisateursBundle:Commande:show" }
+    methods:  GET
+
+commande_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UtilisateursBundle:Commande:edit" }
+    methods:  [GET, POST]
+
+commande_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UtilisateursBundle:Commande:delete" }
+    
+commande_mesures_new:
+    path:     /new_mesures
+    defaults: { _controller: "UtilisateursBundle:Commande:newMesures" }
+    methods:  [GET, POST]  
+    
+commande_mesures_validation:
+    pattern: /validation_mesures
+    defaults: { _controller: UtilisateursBundle:Commande:validationMesure }
+    
+commande_mesures_delete:
+    path:     /{id}/delete_mesures
+    defaults: { _controller: UtilisateursBundle:Commande:deleteMesures }
+    
+commande_livrer:
+    path:     /{id}/livrer
+    defaults: { _controller: "UtilisateursBundle:Commande:livrer" }

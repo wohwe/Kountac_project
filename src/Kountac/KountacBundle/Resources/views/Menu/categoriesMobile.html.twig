@@ -1,0 +1,15 @@
+{% for categorie in categories %}
+<li><a href="{{ path('categorie_1', { 'categorie' : categorie.id}) }}">{{ categorie.nom }}</a>
+<ul>
+    {% for souscategorie in categorie.children %}
+    <li><a href="{{ path('categorie_3', { 'categorie' : souscategorie.id}) }}">{{ souscategorie.nom }}</a>
+      <ul>
+          {% for souscategorie2 in souscategorie.children %}
+          <li> <a href="{{ path('categorie_3', { 'categorie' : souscategorie2.id}) }}"> {{ souscategorie2.nom }} </a> </li>
+          {% endfor %}
+      </ul>
+    </li>
+    {% endfor %}
+</ul>
+</li>
+{% endfor %}

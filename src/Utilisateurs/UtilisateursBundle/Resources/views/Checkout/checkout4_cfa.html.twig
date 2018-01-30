@@ -1,0 +1,229 @@
+{% extends "@FOSUser/layout.html.twig" %}
+{% set totalPanier = 0 %}
+
+{% block fos_user_content %}
+    <!-- Breadcrumbs -->
+
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Go to Home Page" href="index.html">Home</a><span>&raquo;</span></li>
+
+                        <li><strong>Checkout</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End --> 
+
+    <!-- Main Container -->
+    <section class="main-container col2-right-layout">
+        <div class="main container">
+            <div class="row">
+                <div class="col-main col-sm-9 col-xs-12">
+
+
+                    <div class="page-content checkout-page"><div class="page-title">
+                            <h2>Finalisation de la commande (4/4)</h2>
+                        </div>
+                        <h4 class="checkout-sep"></h4>
+                        <h4 class="checkout-sep">1. Information de livraison (adresse de livraison)</h4>
+                        <div class="box-border">
+                            <ul>
+                                <li class="row">
+                                    <div class="col-sm-6">
+                                        <label><u>Nom(s)</u> :</label>
+                                                {{ user.nom|upper }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label><u>Prénom(s)</u> :</label>
+                                                {{ user.prenom|upper }}
+                                    </div>
+                                </li>
+                                <li class="row"> 
+                                    <div class="col-sm-6">
+                                        <label><u>E-mail</u> :</label>
+                                                {{ user.email }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label><u>Adresse</u> :</label>
+                                                {{ user.adresse|upper }}
+                                    </div>
+                                </li>
+                                <li class="row">
+                                    <div class="col-sm-6">
+                                        <label><u>Rue</u> :</label>
+                                                {{ user.rue|upper }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label><u>Ville</u> :</label>
+                                                {{ user.ville|upper }}
+                                    </div>
+                                </li>
+                                <li class="row">
+                                    <div class="col-sm-6">
+                                        <label><u>Code postal</u> :</label>
+                                                {{ user.cp|upper }}
+                                    </div><!--/ [col] -->
+                                    <div  class="col-sm-6">
+                                        <label><u>Pays</u> :</label>
+                                                {{ user.pays|upper }}
+                                    </div>
+                                </li>
+                                <li class="row">
+                                    <div class="col-sm-6">
+                                        <label><u>Téléphone mobile</u> :</label>
+                                                {{ user.telephone|capitalize }}
+                                    </div><!--/ [col] -->
+                                    <div class="col-sm-6">
+                                        <label><u>Téléphone fix</u> :</label>
+                                                {{ user.telephonefix|capitalize }}
+                                    </div><!--/ [col] -->
+                                </li><!--/ .row -->
+                            </ul>
+                            </form>
+                        </div>
+                        <br>
+                        <h4 class="checkout-sep"></h4>
+                        <h4 class="checkout-sep">2. Service de livraison</h4>
+                        <div class="box-border">
+                                <ul>
+                                    <li class="row">
+                                        <div class="col-sm-8">
+                                            <label><u>Service de livraison</u> :</label>
+                                            {% if not user.servicelivraison.nom %}
+                                                Aucun service de livraison
+                                            {% else %}
+                                                {{ user.servicelivraison.nom|upper }}
+                                            {% endif %}
+                                        </div>
+                                    </li>
+                                    <br>
+                                    <li class="row">
+                                        {% if user.servicelivraison.description %}
+                                        <div class="col-sm-8">
+                                             <label><u>A propos du service</u> :</label>
+                                                {{ user.servicelivraison.description|capitalize }}
+                                        </div>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                        </div>
+                        <br>
+                        <h4 class="checkout-sep"></h4>
+                        <h4 class="checkout-sep">3. Méthode de paiement</h4>
+                        <div class="box-border">
+                                <ul>
+                                   <li class="row">
+                                        <div class="col-sm-6">
+                                            <label><u>Mode de paiement</u> :</label>
+                                                {{ user.servicepaiement.nom|upper }}
+                                        </div>
+                                        {% if user.servicepaiement.titulaire %}
+                                        <div class="col-sm-6">
+                                            <label><u>Nom du titulaire</u> :</label>
+                                            {{ user.servicepaiement.titulaire|upper }}
+                                        </div>
+                                        {% endif %}
+                                    </li>
+                                    <br>
+                                    <li class="row">
+                                        {% if user.servicepaiement.numero %}
+                                        <div class="col-sm-6">
+                                            <label><u>Numéro de la carte</u> :</label>
+                                            {{ user.servicepaiement.numero }}
+                                        </div>
+                                        {% endif %}
+                                        {% if user.servicepaiement.numeroverification %}
+                                        <div class="col-sm-6">
+                                            <label><u>Code de vérification</u> :</label>
+                                            {{ user.servicepaiement.numeroverification }}
+                                        </div>
+                                        {% endif %}
+                                    </li>
+                                    <br>
+                                    <li class="row">
+                                        {% if user.servicepaiement.dateexpiration %}
+                                        <div class="col-sm-6">
+                                            <label><u>Date d'expiration de la carte</u> :</label>
+                                            {{ user.servicepaiement.dateexpiration|date('m/Y') }}
+                                        </div>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                        </div> 
+                        <h4 class="checkout-sep"></h4>
+                        <h4 class="checkout-sep">4. Résumé panier</h4>
+                        <br>
+                        <div class="box-border">
+                            <form action="{{ path('resume_achat') }}" method="POST"  class="form">
+                            
+                                <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart_product">Produit</th>
+                                            <th>Description</th>
+                                            <th>Prix unitaire</th>
+                                            <th>Quantité</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for produit in produits %}
+                                            {% if produit.cfa %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit.cfa.prix - (produit.cfa.prix * produit.reduction/100) %}
+                                            
+                                            <tr>
+                                                <td class="cart_product"><a href="{{ path('product', {'id' : produit.id}) }}"><img src="{{ produit.picture.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></a></td>
+                                                <td class="cart_description"><p class="product-name"><a href="{{ path('product', {'id' : produit.id}) }}">{{ produit.nom|capitalize }} </a></p><br>
+                                                    <small><a><u>Description</u> : {{ produit.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
+                                                    <small><a><u>Matière</u> : {{ produit.matiere|capitalize }}</a></small><br>
+                                                    <small><a><u>Taille</u> : {{ produit.taille|upper }}</a></small></td>
+                                                <td class="price">
+                                                    {% if produit.reduction == 0 %}
+                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </span> </div>
+                                                    {% else %}
+                                                        <div class="price-box">
+                                                            <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </p><br><br>
+                                                            <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.cfa.prix|number_format(2) }} F CFA</span> </p>
+                                                        </div>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="qty">
+                                                    {{ panier[produit.id] }}
+                                                </td>
+                                                <td class="price"><span>{{ (prixReduction * panier[produit.id])|number_format(2) }} F CFA</span></td>
+                                            </tr>
+                                        {% set totalPanier = totalPanier + (prixReduction * panier[produit.id]) %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2" rowspan="2"></td>
+                                            <td colspan="2">TOTAL </td>
+                                            <td colspan="2">{{ totalPanier|number_format(2) }} F CFA</td>
+                                        </tr>
+                                    </tfoot>    
+                                </table>
+                            </div>
+                            <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Terminer</span></button>
+                            </form>
+                            <a href="{{ path('Checkout_index3') }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
+                        </div>
+                    </div>
+                </div>
+                <aside class="right sidebar col-sm-3 col-xs-12">
+                    {% include 'UtilisateursBundle:Checkout:resumeCheckout/resumeCheckout.html.twig' %}
+                </aside>
+            </div>
+        </div>
+    </section>
+    <!-- Main Container End -->
+
+{% endblock fos_user_content %}

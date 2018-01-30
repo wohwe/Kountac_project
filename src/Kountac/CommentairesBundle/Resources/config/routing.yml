@@ -1,0 +1,3 @@
+kountac_adminProduits:
+    resource: "@CommentairesBundle/Resources/config/routingAdmin/commentaires.yml"
+    prefix:   /admin/adminCommentaires/

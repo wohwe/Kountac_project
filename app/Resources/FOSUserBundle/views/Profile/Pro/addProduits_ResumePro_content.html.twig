@@ -1,0 +1,231 @@
+{% set i = 1 %}
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Aller à mon profil professionnel" href="{{ path('pro_user_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Voir tous mes produits" href="{{ path('produit_pro_index')}}">Mes produits</a><span>&raquo;</span></li>
+                    <li><strong>Résumé produit</strong></li>
+                </ul>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert-box">
+                        <br><br>
+                        {{ flashMessage }}
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-9 col-xs-12">
+                <div class="page-content checkout-page">
+                    <div class="page-title">
+                        <h2 class="checkout-step">Récapitulatif produit</h2>
+                    </div>
+                    
+                    <div class="box-border">
+                        <ul>
+                            <li class="row">
+                                <div class="col-sm-12">
+                                     Nom : {{ produit.nom|capitalize }}
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    Catégorie : {{ produit.nom|capitalize }}
+                                </div><!--/ [col] -->
+                                <div class="col-sm-6">
+                                     Collection : {{ produit.collection.nom|capitalize }}
+                                </div><!--/ [col] -->
+                            </li>
+                            <li class="row"> 
+                                <div class="col-xs-12">
+                                    Description : {{ produit.description|capitalize }}
+                                </div><!--/ [col] -->
+                            </li><!-- / .row -->
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    Matière : {{ produit.matiere|capitalize }}
+                                </div><!--/ [col] -->
+                            </li>
+                            {% for produit2 in produit.produit2 %}
+                            <br>
+                            *****************************************************************************************************
+                            <br>
+                            <label><img src="{{ produit2.libelle.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; &nbsp;&nbsp; &nbsp;{{ produit2.libelle.libelle|upper }}</label> {% if produit2.reduction ==  0 %} (Pas de réduction) {% else %} (Réduction - {{ produit2.reduction }}%) {% endif %}
+                            <br><br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    Disponible en Europe? : {% if produit2.europrix %}OUI {% else %}NON {% endif %}
+                                </div>
+                                {% if produit2.europrix %}
+                                <div class="col-sm-2">
+                                    Prix : {{ produit2.europrix }} €
+                                </div>
+                                {% endif %}
+                                {% if produit2.europrixCommande %}
+                                    <div class="col-sm-3">
+                                        Prix commande : {{ produit2.europrixCommande }} €
+                                    </div>
+                                {% else %}
+                                    Pas de commande sur mesure pour ce produit
+                                {% endif %}
+                                {% if produit2.europrix %}
+                                <div class="col-sm-4">
+                                    Pays : {{ produit2.europays|join(', ') }}
+                                </div>
+                                {% endif %}
+                            </li>
+                            <br><br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    Disponible au Royaume uni? : {% if produit2.livreprix %}OUI {% else %}NON {% endif %}
+                                </div>
+                                {% if produit2.livreprix %}
+                                <div class="col-sm-2">
+                                    Prix : {{ produit2.livreprix }} £
+                                </div>
+                                {% endif %}
+                                {% if produit2.livreprixCommande %}
+                                    <div class="col-sm-3">
+                                        Prix commande : {{ produit2.livreprixCommande }} £
+                                    </div>
+                                {% else %}
+                                    Pas de commande sur mesure pour ce produit
+                                {% endif %}
+                                {% if produit2.livreprix %}
+                                <div class="col-sm-4">
+                                    Pays : {{ produit2.livrepays|join(', ') }}
+                                </div>
+                                {% endif %}
+                            </li>
+                            <br><br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    Disponible aux Amériques? : {% if produit2.usaprix %}OUI {% else %}NON {% endif %}
+                                </div>
+                                {% if produit2.usaprix %}
+                                <div class="col-sm-2">
+                                    Prix : {{ produit2.usaprix }} $
+                                </div>
+                                {% endif %}
+                                {% if produit2.usaprixCommande %}
+                                    <div class="col-sm-3">
+                                        Prix commande : {{ produit2.usaprixCommande }} $
+                                    </div>
+                                {% else %}
+                                    Pas de commande sur mesure pour ce produit
+                                {% endif %}
+                                {% if produit2.usaprix %}
+                                <div class="col-sm-4">
+                                    Pays : {{ produit2.usapays|join(', ') }}
+                                </div>
+                                {% endif %}
+                            </li>
+                            <br><br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    Disponible en Afrique? : {% if produit2.cfaprix %}OUI {% else %}NON {% endif %}
+                                </div>
+                                {% if produit2.cfaprix %}
+                                <div class="col-sm-2">
+                                    Prix : {{ produit2.cfaprix }} F CFA
+                                </div>
+                                {% endif %}
+                                {% if produit2.cfaprixCommande %}
+                                    <div class="col-sm-3">
+                                        Prix commande : {{ produit2.cfaprixCommande }} F CFA
+                                    </div>
+                                {% else %}
+                                    Pas de commande sur mesure pour ce produit
+                                {% endif %}
+                                {% if produit2.cfaprix %}
+                                <div class="col-sm-4">
+                                    Pays : {{ produit2.cfapays|join(', ') }}
+                                </div>
+                                {% endif %}
+                            </li>
+                            <br><br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    Disponible au Nigéria? : {% if produit2.nairaprix %}OUI {% else %}NON {% endif %}
+                                </div>
+                                {% if produit2.nairaprix %}
+                                <div class="col-sm-2">
+                                    Prix : {{ produit2.nairaprix }} ₦
+                                </div>
+                                {% endif %}
+                                {% if produit2.nairaprixCommande %}
+                                    <div class="col-sm-3">
+                                        Prix commande : {{ produit2.nairaprixCommande }} ₦
+                                    </div>
+                                {% else %}
+                                    Pas de commande sur mesure pour ce produit
+                                {% endif %}
+                            </li>
+                            {% for produit3 in produit2.produit3 %}
+                              <li class="row">
+                                <div class="col-sm-2">
+                                    Taille : {{ produit3.taille|upper }}
+                                </div>
+                                <div class="col-sm-2">
+                                    Stock : {{ produit3.stock }}
+                                </div>
+                            </li>
+                            {% endfor %}
+                            
+                            <li class="row">
+                                <div class="col-sm-2">
+                                    <label class="required">Première image*</label>
+                                    <br><img src="{{ produit2.picture.AssetPath|imagine_filter('commandeThumb') }}" alt="">
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="required">Seconde image</label>
+                                    <br><img src="{{ produit2.picture.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="required">Troisième image</label>
+                                    <br><img src="{{ produit2.picture.AssetPath3|imagine_filter('commandeThumb') }}" alt="">
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <br>
+                    <div class="box-border">
+                        <ul>
+                            <li class="row">
+                                <div class="col-sm-5">
+                                    <a href="{{ path('produit_pro_new_1') }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; &nbsp; &nbsp;<span>Ajouter nouveau produit</span></button></a>
+                                </div>                                
+                                <div class="col-sm-3">
+                                </div>
+                                <div class="col-sm-3">
+                                    <a href="{{ path('produit_pro_index') }}"><button class="button alert-box"><i class="fa fa-check"></i>&nbsp; &nbsp; &nbsp;<span>Terminer</span></button></a>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        <aside class="right sidebar col-sm-3 col-xs-12">
+            {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
+            <br><br>
+            {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+        </aside>
+        </div>
+        
+    </div>
+</div>
+</section>
+

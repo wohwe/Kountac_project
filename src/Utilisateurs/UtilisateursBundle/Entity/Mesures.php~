@@ -1,0 +1,471 @@
+<?php
+
+namespace Utilisateurs\UtilisateursBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Mesures
+ *
+ * @ORM\Table(name="mesures")
+ * @ORM\Entity(repositoryClass="Utilisateurs\UtilisateursBundle\Repository\MesuresRepository")
+ */
+class Mesures
+{
+     /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Utilisateurs\UtilisateursBundle\Entity\Utilisateurs", inversedBy="mesures")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $utilisateur;
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $titulaire;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="poitrine", type="float")
+     */
+    private $poitrine;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="taille", type="float")
+     */
+    private $taille;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="bassin", type="float")
+     */
+    private $bassin;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="epaules", type="float", nullable=true)
+     */
+    private $epaules;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="seins", type="float", nullable=true)
+     */
+    private $seins;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="epauletaille", type="float", nullable=true)
+     */
+    private $epauletaille;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longueur", type="float", nullable=true)
+     */
+    private $longueur;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="genre", type="string", nullable=true)
+     */
+    private $genre;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="taille_dos", type="float", nullable=true)
+     */
+    private $taille_dos;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="taille_devant", type="float", nullable=true)
+     */
+    private $taille_devant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_poitrine", type="float", nullable=true)
+     */
+    private $hauteur_poitrine;
+    
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="demi_ecart_poitrine", type="float", nullable=true)
+     */
+    private $demi_ecart_poitrine;
+    
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_petites_hanches", type="float", nullable=true)
+     */
+    private $tour_petites_hanches;
+    
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_grandes_hanches", type="float", nullable=true)
+     */
+    private $tour_grandes_hanches;
+    
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="demi_tour_encolure", type="float", nullable=true)
+     */
+    private $demi_tour_encolure;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="demi_carrure_dos", type="float", nullable=true)
+     */
+    private $demi_carrure_dos;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="demi_carrure_devant", type="float", nullable=true)
+     */
+    private $demi_carrure_devant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longueur_epaule", type="float", nullable=true)
+     */
+    private $longueur_epaule;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_emmanchure", type="float", nullable=true)
+     */
+    private $tour_emmanchure;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_dessous_bras", type="float", nullable=true)
+     */
+    private $hauteur_dessous_bras;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longueur_bras", type="float", nullable=true)
+     */
+    private $longueur_bras;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="grosseur_bras", type="float", nullable=true)
+     */
+    private $grosseur_bras;
+    
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_coude", type="float", nullable=true)
+     */
+    private $hauteur_coude;
+    
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_poignet", type="float", nullable=true)
+     */
+    private $tour_poignet;
+
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_taille_hanche", type="float", nullable=true)
+     */
+    private $hauteur_taille_hanche;
+    
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_montant", type="float", nullable=true)
+     */
+    private $hauteur_montant;
+    
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="enfourchure", type="float", nullable=true)
+     */
+    private $enfourchure;
+    
+        
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_taille_genou", type="float", nullable=true)
+     */
+    private $hauteur_taille_genou;
+    
+        
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_taille_terre", type="float", nullable=true)
+     */
+    private $hauteur_taille_terre;
+    
+        
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_taille_cote_terre", type="float", nullable=true)
+     */
+    private $hauteur_taille_cote_terre;
+    
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    /**
+     * Set utilisateur
+     *
+     * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $utilisateur
+     * @return Mesures
+     */
+    public function setUtilisateur(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $utilisateur = null)
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    /**
+     * Get utilisateur
+     *
+     * @return \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs 
+     */
+    public function getUtilisateur()
+    {
+        return $this->utilisateur;
+    }
+
+    /**
+     * Set poitrine
+     *
+     * @param integer $poitrine
+     * @return Mesures
+     */
+    public function setPoitrine($poitrine)
+    {
+        $this->poitrine = $poitrine;
+
+        return $this;
+    }
+
+    /**
+     * Get poitrine
+     *
+     * @return integer 
+     */
+    public function getPoitrine()
+    {
+        return $this->poitrine;
+    }
+
+    /**
+     * Set taille
+     *
+     * @param integer $taille
+     * @return Mesures
+     */
+    public function setTaille($taille)
+    {
+        $this->taille = $taille;
+
+        return $this;
+    }
+
+    /**
+     * Get taille
+     *
+     * @return integer 
+     */
+    public function getTaille()
+    {
+        return $this->taille;
+    }
+
+    /**
+     * Set bassin
+     *
+     * @param integer $bassin
+     * @return Mesures
+     */
+    public function setBassin($bassin)
+    {
+        $this->bassin = $bassin;
+
+        return $this;
+    }
+
+    /**
+     * Get bassin
+     *
+     * @return integer 
+     */
+    public function getBassin()
+    {
+        return $this->bassin;
+    }
+
+    /**
+     * Set epaules
+     *
+     * @param integer $epaules
+     * @return Mesures
+     */
+    public function setEpaules($epaules)
+    {
+        $this->epaules = $epaules;
+
+        return $this;
+    }
+
+    /**
+     * Get epaules
+     *
+     * @return integer 
+     */
+    public function getEpaules()
+    {
+        return $this->epaules;
+    }
+
+    /**
+     * Set seins
+     *
+     * @param integer $seins
+     * @return Mesures
+     */
+    public function setSeins($seins)
+    {
+        $this->seins = $seins;
+
+        return $this;
+    }
+
+    /**
+     * Get seins
+     *
+     * @return integer 
+     */
+    public function getSeins()
+    {
+        return $this->seins;
+    }
+
+    /**
+     * Set epauletaille
+     *
+     * @param integer $epauletaille
+     * @return Mesures
+     */
+    public function setEpauletaille($epauletaille)
+    {
+        $this->epauletaille = $epauletaille;
+
+        return $this;
+    }
+
+    /**
+     * Get epauletaille
+     *
+     * @return integer 
+     */
+    public function getEpauletaille()
+    {
+        return $this->epauletaille;
+    }
+
+    /**
+     * Set longueur
+     *
+     * @param integer $longueur
+     * @return Mesures
+     */
+    public function setLongueur($longueur)
+    {
+        $this->longueur = $longueur;
+
+        return $this;
+    }
+
+    /**
+     * Get longueur
+     *
+     * @return integer 
+     */
+    public function getLongueur()
+    {
+        return $this->longueur;
+    }
+
+    /**
+     * Set titulaire
+     *
+     * @param string $titulaire
+     * @return Mesures
+     */
+    public function setTitulaire($titulaire)
+    {
+        $this->titulaire = $titulaire;
+
+        return $this;
+    }
+
+    /**
+     * Get titulaire
+     *
+     * @return string 
+     */
+    public function getTitulaire()
+    {
+        return $this->titulaire;
+    }
+}

@@ -1,0 +1,50 @@
+<div class="sidebar-checkout block">
+    <div class="sidebar-bar-title">
+        &nbsp;&nbsp;<h3>MENU</h3>
+    </div><br>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">Réservations</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a href="{{ path('reserve_index') }}"><i class="fa fa-angle-right"></i> Toutes mes réservations</a></li>
+            <li><a href="{{ path('all_products') }}"><i class="fa fa-angle-right"></i> Réserver nouveau </a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">Mesures</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a href="{{ path('mesures_index') }}"><i class="fa fa-angle-right"></i> Toutes mes mesures</a></li>
+            <li><a href="{{ path('mesures_new') }}"><i class="fa fa-angle-right"></i> Ajouter nouvelle mesure </a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">Commandes</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a href="{{ path('commande_index') }}"><i class="fa fa-angle-right"></i> Toutes mes commandes</a></li>
+            <li><a href="{{ path('commande_mesures_new') }}"><i class="fa fa-angle-right"></i> Commander </a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">Achats</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            {% render(controller('KountacBundle:Menu:menuPendingAchat')) %}
+            <li><a href="{{ path('achat_index') }}"><i class="fa fa-angle-right"></i> Tous mes achats</a></li>
+            <li><a href="{{ path('kountac_homepage') }}"><i class="fa fa-angle-right"></i> Acheter </a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="manufacturer-area">
+        <h2 class="saider-bar-title">Messages</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a title="liser tous vos messages ici !"><i class="fa fa-envelope"></i><span class="user1"> Tous mes messages (2) <div class="msg"></div></span></a></li>
+          </ul>
+        </div>
+      </div>
+</div>

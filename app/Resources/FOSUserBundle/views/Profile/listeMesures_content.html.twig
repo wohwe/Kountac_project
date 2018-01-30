@@ -1,0 +1,174 @@
+<div class="breadcrumbs">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <ul>
+            <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Accueil</a><span>&raquo;</span></li>
+            <li class="home"> <a title="Aller à mon profil" href="{{ path('fos_user_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+            <li><strong>Toutes mes mesures</strong></li>
+          </ul>
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert-box">
+                <br><br>
+                {{ flashMessage }}
+                <br><br>
+            </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+  <div class="main container">
+    <div class="row">
+      <div class="col-main col-sm-9 col-xs-12">
+        <div class="col-main">
+                <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                            {% if mesures|length != 0 %}
+                                <h2>Liste de vos mesures &nbsp;&nbsp;{% if user.sexe %}Mme.{% else %}M.{% endif %} {{ user.prenom|capitalize }} {{ user.nom|capitalize }}</h2>
+                            {% endif %}
+                        </div>
+
+                        <div class="order-detail-content">
+                        {% if mesures|length == 0 %}
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td><center><h1>Liste de vos mesures vide !! Aucune mesure à afficher</h1></center></td>
+                                    </tr>
+                                </table>
+                                <div class="cart_navigation"> <a class="continue-btn" href=""><i class="fa fa-arrow-left"> </i>&nbsp; Commandez un produit</a> </div>
+                            </div>  
+                        {% else %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Titulaire mesures</th>
+                                            <th>Mesures</th>
+                                            <th  class="action">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for mesure in mesures %}
+                                            <tr>
+                                                <td class="action">
+                                                    <h3>{{ mesure.titulaire|capitalize }}</h3>
+                                                </td>
+                                                <td class="cart_description">
+                                                    <p class="product-name">
+                                                       <u>Tour de poitrine</u> = {{ mesure.poitrine }} cm; <br/>
+                                                        <u>Tour de taille</u> = {{ mesure.taille }} cm;<br/>
+                                                        <u>Tour de bassin</u> = {{ mesure.bassin }} cm;<br/>
+                                                            {% if mesure.epaules %}                                
+                                                            <u>Distance entre les épaules</u> = {{ mesure.epaules }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.seins %}
+                                                            <u>Distance entre les seins</u> = {{ mesure.seins }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.epauletaille %}
+                                                            <u>Distance épaule-taille</u> = {{ mesure.epauletaille }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.longueur %}
+                                                            <u>Longueur vêtement</u> = {{ mesure.longueur }} cm <br/>   
+                                                            {% endif %}   
+                                                            {% if mesure.hauteurPoitrine %}                                
+                                                            <u>Hauteur de poitrine</u> = {{ mesure.hauteurPoitrine }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.demiEcartPoitrine %}                                
+                                                            <u>Démi écart poitrine</u> = {{ mesure.demiEcartPoitrine }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.tourPetitesHanches %}                                
+                                                            <u>Tour des petites hanches</u> = {{ mesure.tourPetitesHanches }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.tourGrandesHanches %}                                
+                                                            <u>Tour des grandes hanches</u> = {{ mesure.tourGrandesHanches }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.demiTourEncolure %}                                
+                                                            <u>Demi tour d'encolure</u> = {{ mesure.demiTourEncolure }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.demiCarrureDos %}                                
+                                                            <u>Demi carrure dos</u> = {{ mesure.demiCarrureDos }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.demiCarrureDevant %}                                
+                                                            <u>Demi carrure devant</u> = {{ mesure.demiCarrureDevant }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.tailleDos %}                                
+                                                            <u>Longueur taille dos</u> = {{ mesure.tailleDos }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.tailleDevant %}                                
+                                                            <u>Longueur taille devant</u> = {{ mesure.tailleDevant }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.longueurEpaule %}                                
+                                                            <u>Longueur épaule</u> = {{ mesure.longueurEpaule }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.tourEmmanchure %}                                
+                                                            <u>Tour d'emmanchure</u> = {{ mesure.tourEmmanchure }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.hauteurDessousBras %}                                
+                                                            <u>Hauteur dessous bras</u> = {{ mesure.hauteurDessousBras }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.longueurBras %}                                
+                                                            <u>Longueur du bras</u> = {{ mesure.longueurBras }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.grosseurBras %}                                
+                                                            <u>Grosseur du bras</u> = {{ mesure.grosseurBras }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.hauteurCoude %}                                
+                                                            <u>Hauteur du coude</u> = {{ mesure.hauteurCoude }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.tourPoignet %}                                
+                                                            <u>Tour de poignet</u> = {{ mesure.tourPoignet }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.hauteurTailleHanche %}                                
+                                                            <u>Hauteur taille-hanches</u> = {{ mesure.hauteurTailleHanche }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.hauteurMontant %}                                
+                                                            <u>Hauteur de montant</u> = {{ mesure.hauteurMontant }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.enfourchure %}                                
+                                                            <u>Enfourchure</u> = {{ mesure.enfourchure }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.hauteurTailleGenou %}                                
+                                                            <u>Hauteur taille au genou</u> = {{ mesure.hauteurTailleGenou }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.hauteurTailleTerre %}                                
+                                                            <u>Hauteur taille à terre</u> = {{ mesure.hauteurTailleTerre }} cm;<br/>
+                                                            {% endif %}
+                                                            {% if mesure.hauteurTailleCoteTerre %}                                
+                                                            <u>Hauteur taille côté à terre</u> = {{ mesure.hauteurTailleCoteTerre }} cm;<br/>
+                                                            {% endif %}
+                                                </td>
+                                                <td class="action">
+                                                    <a title="Modifier mesures" href="{{ path('mesures_edit', { 'id' : mesure.id }) }}"><i class="fa fa-pencil"></i></a>
+                                                    <br><br><br><br><a title="Retirer cette mesures de votre liste" href="{{ path('mesures_delete', { 'id' : mesure.id }) }}"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="cart_navigation"> <a class="continue-btn" href="{{ path('mesures_new') }}"><i class="fa fa-check"> </i>&nbsp; Ajouter nouvelle mesures</a></div>
+                        <div class="pagination-area ">
+                        </div>
+                            <center>
+                                {{ knp_pagination_render(mesures) }}
+                            </center>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <aside class="right sidebar col-sm-3 col-xs-12">
+        {% include 'FOSUserBundle:Profile:Navigation/menu.html.twig' %}
+        <br><br>
+        {% include 'FOSUserBundle:Profile:Navigation/informations.html.twig' %}
+      </aside>
+    </div>
+  </div>
+  </section>

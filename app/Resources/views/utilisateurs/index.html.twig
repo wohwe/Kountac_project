@@ -1,0 +1,146 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                        <li><strong>Tous les utilisateurs</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End -->
+    
+    <section class="main-container col2-right-layout">
+  <div class="main container">
+    <div class="row">
+      <div class="col-main col-sm-9 col-xs-12">
+        <div class="col-main">
+                <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                            {% if utilisateurs|length != 0 %}
+                                <h2>Liste de tous les utilisateurs Kountac</h2>
+                            {% endif %}
+                        </div>
+                        <div class="order-detail-content">
+                        {% if utilisateurs|length == 0 %}
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td><center><h1>Liste d'utilisateurs vide !! Aucun utilisateur à afficher</h1></center></td>
+                                    </tr>
+                                </table>
+                            </div>  
+                        {% else %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>A propos</th>
+                                            <th>Type compte</th>
+                                            <th>Etat</th>
+                                            <th>Dernière connexion</th>
+                                            <th>Informations marque</th>
+                                            <th  class="action">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for utilisateur in utilisateurs %}
+                                            <tr>
+                                                <td class="action"><a href="{{ path('adminUtilisateurs_show', {'id' : utilisateur.id}) }}"> {{ utilisateur.id }} </a></td>
+                                                <td class="cart_description"><p class="product-name">{% if utilisateur.sexe %}Mme. {% else %}M. {% endif %} 
+                                                    <strong>{% if utilisateur.prenom %} {{ utilisateur.prenom|capitalize }} {% endif %} {{ utilisateur.nom|capitalize }}</strong><br>
+                                                    <small><u>Email:</u> {{ utilisateur.email }}<br>
+                                                           <u>Adresse:</u> {{ utilisateur.adresse|capitalize }}<br>
+                                                           <u>Code postale:</u> {{ utilisateur.cp }}<br>
+                                                           <u>Rue:</u> {{ utilisateur.rue }}<br>
+                                                           <u>Ville:</u> {{ utilisateur.ville|capitalize }}<br>
+                                                           <u>Pays:</u> {{ utilisateur.pays|capitalize }}<br>
+                                                           <u>Mobile:</u> {{ utilisateur.telephone }}<br>
+                                                        {% if utilisateur.telephonefix %}
+                                                            <u>Fixe:</u> {{ utilisateur.telephonefix }}<br>
+                                                        {% endif %}
+                                                           <br>
+                                                    </small>
+                                                </td>
+                                                <td class="availability in-stock">
+                                                    <span class="label">{% if utilisateur.roles[0] == 'ROLE_PRO' %}{{ ('Marque')|upper }} {% if utilisateur.roles[1]  == 'ROLE_ADMIN' %} ({{ ('Administrateur')|upper }}) {% endif %} {% else %} {{ ('Simple')|upper }} {% endif %}</span>
+                                                </td>
+                                                {% if utilisateur.enabled %}
+                                                <td class="availability in-stock">
+                                                    <span class="label">{{ ('Activé')|upper }}</span><br>
+                                                </td>
+                                                {% else %}
+                                                <td class="availability out-of-stock">
+                                                    <span class="label">{{ ('Bloqué')|upper }}</span><br>
+                                                </td>
+                                                {% endif %}
+                                                <td class="action">
+                                                    {{ utilisateur.lastlogin|date('d M Y') }}
+                                                </td>
+                                                {% if utilisateur.marque %}
+                                                <td class="cart_description"><p class="product-name"><a><u>Nom</u>: {{ utilisateur.marque|capitalize }} </a></p><br><br>
+                                                    <small><u>Adresse:</u> {{ utilisateur.adresseentreprise }}<br>
+                                                           <u>Code postale:</u> {{ utilisateur.cpentreprise }}<br>
+                                                           <u>Rue:</u> {{ utilisateur.rueentreprise }}<br>
+                                                           <u>Ville:</u> {{ utilisateur.villeentreprise|capitalize }}<br>
+                                                           <u>Pays:</u> {{ utilisateur.paysentreprise|capitalize }}<br>
+                                                           <u>Mobile:</u> {{ utilisateur.telephoneentreprise }}<br>
+                                                        {% if utilisateur.telephonefixentreprise %}
+                                                            <u>Fixe:</u> {{ utilisateur.telephonefixentreprise }}<br>
+                                                        {% endif %}
+                                                           <br>
+                                                    </small>
+                                                </td>
+                                                {% else %}
+                                                <td class="availability in-stock">
+                                                    <span class="label">{{ ('simple utilisateur')|upper }}</span><br>
+                                                </td>
+                                                {% endif %}
+                                                <td class="action">
+                                                    <a title="Regardez utilisateur" href="{{ path('adminUtilisateurs_show', {'id' : utilisateur.id}) }}"><i class="fa fa-search"></i></a><br>
+                                                    {% if utilisateur.enabled %}
+                                                    <a title="Bloquez compte utilisateur" href="{{ path('adminUtilisateurs_disabled', {'id' : utilisateur.id}) }}"><i class="fa fa-lock"></i></a><br>
+                                                    {% else %}
+                                                    <a title="Débloquez compte utilisateur" href="{{ path('adminUtilisateurs_enabled', {'id' : utilisateur.id}) }}"><i class="fa fa-unlock"></i></a><br>
+                                                    {% endif %}
+                                                    <br><br><a title="Effacez compte utilisateur" href="{{ path('adminUtilisateurs_delete', {'id' : utilisateur.id}) }}"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="pagination-area ">
+                        </div>
+                            <center>
+                                {{ knp_pagination_render(utilisateurs) }}
+                            </center>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <aside class="right sidebar col-sm-3 col-xs-12">
+        {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+        <br><br>
+        {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+      </aside>
+    </div>
+  </div>
+  </section>
+{% endblock %}

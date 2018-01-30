@@ -1,0 +1,5 @@
+<ul id="chat">
+{% for message in messages %} 
+	<div class="user2">{{ message.author }}<div class="u">{{ message.author.id }}</div></div>
+{% endfor %}
+</ul>

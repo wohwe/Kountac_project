@@ -1,0 +1,17 @@
+commande_pro_index:
+    path:     /
+    defaults: { _controller: "UtilisateursBundle:CommandePro:index" }
+    methods:  GET
+    
+commande_pro_show:
+    path:     /{id}_show
+    defaults: { _controller: "UtilisateursBundle:CommandePro:show" }
+    methods:  [GET, POST]
+    
+commande_pro_delete:
+    path:     /{id}_delete
+    defaults: { _controller: "UtilisateursBundle:CommandePro:delete" }
+    
+commande_pro_envoyer:
+    path:     /{id}_envoyer
+    defaults: { _controller: "UtilisateursBundle:CommandePro:envoyer" }

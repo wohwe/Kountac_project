@@ -1,0 +1,385 @@
+<!-- main container -->
+    <div class="main-container col1-layout">
+        <div class="container">
+            <div class="row"> 
+
+                <div class="col-md-3 col-sm-4 col-xs-12">
+                    <div class="jtv-banner-top">
+                        <div class="jtv-banner-box">
+                            <div class=""> <a class="jtv-banner-inner-text">
+                                    <div class="jtv-banner-box-image"> <img src="{{ asset('images/chair-img.png') }}" alt=""> </div>
+                                </a> </div>
+                        </div>
+                        <!-- End jtv-banner-box --> 
+                    </div>
+                </div>
+                <!-- Home Tabs  -->
+                <div class="col-sm-8 col-md-9 col-xs-12">
+                    <div class="home-tab">
+                        <ul class="nav home-nav-tabs home-product-tabs">
+                            <li class="active"><a href="#featured" data-toggle="tab" aria-expanded="false">Meilleures ventes</a></li>
+                            <li> <a href="#top-sellers" data-toggle="tab" aria-expanded="false">Bons plans</a> </li>
+                        </ul>
+                        <div id="productTabContent" class="tab-content">
+
+                            <div class="tab-pane active in" id="featured">
+                                <div class="featured-pro">
+                                    <div class="slider-items-products">
+                                        <div id="featured-slider" class="product-flexslider hidden-buttons">
+                                            <div class="slider-items slider-width-col4">
+
+                                                {% for produit1 in populaires %}
+                                                    {% for produit in produit1.produit2 %}
+                                                    {% if produit.cfaprix %}
+                                                    {% set prixReduction = 0 %}
+                                                    {% set prixReduction = produit.cfaprix - (produit.cfaprix * produit.reduction/100) %}
+                                
+                                                    <div class="product-item">
+                                                        <div class="item-inner">
+                                                            <div class="product-thumb has-hover-img">
+                                                                <figure> 
+                                                                    <center>
+                                                                        <a href="{{ path('product', {'id' : produit.id}) }}">
+                                                                            <img src="{{ produit.picture.AssetPath|imagine_filter('produitThumb') }}" alt="">
+                                                                        </a>
+                                                                        {% if produit.picture.path2 %}
+                                                                        <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                                                            <img src="{{ produit.picture.AssetPath2|imagine_filter('produitThumb') }}" alt="">
+                                                                        </a>
+                                                                        {% endif %}
+                                                                        {% if produit.picture.path3 %}
+                                                                        <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                                                            <img src="{{ produit.picture.AssetPath3|imagine_filter('produitThumb') }}" alt="">
+                                                                        </a>
+                                                                        {% endif %}
+                                                                    </center>
+                                                                </figure>
+                                                                <div class="pr-info-area animated animate4">
+                                                                    <a title="Reserver ce produit" href="{{ path('quickView', {'id' : produit.id}) }}" class="quick-view"><i class="fa fa-save"><span>Reserver</span></i></a> 
+                                                                    <a title="Ajouter à vos souhaits" href="{{ path('quickView', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-heart"><span>Wishlist</span></i></a> 
+                                                                    <a title="Comparer ce produit" href="{{ path('quickView', {'id' : produit.id}) }}" class="compare"><i class="fa fa-exchange"><span>Compare</span></i></a> 
+                                                                    {% if produit.cfaprixCommande %}
+                                                                        <a title="Commander sur mesure, prix pour une commande sur mesure : {{ produit.cfaprixCommande|number_format(2) }} F CFA" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-pencil"><span>Commander sur mesure</span></i></a> 
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-info">
+                                                                <div class="info-inner">
+                                                                    <div class="item-title"> <a title="{{ produit.produit1.nom|capitalize }} - {{ produit.libelle|capitalize }}" href="{{ path('product', {'id' : produit.id}) }}">{{ produit.produit1.nom|capitalize }}-{{ produit.libelle|capitalize }}</a> </div>
+                                                                    <div class="item-content">
+                                                                        <div class="item-price">
+                                                                            {% if produit.reduction == 0 %}
+                                                                                <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </span> </div>
+                                                                            {% else %}
+                                                                            <div class="price-box">
+                                                                                <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </p>
+                                                                                <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.cfaprix|number_format(2) }} F CFA</span> </p>
+                                                                            </div>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <center>
+                                                                            <div class="language-currency-wrapper left">
+                                                                                <div class="inner-cl">
+                                                                                    <div class="block block-language form-language ">
+                                                                                      <div class="myaccount">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="{{ path('espace_marque', {'id' : produit.id}) }}" title="Aller à la marque {{ produit.produit1.marque.marque|capitalize }}"><img src="{{ produit.produit1.marque.image.AssetPath|imagine_filter('marqueLogoThumb') }}" alt="">&nbsp;&nbsp;&nbsp;<span class="hidden-xs"> {{ produit.produit1.marque.marque|capitalize }}</span></a></div>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <strong><a title="Voir tous les produits de la marque {{ produit.produit1.marque.marque|capitalize }}" href="{{ path('espace_marque', {'id' : produit.id}) }}"><span class="hidden-xs">{{ produit.produit1.marque.marque|capitalize }}</span></a></strong>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </center>
+                                                                        <div class="pro-action">
+                                                                            <a href="{{ path('quickView', {'id' : produit.id}) }}">
+                                                                                <button type="button" class="add-to-cart-mt"> <i class="fa fa-shopping-cart"></i><span> Ajouter au panier</span> </button>
+                                                                            </a>                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% endfor %} 
+                                                {% endfor %} 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="tab-pane fade" id="top-sellers">
+                                <div class="top-sellers-pro">
+                                    <div class="slider-items-products">
+                                        <div id="top-sellers-slider" class="product-flexslider hidden-buttons">
+                                            <div class="slider-items slider-width-col4">
+
+                                                {% for produit in reductions %}
+                                                    {% if produit.cfaprix %}
+                                                    {% set prixReduction = 0 %}
+                                                    {% set prixReduction = produit.cfaprix - (produit.cfaprix * produit.reduction/100) %}
+                                
+                                                    <div class="product-item">
+                                                        <div class="item-inner">
+                                                            <div class="product-thumb has-hover-img">
+                                                                <figure> 
+                                                                    <center>
+                                                                        <a href="{{ path('product', {'id' : produit.id}) }}">
+                                                                            <img src="{{ produit.picture.AssetPath|imagine_filter('produitThumb') }}" alt="">
+                                                                        </a>
+                                                                        {% if produit.picture.path2 %}
+                                                                        <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                                                            <img src="{{ produit.picture.AssetPath2|imagine_filter('produitThumb') }}" alt="">
+                                                                        </a>
+                                                                        {% endif %}
+                                                                        {% if produit.picture.path3 %}
+                                                                        <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                                                            <img src="{{ produit.picture.AssetPath3|imagine_filter('produitThumb') }}" alt="">
+                                                                        </a>
+                                                                        {% endif %}
+                                                                    </center>
+                                                                </figure>
+                                                                <div class="pr-info-area animated animate4">
+                                                                    <a title="Reserver ce produit" href="{{ path('quickView', {'id' : produit.id}) }}" class="quick-view"><i class="fa fa-save"><span>Reserver</span></i></a> 
+                                                                    <a title="Ajouter à vos souhaits" href="{{ path('quickView', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-heart"><span>Wishlist</span></i></a> 
+                                                                    <a title="Comparer ce produit" href="{{ path('quickView', {'id' : produit.id}) }}" class="compare"><i class="fa fa-exchange"><span>Compare</span></i></a> 
+                                                                    {% if produit.cfaprixCommande %}
+                                                                        <a title="Commander sur mesure, prix pour une commande sur mesure : {{ produit.cfaprixCommande|number_format(2) }} F CFA" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-pencil"><span>Commander sur mesure</span></i></a> 
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                                
+                                                            <div class="item-info">
+                                                                <div class="info-inner">
+                                                                    
+                                                                    <div class="item-title"> <a title="{{ produit.produit1.nom|capitalize }} - {{ produit.libelle|capitalize }}" href="{{ path('product', {'id' : produit.id}) }}">{{ produit.produit1.nom|capitalize }}-{{ produit.libelle|capitalize }}</a> </div>
+                                                                    <div class="item-content">
+                                                                        <div class="item-price">
+                                                                            {% if produit.reduction == 0 %}
+                                                                                <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </span> </div>
+                                                                            {% else %}
+                                                                            <div class="price-box">
+                                                                                <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </p>
+                                                                                <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.cfaprix|number_format(2) }} F CFA</span> </p>
+                                                                            </div>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <center>
+                                                                            <div class="language-currency-wrapper left">
+                                                                                <div class="inner-cl">
+                                                                                    <div class="block block-language form-language ">
+                                                                                        <div class="myaccount">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="{{ path('espace_marque', {'id' : produit.id}) }}" title="Aller à la marque {{ produit.produit1.marque.marque|capitalize }}"><img src="{{ produit.produit1.marque.image.AssetPath|imagine_filter('marqueLogoThumb') }}" alt="">&nbsp;&nbsp;&nbsp;<span class="hidden-xs"> {{ produit.produit1.marque.marque|capitalize }}</span></a></div>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <strong><a title="Voir tous les produits de la marque {{ produit.produit1.marque.marque|capitalize }}" href="{{ path('espace_marque', {'id' : produit.id}) }}"><span class="hidden-xs">{{ produit.produit1.marque.marque|capitalize }}</span></a></strong>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </center>
+                                                                        <div class="pro-action">
+                                                                            <a href="{{ path('quickView', {'id' : produit.id}) }}">
+                                                                                <button type="button" class="add-to-cart-mt"> <i class="fa fa-shopping-cart"></i><span> Ajouter au panier</span> </button>
+                                                                            </a>                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end main container -->
+    <div class="container">
+    </div>
+
+    <!--special-products-->
+    <br>
+    <div class="container">
+        <div class="special-products">
+            <div class="page-header">
+                <h2>nouveautes</h2>
+            </div>
+            <div class="special-products-pro">
+                <div class="slider-items-products">
+                    <div id="special-products-slider" class="product-flexslider hidden-buttons">
+                        <div class="slider-items slider-width-col4">
+
+                            {% for produit1 in nouveaux %}
+                                {% for produit in produit1.produit2 %}
+                                    {% if produit.cfaprix %}
+                                    {% set prixReduction = 0 %}
+                                    {% set prixReduction = produit.cfaprix - (produit.cfaprix * produit.reduction/100) %}
+
+                                    <div class="product-item">
+                                        <div class="item-inner">
+                                            <div class="product-thumb has-hover-img">
+                                                <figure> 
+                                                    <center>
+                                                        <a href="{{ path('product', {'id' : produit.id}) }}">
+                                                            <img src="{{ produit.picture.AssetPath|imagine_filter('produitThumb') }}" alt="">
+                                                        </a>
+                                                        {% if produit.picture.path2 %}
+                                                        <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                                            <img src="{{ produit.picture.AssetPath2|imagine_filter('produitThumb') }}" alt="">
+                                                        </a>
+                                                        {% endif %}
+                                                        {% if produit.picture.path3 %}
+                                                        <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                                            <img src="{{ produit.picture.AssetPath3|imagine_filter('produitThumb') }}" alt="">
+                                                        </a>
+                                                        {% endif %}
+                                                    </center>
+                                                </figure>
+                                                <div class="pr-info-area animated animate4">
+                                                    <a title="Reserver ce produit" href="{{ path('quickView', {'id' : produit.id}) }}" class="quick-view"><i class="fa fa-save"><span>Reserver</span></i></a> 
+                                                    <a title="Ajouter à vos souhaits" href="{{ path('quickView', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-heart"><span>Wishlist</span></i></a> 
+                                                    <a title="Comparer ce produit" href="{{ path('quickView', {'id' : produit.id}) }}" class="compare"><i class="fa fa-exchange"><span>Compare</span></i></a> 
+                                                    {% if produit.cfaprixCommande %}
+                                                        <a title="Commander sur mesure, prix pour une commande sur mesure : {{ produit.cfaprixCommande|number_format(2) }} F CFA" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-pencil"><span>Commander sur mesure</span></i></a> 
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="item-info">
+                                                <div class="info-inner">
+                                                    <div class="item-title"> <a title="{{ produit.produit1.nom|capitalize }} - {{ produit.libelle|capitalize }}" href="{{ path('product', {'id' : produit.id}) }}">{{ produit.produit1.nom|capitalize }}-{{ produit.libelle|capitalize }}</a> </div>
+                                                    <div class="item-content">
+                                                        <div class="item-price">
+                                                            {% if produit.reduction == 0 %}
+                                                                <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </span> </div>
+                                                            {% else %}
+                                                            <div class="price-box">
+                                                                <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </p>
+                                                                <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.cfaprix|number_format(2) }} F CFA</span> </p>
+                                                            </div>
+                                                            {% endif %}
+                                                        </div>
+                                                        <center>
+                                                            <div class="language-currency-wrapper left">
+                                                                <div class="inner-cl">
+                                                                    <div class="block block-language form-language ">
+                                                                           <div class="myaccount">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="{{ path('espace_marque', {'id' : produit.id}) }}" title="Aller à la marque {{ produit.produit1.marque.marque|capitalize }}"><img src="{{ produit.produit1.marque.image.AssetPath|imagine_filter('marqueLogoThumb') }}" alt="">&nbsp;&nbsp;&nbsp;<span class="hidden-xs"> {{ produit.produit1.marque.marque|capitalize }}</span></a></div>
+                                                                        <ul>
+                                                                            <li>
+                                                                                <strong><a title="Voir tous les produits de la marque {{ produit.produit1.marque.marque|capitalize }}" href="{{ path('espace_marque', {'id' : produit.id}) }}"><span class="hidden-xs">{{ produit.produit1.marque.marque|capitalize }}</span></a></strong>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </center>
+                                                        <div class="pro-action">
+                                                            <a href="{{ path('quickView', {'id' : produit.id}) }}">
+                                                                <button type="button" class="add-to-cart-mt"> <i class="fa fa-shopping-cart"></i><span> Ajouter au panier</span> </button>
+                                                            </a>                                                                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                            {% endfor %}  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row"> 
+        </div>
+    </div>
+    <br>
+    <!-- category area start -->
+    <div class="jtv-category-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-12">
+                    <div class="jtv-single-cat">
+                        <div class="page-header">
+                            <h2>Dernières ventes</h2>
+                        </div>
+
+                        {% for produit1 in dernieresVentes %}
+                            {% for produit in produit1.produit2 %}
+                                {% if produit.cfaprix %}
+                            {% set prixReduction = 0 %}
+                            {% set prixReduction = produit.cfaprix - (produit.cfaprix * produit.reduction/100) %}
+                            <div class="jtv-product">
+                                <div class="product-img"> 
+                                    <a href="{{ path('product', {'id' : produit.id}) }}">
+                                        <img src="{{ produit.picture.AssetPath|imagine_filter('produitLastThumb') }}" alt="">
+                                    </a>
+                                    {% if produit.picture.path2 %}
+                                    <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                        <img class="secondary-img" src="{{ produit.picture.AssetPath2|imagine_filter('produitLastThumb') }}" alt="">
+                                    </a> 
+                                    {% endif %}
+                                    {% if produit.picture.path3 %}
+                                    <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                        <img class="secondary-img" src="{{ produit.picture.AssetPath3|imagine_filter('produitLastThumb') }}" alt="">
+                                    </a> 
+                                    {% endif %}
+                                </div>
+                                <div class="jtv-product-content">
+                                    <h3><a href="{{ path('product', {'id' : produit.id}) }}">{{ produit.produit1.nom|capitalize }} - {{ produit.libelle.libelle|capitalize }}</a></h3>
+                                    {% if produit.reduction == 0 %}
+                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </span> </div>
+                                    {% else %}
+                                    <div class="price-box">
+                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </p>
+                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.cfaprix|number_format(2) }} F CFA</span> </p>
+                                    </div>
+                                    {% endif %}
+                                    <div class="jtv-product-action">
+                                        <div class="jtv-extra-link">
+                                            <a title="Ajouter à votre panier" href="{{ path('quickView', {'id' : produit.id}) }}"><i class="fa fa-shopping-cart"></i></a>
+                                            <a title="Reserver ce produit" href="{{ path('quickView', {'id' : produit.id}) }}"><i class="fa fa-save"></i></a> 
+                                            <a title="Ajouter à vos souhaits" href="{{ path('quickView', {'id' : produit.id}) }}"><i class="fa fa-heart"></i></a>
+                                            {% if produit.cfaprixCommande %}
+                                                <a title="Commander sur mesure, prix pour une commande sur mesure : {{ produit.cfaprixCommande|number_format(2) }} F CFA" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}"><i class="fa fa-pencil"></i></a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- banner -->
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="jtv-banner">
+                        <div class="upper">
+                            <div class="jtv-subbanner1"><a><img class="img-respo" alt="jtv-subbanner1" src="images/banner4.jpg"></a>
+                            </div>
+                            <div class="jtv-subbanner2"><a><img class="img-respo" alt="jtv-subbanner2" src="images/banner5.jpg"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- category-area end --> 
+    <div class="container">
+    </div>
+</div>

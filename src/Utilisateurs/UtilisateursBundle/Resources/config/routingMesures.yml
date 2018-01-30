@@ -1,0 +1,18 @@
+mesures_index:
+    path:     /
+    defaults: { _controller: "UtilisateursBundle:Mesures:index" }
+    methods:  GET
+
+mesures_new:
+    path:     /new
+    defaults: { _controller: "UtilisateursBundle:Mesures:new" }
+    methods:  [GET, POST]
+
+mesures_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UtilisateursBundle:Mesures:edit" }
+    methods:  [GET, POST]
+
+mesures_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UtilisateursBundle:Mesures:delete" }

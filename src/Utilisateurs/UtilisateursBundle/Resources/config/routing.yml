@@ -1,0 +1,35 @@
+kountac_commande:
+    resource: "@UtilisateursBundle/Resources/config/routingCommande.yml"
+    prefix:   /profile/Commande/
+    
+kountac_mesures:
+    resource: "@UtilisateursBundle/Resources/config/routingMesures.yml"
+    prefix:   /profile/Mesures/
+
+kountac_achat:
+    resource: "@UtilisateursBundle/Resources/config/routingAchat.yml"
+    prefix:   /profile/achat/
+
+kountac_commande_item:
+    resource: "@UtilisateursBundle/Resources/config/routingCommandeItem.yml"
+    prefix:   /profile/Command_item/
+    
+kountac_commande_pro:
+    resource: "@UtilisateursBundle/Resources/config/routingCommandePro.yml"
+    prefix:   /profile_pro/Command/
+    
+kountac_produit_pro:
+    resource: "@UtilisateursBundle/Resources/config/routingProduitPro.yml"
+    prefix:   /profile_pro/Product/
+    
+kountac_reservation_pro:
+    resource: "@UtilisateursBundle/Resources/config/routingReservationPro.yml"
+    prefix:   /profile_pro/Reservations/
+    
+kountac_checkout:
+    resource: "@UtilisateursBundle/Resources/config/routingCheckout.yml"
+    prefix:   /profile/checkout/
+    
+kountac_adminUtilisateurs:
+    resource: "@UtilisateursBundle/Resources/config/routingAdmin/utilisateurs.yml"
+    prefix:   /admin/adminUtilisateurs/

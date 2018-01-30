@@ -1,0 +1,41 @@
+<div class="sidebar-checkout block">
+    <div class="sidebar-bar-title">
+        &nbsp;&nbsp;<h3>MENU</h3>
+    </div><br>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Produits</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_stock_epuise') }}" class="alert-danger"><i class="icon-info"></i> Stock épuisé </a></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_index') }}"><i class="fa fa-angle-right"></i> Tous mes produits</a></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_sale') }}"><i class="fa fa-angle-right"></i> Produits achetés</a></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_new_1') }}"><i class="fa fa-angle-right"></i> Ajouter </a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Commandes</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a href="{{ path('commande_pro_index')}}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Toutes mes commandes </a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Réservations</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a href="{{ path('reservation_pro_all')}}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Toutes les reservations</a></li>
+            <li><a href="{{ path('reservation_pro_index')}}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Mes produits réservés</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Messages</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li><a title="lisez vos messages">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-envelope"></i><span class="user1"> Tous mes messages (2)<div class="msg"></div></span></a></li>
+          </ul>
+        </div>
+      </div>
+</div>

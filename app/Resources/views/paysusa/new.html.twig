@@ -1,0 +1,68 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Voir tous les pays de la zone Amérique USD ($)" href="{{ path('adminPaysUsa_index')}}">Pays zone Amérique USD ($)</a><span>&raquo;</span></li>
+                        <li><strong>Nouveau pays zone Amérique USD ($)</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End -->
+    <section class="main-container col2-right-layout">
+        <div class="main container">
+            <div class="row">
+                <div class="col-main col-sm-9 col-xs-12">
+                    <div class="page-content checkout-page">
+                        <div class="page-title">
+                            <h2 class="checkout-step">Ajout d'un pays de la zone Amérique USD ($)</h2>
+                        </div>
+
+                        {{ form_start(form) }}
+
+                        <div class="box-border">
+                            <ul>
+                                <li class="row">
+                                    <div class="col-sm-6">
+                                        {{ form_row(form.nom) }}
+                                    </div><!--/ [col] -->
+                                </li>
+                                <br>
+                                <li>
+                                    <button class="button" type="submit"><i class="icon-check"></i>&nbsp; <span>Ajouter</span></button>
+                                </li>
+                                <br><br>
+                                <li>
+                                    <a title="Voir la liste de tous les pays de la zone Amérique USD ($)" href="{{ path('adminPaysUsa_index') }}"><i class="fa fa-backward"></i>&nbsp;&nbsp; <strong>Tous les pays de la zone Amérique USD ($)</strong></a><br>                                
+                                </li>
+                            </ul>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                <aside class="right sidebar col-sm-3 col-xs-12">
+                    {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+                    <br><br>
+                    {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+                </aside>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

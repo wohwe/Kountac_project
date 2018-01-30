@@ -1,0 +1,187 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Voir tous les produits" href="{{ path('adminProduits_index')}}">Tous les produits</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Ajouter un nouveau produit" href="{{ path('adminProduits_new')}}">Nouveau produit</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Ajouter un nouveau motif" href="{{ path('adminProduits_new2', { 'id' : produit_2.produit1.id }) }}">Nouveau motif</a><span>&raquo;</span></li>
+                    <li><strong>Ajouter des tailles au produit {{ produit_2.produit1.nom|capitalize }} - {{ produit_2.libelle.libelle }}</strong></li>
+                </ul>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert-box">
+                        <br><br>
+                        {{ flashMessage }}
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-6 col-xs-12">
+                <div class="page-content checkout-page">
+                    <div class="page-title">
+                        <h2 class="checkout-step">Taille(s) de "{{ produit_2.produit1.nom|capitalize }} - {{ produit_2.libelle.libelle }}"</h2>
+                    </div>
+                    <form action="{{ path('adminProduits_new3', { 'id' : produit_2.id }) }}" method="POST">
+                    <div class="box-border">
+                        <ul>
+                            <li class="row">
+                                <div class="col-sm-12">
+                                    <table>
+                                        <tr>
+                                            <td class="col-sm-3">
+                                                <div class="size">
+                                                    <ul>
+                                                        <li><a>XS</a></li><br><br><br>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="cart-plus-minus">
+                                                    <div class="numbers-row">
+                                                        <select name="stock_xs" class="select form-control">
+                                                            {% for i in 0 .. 15 %}
+                                                                <option value="{{ i }}">{{ i }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-3">
+                                                <div class="size">
+                                                    <ul>
+                                                        <li><a>S</a></li><br><br><br>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="cart-plus-minus">
+                                                    <div class="numbers-row">
+                                                        <select name="stock_s" class="select form-control">
+                                                            {% for i in 0 .. 15 %}
+                                                                <option value="{{ i }}">{{ i }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-3">
+                                                <div class="size">
+                                                    <ul>
+                                                        <li><a>L</a></li><br><br><br>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="cart-plus-minus">
+                                                    <div class="numbers-row">
+                                                        <select name="stock_l" class="select form-control">
+                                                            {% for i in 0 .. 15 %}
+                                                                <option value="{{ i }}">{{ i }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-3">
+                                                <div class="size">
+                                                    <ul>
+                                                        <li><a>M</a></li><br><br><br>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="cart-plus-minus">
+                                                    <div class="numbers-row">
+                                                        <select name="stock_m" class="select form-control">
+                                                            {% for i in 0 .. 15 %}
+                                                                <option value="{{ i }}">{{ i }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-3">
+                                                <div class="size">
+                                                    <ul>
+                                                        <li><a>XL</a></li><br><br><br>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="cart-plus-minus">
+                                                    <div class="numbers-row">
+                                                        <select name="stock_xl" class="select form-control">
+                                                            {% for i in 0 .. 15 %}
+                                                                <option value="{{ i }}">{{ i }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-3">
+                                                <div class="size">
+                                                    <ul>
+                                                        <li><a>XXL</a></li><br><br><br>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="cart-plus-minus">
+                                                    <div class="numbers-row">
+                                                        <select name="stock_xxl" class="select form-control">
+                                                            {% for i in 0 .. 15 %}
+                                                                <option value="{{ i }}">{{ i }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>                                
+                            </li>
+                            <br>
+                            <li>
+                                <button class="button pull-right" type="submit"><i class="fa fa-bookmark"></i>&nbsp; &nbsp;<span>Ajouter un nouveau motif </span></button>
+                            </li>
+                        </ul>
+                    </div>
+                   </form>
+                   <a href="{{ path('adminProduits_new_resume', { 'id' : produit_2.produit1.id }) }}"><button class="button pull-left">&nbsp;<span>Terminer</span>&nbsp; &nbsp;<i class="fa fa-check"></i></button></a><br><br>
+                </div>
+            </div>
+        <aside class="right sidebar col-sm-3 col-xs-12">
+            {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+            <br><br>
+            {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+        </aside>
+        </div>
+        
+    </div>
+</div>
+</section>
+{% endblock %}

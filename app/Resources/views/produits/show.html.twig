@@ -1,0 +1,272 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Voir tous les produits" href="{{ path('adminProduits_index')}}">Tous les produits</a><span>&raquo;</span></li>
+                        <li><strong>Détails produit</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Container -->
+<section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-9 col-xs-12">
+                <div class="col-main">
+                    <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                                <h2>Détails produit: {{ produit.nom|capitalize }}</h2>
+                            </div>
+
+                            <div class="order-detail-content">
+                                <div class="table-responsive">
+
+                                    <table class="table table-bordered table-compare">
+                                        <tr>
+                                            <td class="compare-label">Aperçu</td>
+                                            <td>
+                                                <div class="col-sm-6">
+                                                    <img src="{{ produit.picture.AssetPath|imagine_filter('commandeThumb') }}" alt="">
+                                                </div>
+                                                {% if produit.picture.path2 %}
+                                                    <div class="col-sm-6">
+                                                        <img src="{{ produit.picture.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Nom</td>
+                                            <td><a>{{ produit.nom|capitalize }}</a></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Ajouté le</td>
+                                            <td><a>{% if produit.dateajout %}{{ produit.dateajout|date('d-m-Y') }}{% endif %}</a></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Propriétaire</td>
+                                            <td><strong><a href="">{{ produit.marque }}</a></strong></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Description</td>
+                                            <td>{{ produit.description|capitalize }}.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Disponible en Europe ?</td>
+                                            <td><strong>{% if produit.euro %}Oui{% else %}Non{% endif %}</strong></td>
+                                        </tr>
+                                        {% if produit.euro %}
+                                        <tr>
+                                            <td class="compare-label">Pays d'Europe:</td>
+                                            <td>{{ produit.euro.pays|join(', ') }}</td>
+                                        </tr>
+                                        {% set prixReduction = 0 %}
+                                        {% set prixReduction = produit.euro.prix - (produit.euro.prix * produit.reduction/100) %}
+                                        <tr>
+                                            <td class="compare-label">Prix (€)</td>
+                                            <td class="price">
+                                                {% if produit.reduction == 0 %}
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} €</span> </span> </div>
+                                                {% else %}
+                                                    <div class="price-box">
+                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} €</span> </p>
+                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"><br><br>{{ produit.euro.prix|number_format(2) }} €</span> </p>
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% if produit.euro.prixCommande %}
+                                            <tr>
+                                                <td class="compare-label">Prix commande (€)</td>
+                                                <td class="price">{{ produit.euro.prixCommande|number_format(2) }} €</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td class="compare-label">Commande sur mesure</td>
+                                                <td class="availability out-of-stock">
+                                                    <form action="{{ path('adminProduits_show', { 'id' : produit.id }) }}" method="POST">
+                                                        {{ form_start(form) }}
+                                                        {{ form_errors(form) }}
+                                                        <div class="col-sm-4">
+                                                           <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                        </div>
+                                                        {% if produit.marque == user %}
+                                                        <div class="col-sm-4">
+                                                            {{ form_widget(form) }}                                                   
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <br>
+                                                            <a href ="" title='Pour accepter cette commande, entrez le prix pour cette commande en €'> 
+                                                                <button type="submit"><i class="fa fa-check"> </i>&nbsp; Ajoutez prix commande &nbsp;</button>
+                                                            </a>
+                                                        </div>
+                                                        {% endif %}
+                                                        {{ form_end(form) }}
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                        {% endif %}
+                                        <tr>
+                                            <td class="compare-label">Disponible en Afrique ?</td>
+                                            <td><strong>{% if produit.cfa %}Oui{% else %}Non{% endif %}</strong></td>
+                                        </tr>
+                                        {% if produit.cfa %}
+                                        <tr>
+                                            <td class="compare-label">Pays d'Afrique:</td>
+                                            <td>{{ produit.cfa.pays|join(', ') }}.</td>
+                                        </tr>
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit.cfa.prix - (produit.cfa.prix * produit.reduction/100) %}
+                                        <tr>
+                                            <td class="compare-label">Prix (F CFA)</td>
+                                            <td class="price">
+                                                {% if produit.reduction == 0 %}
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </span> </div>
+                                                {% else %}
+                                                    <div class="price-box">
+                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </p>
+                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"><br><br>{{ produit.cfa.prix|number_format(2) }} F CFA</span> </p>
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% if produit.cfa.prixCommande %}
+                                            <tr>
+                                                <td class="compare-label">Prix commande (F CFA)</td>
+                                                <td class="price">{{ produit.cfa.prixCommande|number_format(2) }} F CFA</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td class="compare-label">Commande sur mesure</td>
+                                                <td class="availability out-of-stock">
+                                                    <form action="{{ path('adminProduits_add_prix_commande_cfa', { 'id' : produit.id }) }}" method="POST">
+                                                        {{ form_start(form) }}
+                                                        {{ form_errors(form) }}
+                                                        <div class="col-sm-4">
+                                                           <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                        </div>
+                                                        {% if produit.marque == user %}
+                                                        <div class="col-sm-4">
+                                                            {{ form_widget(form) }}                                                   
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <br>
+                                                            <a href ="" title='Pour accepter cette commande, entrez le prix pour cette commande en F CFA'> 
+                                                                <button type="submit"><i class="fa fa-check"> </i>&nbsp; Ajoutez prix commande &nbsp;</button>
+                                                            </a>
+                                                        </div>
+                                                        {% endif %}
+                                                        {{ form_end(form) }}
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% if produit.stock <= 2 %}
+                                        <tr>
+                                            <td class="compare-label">Stock</td>
+                                            <td class="availability out-of-stock">
+                                                
+                                                {% if produit.marque == user %}
+                                                     <form action="{{ path('adminProduits_add_stock', { 'id' : produit.id }) }}" method="POST">
+                                                        {{ form_start(form_stock) }}
+                                                        {{ form_errors(form_stock) }}
+                                                    <div class="col-sm-4">
+                                                        <br><span class="label">{{ produit.stock }}</span>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        {{ form_widget(form_stock) }}                                                   
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <br>
+                                                        <a href ="" title='Pour accepter cette commande, entrez le prix pour cette commande'> 
+                                                            <button type="submit"><i class="fa fa-check"> </i>&nbsp; Changez votre stock &nbsp;</button>
+                                                        </a>
+                                                    </div>
+                                                        {{ form_end(form_stock) }}
+                                                    </form>
+                                                {% else %}
+                                                    <div class="col-sm-4">
+                                                        <span class="label">{{ produit.stock }}</span>
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% else %}
+                                        <tr>
+                                            <td class="compare-label">Stock</td>
+                                            <td class="availability in-stock">
+                                                <div class="col-sm-4">
+                                                    <span class="label">{{ produit.stock }}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td class="compare-label">Matière</td>
+                                            <td>{{ produit.matiere|capitalize }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Taille</td>
+                                            <td>{{ produit.taille|upper }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Etat</td>
+                                            <td>{% if produit.etat %} Neuf {% else %} Occasion{% endif %}</td>
+                                        </tr>
+                                        {% if produit.dateupdate %}
+                                        <tr>
+                                            <td class="compare-label">Modifié le</td>
+                                            <td><a>{{ produit.dateupdate|date('d-m-Y') }}</a></td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if produit.dateachat %}
+                                        <tr>
+                                            <td class="compare-label">Dernier achat</td>
+                                            <td>{{ produit.dateachat|date('d-m-Y') }}</td>
+                                        </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td class="action">
+                                                <a title="Voir la liste de tous vos produits" href="{{ path('adminProduits_index') }}"><button class="add-cart button button-sm"><i class="fa fa-backward"></i></button>&nbsp;&nbsp; <strong>Tous les produits</strong></a><br>
+                                                {% if user == produit.marque %}
+                                                <a title="Modifiez le produit {{ produit.nom|capitalize }}" href="{{ path('adminProduits_edit', { 'id' : produit.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp; <strong>Modifiez</strong></a><br>
+                                                <br><br><a title="Retirez le produit {{ produit.nom|capitalize }}" href="{{ path('adminProduits_delete', { 'id' : produit.id }) }}"><button class="button button-sm"><i class="fa fa-trash"></i></button>&nbsp;&nbsp; <strong>Effacez</strong></a></td>
+                                                {% endif %}
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <aside class="right sidebar col-sm-3 col-xs-12">
+                {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+                <br><br>
+                {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,9 @@
+reservation_pro_all:
+    path:     /all
+    defaults: { _controller: "UtilisateursBundle:ReservationsPro:all" }
+    methods:  GET
+
+reservation_pro_index:
+    path:     /
+    defaults: { _controller: "UtilisateursBundle:ReservationsPro:index" }
+    methods:  [GET, POST]

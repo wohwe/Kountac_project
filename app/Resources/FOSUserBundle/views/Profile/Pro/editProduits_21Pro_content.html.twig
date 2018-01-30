@@ -1,0 +1,210 @@
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Aller à mon profil professionnel" href="{{ path('pro_user_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Voir tous mes produits" href="{{ path('produit_pro_index')}}">Mes produits</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Ajouter un nouveau produit" href="{{ path('produit_pro_new_1')}}">Nouveau produit</a><span>&raquo;</span></li>
+                    <li><strong>Nouveau motif</strong></li>
+                </ul>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert-box">
+                        <br><br>
+                        {{ flashMessage }}
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-9 col-xs-12">
+                <div class="page-content checkout-page">
+                    <div class="page-title">
+                        <h2 class="checkout-step">Modification de motif ({{ produit2.produit1.nom|capitalize }}) (2/3)</h2>
+                    </div>
+                    
+                    <div class="box-border">
+                        <ul>
+                            <li class="row">
+                                <div class="col-sm-2">
+                                </div>
+                                {{ form_start(form) }}
+                                <div class="col-sm-3">
+                                    {{ form_row(form.libelle) }}
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="top-cart-contain">
+                                        <div class="mini-cart">
+                                            <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"> 
+                                                <a href>
+                                                    <div class="cart-icon">&nbsp; Voir motifs</div>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <div class="top-cart-content">
+                                                    <div class="block-subtitle hidden-xs"></div>
+                                                    <ul id="cart-sidebar" class="mini-products-list">
+                                                        {% for libelle in libelles %}
+                                                            <li class="item last odd"> 
+                                                                <a title="{{ libelle.libelle|capitalize }}" class="product-image">
+                                                                    <img src="{{ libelle.AssetPath|imagine_filter('cartThumbMenuItem') }}" alt="">
+                                                                </a>
+                                                                <div class="product-details">
+                                                                    <p class="product-name">
+                                                                        <a>{{ libelle.libelle|capitalize }}</a> 
+                                                                    </p>
+                                                            </li>
+                                                        {% endfor %}
+
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-2">
+                                    {{ form_row(form.etat) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.reduction) }}
+                                </div><!--/ [col] -->
+                                
+                            </li>
+                            <br><br>
+                            <label> Image(s) du motif:</label>
+                            <li class="row">
+                                
+                                <div class="col-sm-4">
+                                    <label class="required">Première image*</label>
+                                    {{ form_widget(form.picture.file) }}
+                                    <br><img src="{{ produit2.picture.AssetPath|imagine_filter('commandeThumb') }}" alt="">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="required">Seconde image</label>
+                                    {{ form_widget(form.picture.file2) }}
+                                    {% if produit2.picture.path2 %}<br><img src="{{ produit2.picture.AssetPath2|imagine_filter('commandeThumb') }}" alt="">{% endif %}
+                                </div><!--/ [col] -->
+                                <div class="col-sm-4">
+                                    <label class="required">Troisième image</label>
+                                    {{ form_widget(form.picture.file3) }}
+                                    {% if produit2.picture.path3 %}<br><img src="{{ produit2.picture.AssetPath3|imagine_filter('commandeThumb') }}" alt="">{% endif %}
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <br>
+                            <h3 class="checkout-step">Vendez dans la zone € (Europe)</h3>
+                            <br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.europrix) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.europrixCommande) }}
+                                </div>
+                                <label>Pays d'Europe</label>
+                                <div class="col-sm-6">
+                                    {% for i in produit2.europays %}
+                                        {{ i }}<br>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <h3 class="checkout-step">Vendez dans la zone £ (Royaume uni)</h3>
+                            <br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.livreprix) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.livreprixCommande) }}
+                                </div>
+                                <label>Pays du Royaume Uni</label>
+                                <div class="col-sm-6">
+                                    {% for i in produit2.livrepays %}
+                                        {{ i }}<br>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <h3 class="checkout-step">Vendez dans la zone $ (Amériques)</h3>
+                            <br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.usaprix) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.usaprixCommande) }}
+                                </div>
+                                <label>Pays d'Amérique</label>
+                                <div class="col-sm-6">
+                                    {% for i in produit2.usapays %}
+                                        {{ i }}<br>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <h3 class="checkout-step">Vendez dans la zone CFA (Afrique)</h3>
+                            <br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.cfaprix) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.cfaprixCommande) }}
+                                </div>
+                                <label>Pays d'Afrique</label>
+                                <div class="col-sm-6">
+                                    {% for i in produit2.cfapays %}
+                                        {{ i }}<br>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <br>
+                            <br>
+                            <h3 class="checkout-step">Vendez au Nigéria (Afrique)</h3>
+                            <br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.nairaprix) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.nairaprixCommande) }}
+                                </div>
+                            </li>
+                            <br>
+                            <li>
+                                <button class="button pull-right" type="submit"><i class="fa fa-angle-double-right"></i>&nbsp; &nbsp;<span>Continuer</span></button>
+                            </li>
+                        </ul>
+                        {{ form_end(form) }}
+                    </div>
+                    
+                    <a href=""><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; &nbsp;<span>Annuler</span></button></a>
+                </div>
+            </div>
+        <aside class="right sidebar col-sm-3 col-xs-12">
+            {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
+            <br><br>
+            {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+        </aside>
+        </div>
+        
+    </div>
+</div>
+</section>
+
