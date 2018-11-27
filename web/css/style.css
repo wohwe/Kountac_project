@@ -334,7 +334,7 @@ input:focus {
 .modal-dialog.newsletter-popup {
 	background: rgba(0, 0, 0, 0) url("../images/newsletter.jpg") repeat scroll 0 0;
 	width: 450px;
-	height: 350px;
+	height: 470px;
 	margin-top: 12%;
 	border-radius: 10px;
 	background-color: #f8f8f8;
@@ -417,6 +417,35 @@ input:focus {
 	background: #334141;
 	color: #fff;
 }
+
+.rating {
+	font-size: 11px;
+	line-height: 36px;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: #000;
+}
+.rating input {
+	position: absolute;
+	left: -9999px;
+}
+.rating label {
+	display: block;
+	float: right;
+	height: 18px;
+	margin-top: 8px;
+	padding: 0 1px;
+	font-size: 18px;
+	line-height: 18px;
+	color: #939393;
+	cursor: pointer;
+}
+.rating input + label:hover,
+.rating input + label:hover ~ label,
+.rating input:checked ~ label {
+	color: #c40303;
+}
+
 .subscribe-bottom {
 	color: #eee;
 	display: block;
@@ -899,16 +928,16 @@ select.cate-dropdown {
 /*4.5 Logo */
 .logo {
 	vertical-align: middle;
-	margin-top: 30px;
+	margin-top: 15px;
 	text-align: left;
 	display: inline-block;
-	margin-bottom: 30px
+	margin-bottom: 10px
 }
 @media (max-width:640px) {
 .logo {
-	margin-top: 15px;
+	margin-top: 0px;
 	text-align: center;
-	padding-bottom: 12px;
+	padding-bottom: 0px;
 	margin-bottom: 0px;
 }
 }
@@ -3206,7 +3235,7 @@ margin-bottom:10px display: inline-block;
 ******************************************/
 nav {
 	height: 60px;
-	position: relative;
+        position: relative;
 	margin: auto;
 	width: 100%;
 	background: #222222;
@@ -3220,6 +3249,7 @@ nav a:hover {
 @media (max-width:767px) {
 nav .mtmegamenu {
 	display: none;
+        
 }
 }
 .mtmegamenu .menu-items {
@@ -3244,7 +3274,7 @@ nav .mtmegamenu {
 .mtmegamenu {
 	width: 100%;
 	position: relative;
-	margin: 48px 15px 15px;
+	margin: 0px 0px 0px 0px;
 	font-family: 'Poppins', Arial, Helvetica, sans-serif
 }
 .mtmegamenu a:focus {
@@ -3256,14 +3286,14 @@ nav .mtmegamenu {
 	margin: 0
 }
 .mtmegamenu>ul {
-	padding: 0;
-	text-align: left
+	padding-top: 10px;
+        text-align: left;
 }
 .mtmegamenu>ul>li {
 	display: inline-block;
 	font-size: 15px;
 	text-transform: uppercase;
-	margin-left: 15px;
+	margin-left: 10px;
 	background: none !important;
 	margin-right: 15px;
 }
@@ -3298,7 +3328,7 @@ nav .mtmegamenu {
 .mtmegamenu .mt-root-item {
 	float: left;
 	cursor: pointer;
-	overflow: hidden;
+	overflow: auto;
 	white-space: nowrap;
 	line-height: 55px;
 	letter-spacing: 0.5px;
@@ -3316,7 +3346,7 @@ nav .mtmegamenu {
 .mtmegamenu .mt-root-item .title .icon-has-sub {
 	font-size: 14px;
 	margin-left: 10px;
-	margin-top: 16px;
+	margin-top: 14px;
 	vertical-align: top
 }
 .mtmegamenu .menu-items .icon {
@@ -8362,7 +8392,7 @@ footer .social h3 {
 .logo {
 	display: inherit;
 	margin-bottom: 0px;
-	margin-top: 15px;
+	margin-top: 0px;
 	text-align: center;
 }
 #search {

@@ -28,6 +28,7 @@ class CategoriesAdminController extends Controller
             'categories' => $categories,
             'user' => $user,
             'euro' => $this->getRequest()->getSession()->get('euro'),
+            'all' => $this->getRequest()->getSession()->get('all'),
             'livre' => $this->getRequest()->getSession()->get('livre'),
             'usa' => $this->getRequest()->getSession()->get('usa'),
             'naira' => $this->getRequest()->getSession()->get('naira'),

@@ -45,7 +45,7 @@
         <h2 class="saider-bar-title">Service de livraison</h2>
         <div class="saide-bar-menu">
           <ul>
-            <li><a title="{{ user.servicelivraison.description|capitalize }}"><i class="fa fa-angle-right"></i> {{ user.servicelivraison.nom }}</a></li>
+            <li><a title="{{ user.servicelivraison.nom|capitalize }}"><i class="fa fa-angle-right"></i> {{ user.servicelivraison.nom }}</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +56,7 @@
         <h2 class="saider-bar-title">Mode de paiement</h2>
         <div class="saide-bar-menu">
           <ul>
-            <li><a title="Titulaire de la carte : {{ user.servicepaiement.titulaire|capitalize }}"><i class="fa fa-angle-right"></i> {{ user.servicepaiement.nom }}</a></li>
+            <li><a title="Carte : {{ user.servicepaiement.nom|capitalize }}"><i class="fa fa-angle-right"></i> {{ user.servicepaiement.nom }}</a></li>
           </ul>
         </div>
       </div>

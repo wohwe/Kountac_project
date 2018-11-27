@@ -51,6 +51,13 @@ class Achats
     /**
      * @var bool
      * 
+     * @ORM\Column(name="all", type="boolean", nullable=true)
+     */
+    private $all;
+    
+    /**
+     * @var bool
+     * 
      * @ORM\Column(name="livre", type="boolean", nullable=true)
      */
     private $livre;
@@ -366,5 +373,29 @@ class Achats
     public function getNaira()
     {
         return $this->naira;
+    }
+
+    /**
+     * Set all
+     *
+     * @param boolean $all
+     *
+     * @return Achats
+     */
+    public function setAll($all)
+    {
+        $this->all = $all;
+
+        return $this;
+    }
+
+    /**
+     * Get all
+     *
+     * @return boolean
+     */
+    public function getAll()
+    {
+        return $this->all;
     }
 }

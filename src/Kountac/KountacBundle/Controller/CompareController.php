@@ -14,10 +14,13 @@ class CompareController extends Controller
             $session->set('compare', array());
 
         $em = $this->getDoctrine()->getManager();
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('compare')));
         
         return $this->render('KountacBundle:Default:pages/compare.html.twig', array('produits' => $produits,
+                                                                                    'images' => $images,
                                                                                     'euro' => $this->getRequest()->getSession()->get('euro'),
+                                                                                    'all' => $this->getRequest()->getSession()->get('all'),                                                                        
                                                                                     'livre' => $this->getRequest()->getSession()->get('livre'),
                                                                                     'usa' => $this->getRequest()->getSession()->get('usa'),
                                                                                     'naira' => $this->getRequest()->getSession()->get('naira'),
@@ -37,6 +40,7 @@ class CompareController extends Controller
         
         return $this->render('KountacBundle:Menu:compareAside.html.twig', array('produits' => $produits,
                                                                                 'euro' => $this->getRequest()->getSession()->get('euro'),
+                                                                                'all' => $this->getRequest()->getSession()->get('all'),                                                                    
                                                                                 'livre' => $this->getRequest()->getSession()->get('livre'),
                                                                                 'usa' => $this->getRequest()->getSession()->get('usa'),
                                                                                 'naira' => $this->getRequest()->getSession()->get('naira'),

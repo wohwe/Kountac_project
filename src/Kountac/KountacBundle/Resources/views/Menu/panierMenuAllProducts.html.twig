@@ -24,7 +24,11 @@
                     {% set prixReduction = produit.produit2.europrix - (produit.produit2.europrix * produit.produit2.reduction/100) %}
                     <li class="item"> 
                         <a href="{{ path('product', {'id' : produit.produit2.id}) }}" title="{{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }}" class="product-image">
-                            <img src="{{ produit.produit2.picture.AssetPath|imagine_filter('cartThumbMenuItem') }}" alt="">
+                            {% for image in images %}
+                                {% if image.produit2 == produit.produit2 and image.top == 0 %}
+                                    <img src="{{ image.AssetPath|imagine_filter('cartThumbMenuItem') }}" alt="">
+                                {% endif %}
+                            {% endfor %}
                         </a>
                         <div class="product-details">
                             <div class="access"> <a href="#" title="Retirer {{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }} de votre panier" class="remove-cart"><i class="icon-close"></i></a></div>
@@ -77,4 +81,6 @@
     {% include 'KountacBundle:Menu:livre/panierMenuAllProducts.html.twig' %}
 {% elseif naira|length != 0 %}
     {% include 'KountacBundle:Menu:naira/panierMenuAllProducts.html.twig' %}
+{% elseif all|length != 0 %}
+    {% include 'KountacBundle:Menu:all/panierMenuAllProducts.html.twig' %}
 {% endif %}

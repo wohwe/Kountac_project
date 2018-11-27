@@ -1,4 +1,4 @@
-    <div>
+<div>
         <div class="breadcrumbs">
             <div class="container">
                 <div class="row">
@@ -103,7 +103,15 @@
                                     {% set prixReduction = 0 %}
                                     {% set prixReduction = produit.produit2.livreprix - (produit.produit2.livreprix * produit.produit2.reduction/100) %}
                             <tr>
-                                <td class="small compare-label"><a href="{{ path('product', {'id' : produit.produit2.id}) }}"><img src="{{ produit.produit2.picture.AssetPath|imagine_filter('compareThumbItem') }}" alt="" height="120"></a></td>
+                                <td class="small compare-label">
+                                    <a href="{{ path('product', {'id' : produit.produit2.id}) }}">
+                                        {% for image in images %}
+                                            {% if image.produit2 == produit.produit2 and image.top == 0 %}
+                                                <img src="{{ image.AssetPath|imagine_filter('compareThumbItem') }}" alt="" height="120">
+                                            {% endif %}
+                                        {% endfor %}
+                                    </a>
+                                </td>
                                 <td class="small compare-label"><a href="{{ path('product', {'id' : produit.produit2.id}) }}">{{ produit.produit2.produit1.nom|capitalize }}</a></td>
                                 <td class="small th-price compare-label">
                                 {% if produit.produit2.reduction == 0 %}
@@ -135,7 +143,6 @@
                             </tr>
                             {% endif %}
                             {% endfor %}
-                                
                             </tbody>
                         </table>
 

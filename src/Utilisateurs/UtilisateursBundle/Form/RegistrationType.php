@@ -16,13 +16,15 @@ class RegistrationType extends AbstractType
                 ->add('sexe','choice', array('choices' => array('0' => 'M.',
                                                                 '1' => 'Mme.'),'expanded'=>true, 'required' => true))
                 
-                ->add('adresse','text', array('attr' => array('class' => 'input form-control'),'label' => 'Adresse', 'required' => false))
-                ->add('pays','country', array('attr' => array('class' => 'select form-control'),'label' => 'Pays*','required' => true))
+                ->add('adresse','text', array('attr' => array('class' => 'input form-control'),'label' => 'Adresse*', 'required' => true))
+                ->add('pays','country', array('attr' => array('class' => 'select form-control'),'label' => 'Pays/Région','required' => true))
                 ->add('ville','text', array('attr' => array('class' => 'input form-control'),'label' => 'Ville*','required' => true))
-                ->add('rue','text', array('attr' => array('class' => 'input form-control'),'label' => 'Rue','required' => false))
-                ->add('cp','text', array('attr' => array('class' => 'input form-control'),'label' => 'Code postal','required' => false))
-                ->add('telephone','text', array('attr' => array('class' => 'input form-control'),'label' => 'Téléphone mobile*','required' => true))
-                ->add('telephonefix','text', array('attr' => array('class' => 'input form-control'),'label' => 'Téléphone fixe','required' => false))
+                ->add('rue','text', array('attr' => array('class' => 'input form-control'),'label' => 'Complément d\'adresse','required' => false))
+                ->add('departement','text', array('attr' => array('class' => 'input form-control'),'label' => 'Département','required' => false))
+                ->add('digicode','number', array('attr' => array('class' => 'input form-control'),'label' => 'Digicode','required' => false))
+                ->add('cp','number', array('attr' => array('class' => 'input form-control'),'label' => 'Code postal*','required' => true))
+                ->add('telephone','number', array('attr' => array('class' => 'input form-control'),'label' => 'Téléphone mobile','required' => false))
+                ->add('telephonefix','number', array('attr' => array('class' => 'input form-control'),'label' => 'Téléphone 2','required' => false))
                 ->add('image', new MediaType())
                 ;
     }

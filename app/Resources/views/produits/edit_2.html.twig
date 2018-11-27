@@ -1,0 +1,86 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à mon profil administrateur" href="{{ path('admin_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Voir tous les produits" href="{{ path('admin_profile_show')}}">Mes produits</a><span>&raquo;</span></li>
+                    <li><strong>Modification "{{ produit1.nom|capitalize }}" (2/3)</strong></li>
+                </ul>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert-box">
+                        <br><br>
+                        {{ flashMessage }}
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-8 col-xs-12">
+                <div class="page-content checkout-page">
+                    <div class="page-title">
+                        <h2 class="checkout-step">Modification produit (2/3)</h2>
+                    </div>
+                    {% for produit in produits %}
+                        <h4> <img src="{{ produit.libelle.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; {{ produit.libelle.libelle|capitalize }} ({% if produit.etat %} Neuf {% else %} Occasion{% endif %})</h4>
+                        <div class="box-border">
+                        <ul>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    <label class="required">Première image</label>
+                                    <br><img src="{{ produit.picture.AssetPath|imagine_filter('commandeThumb') }}" alt="">
+                                </div>
+                                {% if produit.picture.path2 %}
+                                <div class="col-sm-3">
+                                    <label class="required">Seconde image</label>
+                                    <br><img src="{{ produit.picture.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
+                                </div>
+                                {% endif %}<!--/ [col] -->
+                                {% if produit.picture.path3 %}
+                                <div class="col-sm-3">
+                                    <label class="required">Troisième image</label>
+                                    <img src="{{ produit.picture.AssetPath3|imagine_filter('commandeThumb') }}" alt="">
+                                </div>
+                                {% endif %}
+                                <div class="col-sm-3">
+                                    <label class="required"></label><br><br>
+                                    <a title="Modifier le produit motif {{ produit.libelle.libelle|capitalize }}" href="{{ path('adminProduits_edit_21', { 'id' : produit.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp;</a><br>
+                                </div>
+                            </li>
+                        </ul>
+                    </div><br>
+                    {% endfor %}
+                    <br>
+                    <br>
+                    <div class="col-sm-3">
+                        <a href="{{ path('adminProduits_edit_1', { 'id' : produit1.id }) }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; &nbsp;<span>Retour</span></button></a>
+                    </div>
+                    <div class="col-sm-2">
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="{{ path('adminProduits_index') }}"><button class="button pull-right"><i class="fa fa-check"></i>&nbsp; &nbsp;<span>Terminer</span></button></a>
+                    </div>
+                </div>
+            </div>
+        <aside class="right sidebar col-sm-3 col-xs-12">
+            {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+            <br><br>
+            {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+        </aside>
+        </div>
+        
+    </div>
+</div>
+</section>
+{% endblock %}

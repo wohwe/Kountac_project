@@ -67,6 +67,13 @@ class Produits_1
     private $description;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="conditions_utilisation", type="text")
+     */
+    private $conditions_utilisation;
+    
+    /**
      * @var integer
      *
      * @ORM\Column(name="popularite", type="integer", nullable=true)
@@ -417,5 +424,29 @@ class Produits_1
     public function getStock()
     {
         return $this->stock;
+    }
+
+    /**
+     * Set conditionsUtilisation
+     *
+     * @param string $conditionsUtilisation
+     *
+     * @return Produits_1
+     */
+    public function setConditionsUtilisation($conditionsUtilisation)
+    {
+        $this->conditions_utilisation = $conditionsUtilisation;
+
+        return $this;
+    }
+
+    /**
+     * Get conditionsUtilisation
+     *
+     * @return string
+     */
+    public function getConditionsUtilisation()
+    {
+        return $this->conditions_utilisation;
     }
 }

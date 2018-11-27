@@ -88,7 +88,8 @@ class Produits_1Repository extends EntityRepository
                 ->select('u')
                 ->where('u.stock >= :seuil')
                 ->orderBy('u.id', 'DESC')
-                ->setParameter('seuil', '1');
+                ->setParameter('seuil', '1')
+                ->setMaxResults(10);
         return $qb->getQuery()->getResult();
     }
     

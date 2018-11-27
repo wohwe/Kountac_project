@@ -11,7 +11,7 @@ class RechercheType extends AbstractType
     {
         $builder
             ->add('recherche','text', array('attr' => array('class' => 'form-control',
-                                                            'placeholder' => 'Recherchez',),
+                                                            'placeholder' => 'Rechercher',),
                                             'label' => false))
         ;
     }

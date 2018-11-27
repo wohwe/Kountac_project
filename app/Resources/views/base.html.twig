@@ -1,7 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="fr">
-
-<!-- Mirrored from htmlmystore.justthemevalley.com/Version2/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 23 Aug 2017 11:21:53 GMT -->
 <head>
 <!-- Basic page needs -->
 <meta charset="utf-8">
@@ -16,7 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Favicon  -->
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
 <!-- Google Fonts -->
 <link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css'>
@@ -77,10 +75,6 @@
       <div class="header-top">
         <div class="container">
           <div class="row">
-            <div class="col-lg-4 col-sm-4 hidden-xs"> 
-              <!-- Default Welcome Message -->
-              <div class="welcome-msg ">Bienvenue sur kountac !</div>
-            </div>
             <!-- top links -->
             {% render(controller('KountacBundle:Menu:headerLink')) %}
           </div>
@@ -88,22 +82,17 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="col-sm-4 col-md-3 col-xs-12"> 
-            <!-- Header Logo -->
-            <div class="logo"><a title="Bienvenue sur kountac" href="{{ path('kountac_homepage') }}"><img alt="" src="{{ asset('images/logo.png') }}"></a> </div>
-            <!-- End Header Logo --> 
+          <div class="col-sm-1 col-md-1 col-xs-11"> 
+            <div class="logo"><a title="Bienvenue sur kountac" href="{{ path('kountac_homepage') }}">
+                <img src="{{ asset('images/logo.png') }}" height=50 alt="Kountac"></a>
+            </div>
           </div>
-          <div class="col-md-9 col-sm-8 hidden-xs">
+          <div class="col-md-11 col-sm-11 hidden-xs">
             <div class="mtmegamenu">
               <ul>
-                    {% render(controller('KountacBundle:Menu:categorie')) %}
-                    <li class="mt-root"></li>
-                    <li class="mt-root">
-                    {% render(controller('KountacBundle:Menu:produitsPopulairesMenu')) %}
-              </li>
+                   {% render(controller('KountacBundle:Menu:categorie')) %}
+                    
               </ul>
-              <div class="call-us hidden-sm">
-              </div>
             </div>
           </div>
         </div>
@@ -169,17 +158,12 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-sm-6 col-md-3 col-xs-12 col-lg-2 collapsed-block">
+        <div class="col-sm-6 col-md-6 col-xs-12 col-lg-3 collapsed-block">
           
             {% render(controller('KountacBundle:Menu:informationFooter')) %}
             
         </div>
-        <div class="col-sm-6 col-md-3 col-xs-12 col-lg-2 collapsed-block">
-          
-            {% render(controller('KountacBundle:Menu:insiderFooter')) %}
-            
-        </div>
-        <div class="col-sm-6 col-md-2 col-xs-12 col-lg-2 collapsed-block">
+        <div class="col-sm-6 col-md-2 col-xs-12 col-lg-3 collapsed-block">
           
            {% render(controller('KountacBundle:Menu:menuCollectionFooter')) %} 
             
@@ -367,7 +351,18 @@
 
             var iid1 = "countbox_1";
             CountBack_slider(gsecs1, "countbox_1", 1);
-        </script>
+            
+// When the user scrolls down 20px from the top of the document, slide down the navbar
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("navbar").style.top = "0";
+  } else {
+    document.getElementById("navbar").style.top = "-50px";
+  }
+}
+ </script>
         {% endblock %}
     </body>
 </html>

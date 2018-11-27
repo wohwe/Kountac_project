@@ -12,4 +12,65 @@ use Doctrine\ORM\EntityRepository;
  */
 class Media_motifRepository extends EntityRepository
 {
+    public function findByProduits2($produit_2) 
+    {
+        $qb = $this->createQueryBuilder('images')
+                ->select('images')
+                ->where('images.produit_2 = :produit_2')
+                ->orderBy('images.id', 'DESC')
+                ->setParameter('produit_2', $produit_2)
+            ;
+        return $qb->getQuery()->getResult();
+    }
+    
+    
+    public function findImagesAutres($produit) 
+    {
+        $qb = $this->createQueryBuilder('images')
+                ->select('images')
+                ->where('images.produit_2 = :produit')
+                ->andWhere('images.top = 1')
+                ->orderBy('images.id', 'DESC')
+                ->setParameter('produit', $produit)
+            ;
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function findImagesTops($produit) 
+    {
+        $qb = $this->createQueryBuilder('images')
+                ->select('images')
+                ->where('images.produit_2 = :produit')
+                ->andWhere('images.top = 0')
+                ->orderBy('images.id', 'DESC')
+                ->setParameter('produit', $produit)
+            ;
+        return $qb->getQuery()->getResult();
+    }
+    
+            
+    public function findImagesAutresMannequins($produit, $image) 
+    {
+        $qb = $this->createQueryBuilder('images')
+                ->select('images')
+                ->where('images.produit_2 = :produit')
+                ->andWhere('images != :image')
+                ->orderBy('images.id', 'DESC')
+                ->setParameter('produit', $produit)
+                ->setParameter('image', $image)
+            ;
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function findAvatar($mannequins)
+    {
+        $qb = $this->createQueryBuilder('images')
+                ->Select('images')
+                ->leftJoin('images.mannequin', 'mannequin')
+                ->addSelect('mannequin')
+                ->Where('mannequin.id IN (:mannequins)')
+                ->orderBy('mannequin.nom_mannequin', 'ASC')
+                ->setParameter('mannequins', $mannequins);
+        return $qb->getQuery()->getResult();
+    }
 }

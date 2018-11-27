@@ -12,6 +12,15 @@
             <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_new_1') }}"><i class="fa fa-angle-right"></i> Ajouter </a></li>
           </ul>
         </div>
+    </div>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Mannequins</h2>
+        <div class="saide-bar-menu">
+          <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('mannequin_pro_index') }}"><i class="fa fa-angle-right"></i> Tous les mannequins </a></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('mannequin_pro_new') }}"><i class="fa fa-angle-right"></i> Ajouter </a></li>
+          </ul>
+        </div>
       </div>
     <div class="manufacturer-area">
         <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Commandes</h2>
@@ -34,7 +43,7 @@
         <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Messages</h2>
         <div class="saide-bar-menu">
           <ul>
-            <li><a title="lisez vos messages">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-envelope"></i><span class="user1"> Tous mes messages (2)<div class="msg"></div></span></a></li>
+            {% render(controller('UtilisateursBundle:Messages:messagesByUtilisateurs')) %}
           </ul>
         </div>
       </div>

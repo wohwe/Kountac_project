@@ -164,4 +164,6 @@
     {% include 'FOSUserBundle:Profile:naira/resumeAchat_content.html.twig' %}
 {% elseif livre|length != 0 %}
     {% include 'FOSUserBundle:Profile:livre/resumeAchat_content.html.twig' %}
+{% elseif all|length != 0 %}
+    {% include 'FOSUserBundle:Profile:all/resumeAchat_content.html.twig' %}
 {% endif %}

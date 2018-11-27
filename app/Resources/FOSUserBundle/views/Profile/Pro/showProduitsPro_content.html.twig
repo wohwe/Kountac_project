@@ -74,27 +74,60 @@
                                             <td></td>
                                         </tr>
                                         <tr>
+                                            <td class="compare-label"><img src="{{ produit2.libelle.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp;-- {{ produit2.libelle.libelle|upper }} --</td>
+                                            <td>
+                                                <a title="Modifier le motif {{ produit2.libelle|capitalize }}" href="{{ path('produit_pro_edit_21', { 'id' : produit2.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp; <strong>Modifier</strong></a><br>
+                                                <br><a title="Retirer le motif {{ produit2.libelle|capitalize }}" href="{{ path('produit_pro_delete_motif', { 'id' : produit2.id }) }}"><button class="button button-sm"><i class="fa fa-trash"></i></button>&nbsp;&nbsp; <strong>Effacer</strong></a>
+                                            </td>
+                                        </tr>
+                                        
+                                        {% for image in images %}
+                                            {% if image.produit2 == produit2 %}
+                                        <tr>
                                             <td class="compare-label"></td>
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td class="compare-label"><img src="{{ produit2.libelle.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; {{ produit2.libelle.libelle|upper }}</td>
+                                            <td class="compare-label">
+                                                <img src="{{ image.mannequin.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; {{ image.mannequin.nomMannequin|upper }}&nbsp;&nbsp;&nbsp; {% if image.top == 0 %}<i class="glyphicon  glyphicon-check"></i>{% else %}<br><br><small> Choisir comme mannequin top<br><a href="{{ path('produit_pro_set_images_top', { 'id' : image.id }) }}"> <u>Cliquer ici</u></a></small>{% endif %}
+                                                 <br><br><br><br><a title="Retirer ce mannequin" href="{{ path('produit_pro_delete_images', { 'id' : image.id }) }}"><i class="fa fa-trash"></i>&nbsp;<small>Effacer</small></a>
+                                            
+                                            </td>
                                             <td>
-                                                <div class="col-sm-4">
-                                                    <img src="{{ produit2.picture.AssetPath|imagine_filter('commandeThumb') }}" alt="">
+                                                <div class="col-sm-3">
+                                                    <img src="{{ image.AssetPath|imagine_filter('commandeThumb') }}" alt="">
                                                 </div>
-                                                {% if produit2.picture.path2 %}
-                                                <div class="col-sm-4">
-                                                    <img src="{{ produit2.picture.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
-                                                </div>
-                                                {% endif %}
-                                                {% if produit2.picture.path3 %}
-                                                <div class="col-sm-4">
-                                                    <img src="{{ produit2.picture.AssetPath3|imagine_filter('commandeThumb') }}" alt="">
+                                                {% if image.path2 %}
+                                                <div class="col-sm-3">
+                                                    <img src="{{ image.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
                                                 </div>
                                                 {% endif %}
+                                                {% if image.path3 %}
+                                                <div class="col-sm-2">
+                                                    <img src="{{ image.AssetPath3|imagine_filter('commandeThumb') }}" alt="">
+                                                </div>
+                                                {% endif %}
+                                                <div class="col-sm-4">
+                                                    <small>
+                                                    <label><u>Nom</u> :</label> {{ image.mannequin.nomMannequin|upper }}<br>
+                                                    <label><u>Taille standard</u> :</label> {{ image.mannequin.tailleStandardMannequin }}<br>
+                                                    <label><u>Poids</u> :</label> {{ image.mannequin.poidsMannequin }} Kg<br>
+                                                    <label><u>Taille </u> :</label> {{ image.mannequin.tailleMannequin }} m<br>
+                                                    <label><u>Numéro teint</u> :</label> {{ image.mannequin.numeroTeintMannequin }}<br>
+                                                    <label><u>Tour de taille</u> :</label> {{ image.mannequin.tourTailleMannequin }} cm<br>
+                                                    <label><u>Tour de poitrine</u> :</label> {{ image.mannequin.tourPoitrineMannequin }} cm<br>
+                                                    <label><u>Tour grandes hanches</u> :</label> {{ image.mannequin.tourGrandesHanchesMannequin }} cm<br>
+                                                    <label><u>Statut</u> :</label> {% if image.mannequin.statutMannequin == 'disponible' %} Disponible {% elseif image.mannequin.statutMannequin == 'reserve' %}Réservé à la marque {% elseif image.mannequin.statutMannequin == 'indisponible' %} Indisponible{% endif %}
+                                                    </small>
+                                                </div>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td></td>
+                                        </tr>
+                                            {% endif %}
+                                        {% endfor %}
                                         <tr>
                                             <td class="compare-label"></td>
                                             <td></td>
@@ -116,14 +149,10 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td class="compare-label">Disponible en Europe ?</td>
+                                            <td class="compare-label">Disponible en France ?</td>
                                             <td><strong>{% if produit2.europrix %}Oui{% else %}Non{% endif %}</strong></td>
                                         </tr>
                                         {% if produit2.europrix %}
-                                        <tr>
-                                            <td class="compare-label">Pays d'Europe:</td>
-                                            <td>{{ produit2.europays|join(', ') }}</td>
-                                        </tr>
                                             {% set prixReduction = 0 %}
                                             {% set prixReduction = produit2.europrix - (produit2.europrix * produit2.reduction/100) %}
                                         <tr>
@@ -148,23 +177,9 @@
                                             <tr>
                                                 <td class="compare-label">Commande sur mesure</td>
                                                 <td class="availability out-of-stock">
-                                                    <form action="{{ path('produit_pro_show', { 'id' : produit.id }) }}" method="POST">
-                                                        {{ form_start(form) }}
-                                                        {{ form_errors(form) }}
-                                                        <div class="col-sm-4">
-                                                           <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            {{ form_widget(form) }}                                                   
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <br>
-                                                            <a href ="" title='Pour accepter cette commande, entrer le prix pour cette commande en €'> 
-                                                                <button type="submit"><i class="fa fa-check"> </i>&nbsp; Ajouter prix commande &nbsp;</button>
-                                                            </a>
-                                                        </div>
-                                                        {{ form_end(form) }}
-                                                    </form>
+                                                    <div class="col-sm-6">
+                                                        <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                     </div>
                                                 </td>
                                             </tr>
                                         {% endif %}
@@ -175,14 +190,10 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td class="compare-label">Disponible au Royaume Uni ?</td>
+                                            <td class="compare-label">Disponible en Angleterre ?</td>
                                             <td><strong>{% if produit2.livreprix %}Oui{% else %}Non{% endif %}</strong></td>
                                         </tr>
                                         {% if produit2.livreprix %}
-                                        <tr>
-                                            <td class="compare-label">Pays de l'UK:</td>
-                                            <td>{{ produit2.livrepays|join(', ') }}</td>
-                                        </tr>
                                             {% set prixReduction = 0 %}
                                             {% set prixReduction = produit2.livreprix - (produit2.livreprix * produit2.reduction/100) %}
                                         <tr>
@@ -207,23 +218,9 @@
                                             <tr>
                                                 <td class="compare-label">Commande sur mesure</td>
                                                 <td class="availability out-of-stock">
-                                                    <form action="" method="POST">
-                                                        {{ form_start(form) }}
-                                                        {{ form_errors(form) }}
-                                                        <div class="col-sm-4">
-                                                           <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            {{ form_widget(form) }}                                                   
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <br>
-                                                            <a href ="" title='Pour accepter cette commande, entrer le prix pour cette commande en £'> 
-                                                                <button type="submit"><i class="fa fa-check"> </i>&nbsp; Ajouter prix commande &nbsp;</button>
-                                                            </a>
-                                                        </div>
-                                                        {{ form_end(form) }}
-                                                    </form>
+                                                    <div class="col-sm-6">
+                                                        <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                     </div>
                                                 </td>
                                             </tr>
                                         {% endif %}
@@ -233,14 +230,50 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td class="compare-label">Disponible en Amérique ?</td>
+                                            <td class="compare-label">Disponible en Allemagne ?</td>
+                                            <td><strong>{% if produit2.allprix %}Oui{% else %}Non{% endif %}</strong></td>
+                                        </tr>
+                                        {% if produit2.allprix %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit2.allprix - (produit2.allprix * produit2.reduction/100) %}
+                                        <tr>
+                                            <td class="compare-label">Prix (€)</td>
+                                            <td class="price">
+                                                {% if produit2.reduction == 0 %}
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} €</span> </span> </div>
+                                                {% else %}
+                                                    <div class="price-box">
+                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} €</span> </p>
+                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"><br><br>{{ produit2.allprix|number_format(2) }} €</span> </p>
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% if produit2.allprixCommande %}
+                                            <tr>
+                                                <td class="compare-label">Prix commande (€)</td>
+                                                <td class="price">{{ produit2.allprixCommande|number_format(2) }} €</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td class="compare-label">Commande sur mesure</td>
+                                                <td class="availability out-of-stock">
+                                                    <div class="col-sm-6">
+                                                        <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                     </div>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                        {% endif %}
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Disponible aux Etats-unis d'Amérique ?</td>
                                             <td><strong>{% if produit2.usaprix %}Oui{% else %}Non{% endif %}</strong></td>
                                         </tr>
                                         {% if produit2.usaprix %}
-                                        <tr>
-                                            <td class="compare-label">Pays d'Amérique:</td>
-                                            <td>{{ produit2.livrepays|join(', ') }}</td>
-                                        </tr>
                                             {% set prixReduction = 0 %}
                                             {% set prixReduction = produit2.usaprix - (produit2.usaprix * produit2.reduction/100) %}
                                         <tr>
@@ -265,23 +298,9 @@
                                             <tr>
                                                 <td class="compare-label">Commande sur mesure</td>
                                                 <td class="availability out-of-stock">
-                                                    <form action="" method="POST">
-                                                        {{ form_start(form) }}
-                                                        {{ form_errors(form) }}
-                                                        <div class="col-sm-4">
-                                                           <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            {{ form_widget(form) }}                                                   
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <br>
-                                                            <a href ="" title='Pour accepter cette commande, entrer le prix pour cette commande en $'> 
-                                                                <button type="submit"><i class="fa fa-check"> </i>&nbsp; Ajouter prix commande &nbsp;</button>
-                                                            </a>
-                                                        </div>
-                                                        {{ form_end(form) }}
-                                                    </form>
+                                                    <div class="col-sm-6">
+                                                        <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                    </div>
                                                 </td>
                                             </tr>
                                         {% endif %}
@@ -291,14 +310,10 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td class="compare-label">Disponible en Afrique ?</td>
+                                            <td class="compare-label">Disponible au Cameroun ?</td>
                                             <td><strong>{% if produit2.cfaprix %}Oui{% else %}Non{% endif %}</strong></td>
                                         </tr>
                                         {% if produit2.cfaprix %}
-                                        <tr>
-                                            <td class="compare-label">Pays d'Afrique:</td>
-                                            <td>{{ produit2.cfapays|join(', ') }}.</td>
-                                        </tr>
                                             {% set prixReduction = 0 %}
                                             {% set prixReduction = produit2.cfaprix - (produit2.cfaprix * produit2.reduction/100) %}
                                         <tr>
@@ -323,23 +338,9 @@
                                             <tr>
                                                 <td class="compare-label">Commande sur mesure</td>
                                                 <td class="availability out-of-stock">
-                                                    <form action="{{ path('produit_pro_add_prix_commande_cfa', { 'id' : produit.id }) }}" method="POST">
-                                                        {{ form_start(form) }}
-                                                        {{ form_errors(form) }}
-                                                        <div class="col-sm-4">
-                                                           <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            {{ form_widget(form) }}                                                   
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <br>
-                                                            <a href ="" title='Pour accepter cette commande, entrer le prix pour cette commande en F CFA'> 
-                                                                <button type="submit"><i class="fa fa-check"> </i>&nbsp; Ajouter prix commande &nbsp;</button>
-                                                            </a>
-                                                        </div>
-                                                        {{ form_end(form) }}
-                                                    </form>
+                                                    <div class="col-sm-6">
+                                                        <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                     </div>
                                                 </td>
                                             </tr>
                                         {% endif %}
@@ -368,7 +369,7 @@
                                                 {% endif %}
                                             </td>
                                         </tr>
-                                        {% if produit2.livreprixCommande %}
+                                        {% if produit2.nairaprixCommande %}
                                             <tr>
                                                 <td class="compare-label">Prix commande (₦)</td>
                                                 <td class="price">{{ produit2.nairaprixCommande }} ₦</td>
@@ -377,23 +378,9 @@
                                             <tr>
                                                 <td class="compare-label">Commande sur mesure</td>
                                                 <td class="availability out-of-stock">
-                                                    <form action="" method="POST">
-                                                        {{ form_start(form) }}
-                                                        {{ form_errors(form) }}
-                                                        <div class="col-sm-4">
-                                                           <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            {{ form_widget(form) }}                                                   
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <br>
-                                                            <a href ="" title='Pour accepter cette commande, entrer le prix pour cette commande en ₦'> 
-                                                                <button type="submit"><i class="fa fa-check"> </i>&nbsp; Ajouter prix commande &nbsp;</button>
-                                                            </a>
-                                                        </div>
-                                                        {{ form_end(form) }}
-                                                    </form>
+                                                    <div class="col-sm-6">
+                                                        <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                    </div>
                                                 </td>
                                             </tr>
                                         {% endif %}

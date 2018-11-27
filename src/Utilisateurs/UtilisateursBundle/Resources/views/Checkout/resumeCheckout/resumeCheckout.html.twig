@@ -1,4 +1,4 @@
-{% if cfa|length == 0 %}
+{% if euro|length != 0 %}
 <div class="sidebar-checkout block">
     <div class="sidebar-bar-title">
         <h3>Résumé commande</h3>
@@ -46,7 +46,7 @@
             </dd>
             {% if user.servicelivraison %}
             <dt class="complete"> Méthode de livraison<span class="separator">|</span> <a href="{{ path('Checkout_index2') }}">Modifier</a> </dt>
-            <dd class="complete">&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i> {{ user.servicelivraison.nom }} <br>
+            <dd class="complete">&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i> {% if user.servicelivraison == "Null" %} Aucun service de livraison {% else %}{{ user.servicelivraison.nom }}{% endif %} <br>
             {% endif %}
             <br>
             {% if user.servicepaiement %}
@@ -56,6 +56,14 @@
         </dl>
     </div>
 </div>
-{% else %}
+{% elseif cfa|length != 0 %}
   {% include 'UtilisateursBundle:Checkout:resumeCheckout/resumeCheckout_cfa.html.twig' %}
+{% elseif all|length != 0 %}
+  {% include 'UtilisateursBundle:Checkout:resumeCheckout/resumeCheckout_all.html.twig' %}
+{% elseif usa|length != 0 %}
+  {% include 'UtilisateursBundle:Checkout:resumeCheckout/resumeCheckout_usa.html.twig' %}
+{% elseif livre|length != 0 %}
+  {% include 'UtilisateursBundle:Checkout:resumeCheckout/resumeCheckout_livre.html.twig' %}
+{% elseif naira|length != 0 %}
+  {% include 'UtilisateursBundle:Checkout:resumeCheckout/resumeCheckout_naira.html.twig' %}
 {% endif %}

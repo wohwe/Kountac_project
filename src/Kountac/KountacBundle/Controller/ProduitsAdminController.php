@@ -6,6 +6,8 @@ use Kountac\KountacBundle\Entity\Produits_1;
 use Kountac\KountacBundle\Entity\Produits_2;
 use Kountac\KountacBundle\Entity\Produits_3;
 use Kountac\KountacBundle\Entity\Libelles_motif;
+use Kountac\KountacBundle\Entity\Mannequin;
+use Kountac\KountacBundle\Form\Produits_3Type;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -76,9 +78,11 @@ class ProduitsAdminController extends Controller
         $produit_1 = $em->getRepository('KountacBundle:Produits_1')->find($id);
         $libelles = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
         $user = $this->getUser();
+        $mannequins = $em->getRepository('KountacBundle:Mannequin')->findByDisponible($user);
         $form = $this->createForm('Kountac\KountacBundle\Form\Produits_2Type', $produit);
         $form->handleRequest($request);
         $form_motif = $this->createForm('Kountac\KountacBundle\Form\Libelles_motifType');
+        $form_mannequin = $this->createForm('Kountac\KountacBundle\Form\MannequinType');
         if ($request->getMethod() == 'POST') 
         {
             if ($form->isSubmitted() && $form->isValid()) {
@@ -94,10 +98,12 @@ class ProduitsAdminController extends Controller
         return $this->render('produits/new2.html.twig', array(
             'produit' => $produit,
             'libelles' => $libelles,
+            'mannequins' => $mannequins,
             'produit_1' => $produit_1,
             'user' => $user,
             'form' => $form->createView(),
             'form_motif' => $form_motif->createView(),
+            'form_mannequin' => $form_mannequin->createView(),
         ));
     }
 
@@ -128,6 +134,8 @@ class ProduitsAdminController extends Controller
                 $em->persist($produit_2);
                 $em->flush();
             }
+            
+            
             
             if ($this->getRequest()->request->get('stock_s') != 0 ){
                 $produit = new Produits_3();
@@ -185,13 +193,55 @@ class ProduitsAdminController extends Controller
                 $em->flush();
             }
             
-            if ($this->getRequest()->request->get('stock_xxl') != 0 ){
+            if ($this->getRequest()->request->get('stock_2xl') != 0 ){
                 $produit = new Produits_3();
-                $stock_xxl = $this->getRequest()->request->get('stock_xxl') ;
-                $produit_1->setStock($stock + $stock_xxl);
-                $produit_2->setStock($produit_2->getStock() + $stock_xxl);
-                $produit->setStock($stock_xxl);
-                $produit->setTaille('XXL');
+                $stock_2xl = $this->getRequest()->request->get('stock_2xl') ;
+                $produit_1->setStock($stock + $stock_2xl);
+                $produit_2->setStock($produit_2->getStock() + $stock_2xl);
+                $produit->setStock($stock_2xl);
+                $produit->setTaille('44');
+                $produit->setProduit2($produit_2);
+                $em->persist($produit);
+                $em->persist($produit_1);
+                $em->persist($produit_2);
+                $em->flush();
+            }
+            
+            if ($this->getRequest()->request->get('stock_3xl') != 0 ){
+                $produit = new Produits_3();
+                $stock_3xl = $this->getRequest()->request->get('stock_3xl') ;
+                $produit_1->setStock($stock + $stock_3xl);
+                $produit_2->setStock($produit_2->getStock() + $stock_3xl);
+                $produit->setStock($stock_3xl);
+                $produit->setTaille('46');
+                $produit->setProduit2($produit_2);
+                $em->persist($produit);
+                $em->persist($produit_1);
+                $em->persist($produit_2);
+                $em->flush();
+            }
+            
+            if ($this->getRequest()->request->get('stock_4xl') != 0 ){
+                $produit = new Produits_3();
+                $stock_4xl = $this->getRequest()->request->get('stock_4xl') ;
+                $produit_1->setStock($stock + $stock_4xl);
+                $produit_2->setStock($produit_2->getStock() + $stock_4xl);
+                $produit->setStock($stock_4xl);
+                $produit->setTaille('48');
+                $produit->setProduit2($produit_2);
+                $em->persist($produit);
+                $em->persist($produit_1);
+                $em->persist($produit_2);
+                $em->flush();
+            }
+            
+            if ($this->getRequest()->request->get('stock_5xl') != 0 ){
+                $produit = new Produits_3();
+                $stock_5xl = $this->getRequest()->request->get('stock_5xl') ;
+                $produit_1->setStock($stock + $stock_5xl);
+                $produit_2->setStock($produit_2->getStock() + $stock_5xl);
+                $produit->setStock($stock_5xl);
+                $produit->setTaille('50');
                 $produit->setProduit2($produit_2);
                 $em->persist($produit);
                 $em->persist($produit_1);
@@ -246,62 +296,38 @@ class ProduitsAdminController extends Controller
     }
     
     /**
-     * Creates a new produit entity.
+     * Add Mannequin of a produit entity.
      *
      */
-    public function newAction(Request $request)
+    public function addMannequinAction(Request $request, $id)
     {
-        $produit = new Produits();
-        $paysEuro = array ();
-        $paysCfa = array ();
+        
+        $mannequin = new Mannequin();
+        $em = $this->getDoctrine()->getManager();
+        $produit_1 = $em->getRepository('KountacBundle:Produits_1')->find($id);
+        $form = $this->createForm('Kountac\KountacBundle\Form\MannequinType', $mannequin);
         $user = $this->getUser();
-        $form = $this->createForm('Kountac\KountacBundle\Form\ProduitsType', $produit);
         $form->handleRequest($request);
-        if ($request->getMethod() == 'POST') 
-        {
-            if ($form->isSubmitted() && $form->isValid()) {
-                $produit->setMarque($user);
-                $produit->setDateajout(new \DateTime('now'));
-                $produit->setDateupdate(new \DateTime('now'));
-                $produit->setPopularite(1); 
-                $Euro = $form["euro"]->getData()->getPays();
-                $Cfa = $form["cfa"]->getData()->getPays();
-                
-                foreach($Euro as $euro)
-                {
-                    $paysEuro[] = $euro->getNom();
-                }
-                foreach($Cfa as $cfa)
-                {
-                    $paysCfa[] = $cfa->getNom();
-                }
-                $produit->getEuro()->setPays($paysEuro);
-                $produit->getCfa()->setPays($paysCfa);
-                
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($produit);
-                $em->flush();
-
-                return $this->redirectToRoute('adminProduits_show', array('id' => $produit->getId()));
-            }
-        }
-        return $this->render('produits/new.html.twig', array(
-            'produit' => $produit,
-            'user' => $user,
-            'form' => $form->createView(),
-        ));
+        $mannequin->setMarque($user);
+        $mannequin->setDateUpdate(new \DateTime('now'));
+        $mannequin->setDateAjout(new \DateTime('now'));
+        $em->persist($mannequin);
+        $em->flush();
+        
+        $this->get('session')->getFlashBag()->add('success','Nouveau mannequin ajouté avec succès');
+        return $this->redirectToRoute('adminProduits_new2', array('id' => $produit_1->getId()));
     }
-
+    
+   
     /**
      * Finds and displays a produit entity.
      *
      */
-    public function showAction(Request $request, Produits $produit)
+    public function showAction(Request $request, Produits_1 $produit)
     {
         $user = $this->getUser();
         $form = $this->createForm('Kountac\KountacBundle\Form\ProduitsAddPriceCommandeType');
         $form_stock = $this->createForm('Kountac\KountacBundle\Form\ProduitsAddStockType');
-        
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
@@ -311,8 +337,9 @@ class ProduitsAdminController extends Controller
                 $produit->setDateupdate(new \DateTime('now'));
                 $em->persist($produit);
                 $em->flush();
-
-                return $this->redirectToRoute('adminProduits_show', array('id' => $produit->getId()));
+                
+                $this->get('session')->getFlashBag()->add('success','Le prix de la commande sur mesure a été ajouté avec succès');
+                return $this->redirectToRoute('produit_pro_show', array('id' => $produit->getId()));
             }
         }
         return $this->render('produits/show.html.twig', array(
@@ -376,54 +403,138 @@ class ProduitsAdminController extends Controller
     }
     
     /**
-     * Edit countries of a produit entity.
+     * Displays a form to edit an existing produit entity.
      *
      */
-    public function editPaysAction(Request $request, Produits $produit)
+    public function edit_1Action(Request $request, Produits_1 $produit)
     {
         $user = $this->getUser();
-        $form = $this->createForm('Kountac\KountacBundle\Form\ProduitsEditPaysType');
-        $form->handleRequest($request);
+        $editForm = $this->createForm('Kountac\KountacBundle\Form\Produits_1Type', $produit);
+        $editForm->handleRequest($request);
         
-        if ($request->getMethod() == 'POST') 
-        {
-            if ($form->isSubmitted() && $form->isValid()) {
-                $Euro = $form["euro"]->getData()->getPays();
-                $prixEuro = $form["euro"]->getData()->getPrix();
-                $prixCommandeEuro = $form["euro"]->getData()->getPrixCommande();
-                $Cfa = $form["cfa"]->getData()->getPays();
-                $prixCfa = $form["cfa"]->getData()->getPrix();
-                $prixCommandeCfa = $form["cfa"]->getData()->getPrixCommande();
-                foreach($Euro as $euro)
-                {
-                    $paysEuro[] = $euro->getNom();
-                }
-                foreach($Cfa as $cfa)
-                {
-                    $paysCfa[] = $cfa->getNom();
-                }
-                $produit->getEuro()->setPays($paysEuro);
-                $produit->getEuro()->setPrix($prixEuro);
-                $produit->getEuro()->setPrixCommande($prixCommandeEuro);
-                $produit->getCfa()->setPays($paysCfa);
-                $produit->getCfa()->setPrix($prixCfa);
-                $produit->getCfa()->setPrixCommande($prixCommandeCfa);
-                
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($produit);
-                $em->flush();
-                $this->get('session')->getFlashBag()->add('success','Le modification du produit est terminée avec succès');
-                return $this->redirectToRoute('adminProduits_show', array('id' => $produit->getId()));
-            }
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $produit->setDateupdate(new \DateTime('now'));
+            $this->getDoctrine()->getManager()->flush();
+            
+            $this->get('session')->getFlashBag()->add('success','les informations de base du produit ont été modifiées avec succès');
+            return $this->redirectToRoute('adminProduits_edit_2', array('id' => $produit->getId()));        
         }
-        
-        return $this->render('produits/editPays.html.twig', array(
+
+        return $this->render('produits/edit_1.html.twig', array(
             'produit' => $produit,
             'user' => $user,
-            'form_pays' => $form->createView(),
+            'form' => $editForm->createView(),
         ));
-        
+    }
     
+    
+    /**
+     * Displays a form to edit an existing produit entity.
+     *
+     */
+    public function edit_2Action(Produits_1 $produit1)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        
+        $produits = $em->getRepository('KountacBundle:Produits_2')->getProduct_2($produit1);
+        
+        return $this->render('produits/edit_2.html.twig', array(
+            'produit1' => $produit1,
+            'produits' => $produits,
+            'user' => $user,
+        ));
+    }
+
+    /**
+     * Displays a form to edit an existing produit entity.
+     *
+     */
+    public function edit_21Action(Request $request, Produits_2 $produit2)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $libelles = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
+        $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
+        
+        $editForm = $this->createForm('Kountac\KountacBundle\Form\Produits_Edit_2Type', $produit2);
+        $editForm->handleRequest($request);
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em->persist($produit2);
+            $em->flush();
+            $this->get('session')->getFlashBag()->add('success','Le motif a été modifié avec succès');
+            return $this->redirectToRoute('adminProduits_edit_3', array('id' => $produit2->getId()));
+        }
+        
+        return $this->render('produits/edit_21.html.twig', array(
+            'produit2' => $produit2,
+            'libelles' => $libelles,
+            'mannequins' => $mannequins,
+            'user' => $user,
+            'form' => $editForm->createView(),
+        ));
+    }
+    
+    
+    /**
+     * Displays a form to edit an existing produit entity.
+     *
+     */
+    public function edit_3Action(Produits_2 $produit2)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        
+        $produits = $em->getRepository('KountacBundle:Produits_3')->getProduct_3($produit2);
+        
+        return $this->render('produits/edit_3.html.twig', array(
+            'produit2' => $produit2,
+            'produits' => $produits,
+            'user' => $user,
+        ));
+    }
+    
+        /**
+     * Displays a form to edit an existing produit entity.
+     *
+     */
+    public function edit_31Action(Request $request, Produits_3 $produit3)
+    {
+        $user = $this->getUser();
+        
+        $editForm = $this->createForm(Produits_3Type::class, $produit3);
+        $editForm->handleRequest($request);
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($produit3);
+            $em->flush();
+            $this->get('session')->getFlashBag()->add('success','La taille et le stock associé ont été modifiés avec succès');
+            return $this->redirectToRoute('adminProduits_edit_2', array('id' => $produit3->getProduit2()->getProduit1()->getId()));
+        }
+        
+        return $this->render('produits/edit_31.html.twig', array(
+            'produit3' => $produit3,
+            'user' => $user,
+            'form' => $editForm->createView(),
+        ));
+    }
+    
+    
+    /**
+     * Deletes a produit entity.
+     *
+     */
+    public function deleteMotifAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
+        
+        $em->remove($produit);
+        $em->flush();
+        
+        $this->get('session')->getFlashBag()->add('success','Motif a été supprimé avec succès');
+       
+        return $this->redirectToRoute('adminProduits_show', array('id' => $produit->getProduit1()->getId()));
     }
     
     /**
@@ -433,7 +544,7 @@ class ProduitsAdminController extends Controller
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $produit = $em->getRepository('KountacBundle:Produits')->find($id);
+        $produit = $em->getRepository('KountacBundle:Produits_1')->find($id);
         
         $em->remove($produit);
         $em->flush();
@@ -451,7 +562,7 @@ class ProduitsAdminController extends Controller
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        $listesProduits = $em->getRepository('KountacBundle:Produits')->getProduitsAdminByStock();
+        $listesProduits = $em->getRepository('KountacBundle:Produits_1')->getProduitsAdminByStock();
         $produits  = $this->get('knp_paginator')->paginate($listesProduits,$this->get('request')->query->get('page', 1),10);
         return $this->render('produits/index.html.twig', array(
             'produits' => $produits,

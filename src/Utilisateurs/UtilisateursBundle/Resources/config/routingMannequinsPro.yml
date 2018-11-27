@@ -1,0 +1,24 @@
+mannequin_pro_index:
+    path:     /
+    defaults: { _controller: "UtilisateursBundle:MannequinsPro:index" }
+    methods:  [GET, POST]
+
+mannequin_pro_new:
+    path:     /add
+    defaults: { _controller: "UtilisateursBundle:MannequinsPro:new" }
+    methods:  [GET, POST]
+    
+mannequin_pro_edit:
+    path:     /edit/{id}
+    defaults: { _controller: "UtilisateursBundle:MannequinsPro:edit" }
+    methods:  [GET, POST]
+
+mannequin_pro_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UtilisateursBundle:MannequinsPro:delete" }
+    
+mannequin_pro_produitNew:
+    path:     /new_produit_{id}{id_motif}
+    defaults: { _controller: "UtilisateursBundle:MannequinsPro:new_produit_mannequin" }
+    methods:  [GET, POST]
+    

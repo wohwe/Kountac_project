@@ -19,6 +19,11 @@ class Produits_Edit_2Type extends AbstractType
                                              'label'=> 'Choisir un motif', 
                                              'attr' => array('class' => 'select form-control'),
                                              ))
+                ->add('mannequin','entity', array('class' => 'KountacBundle:Mannequin',
+                                             'label'=> 'Choisir un mannequin', 
+                                             'attr' => array('class' => 'select form-control'),
+                                             ))
+                
                 ->add('etat','choice',array('choices' => array('0' => 'Occasion',
                                                            '1' => 'Neuf'),
                                             'label' => 'Etat du produit*',
@@ -44,7 +49,7 @@ class Produits_Edit_2Type extends AbstractType
                                                 'label' => 'Choisir taux de réduction',
                                                 'required' => true,
                                                 'attr' => array('class' => 'select form-control')))
-                // Prix en Euro
+                // Prix France
                 ->add('europrix','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix normal (€)',
                                            'required' => false))
@@ -52,21 +57,29 @@ class Produits_Edit_2Type extends AbstractType
                                            'label' => 'Prix pour une commande sur mesure (€)',
                                            'required' => false))
                 
-                // Prix en F CFA
+                // Prix en Allemagne
+                ->add('allprix','text', array('attr' => array('class' => 'input form-control'),
+                                           'label' => 'Prix normal (€)',
+                                           'required' => false))
+                ->add('allprixCommande','text', array('attr' => array('class' => 'input form-control'),
+                                           'label' => 'Prix pour une commande sur mesure (€)',
+                                           'required' => false))
+                
+                // Prix Cameroun
                 ->add('cfaprix','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix normal (F CFA)',
                                            'required' => false))
                 ->add('cfaprixCommande','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix pour une commande sur mesure (F CFA)',
                                            'required' => false))
-               // Prix en Naira
+               // Prix Nigéria
                 ->add('nairaprix','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix normal (₦)',
                                            'required' => false))
                 ->add('nairaprixCommande','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix pour une commande sur mesure (₦)',
                                            'required' => false))
-                // Prix en USD
+                // Prix en Etats-unis d'amérique
                 ->add('usaprix','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix normal ($)',
                                            'required' => false))

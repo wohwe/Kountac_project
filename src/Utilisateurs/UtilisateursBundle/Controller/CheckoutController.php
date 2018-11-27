@@ -35,13 +35,14 @@ class CheckoutController extends Controller
         return $this->render('UtilisateursBundle:Checkout:checkout1.html.twig',array('user' => $user,
                                                                                     'produits' => $produits,
                                                                                     'commandes' => $commandes,
+                                                                                    'all' => $this->getRequest()->getSession()->get('all'),
                                                                                     'euro' => $this->getRequest()->getSession()->get('euro'),
                                                                                     'livre' => $this->getRequest()->getSession()->get('livre'),
                                                                                     'usa' => $this->getRequest()->getSession()->get('usa'),
                                                                                     'naira' => $this->getRequest()->getSession()->get('naira'),
                                                                                     'cfa' => $this->getRequest()->getSession()->get('cfa'),
-                                                                                   'form' => $editForm->createView(),
-                                                                                      'panier' => $session->get('panier'),
+                                                                                    'form' => $editForm->createView(),
+                                                                                    'panier' => $session->get('panier'),
         ));    
     }
     
@@ -75,6 +76,7 @@ class CheckoutController extends Controller
 
         return $this->render('UtilisateursBundle:Checkout:checkout2.html.twig',array(   'euro' => $this->getRequest()->getSession()->get('euro'),
                                                                                         'livre' => $this->getRequest()->getSession()->get('livre'),
+                                                                                        'all' => $this->getRequest()->getSession()->get('all'),
                                                                                         'usa' => $this->getRequest()->getSession()->get('usa'),
                                                                                         'naira' => $this->getRequest()->getSession()->get('naira'),
                                                                                         'cfa' => $this->getRequest()->getSession()->get('cfa'),
@@ -91,39 +93,80 @@ class CheckoutController extends Controller
         $user = $this->getUser();   
         $servicePaiement = $user->getServicePaiement();
         $em = $this->getDoctrine()->getManager();
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $session = $this->getRequest()->getSession();
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit($user);
         
         if ($servicePaiement==NULL)
             $servicePaiement = new ServicePaiement();
         
-        $form = $this->createForm('Utilisateurs\UtilisateursBundle\Form\PaiementCheckoutType');
+        $form = $this->createForm('Utilisateurs\UtilisateursBundle\Form\PaiementFullCheckoutType');
         
         $form->handleRequest($request);
         
         if ($request->getMethod() == 'POST') {
             if ($form->isSubmitted() && $form->isValid()) {
-                $user->setServicePaiement($servicePaiement);        
-                $em = $this->getDoctrine()->getManager();
+                if (!$session->has('paiement')) 
+                    $session->set('paiement',array());
+                
+                $paimentDetails = array();
+                
+                $nomPaiement = $form['nom']->getData();
+                $titulaireCartePaiement = $form['titulaire']->getData();
+                $numeroCartePaiement = $form['numero']->getData();
+                $numeroverifCartePaiement = $form['numeroverification']->getData();
+                $moixExpCartePaiement = $form['moisexp']->getData();
+                $anneeExpCartePaiement = $form['anneeexp']->getData();
+                
+                $paimentDetails['nom'] = $nomPaiement;
+                $paimentDetails['titulaire'] = $titulaireCartePaiement;
+                $paimentDetails['numero'] = $numeroCartePaiement;
+                $paimentDetails['numeroVerification'] = $numeroverifCartePaiement;
+                $paimentDetails['moisExpiration'] = $moixExpCartePaiement;
+                $paimentDetails['anneeExpiration'] = $anneeExpCartePaiement;
+                
+                $session->set('paiement',$paimentDetails);
+                $servicePaiement->setNom($nomPaiement);
+                $user->setServicePaiement($servicePaiement);   
+                
+                $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+                $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
+                $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit($user);
+                $editForm = $this->createForm('Utilisateurs\UtilisateursBundle\Form\AdressCheckoutType', $user);
+                $editForm->handleRequest($request);
+                
                 $em->persist($servicePaiement);
                 $em->persist($user);
                 $em->flush();
 
-                return $this->redirectToRoute('Checkout_index4');
+                return $this->render('UtilisateursBundle:Checkout:checkout4.html.twig',array('user' => $user,'images' => $images,
+                                                                                        'paiement' => $this->getRequest()->getSession()->get('paiement'),
+                                                                                        'euro' => $this->getRequest()->getSession()->get('euro'),
+                                                                                        'all' => $this->getRequest()->getSession()->get('all'),
+                                                                                        'livre' => $this->getRequest()->getSession()->get('livre'),
+                                                                                        'usa' => $this->getRequest()->getSession()->get('usa'),
+                                                                                        'naira' => $this->getRequest()->getSession()->get('naira'),
+                                                                                        'cfa' => $this->getRequest()->getSession()->get('cfa'),
+                                                                                        'produits' => $produits,
+                                                                                        'commandes' => $commandes,
+                                                                                        'form' => $editForm->createView(),
+                                                                                        'panier' => $session->get('panier')
+        ));
             }
         }
-        $session = $this->getRequest()->getSession();
-        
+         
         if (!$session->has('panier'))
             $session->set('panier', array());
         
         $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
         
-        return $this->render('UtilisateursBundle:Checkout:checkout3.html.twig',array('user' => $user,
+        return $this->render('UtilisateursBundle:Checkout:checkout3.html.twig',array('user' => $user,'images' => $images,
                                                                                      'euro' => $this->getRequest()->getSession()->get('euro'),
-                                                                                        'livre' => $this->getRequest()->getSession()->get('livre'),
-                                                                                        'usa' => $this->getRequest()->getSession()->get('usa'),
-                                                                                        'naira' => $this->getRequest()->getSession()->get('naira'),
-                                                                                        'cfa' => $this->getRequest()->getSession()->get('cfa'),
+                                                                                     'all' => $this->getRequest()->getSession()->get('all'),
+                                                                                     'livre' => $this->getRequest()->getSession()->get('livre'),
+                                                                                     'usa' => $this->getRequest()->getSession()->get('usa'),
+                                                                                     'naira' => $this->getRequest()->getSession()->get('naira'),
+                                                                                     'cfa' => $this->getRequest()->getSession()->get('cfa'),
                                                                                      'produits' => $produits,
                                                                                      'commandes' => $commandes,
                                                                                      'form' => $form->createView(),
@@ -137,6 +180,7 @@ class CheckoutController extends Controller
         $editForm = $this->createForm('Utilisateurs\UtilisateursBundle\Form\AdressCheckoutType', $user);
         $editForm->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit($user);
         
         $session = $this->getRequest()->getSession();
@@ -146,12 +190,14 @@ class CheckoutController extends Controller
         
         $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
 
-        return $this->render('UtilisateursBundle:Checkout:checkout4.html.twig',array('user' => $user,
+        return $this->render('UtilisateursBundle:Checkout:checkout4.html.twig',array('user' => $user,'images' => $images,
                                                                                      'euro' => $this->getRequest()->getSession()->get('euro'),
-                                                                                        'livre' => $this->getRequest()->getSession()->get('livre'),
-                                                                                        'usa' => $this->getRequest()->getSession()->get('usa'),
-                                                                                        'naira' => $this->getRequest()->getSession()->get('naira'),
-                                                                                        'cfa' => $this->getRequest()->getSession()->get('cfa'),
+                                                                                     'livre' => $this->getRequest()->getSession()->get('livre'),
+                                                                                     'usa' => $this->getRequest()->getSession()->get('usa'),
+                                                                                     'all' => $this->getRequest()->getSession()->get('all'),
+                                                                                     'naira' => $this->getRequest()->getSession()->get('naira'),
+                                                                                     'cfa' => $this->getRequest()->getSession()->get('cfa'),
+                                                                                     'paiement' => $this->getRequest()->getSession()->get('paiement'),
                                                                                      'produits' => $produits,
                                                                                      'commandes' => $commandes,
                                                                                      'form' => $editForm->createView(),

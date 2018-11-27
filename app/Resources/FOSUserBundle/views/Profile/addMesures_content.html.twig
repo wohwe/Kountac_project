@@ -34,136 +34,289 @@
                     <form action="{{ path('mesures_new') }}" method="POST" {{ form_enctype(form_mesure) }} class="col">
                             {{ form_start(form_mesure) }}
                             {{ form_errors(form_mesure) }}
-                            <div class="order-detail-content">
-                                <div class="box-border">
-                                    <ul>
-                                        <li class="row">
-                                            <div class="col-sm-6">
-                                                {{ form_row(form_mesure.titulaire) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-6">
-                                                {{ form_row(form_mesure.genre) }}
-                                            </div><!--/ [col] -->
-                                        </li>
-                                        <li class="row">
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.poitrine) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.hauteur_poitrine) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.demi_ecart_poitrine) }}
-                                            </div><!--/ [col] -->
-                                        </li>
-                                        <li class="row">
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.hauteur_taille_terre) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.hauteur_taille_cote_terre) }}
-                                            </div>
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.demi_tour_encolure) }}
-                                            </div><!--/ [col] -->
-                                        </li>
-                                        <li class="row">
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.demi_carrure_dos) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.demi_carrure_devant) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.seins) }}
-                                            </div>
-                                        </li>
-                                        <li class="row">
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.bassin) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.enfourchure) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.taille) }}
-                                            </div>
-                                        </li>
-                                        <li class="row">
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.epauletaille) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.longueur) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.taille_dos) }}
-                                            </div><!--/ [col] -->
-                                        </li>
-                                        <li class="row">
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.taille_devant) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.longueur_epaule) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.tour_emmanchure) }}
-                                            </div><!--/ [col] -->
-                                        </li>
-                                        <li class="row">
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.hauteur_dessous_bras) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.longueur_bras) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.grosseur_bras) }}
-                                            </div><!--/ [col] -->
-                                        </li>
-                                        <li class="row">
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.hauteur_coude) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.tour_poignet) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.hauteur_taille_hanche) }}
-                                            </div><!--/ [col] -->
-                                        </li>
-                                        <li class="row">
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.hauteur_montant) }}
-                                            </div><!--/ [col] -->
-                                           <div class="col-sm-4">
-                                                {{ form_row(form_mesure.epaules) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.hauteur_taille_genou) }}
-                                            </div><!--/ [col] -->
-                                        </li>
-                                        <li class="row">
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.tour_petites_hanches) }}
-                                            </div><!--/ [col] -->
-                                            <div class="col-sm-4">
-                                                {{ form_row(form_mesure.tour_grandes_hanches) }}
-                                            </div><!--/ [col] -->
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="cart_navigation"> 
-                                    <br>
-                                    <div>
-                                        <button type="submit" class="button"><i class="fa fa-check"></i>&nbsp; Ajouter</button>
-                                    </div>
-                                </div>
-                            </div>
-                            {{ form_end(form_mesure) }}
-                            </form>
-                        </div>
+                 
+   <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Mesures pour femmes</a>
+        </h4>
+      </div>
+        
+      <div id="collapse1" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.poitrine) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_poitrine) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.demi_ecart_poitrine) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_taille_terre) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_taille_cote_terre) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.demi_tour_encolure) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.demi_carrure_dos) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.demi_carrure_devant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.seins) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.bassin) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.enfourchure) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.taille) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.epauletaille) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.taille_dos) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.taille_devant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur_epaule) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_emmanchure) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_dessous_bras) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur_bras) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.grosseur_bras) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_coude) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_poignet) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_taille_hanche) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_montant) }}
+            </div><!--/ [col] -->
+           <div class="col-sm-4">
+                {{ form_row(form_mesure.epaules) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_taille_genou) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_petites_hanches) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_grandes_hanches) }}
+            </div>
+            
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Mesures pour hommes</a>
+        </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_poitrine_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_ceinture_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_bassin_homme) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur_taille_dos_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur_taille_devant_homme) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur_taille_devant7_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_encolure_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_tete_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_tete_homme) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.carrure_dos_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.carrure_devant_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur_epaule_homme) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur_bras_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_poignet_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_corps_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_taille_terre_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_taille_bassin_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_montant_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.enfourchure_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_taille_genou_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur_entrejambe_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_cuisse_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_mollet_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_jarret_homme) }}
+            </div><!--/ [col] -->
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Mesures pour enfants</a>
+        </h4>
+      </div>
+      <div id="collapse3" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur_taille_dos_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur_taille_devant_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_poitrine_enfant) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_taille_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_hanches_enfant) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_encolure_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur_epaule_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.carrure_dos_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.carrure_devant_enfant) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.carrure_dos_homme) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur_bras_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.grosseur_bras_enfant) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.longueur_coude_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_poignet_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_taille_hanches_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_montant_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_taille_genou_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_genou_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_entrejambe_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_taille_cote_terre_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.largeur_bas_pantalon_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.hauteur_tete7_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.perimetre_cranien_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.tour_visage_enfant) }}
+            </div><!--/ [col] -->
+            <div class="col-sm-4">
+                {{ form_row(form_mesure.ecart_poitrine_enfant) }}
+            </div>
+        </div>
+      </div>
+    </div>
+  </div> <div class="col-sm-12">
+                {{ form_row(form_mesure.titulaire) }}
+            </div><!--/ [col] -->
+            
+    <div class="cart_navigation"> 
+        <br><div>
+            <button type="submit" class="button"><i class="fa fa-check"></i>&nbsp; Ajouter mesures</button>
+        </div>
+    </div>
+    {{ form_end(form_mesure) }}
+    </form>
+</div>
                     </div>
                 </div>
             </div>

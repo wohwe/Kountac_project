@@ -145,7 +145,7 @@ class Categories
     
     public function __toString()
     {
-        return $this->getNom();
+        return $this->getParent().' ->>'.$this->getNom();
     }
 
 }

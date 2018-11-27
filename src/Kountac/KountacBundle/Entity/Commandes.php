@@ -22,7 +22,7 @@ class Commandes
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Kountac\KountacBundle\Entity\Media_motif", cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity="Kountac\KountacBundle\Entity\Media_motif", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $image;

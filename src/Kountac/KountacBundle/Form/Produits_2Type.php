@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Kountac\KountacBundle\Form\Media_motifType;
-use Kountac\KountacBundle\Form\Libelles_motifType;
 
 class Produits_2Type extends AbstractType
 {
@@ -20,12 +19,16 @@ class Produits_2Type extends AbstractType
                                              'label'=> 'Choisir un motif', 
                                              'attr' => array('class' => 'select form-control'),
                                              ))
-                ->add('etat','choice',array('choices' => array('0' => 'Occasion',
-                                                           '1' => 'Neuf'),
+                /*->add('mannequin','entity', array('class' => 'KountacBundle:Mannequin',
+                                             'label'=> 'Choisir un mannequin', 
+                                             'attr' => array('class' => 'select form-control'),
+                                             ))*/
+                ->add('etat','choice',array('choices' => array('1' => 'Neuf',
+                                                               '0' => 'Occasion'),
                                             'label' => 'Etat du produit*',
                                             'required' => true,
                                             'attr' => array('class' => 'select form-control')))
-                ->add('picture', new Media_motifType())
+                //->add('picture', new Media_motifType())
                 ->add('reduction','choice',array('choices' => array('0' => 'Non',
                                                                     '5' => '05 %',
                                                                    '10' => '10 %',
@@ -45,20 +48,33 @@ class Produits_2Type extends AbstractType
                                                 'label' => 'Choisir taux de réduction',
                                                 'required' => true,
                                                 'attr' => array('class' => 'select form-control')))
-                // Prix en Euro
+                // Prix en France
                 ->add('europrix','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix normal (€)',
                                            'required' => false))
                 ->add('europrixCommande','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix pour une commande sur mesure (€)',
                                            'required' => false))
+                ->add('europrecommande','choice', array('choices' => array('0' => 'Oui',
+                                                                           '1' => 'Non'),
+                                                        'expanded'=>true, 
+                                                        'data' => 0,
+                                                        'label' => 'Disponible en précommande? ',
+                                                        'required' => true))
+                // Prix en Allemagne
+                ->add('allprix','text', array('attr' => array('class' => 'input form-control'),
+                                           'label' => 'Prix normal (€)',
+                                           'required' => false))
+                ->add('allprixCommande','text', array('attr' => array('class' => 'input form-control'),
+                                           'label' => 'Prix pour une commande sur mesure (€)',
+                                           'required' => false))
                 
-                ->add('europays', 'entity', array('class' => 'KountacBundle:PaysEuro',
-                                             'label'=> false, 
-                                             'expanded'=>true,
-                                             'attr' => array('class' => 'select form-control'),
-                                             'label'=> 'Choisir les pays d\'Afrique où vous souhaitez ventre',
-                                             'multiple'=>true))
+                ->add('allprecommande','choice', array('choices' => array('0' => 'Oui',
+                                                                           '1' => 'Non'),
+                                                        'expanded'=>true, 
+                                                        'data' => 0,
+                                                        'label' => 'Disponible en précommande? ',
+                                                        'required' => true))
                 // Prix en F CFA
                 ->add('cfaprix','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix normal (F CFA)',
@@ -66,12 +82,12 @@ class Produits_2Type extends AbstractType
                 ->add('cfaprixCommande','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix pour une commande sur mesure (F CFA)',
                                            'required' => false))
-                ->add('cfapays', 'entity', array('class' => 'KountacBundle:PaysCfa',
-                                             'label'=> false, 
-                                             'expanded'=>true,
-                                             'attr' => array('class' => 'select form-control'),
-                                             'label'=> 'Choisir les pays d\'Afrique où vous souhaitez ventre',
-                                             'multiple'=>true))
+                ->add('cfaprecommande','choice', array('choices' => array('0' => 'Oui',
+                                                                           '1' => 'Non'),
+                                                        'expanded'=>true, 
+                                                        'data' => 0,
+                                                        'label' => 'Disponible en précommande? ',
+                                                        'required' => true))
                 // Prix en Naira
                 ->add('nairaprix','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix normal (₦)',
@@ -79,6 +95,12 @@ class Produits_2Type extends AbstractType
                 ->add('nairaprixCommande','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix pour une commande sur mesure (₦)',
                                            'required' => false))
+                ->add('nairaprecommande','choice', array('choices' => array('0' => 'Oui',
+                                                                           '1' => 'Non'),
+                                                        'expanded'=>true, 
+                                                        'label' => 'Disponible en précommande? ',
+                                                        'data' => 0,
+                                                        'required' => true)) 
                 // Prix en USD
                 ->add('usaprix','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix normal ($)',
@@ -86,12 +108,12 @@ class Produits_2Type extends AbstractType
                 ->add('usaprixCommande','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix pour une commande sur mesure ($)',
                                            'required' => false))
-                ->add('usapays', 'entity', array('class' => 'KountacBundle:PaysUsa',
-                                             'label'=> false, 
-                                             'expanded'=>true,
-                                             'attr' => array('class' => 'select form-control'),
-                                             'label'=> 'Choisir les pays d\'Amériques où vous souhaitez ventre',
-                                             'multiple'=>true))
+                ->add('usaprecommande','choice', array('choices' => array('0' => 'Oui ',
+                                                                           '1' => 'Non'),
+                                                        'expanded'=>true, 
+                                                        'label' => 'Disponible en précommande? ',
+                                                        'data' => 0,
+                                                        'required' => true)) 
                 // Prix en Livre
                 ->add('livreprix','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix normal (£)',
@@ -99,12 +121,12 @@ class Produits_2Type extends AbstractType
                 ->add('livreprixCommande','text', array('attr' => array('class' => 'input form-control'),
                                            'label' => 'Prix pour une commande sur mesure (£)',
                                            'required' => false))
-                ->add('livrepays', 'entity', array('class' => 'KountacBundle:PaysLivre',
-                                             'label'=> false, 
-                                             'expanded'=>true,
-                                             'attr' => array('class' => 'select form-control'),
-                                             'label'=> 'Choisir les pays du Royaume uni où vous souhaitez ventre',
-                                             'multiple'=>true))
+                ->add('livreprecommande','choice', array('choices' => array('0' => 'Oui',
+                                                                           '1' => 'Non'),
+                                                        'expanded'=>true, 
+                                                        'data' => 0,
+                                                        'label' => 'Disponible en précommande? ',
+                                                        'required' => true))
                 ;
     }
     

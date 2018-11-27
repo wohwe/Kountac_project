@@ -14,17 +14,20 @@ class PanierController extends Controller
             $session->set('panier', array());
 
         $em = $this->getDoctrine()->getManager();
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit($user);
         
         return $this->render('KountacBundle:Default:pages/panier.html.twig', array('produits' => $produits,
                                                                                    'commandes' => $commandes,                                                                       
                                                                                    'user'  => $user,
+                                                                                   'images'  => $images,
                                                                                    'euro' => $this->getRequest()->getSession()->get('euro'),
-                                                                                    'livre' => $this->getRequest()->getSession()->get('livre'),
-                                                                                    'usa' => $this->getRequest()->getSession()->get('usa'),
-                                                                                    'naira' => $this->getRequest()->getSession()->get('naira'),
-                                                                                    'cfa' => $this->getRequest()->getSession()->get('cfa'),
+                                                                                   'all' => $this->getRequest()->getSession()->get('all'),
+                                                                                   'livre' => $this->getRequest()->getSession()->get('livre'),
+                                                                                   'usa' => $this->getRequest()->getSession()->get('usa'),
+                                                                                   'naira' => $this->getRequest()->getSession()->get('naira'),
+                                                                                   'cfa' => $this->getRequest()->getSession()->get('cfa'),
                                                                                    'panier' => $session->get('panier')));
     }
     
@@ -36,12 +39,15 @@ class PanierController extends Controller
             $session->set('panier', array());
 
         $em = $this->getDoctrine()->getManager();
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit($user);
         
         return $this->render('KountacBundle:Menu:panierMenu.html.twig', array('produits' => $produits,
                                                                               'commandes' => $commandes,
+                                                                              'images' => $images,
                                                                               'euro' => $this->getRequest()->getSession()->get('euro'),
+                                                                              'all' => $this->getRequest()->getSession()->get('all'),
                                                                               'livre' => $this->getRequest()->getSession()->get('livre'),
                                                                               'usa' => $this->getRequest()->getSession()->get('usa'),
                                                                               'naira' => $this->getRequest()->getSession()->get('naira'),
@@ -57,12 +63,15 @@ class PanierController extends Controller
             $session->set('panier', array());
 
         $em = $this->getDoctrine()->getManager();
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit($user);
         
         return $this->render('KountacBundle:Menu:panierMenuAllProducts.html.twig', array('produits' => $produits,
                                                                               'commandes' => $commandes,
+                                                                              'images' => $images,
                                                                               'euro' => $this->getRequest()->getSession()->get('euro'),
+                                                                                'all' => $this->getRequest()->getSession()->get('all'),
                                                                                 'livre' => $this->getRequest()->getSession()->get('livre'),
                                                                                 'usa' => $this->getRequest()->getSession()->get('usa'),
                                                                                 'naira' => $this->getRequest()->getSession()->get('naira'),

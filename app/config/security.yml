@@ -28,7 +28,8 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/profile/, role:  IS_AUTHENTICATED_FULLY }
-        - { path: ^/Product/reserve/, role:  IS_AUTHENTICATED_FULLY }
+        - { path: ^/Reserve/, role:  IS_AUTHENTICATED_FULLY }
+        - { path: ^/profile/pro, role: ROLE_PRO }
         - { path: ^/profile_pro, role: ROLE_PRO }
         
         #- { path: ^/admin/, role: ROLE_ADMIN }

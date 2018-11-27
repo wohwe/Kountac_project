@@ -18,7 +18,7 @@ class CommandeItemController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $user = $this->getUser();
-        $produit = $em->getRepository('KountacBundle:Produits')->find($id);
+        $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
         
         $commande = new Commandes();
         
@@ -141,7 +141,7 @@ class CommandeItemController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $mesure = $em->getRepository('UtilisateursBundle:Mesures')->find($idMesure);
-        $produit = $em->getRepository('KountacBundle:Produits')->find($id);
+        $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
         
         $em->remove($mesure);
         $em->flush();

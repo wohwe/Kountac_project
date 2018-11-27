@@ -1,0 +1,57 @@
+<div class="sidebar-checkout block">
+    <div class="sidebar-bar-title">
+        <h3>Résumé commande</h3>
+    </div>
+    <div class="block-content">
+        <dl>
+            <dt class="complete"> Résumé commande <span class="separator">|</span> <a href="{{ path('panier') }}">Modifier</a> </dt>
+            {% for produit in produits %}
+                {% set prixReduction = 0 %}
+                {% set prixReduction = produit.produit2.allprix - (produit.produit2.allprix * produit.produit2.reduction/100) %}
+
+            <dd class="complete"><i class="fa fa-angle-right"></i> Nom : {{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }}<br>
+                &nbsp;&nbsp; Prix : {{ (prixReduction * panier[produit.id])|number_format(2) }} € ( {{ prixReduction|number_format(2) }} € x {{ panier[produit.id] }} )<br>
+                &nbsp;&nbsp; Matière : {{ produit.produit2.produit1.matiere|capitalize }} <br>
+            {% endfor %}
+            {% for commande in commandes %}
+                {% if commande.produit.allprix %}
+                {% set prixReduction2 = 0 %}
+                {% set prixReduction2 = commande.produit.allprixCommande %}
+
+            <dd class="complete"><i class="fa fa-angle-right"></i> Nom : {{ commande.produit.produit1.nom|capitalize }} - {{ commande.produit.libelle.libelle|capitalize }} (commande)<br>
+                &nbsp;&nbsp; Prix : {{ prixReduction2 }} €<br>
+                &nbsp;&nbsp; Matière : {{ commande.produit.produit1.matiere|capitalize }} <br>
+                {% endif %}
+            {% endfor %}
+            <br>
+            <dt class="complete"> Adresse de livraison<span class="separator"> |</span> <a href="{{ path('Checkout_index1') }}">Modifier</a> </dt>
+            <dd class="complete">
+                <address>
+                    {% if user.sexe %}Mme. {% else %} M. {% endif %}
+                    {% if user.prenom %}
+                    {{ user.prenom|capitalize }}{% endif %}
+                    {{ user.nom|capitalize }}<br>
+                    {{ user.adresse|capitalize }}<br>
+                    Rue {{ user.rue}}<br>
+                    {{ user.ville|capitalize }} <br>
+                    {% if user.cp %}
+                    {{ user.cp }} {{ user.pays }}<br>
+                    {% endif %}
+                    Tel(s): {{ user.telephone }} <br>
+                    {% if user.telephonefix %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ user.telephonefix }}
+                    {% endif %}
+                </address>
+            </dd>
+            {% if user.servicelivraison %}
+            <dt class="complete"> Méthode de livraison<span class="separator">|</span> <a href="{{ path('Checkout_index2') }}">Modifier</a> </dt>
+            <dd class="complete">&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i> {% if user.servicelivraison == "Null" %} Aucun service de livraison {% else %}{{ user.servicelivraison.nom }}{% endif %} <br>
+            {% endif %}
+            <br>
+            {% if user.servicepaiement %}
+            <dt class="complete"> Méthode de paiement<span class="separator">|</span> <a href="{{ path('Checkout_index3') }}">Modifier</a> </dt>
+            <dd class="complete">&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i> {{ user.servicepaiement.nom }} <br>
+            {% endif %}
+        </dl>
+    </div>
+</div>

@@ -8,9 +8,7 @@ use Kountac\KountacBundle\Entity\Achats;
 
 class AchatController extends Controller
 {
-    /**
-     * Resumé achat.
-     */
+    
     public function resumeAchatAction()
     {
         $session = $this->getRequest()->getSession();
@@ -48,6 +46,10 @@ class AchatController extends Controller
         elseif ($session->has('usa')){ 
             $achat->setUsa(1);
             $achat->setAchat($this->facture_usa());
+        }
+        elseif ($session->has('all')){
+            $achat->setAll(1);
+            $achat->setAchat($this->facture_all());
         }
         elseif ($session->has('naira')){ 
             $achat->setNaira(1);
@@ -183,6 +185,7 @@ class AchatController extends Controller
             'facture' => $facture,
             'euro' => $this->getRequest()->getSession()->get('euro'),
             'livre' => $this->getRequest()->getSession()->get('livre'),
+            'all' => $this->getRequest()->getSession()->get('all'),
             'usa' => $this->getRequest()->getSession()->get('usa'),
             'naira' => $this->getRequest()->getSession()->get('naira'),
             'cfa' => $this->getRequest()->getSession()->get('cfa')));
@@ -216,13 +219,15 @@ class AchatController extends Controller
         
         $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit_acheter($user);
-        //var_dump($commandes);die();
+        
         foreach($produits as $produit)
         {
             $prixReduction = ($produit->getproduit2()->getEuroprix() - ($produit->getproduit2()->getEuroprix() * $produit->getproduit2()->getReduction()/100));
             $prix = ($prixReduction * $panier[$produit->getId()]);
             $total += $prix;
-            $achat['produit'][$produit->getId()] = array('image' => $produit->getproduit2()->getPicture(),
+            $produit_2 = $produit->getproduit2();
+            $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
+            $achat['produit'][$produit->getId()] = array('image' => $image,
                                                          'reference' => $produit->getproduit2()->getProduit1()->getNom(),
                                                          'motif' => $produit->getproduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
@@ -234,7 +239,9 @@ class AchatController extends Controller
         {
             $prix_commande = $commande->getProduit()->getEuroprixCommande();
             $total_commande += $prix_commande;
-            $achat['commande'][$commande->getId()] = array('image' => $commande->getproduit()->getPicture(),
+            $produit_2 = $commande->getproduit();
+            $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
+            $achat['commande'][$commande->getId()] = array('image' => $image,
                                                            'reference' => $commande->getproduit()->getproduit1()->getNom(),
                                                            'prix' => round($prix_commande,2),
                                                             );
@@ -268,6 +275,76 @@ class AchatController extends Controller
         return $achat;
     }
     
+    public function facture_all()
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $generator = $this->container->get('security.secure_random');
+        $session = $this->getRequest()->getSession();
+        $panier = $session->get('panier');
+        $achat = array();
+        $total = 0;
+        $total_commande = 0;
+        
+        $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
+        $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit_acheter($user);
+        //var_dump($commandes);die();
+        foreach($produits as $produit)
+        {
+            $prixReduction = ($produit->getproduit2()->getAllprix() - ($produit->getproduit2()->getAllprix() * $produit->getproduit2()->getReduction()/100));
+            $prix = ($prixReduction * $panier[$produit->getId()]);
+            $total += $prix;
+            $produit_2 = $produit->getproduit2();
+            $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
+            $achat['produit'][$produit->getId()] = array('image' => $image,
+                                                         'reference' => $produit->getproduit2()->getProduit1()->getNom(),
+                                                         'motif' => $produit->getproduit2()->getLibelle()->getLibelle(),
+                                                         'quantite' => $panier[$produit->getId()],
+                                                         'prix' => round($prixReduction,2),
+                                                            );
+        }
+        
+        foreach($commandes as $commande)
+        {
+            $prix_commande = $commande->getProduit()->getAllprixCommande();
+            $total_commande += $prix_commande;
+            $produit_2 = $commande->getproduit();
+            $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
+            $achat['commande'][$commande->getId()] = array('image' => $image,
+                                                           'reference' => $commande->getproduit()->getproduit1()->getNom(),
+                                                           'prix' => round($prix_commande,2),
+                                                            );
+        }
+        
+        $achat['livraison'] = array('prenom' => $user->getPrenom(),
+                                    'nom' => $user->getNom(),
+                                    'email' => $user->getEmail(),
+                                    'telephone' => $user->getTelephone(),
+                                    'telephonefix' => $user->getTelephonefix(),                                    
+                                    'adresse' => $user->getAdresse(),
+                                    'cp' => $user->getCp(),
+                                    'ville' => $user->getVille(),
+                                    'pays' => $user->getPays(),
+                                    'Rue' => $user->getRue());
+
+        $achat['facturation'] = array('prenom' => $user->getPrenom(),
+                                    'nom' => $user->getNom(),
+                                    'email' => $user->getEmail(),
+                                    'telephone' => $user->getTelephone(),
+                                    'telephonefix' => $user->getTelephonefix(),                                    
+                                    'adresse' => $user->getAdresse(),
+                                    'cp' => $user->getCp(),
+                                    'ville' => $user->getVille(),
+                                    'pays' => $user->getPays(),
+                                    'Rue' => $user->getRue());
+
+        $achat['prix'] = round($total,2);
+        $achat['prixCommande'] = round($total_commande,2);
+        $achat['token'] = bin2hex($generator->nextBytes(20));
+        return $achat;
+    }
+
+    
     public function facture_livre()
     {
         $user = $this->getUser();
@@ -287,7 +364,9 @@ class AchatController extends Controller
             $prixReduction = ($produit->getproduit2()->getLivreprix() - ($produit->getproduit2()->getLivreprix() * $produit->getproduit2()->getReduction()/100));
             $prix = ($prixReduction * $panier[$produit->getId()]);
             $total += $prix;
-            $achat['produit'][$produit->getId()] = array('image' => $produit->getProduit2()->getPicture(),
+            $produit_2 = $produit->getproduit2();
+            $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
+            $achat['produit'][$produit->getId()] = array('image' => $image,
                                                          'reference' => $produit->getProduit2()->getProduit1()->getNom(),
                                                          'motif' => $produit->getProduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
@@ -299,7 +378,9 @@ class AchatController extends Controller
         {
             $prix_commande = $commande->getProduit()->getLivreprixCommande();
             $total_commande += $prix_commande;
-            $achat['commande'][$commande->getId()] = array('image' => $commande->getproduit()->getPicture(),
+            $produit_2 = $commande->getproduit();
+            $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
+            $achat['commande'][$commande->getId()] = array('image' => $image,
                                                            'reference' => $commande->getproduit()->getproduit1()->getNom(),
                                                            'motif' => $commande->getProduit()->getLibelle()->getLibelle(),
                                                            'prix' => round($prix_commande,2),
@@ -353,7 +434,9 @@ class AchatController extends Controller
             $prixReduction = ($produit->getproduit2()->getUsaprix() - ($produit->getProduit2()->getUsaprix() * $produit->getproduit2()->getReduction()/100));
             $prix = ($prixReduction * $panier[$produit->getId()]);
             $total += $prix;
-            $achat['produit'][$produit->getId()] = array('image' => $produit->getProduit2()->getPicture(),
+            $produit_2 = $produit->getproduit2();
+            $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
+            $achat['produit'][$produit->getId()] = array('image' => $image,
                                                          'reference' => $produit->getProduit2()->getProduit1()->getNom(),
                                                          'motif' => $produit->getProduit2()->getLibelle()->getLibelle(),                                         
                                                          'quantite' => $panier[$produit->getId()],
@@ -365,7 +448,9 @@ class AchatController extends Controller
         {
             $prix_commande = $commande->getProduit()->getUsaprixCommande();
             $total_commande += $prix_commande;
-            $achat['commande'][$commande->getId()] = array('image' => $commande->getproduit()->getPicture(),
+            $produit_2 = $commande->getproduit();
+            $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
+            $achat['commande'][$commande->getId()] = array('image' => $image,
                                                            'reference' => $commande->getproduit()->getproduit1()->getNom(),
                                                            'motif' => $commande->getProduit()->getLibelle()->getLibelle(),
                                                            'prix' => round($prix_commande,2),
@@ -419,7 +504,9 @@ class AchatController extends Controller
             $prixReduction = ($produit->getproduit2()->getNairaprix() - ($produit->getproduit2()->getNairaprix() * $produit->getproduit2()->getReduction()/100));
             $prix = ($prixReduction * $panier[$produit->getId()]);
             $total += $prix;
-            $achat['produit'][$produit->getId()] = array('image' => $produit->getProduit2()->getPicture(),
+            $produit_2 = $produit->getproduit2();
+            $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
+            $achat['produit'][$produit->getId()] = array('image' => $image,
                                                          'reference' => $produit->getProduit2()->getproduit1()->getNom(),
                                                          'motif' => $produit->getProduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
@@ -431,7 +518,9 @@ class AchatController extends Controller
         {
             $prix_commande = $commande->getProduit()->getNairaprixCommande();
             $total_commande += $prix_commande;
-            $achat['commande'][$commande->getId()] = array('image' => $commande->getproduit()->getPicture(),
+            $produit_2 = $commande->getproduit();
+            $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
+            $achat['commande'][$commande->getId()] = array('image' => $image,
                                                            'reference' => $commande->getproduit()->getproduit1()->getNom(),
                                                            'motif' => $commande->getProduit()->getLibelle()->getLibelle(),
                                                            'prix' => round($prix_commande,2),
@@ -485,7 +574,9 @@ class AchatController extends Controller
             $prixReduction = ($produit->getProduit2()->getCfaprix() - ($produit->getProduit2()->getCfaprix() * $produit->getReduction()/100));
             $prix = ($prixReduction * $panier[$produit->getId()]);
             $total += $prix;
-            $achat['produit'][$produit->getId()] = array('image' => $produit->getProduit2()->getPicture(),
+            $produit_2 = $produit->getproduit2();
+            $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
+            $achat['produit'][$produit->getId()] = array('image' => $image,
                                                          'reference' => $produit->getProduit2()->getproduit1()->getNom(),
                                                          'motif' => $produit->getProduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
@@ -497,7 +588,9 @@ class AchatController extends Controller
         {
             $prix_commande = $commande->getProduit()->getCfaprixCommande();
             $total += $prix_commande;
-            $achat['commande'][$commande->getId()] = array('image' => $commande->getproduit()->getPicture(),
+            $produit_2 = $commande->getproduit();
+            $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
+            $achat['commande'][$commande->getId()] = array('image' => $image,
                                                            'reference' => $commande->getproduit()->getproduit1()->getNom(),
                                                            'motif' => $commande->getProduit()->getLibelle()->getLibelle(),
                                                            'prix' => round($prix_commande,2),

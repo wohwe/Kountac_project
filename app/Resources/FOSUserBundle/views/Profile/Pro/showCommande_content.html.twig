@@ -147,6 +147,8 @@
                                             {% include 'FOSUserBundle:Profile:Pro/naira/showCommande_content.html.twig' %}
                                         {% elseif livre|length %}
                                             {% include 'FOSUserBundle:Profile:Pro/livre/showCommande_content.html.twig' %}
+                                        {% elseif all|length %}
+                                            {% include 'FOSUserBundle:Profile:Pro/all/showCommande_content.html.twig' %}
                                         {% endif %}
                                         <tr>
                                             <td class="compare-label">Mesures</td>

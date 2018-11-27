@@ -1,7 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from htmlmystore.justthemevalley.com/Version4/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 23 Aug 2017 11:32:03 GMT -->
 <head>
 <!-- Basic page needs -->
 <meta charset="utf-8">
@@ -16,7 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Favicon  -->
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
 <!-- Google Fonts -->
 <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
@@ -75,10 +73,6 @@
       <div class="header-top">
         <div class="container">
           <div class="row">
-            <div class="col-lg-4 col-sm-4 col-md-5 hidden-xs"> 
-              <!-- Default Welcome Message -->
-              <div class="welcome-msg ">Bienvenue sur Kountac ! </div>
-            </div>
             <!-- top links -->
             {% render(controller('KountacBundle:Menu:headerLink')) %}
           </div>
@@ -88,7 +82,7 @@
         <div class="row">
           <div class="col-sm-4 col-md-3 col-xs-12"> 
             <!-- Header Logo -->
-            <div class="logo"><a title="Kountac" href="{{ path('kountac_homepage') }}"><img alt="e-commerce" src="{{ asset('images/logo.png') }}"></a> </div>
+            <div class="logo"><a title="Kountac" href="{{ path('kountac_homepage') }}"><img alt="e-commerce" src="{{ asset('images/logo.png') }}" height=50></a> </div>
             <!-- End Header Logo --> 
           </div>
             <br>
@@ -167,16 +161,13 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-sm-6 col-md-4 col-xs-12 col-lg-3">
+        <div class="col-sm-7 col-md-5 col-xs-12 col-lg-3">
          {% render(controller('KountacBundle:Menu:contactUsFooter')) %}
         </div>
-        <div class="col-sm-6 col-md-3 col-xs-12 col-lg-3 collapsed-block">
+        <div class="col-sm-7 col-md-4 col-xs-12 col-lg-3 collapsed-block">
           {% render(controller('KountacBundle:Menu:informationFooter')) %}
         </div>
-        <div class="col-sm-6 col-md-3 col-xs-12 col-lg-3 collapsed-block">
-          {% render(controller('KountacBundle:Menu:insiderFooter')) %}
-        </div>
-        <div class="col-sm-6 col-md-2 col-xs-12 col-lg-3 collapsed-block">
+        <div class="col-sm-7 col-md-3 col-xs-12 col-lg-3 collapsed-block">
           {% render(controller('KountacBundle:Menu:menuCollectionFooter')) %}
         </div>
       </div>

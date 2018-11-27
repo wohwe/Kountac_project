@@ -24,7 +24,7 @@ class Utilisateurs extends BaseUser
     private $image;
     
     /**
-     * @ORM\OneToMany(targetEntity="Kountac\KountacBundle\Entity\Achats", mappedBy="utilisateur", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Kountac\KountacBundle\Entity\Achats", mappedBy="utilisateur", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $achats;
@@ -43,6 +43,11 @@ class Utilisateurs extends BaseUser
      * @ORM\OneToMany(targetEntity="Kountac\KountacBundle\Entity\Produits_1", mappedBy="marque", cascade={"persist"})
      */
     private $produit_1_marque;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Kountac\KountacBundle\Entity\Mannequin", mappedBy="marque", cascade={"persist"})
+     */
+    private $mannequin;
     
     /**
      * @ORM\OneToMany(targetEntity="Utilisateurs\UtilisateursBundle\Entity\Utilisateurs", mappedBy="utilisateur", cascade={"persist"})
@@ -106,6 +111,12 @@ class Utilisateurs extends BaseUser
     /**
      * @ORM\Column(type="string", length=200)
      */
+    private $departement;
+    
+    
+    /**
+     * @ORM\Column(type="string", length=200)
+     */
     private $ville;
     
         
@@ -113,6 +124,11 @@ class Utilisateurs extends BaseUser
      * @ORM\Column(type="float", nullable=true)
      */
     private $cp;
+    
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $digicode;
     
         
     /**
@@ -945,5 +961,87 @@ class Utilisateurs extends BaseUser
     public function getDescriptionEntreprise()
     {
         return $this->description_entreprise;
+    }
+
+    /**
+     * Add mannequin
+     *
+     * @param \Kountac\KountacBundle\Entity\Mannequin $mannequin
+     *
+     * @return Utilisateurs
+     */
+    public function addMannequin(\Kountac\KountacBundle\Entity\Mannequin $mannequin)
+    {
+        $this->mannequin[] = $mannequin;
+
+        return $this;
+    }
+
+    /**
+     * Remove mannequin
+     *
+     * @param \Kountac\KountacBundle\Entity\Mannequin $mannequin
+     */
+    public function removeMannequin(\Kountac\KountacBundle\Entity\Mannequin $mannequin)
+    {
+        $this->mannequin->removeElement($mannequin);
+    }
+
+    /**
+     * Get mannequin
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMannequin()
+    {
+        return $this->mannequin;
+    }
+
+    /**
+     * Set departement
+     *
+     * @param string $departement
+     *
+     * @return Utilisateurs
+     */
+    public function setDepartement($departement)
+    {
+        $this->departement = $departement;
+
+        return $this;
+    }
+
+    /**
+     * Get departement
+     *
+     * @return string
+     */
+    public function getDepartement()
+    {
+        return $this->departement;
+    }
+
+    /**
+     * Set digicode
+     *
+     * @param float $digicode
+     *
+     * @return Utilisateurs
+     */
+    public function setDigicode($digicode)
+    {
+        $this->digicode = $digicode;
+
+        return $this;
+    }
+
+    /**
+     * Get digicode
+     *
+     * @return float
+     */
+    public function getDigicode()
+    {
+        return $this->digicode;
     }
 }

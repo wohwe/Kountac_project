@@ -8,9 +8,11 @@
             <div class="row">
                 <div class="col-xs-12">
                     <ul>
-                    <li class="home"> <a title="Go to Home Page" href="index.html">Accueil</a><span>&raquo;</span></li>
-
-                        <li><strong>Checkout</strong></li>
+                        <li class="home"> <a title="Aller à l'accueil" href="{{ path ('kountac_homepage')}}">Accueil</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon panier" href="{{ path ('panier')}}">Mon panier</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Paramètres adresse de facturation" href="{{ path ('Checkout_index1')}}">Adresse de facturation</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Service de livraison" href="{{ path ('Checkout_index2')}}">Service de livraison</a><span>&raquo;</span></li>
+                        <li><strong>Service de paiement</strong></li>
                     </ul>
                 </div>
             </div>
@@ -93,21 +95,12 @@
                                     <li class="row">
                                         <div class="col-sm-8">
                                             <label><u>Service de livraison</u> :</label>
-                                            {% if not user.servicelivraison.nom %}
+                                            {% if not user.servicelivraison.nom or user.servicelivraison.nom == "Null" %}
                                                 Aucun service de livraison
                                             {% else %}
                                                 {{ user.servicelivraison.nom|upper }}
                                             {% endif %}
                                         </div>
-                                    </li>
-                                    <br>
-                                    <li class="row">
-                                        {% if user.servicelivraison.description %}
-                                        <div class="col-sm-8">
-                                             <label><u>A propos du service</u> :</label>
-                                                {{ user.servicelivraison.description|capitalize }}
-                                        </div>
-                                        {% endif %}
                                     </li>
                                 </ul>
                         </div>

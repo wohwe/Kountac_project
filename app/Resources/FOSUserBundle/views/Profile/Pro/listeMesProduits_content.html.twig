@@ -61,15 +61,19 @@
                                                 <td class="cart_product">
                                                     <a href="{{ path('produit_pro_show', {'id' : produit.id}) }}" title="{{ produit.nom|capitalize }}" class="product-image">
                                                         {% for produit2 in produit.produit2 %}
-                                                            <img src="{{ produit2.picture.AssetPath|imagine_filter('cartThumbMenuItem') }}" alt=""><br><br>
+                                                            {% for image in images %}
+                                                                {% if image.produit2 == produit2 and image.top == 0 %}
+                                                                    <img src="{{ image.AssetPath|imagine_filter('cartThumbMenuItem') }}" alt=""><br><br>
+                                                                {% endif %}
+                                                            {% endfor %}
                                                         {% endfor %}
                                                     </a>
                                                 </td>
                                                 <td class="cart_description"><p class="product-name"><a>{{ produit.nom|capitalize }} </a></p><br>
                                                     <small><a><u>Description</u> : {{ produit.description|capitalize|truncate(50, false, ' ...') }}</a></small><br>
                                                     <small><a><u>Catégorie</u> : {{ produit.categorie|capitalize }}</a></small><br>
-                                                    <small><a><u>Matière</u> : {{ produit.matiere|capitalize }}</a></small><br>
-                                                   <br> 
+                                                    <small><a><u>Matière</u> : {{ produit.matiere|capitalize }}</a></small><br><br>
+                                                    <br> 
                                                 </td><div class="container">
                                                 <td class="cart_description col-sm-4">
                                                         <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
@@ -96,16 +100,33 @@
                                                                     {% set prixReduction = produit2.europrix - (produit2.europrix * produit2.reduction/100) %}
 
                                                                     {% if produit2.reduction == 0 %}
-                                                                        <p><strong>Europe (€) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
+                                                                        <p><strong>France (€) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
                                                                     {% else %}
                                                                     <div class="price-box">
-                                                                        <p class="special-price"><strong>Europe (€) :</strong>
+                                                                        <p class="special-price"><strong>France (€) :</strong>
                                                                          <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} </span> </p>
                                                                         <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit2.europrix|number_format(2) }}</span> </p>
                                                                     </div>
                                                                     {% endif %}
                                                                 {% else %}
-                                                                    <p><strong>Europe (€) : </strong><span class="availability out-of-stock">Non défini</span></p>
+                                                                    <p><strong>France (€) : </strong><span class="availability out-of-stock">Non défini</span></p>
+                                                                {% endif %}
+                                                                
+                                                                {% if produit2.allprix %}
+                                                                    {% set prixReduction = 0 %}
+                                                                    {% set prixReduction = produit2.allprix - (produit2.allprix * produit2.reduction/100) %}
+
+                                                                    {% if produit2.reduction == 0 %}
+                                                                        <p><strong>Allemagne (€) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
+                                                                    {% else %}
+                                                                    <div class="price-box">
+                                                                        <p class="special-price"><strong>Allemagne (€) :</strong>
+                                                                         <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} </span> </p>
+                                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit2.allprix|number_format(2) }}</span> </p>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                {% else %}
+                                                                    <p><strong>Allemagne (€) : </strong><span class="availability out-of-stock">Non défini</span></p>
                                                                 {% endif %}
 
                                                                 {% if produit2.livreprix %}
@@ -113,16 +134,16 @@
                                                                     {% set prixReduction = produit2.livreprix - (produit2.livreprix * produit2.reduction/100) %}
 
                                                                     {% if produit2.reduction == 0 %}
-                                                                        <p><strong>UK (£) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
+                                                                        <p><strong>Angleterre (£) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
                                                                     {% else %}
                                                                     <div class="price-box">
-                                                                        <p class="special-price"><strong>UK (£) :</strong>
+                                                                        <p class="special-price"><strong>Angleterre (£) :</strong>
                                                                          <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} </span> </p>
                                                                         <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit2.livreprix|number_format(2) }}</span> </p>
                                                                     </div>
                                                                     {% endif %}
                                                                 {% else %}
-                                                                    <p><strong>UK (£) : </strong><span class="availability out-of-stock">Non défini</span></p>
+                                                                    <p><strong>Angleterre (£) : </strong><span class="availability out-of-stock">Non défini</span></p>
                                                                 {% endif %}
 
                                                                 {% if produit2.usaprix %}
@@ -130,16 +151,16 @@
                                                                     {% set prixReduction = produit2.usaprix - (produit2.usaprix * produit2.reduction/100) %}
 
                                                                     {% if produit2.reduction == 0 %}
-                                                                        <p><strong>USA ($) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
+                                                                        <p><strong>Etats-unis ($) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
                                                                     {% else %}
                                                                     <div class="price-box">
-                                                                        <p class="special-price"><strong>USA ($) :</strong>
+                                                                        <p class="special-price"><strong>Etats-unis ($) :</strong>
                                                                          <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} </span> </p>
                                                                         <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit2.usaprix|number_format(2) }}</span> </p>
                                                                     </div>
                                                                     {% endif %}
                                                                 {% else %}
-                                                                    <p><strong>USA ($) : </strong><span class="availability out-of-stock">Non défini</span></p>
+                                                                    <p><strong>Etats-unis ($) : </strong><span class="availability out-of-stock">Non défini</span></p>
                                                                 {% endif %}
 
                                                                 {% if produit2.cfaprix %}
@@ -147,35 +168,27 @@
                                                                     {% set prixReduction = produit2.cfaprix - (produit2.cfaprix * produit2.reduction/100) %}
 
                                                                     {% if produit2.reduction == 0 %}
-                                                                        <p><strong>Afrique (F CFA) :</strong><span class="regular-price"> <span class="price">{{ prixReduction }}</span> </span></p>
+                                                                        <p><strong>Cameroun (F CFA) :</strong><span class="regular-price"> <span class="price">{{ prixReduction }}</span> </span></p>
                                                                     {% else %}
                                                                     <div class="price-box">
-                                                                        <p class="special-price"><strong>Afrique (F CFA) :</strong>
+                                                                        <p class="special-price"><strong>Cameroun (F CFA) :</strong>
                                                                          <span class="price-label">Special Price</span> <span class="price">{{ prixReduction }} </span> </p>
                                                                         <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit2.cfaprix }}</span> </p>
                                                                     </div>
                                                                     {% endif %}
                                                                 {% else %}
-                                                                    <p><strong>Afrique (F CFA) : </strong><span class="availability out-of-stock">Non défini</span></p>
+                                                                    <p><strong>Cameroun (F CFA) : </strong><span class="availability out-of-stock">Non défini</span></p>
                                                                 {% endif %}
-
-                                                                {% if produit2.nairaprix %}
-                                                                    {% set prixReduction = 0 %}
-                                                                    {% set prixReduction = produit2.nairaprix - (produit2.nairaprix * produit2.reduction/100) %}
-
-                                                                    {% if produit2.reduction == 0 %}
-                                                                        <p><strong>Nigéria (₦) :</strong><span class="regular-price"> <span class="price">{{ prixReduction }}</span> </span></p>
-                                                                    {% else %}
-                                                                    <div class="price-box">
-                                                                        <p class="special-price"><strong>Nigéria (₦) :</strong>
-                                                                         <span class="price-label">Special Price</span> <span class="price">{{ prixReduction }} </span> </p>
-                                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit2.nairaprix }}</span> </p>
-                                                                    </div>
-                                                                    {% endif %}
-                                                                {% else %}
-                                                                    <p><strong>Nigéria (₦) : </strong><span class="availability out-of-stock">Non défini</span></p>
-                                                                {% endif %}
-                                                       
+                                                                <br>
+                                                                <label>Mannequin(s) disponible(s):</label><br>
+                                                                {% for mannequin in mannequins %}
+                                                                    {% for image in mannequin.picture %}
+                                                                        {% if image.produit2 == produit2 %}
+                                                                            <img src="{{ mannequin.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp;{{ mannequin.nomMannequin|capitalize }} 
+                                                                            <small> (taille standard: {{ mannequin.tailleStandardMannequin }}, poids: {{ mannequin.poidsMannequin }}Kg, Taille: {{ mannequin.tailleMannequin }}m)</small> <br>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% endfor %}
                                                             </div>
                                                         {% else %}
                                                                 <div class="tab-pane fade" id="{{ produit2.id }}">
@@ -187,16 +200,33 @@
                                                                     {% set prixReduction = produit2.europrix - (produit2.europrix * produit2.reduction/100) %}
 
                                                                     {% if produit2.reduction == 0 %}
-                                                                        <p><strong>Europe (€) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
+                                                                        <p><strong>France (€) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
                                                                     {% else %}
                                                                     <div class="price-box">
-                                                                        <p class="special-price"><strong>Europe (€) :</strong>
+                                                                        <p class="special-price"><strong>France (€) :</strong>
                                                                          <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} </span> </p>
                                                                         <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit2.europrix|number_format(2) }}</span> </p>
                                                                     </div>
                                                                     {% endif %}
                                                                 {% else %}
-                                                                    <p><strong>Europe (€) : </strong><span class="availability out-of-stock">Non défini</span></p>
+                                                                    <p><strong>France (€) : </strong><span class="availability out-of-stock">Non défini</span></p>
+                                                                {% endif %}
+                                                                
+                                                                {% if produit2.allprix %}
+                                                                    {% set prixReduction = 0 %}
+                                                                    {% set prixReduction = produit2.allprix - (produit2.allprix * produit2.reduction/100) %}
+
+                                                                    {% if produit2.reduction == 0 %}
+                                                                        <p><strong>Allemagne (€) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
+                                                                    {% else %}
+                                                                    <div class="price-box">
+                                                                        <p class="special-price"><strong>Allemagne (€) :</strong>
+                                                                         <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} </span> </p>
+                                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit2.allprix|number_format(2) }}</span> </p>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                {% else %}
+                                                                    <p><strong>Allemagne (€) : </strong><span class="availability out-of-stock">Non défini</span></p>
                                                                 {% endif %}
 
                                                                 {% if produit2.livreprix %}
@@ -204,16 +234,16 @@
                                                                     {% set prixReduction = produit2.livreprix - (produit2.livreprix * produit2.reduction/100) %}
 
                                                                     {% if produit2.reduction == 0 %}
-                                                                        <p><strong>UK (£) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
+                                                                        <p><strong>Angleterre (£) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
                                                                     {% else %}
                                                                     <div class="price-box">
-                                                                        <p class="special-price"><strong>UK (£) :</strong>
+                                                                        <p class="special-price"><strong>Angleterre (£) :</strong>
                                                                          <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} </span> </p>
                                                                         <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit2.livreprix|number_format(2) }}</span> </p>
                                                                     </div>
                                                                     {% endif %}
                                                                 {% else %}
-                                                                    <p><strong>UK (£) : </strong><span class="availability out-of-stock">Non défini</span></p>
+                                                                    <p><strong>Angleterre (£) : </strong><span class="availability out-of-stock">Non défini</span></p>
                                                                 {% endif %}
 
                                                                 {% if produit2.usaprix %}
@@ -221,16 +251,16 @@
                                                                     {% set prixReduction = produit2.usaprix - (produit2.usaprix * produit2.reduction/100) %}
 
                                                                     {% if produit2.reduction == 0 %}
-                                                                        <p><strong>USA ($) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
+                                                                        <p><strong>Etats-unis ($) :</strong><span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} </span> </span></p>
                                                                     {% else %}
                                                                     <div class="price-box">
-                                                                        <p class="special-price"><strong>USA ($) :</strong>
+                                                                        <p class="special-price"><strong>Etats-unis ($) :</strong>
                                                                          <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} </span> </p>
                                                                         <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit2.usaprix|number_format(2) }}</span> </p>
                                                                     </div>
                                                                     {% endif %}
                                                                 {% else %}
-                                                                    <p><strong>USA ($) : </strong><span class="availability out-of-stock">Non défini</span></p>
+                                                                    <p><strong>Etats-unis ($) : </strong><span class="availability out-of-stock">Non défini</span></p>
                                                                 {% endif %}
 
                                                                 {% if produit2.cfaprix %}
@@ -238,38 +268,30 @@
                                                                     {% set prixReduction = produit2.cfaprix - (produit2.cfaprix * produit2.reduction/100) %}
 
                                                                     {% if produit2.reduction == 0 %}
-                                                                        <p><strong>Afrique (F CFA) :</strong><span class="regular-price"> <span class="price">{{ prixReduction }}</span> </span></p>
+                                                                        <p><strong>Cameroun (F CFA) :</strong><span class="regular-price"> <span class="price">{{ prixReduction }}</span> </span></p>
                                                                     {% else %}
                                                                     <div class="price-box">
-                                                                        <p class="special-price"><strong>Afrique (F CFA) :</strong>
+                                                                        <p class="special-price"><strong>Cameroun (F CFA) :</strong>
                                                                          <span class="price-label">Special Price</span> <span class="price">{{ prixReduction }} </span> </p>
                                                                         <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit2.cfaprix }}</span> </p>
                                                                     </div>
                                                                     {% endif %}
                                                                 {% else %}
-                                                                    <p><strong>Afrique (F CFA) : </strong><span class="availability out-of-stock">Non défini</span></p>
+                                                                    <p><strong>Cameroun (F CFA) : </strong><span class="availability out-of-stock">Non défini</span></p>
                                                                 {% endif %}
-
-                                                                {% if produit2.nairaprix %}
-                                                                    {% set prixReduction = 0 %}
-                                                                    {% set prixReduction = produit2.nairaprix - (produit2.nairaprix * produit2.reduction/100) %}
-
-                                                                    {% if produit2.reduction == 0 %}
-                                                                        <p><strong>Nigéria (₦) :</strong><span class="regular-price"> <span class="price">{{ prixReduction }}</span> </span></p>
-                                                                    {% else %}
-                                                                    <div class="price-box">
-                                                                        <p class="special-price"><strong>Nigéria (₦) :</strong>
-                                                                         <span class="price-label">Special Price</span> <span class="price">{{ prixReduction }} </span> </p>
-                                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit2.nairaprix }}</span> </p>
-                                                                    </div>
-                                                                    {% endif %}
-                                                                {% else %}
-                                                                    <p><strong>Nigéria (₦) : </strong><span class="availability out-of-stock">Non défini</span></p>
-                                                                {% endif %}
-                                                        </div>
+                                                                <br>
+                                                                <label>Mannequin(s) disponible(s):</label><br>
+                                                                {% for mannequin in mannequins %}
+                                                                    {% for image in mannequin.picture %}
+                                                                        {% if image.produit2 == produit2 %}
+                                                                            <img src="{{ mannequin.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp;{{ mannequin.nomMannequin|capitalize }} 
+                                                                            <small> (taille standard: {{ mannequin.tailleStandardMannequin }}, poids: {{ mannequin.poidsMannequin }}Kg, Taille: {{ mannequin.tailleMannequin }}m)</small> <br>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% endfor %}
+                                                                </div>
                                                             </div>
                                                             {% endif %}
-                                                        
                                                     {% endfor %}
                                                     </div>
                                                     </div>
