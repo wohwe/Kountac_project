@@ -3152,7 +3152,7 @@ footer .social ul {
 	transition: background 400ms ease-in-out;
 	-webkit-transition: background 400ms ease-in-out;
 	-moz-transition: background 400ms ease-in-out;
-	-o-transition: background 400ms ease-in-out
+	-o-transition: background 400ms ease-in-out;
 }
 @media (min-width:1024px) and (max-width:1080px) {
 .footer-newsletter .newsletter-email {
