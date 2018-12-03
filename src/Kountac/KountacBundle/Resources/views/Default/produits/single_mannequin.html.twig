@@ -85,7 +85,7 @@
                                     <div id="upsell-product-slider" class="product-flexslider hidden-buttons">
                                         <div class="large-image slides"> 
                                             <a href="{{ asset(image.AssetPath) }}" class="cloud-zoom" id="zoom1" rel="useWrapper: false, adjustY:0, adjustX:20"> 
-                                                <li><figure><img class="zoom-img" src="{{ image.AssetPath|imagine_filter('produitThumbDetail') }}"> </figure></li>
+                                                <li><figure><img class="zoom-img" src="{{ asset(image.AssetPath) }}"> </figure></li>
                                             </a> 
                                         </div>
                                     </div>
