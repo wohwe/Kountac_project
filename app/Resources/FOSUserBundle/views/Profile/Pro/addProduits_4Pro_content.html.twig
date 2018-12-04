@@ -1,0 +1,254 @@
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Aller à mon profil professionnel" href="{{ path('pro_user_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Voir tous mes produits" href="{{ path('produit_pro_index')}}">Mes produits</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Ajouter un nouveau produit" href="{{ path('produit_pro_new_1')}}">Nouveau produit</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Ajouter un nouveau motif" href="{{ path('produit_pro_new_2', { 'id' : produit_2.produit1.id }) }}">Nouveau motif</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Ajouter des photos de mannequin" href="{{ path('produit_pro_new_3', { 'id' : produit_2.id }) }}">Ajout de mannequins</a><span>&raquo;</span></li>
+                    <li><strong>Ajouter des tailles au produit {{ produit_2.produit1.nom|capitalize }} - {{ produit_2.libelle.libelle }}</strong></li>
+                </ul>
+
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert-box">
+                        <br><br>
+                        {{ flashMessage }}
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-12 col-xs-12">  
+                <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
+                    <li> <a href="{{ path('produit_pro_new_edit1', { 'id' : produit_2.produit1.id }) }}"> Information générale </a> </li>                
+                    <li><a href="{{ path('produit_pro_new_2', { 'id' : produit_2.produit1.id }) }}">Couleurs</a></li>
+                    <li><a href="{{ path('produit_pro_new_3', { 'id' : produit_2.produit1.id }) }}">Photos mannequin</a> </li>
+                    <li class="active"><a>Stocks par motif</a> </li>
+                </ul>
+                <br><br>
+            </div>
+            <div class="col-main col-sm-6 col-xs-12">
+                <div class="page-content checkout-page">
+                    <div class="page-title">
+                        <h3 class="checkout-step">Choisir taille(s) (34-50) de "{{ produit_2.produit1.nom|capitalize }} - {{ produit_2.libelle.libelle }}"</h3>
+                    </div>
+                    <form action="{{ path('produit_pro_new_4', { 'id' : produit_2.produit1.id }) }}" method="POST">
+                        <div class="box-border">
+                            <ul>
+                                <li class="row">
+                                    <div class="col-sm-12">
+                                        <table>
+                                            <tr>
+                                                <td class="col-sm-3">
+                                                    <div class="size">
+                                                        <ul>
+                                                            <li><a>34</a></li><br><br><br>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="cart-plus-minus">
+                                                        <div class="numbers-row">
+                                                            <select name="stock_xs" class="select form-control">
+                                                                {% for i in 0 .. 15 %}
+                                                                    <option value="{{ i }}">{{ i }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-sm-3">
+                                                    <div class="size">
+                                                        <ul>
+                                                            <li><a>36</a></li><br><br><br>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="cart-plus-minus">
+                                                        <div class="numbers-row">
+                                                            <select name="stock_s" class="select form-control">
+                                                                {% for i in 0 .. 15 %}
+                                                                    <option value="{{ i }}">{{ i }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-sm-3">
+                                                    <div class="size">
+                                                        <ul>
+                                                            <li><a>38</a></li><br><br><br>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="cart-plus-minus">
+                                                        <div class="numbers-row">
+                                                            <select name="stock_l" class="select form-control">
+                                                                {% for i in 0 .. 15 %}
+                                                                    <option value="{{ i }}">{{ i }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-sm-3">
+                                                    <div class="size">
+                                                        <ul>
+                                                            <li><a>40</a></li><br><br><br>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="cart-plus-minus">
+                                                        <div class="numbers-row">
+                                                            <select name="stock_m" class="select form-control">
+                                                                {% for i in 0 .. 15 %}
+                                                                    <option value="{{ i }}">{{ i }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-sm-3">
+                                                    <div class="size">
+                                                        <ul>
+                                                            <li><a>42</a></li><br><br><br>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="cart-plus-minus">
+                                                        <div class="numbers-row">
+                                                            <select name="stock_xl" class="select form-control">
+                                                                {% for i in 0 .. 15 %}
+                                                                    <option value="{{ i }}">{{ i }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-sm-3">
+                                                    <div class="size">
+                                                        <ul>
+                                                            <li><a>44</a></li><br><br><br>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="cart-plus-minus">
+                                                        <div class="numbers-row">
+                                                            <select name="stock_2xl" class="select form-control">
+                                                                {% for i in 0 .. 15 %}
+                                                                    <option value="{{ i }}">{{ i }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-sm-3">
+                                                    <div class="size">
+                                                        <ul>
+                                                            <li><a>46</a></li><br><br><br>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="cart-plus-minus">
+                                                        <div class="numbers-row">
+                                                            <select name="stock_3xl" class="select form-control">
+                                                                {% for i in 0 .. 15 %}
+                                                                    <option value="{{ i }}">{{ i }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-sm-3">
+                                                    <div class="size">
+                                                        <ul>
+                                                            <li><a>48</a></li><br><br><br>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="cart-plus-minus">
+                                                        <div class="numbers-row">
+                                                            <select name="stock_4xl" class="select form-control">
+                                                                {% for i in 0 .. 15 %}
+                                                                    <option value="{{ i }}">{{ i }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-sm-3">
+                                                    <div class="size">
+                                                        <ul>
+                                                            <li><a>50</a></li><br><br><br>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="cart-plus-minus">
+                                                        <div class="numbers-row">
+                                                            <select name="stock_5xl" class="select form-control">
+                                                                {% for i in 0 .. 15 %}
+                                                                    <option value="{{ i }}">{{ i }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>                                
+                                </li>
+                                <br>
+                                <li>
+                                    <button  class="button pull-right" type="submit"><i class="fa fa-angle-double-right"></i>&nbsp; &nbsp;<span>Terminer </span></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <aside class="right sidebar col-sm-3 col-xs-12">
+                {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
+                <br><br>
+                {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+            </aside>
+        </div>
+
+    </div>
+</div>
+</section>
+

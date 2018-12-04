@@ -8,9 +8,19 @@ produit_pro_new_1:
     defaults: { _controller: "UtilisateursBundle:ProduitPro:new1" }
     methods:  [GET, POST]
     
+produit_pro_new_edit1:
+    path:     /new_edit_1{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:new_edit1" }
+    methods:  [GET, POST]
+    
 produit_pro_new_2:
     path:     /new_2_{id}
     defaults: { _controller: "UtilisateursBundle:ProduitPro:new2" }
+    methods:  [GET, POST]
+    
+produit_pro_new_edit2:
+    path:     /new_edit_2{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:new_edit2" }
     methods:  [GET, POST]
     
 produit_pro_new_mannequin:
@@ -23,19 +33,39 @@ produit_pro_new_images_mannequin:
     defaults: { _controller: "UtilisateursBundle:ProduitPro:addImagesMannequin" }
     methods:  [GET, POST]
     
+produit_pro_edit_images_mannequin:
+    path:     /edit_images_mannequin_{id}
+    defaults: { _controller: "UtilisateursBundle:Formulaires:addImagesMannequin" }
+    methods:  [GET, POST]
+    
+produit_pro_set_images_top_new:
+    path:     /set_images_mannequin_Newtop{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:setTopMannequinNewProduit" }
+    methods:  [GET, POST]
+
 produit_pro_set_images_top:
     path:     /set_images_mannequin_top{id}
     defaults: { _controller: "UtilisateursBundle:ProduitPro:setTopMannequin" }
     methods:  [GET, POST]
     
 produit_pro_new_motif:
-    path:     /new_motif_{id}
-    defaults: { _controller: "UtilisateursBundle:ProduitPro:addMotif" }
+    path:     /new_pro_motif
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:addNewMotif" }
     methods:  [GET, POST]
-    
+
 produit_pro_new_3:
     path:     /new_3_{id}
     defaults: { _controller: "UtilisateursBundle:ProduitPro:new3" }
+    methods:  [GET, POST]
+    
+produit_pro_new_edit3:
+    path:     /new_edit_3{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:new_edit3" }
+    methods:  [GET, POST]
+    
+produit_pro_new_4:
+    path:     /new_4_{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:new4" }
     methods:  [GET, POST]
 
 produit_pro_new_resume:

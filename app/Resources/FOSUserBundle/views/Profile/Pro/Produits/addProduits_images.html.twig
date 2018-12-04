@@ -1,0 +1,32 @@
+<form action="{{ path('produit_pro_new_images_mannequin', {'id' : motif.id}) }}" {{ form_enctype(form_images) }}  method="POST">
+    {{ form_start(form_images) }}
+    {{ form_errors(form_images) }}
+    <div class="col-sm-6">
+        {{ form_label(form_images.mannequin) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_widget(form_images.mannequin) }}
+    </div>
+    <div class="col-sm-12">
+        <label class="required">Première image*</label>
+        {{ form_widget(form_images.file) }}
+    </div>
+    <div class="col-sm-12">
+        <label class="required">Deuxième image</label>
+        {{ form_widget(form_images.file2) }}
+    </div>
+    <div class="col-sm-12">
+        <label class="required">Troisième image</label>
+        {{ form_widget(form_images.file3) }}
+    </div>
+    <div class="col-sm-12">
+        <br>
+        <label>{{ form_label(form_images.top) }}</label><br>
+        {{ form_row(form_images.top.0) }}
+        {{ form_row(form_images.top.1) }}<br>
+    </div>
+    <div class="col-sm-12">
+    <button  class="button pull-left" type="submit"><i class="fa fa-check"></i>&nbsp; &nbsp;<span>Ajouter </span></button>
+    </div>
+    {{ form_end(form_images) }}
+</form>

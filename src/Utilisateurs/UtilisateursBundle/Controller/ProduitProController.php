@@ -71,6 +71,35 @@ class ProduitProController extends Controller
         ));
     }
     
+    
+    /**
+     * Displays a form to edit an existing produit entity.
+     *
+     */
+    public function new_edit1Action(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $produit_1 = $em->getRepository('KountacBundle:Produits_1')->find($id);
+        $user = $this->getUser();
+        $editForm = $this->createForm('Kountac\KountacBundle\Form\Produits_1Type', $produit_1);
+        $editForm->handleRequest($request);
+        
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $produit_1->setDateupdate(new \DateTime('now'));
+            $em->persist($produit_1);
+            $em->flush();
+            
+            $this->get('session')->getFlashBag()->add('success','les informations de base du produit ont été modifiées avec succès');
+            return $this->redirectToRoute('produit_pro_new_2', array('id' => $produit_1->getId()));        
+        }
+
+        return $this->render('FOSUserBundle:Profile:Pro/addProduits_1Pro.html.twig', array(
+            'produit' => $produit_1,
+            'user' => $user,
+            'form' => $editForm->createView(),
+        ));
+    }
+    
     /**
      * Creates a new produit entity.
      *
@@ -93,9 +122,8 @@ class ProduitProController extends Controller
                 $produit->setProduit1($produit_1);
                 $em->persist($produit);
                 $em->flush();
-                
                 $this->get('session')->getFlashBag()->add('success','Nouveau motif ajouté avec succès');
-                return $this->redirectToRoute('produit_pro_new_3', array('id' => $produit->getId()));
+                return $this->redirectToRoute('produit_pro_new_2', array('id' => $produit->getProduit1()->getId()));
             }
         }
         return $this->render('FOSUserBundle:Profile:Pro/addProduits_2Pro.html.twig', array(
@@ -112,6 +140,28 @@ class ProduitProController extends Controller
     }
     
     /**
+     * Displays a form to edit an existing produit entity.
+     *
+     */
+    public function new_edit2Action(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $produit_2 = $em->getRepository('KountacBundle:Produits_2')->find($id);
+        $produit_1 = $produit_2->getProduit1();
+        $editForm = $this->createForm('Kountac\KountacBundle\Form\Produits_2Type', $produit_2);
+        $editForm->handleRequest($request);
+        
+        $produit_1->setDateupdate(new \DateTime('now'));
+        $em->persist($produit_1);
+        $em->persist($produit_2);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add('success','les informations du motif ont été modifiées avec succès');
+        return $this->redirectToRoute('produit_pro_new_2', array('id' => $produit_1->getId()));        
+        ;
+    }
+    
+    /**
      * Creates a new produit entity.
      *
      */
@@ -119,17 +169,59 @@ class ProduitProController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $produit_2 = $em->getRepository('KountacBundle:Produits_2')->find($id);
+        $produit_1 = $produit_2->getProduit1();
         $user = $this->getUser();
-        $produit_1 = $em->getRepository('KountacBundle:Produits_1')->find($produit_2->getProduit1()->getId());
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findByDisponible($user);
-        $images_mannequin = $em->getRepository('KountacBundle:Media_motif')->findByProduits2($produit_2);
-        $form_mannequin = $this->createForm('Kountac\KountacBundle\Form\MannequinType');
-        $form_images = $this->createForm('Kountac\KountacBundle\Form\Media_motifType');
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images_produit2 = $em->getRepository('KountacBundle:Media_motif')->findByProduits2($produit_2);
         
+        return $this->render('FOSUserBundle:Profile:Pro/addProduits_3Pro.html.twig', array(
+            'produit_2' => $produit_2,
+            'produit_1' => $produit_1,
+            'mannequins' => $mannequins,
+            'images' => $images,
+            'images_produit2' => $images_produit2,
+            'user' => $user,
+        ));
+    }
+    
+    /**
+     * Displays a form to edit an existing produit entity.
+     *
+     */
+    public function new_edit3Action($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $image = $em->getRepository('KountacBundle:Media_motif')->find($id);
+        $produit_2 = $image->getProduit2();
+        $produit_1 = $produit_2->getProduit1();
+        $mannequins = $em->getRepository('KountacBundle:Mannequin')->findByDisponible($user);
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images_produit2 = $em->getRepository('KountacBundle:Media_motif')->findByProduits2($produit_2);
         
-        if ($this->get('request')->getMethod() == 'POST') 
-        {
-            if ($this->getRequest()->request->get('stock_xs') != 0 ){
+        return $this->render('FOSUserBundle:Profile:Pro/Produits/addProduits_images_edit.html.twig', array(
+            'produit_2' => $produit_2,
+            'produit_1' => $produit_1,
+            'mannequins' => $mannequins,
+            'image' => $image,
+            'images' => $images,
+            'images_produit2' => $images_produit2,
+            'user' => $user,
+        ));
+    }
+    
+    /*
+     * Creates a new produit entity.
+     */
+    
+    public function new4Action($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $produit_2 = $em->getRepository('KountacBundle:Produits_2')->find($id);
+        $produit_1 = $produit_2->getProduit1();
+        
+        if ($this->getRequest()->request->get('stock_xs') != 0 ){
                 $stock = $produit_1->getStock();
                 $produit = new Produits_3();
                 $stock_xs = $this->getRequest()->request->get('stock_xs') ;
@@ -265,17 +357,9 @@ class ProduitProController extends Controller
             }
             
             $this->get('session')->getFlashBag()->add('success','Taille(s) et stock(s) ajouté(s) avec succès');
-            return $this->redirectToRoute('produit_pro_new_2', array('id' => $produit_1->getId()));
-        }
-        return $this->render('FOSUserBundle:Profile:Pro/addProduits_3Pro.html.twig', array(
-            'produit_2' => $produit_2,
-            'mannequins' => $mannequins,
-            'images_mannequin' => $images_mannequin,
-            'user' => $user,
-            'form_mannequin' => $form_mannequin->createView(),
-            'form_images' => $form_images->createView()
-        ));
+            return $this->redirectToRoute('produit_pro_new_resume', array('id' => $produit_1->getId()));
     }
+    
     
     /**
      * Creates a new produit entity.
@@ -372,34 +456,44 @@ class ProduitProController extends Controller
         return $this->redirectToRoute('produit_pro_show', array('id' => $produit->getId()));
     }
     
+   
     /**
-     * Add Motif of a produit entity.
+     * Add a new motif entity.
      *
      */
-    public function addMotifAction(Request $request, $id)
+    public function addNewMotifAction(Request $request)
     {
-        
-        $lebelle = new Libelles_motif();
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        $produit_1 = $em->getRepository('KountacBundle:Produits_1')->find($id);
-        $form = $this->createForm('Kountac\KountacBundle\Form\Libelles_motifType', $lebelle);
+        $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findByNouveaute();
+        $lebelle = new Libelles_motif();
+        $form_motif = $this->createForm('Kountac\KountacBundle\Form\Libelles_motifType', $lebelle);
         
-        $form->handleRequest($request);
-        
-        $em->persist($lebelle);
-        $em->flush();
-        
-        $this->get('session')->getFlashBag()->add('success','Nouveau motif ajouté avec succès');
-        return $this->redirectToRoute('produit_pro_new_2', array('id' => $produit_1->getId()));
+        if ($request->getMethod() == 'POST') {
+            $form_motif->handleRequest($request);
+            if ($form_motif->isSubmitted() && $form_motif->isValid()) {
+                $em->persist($lebelle);
+                $em->flush();
+                
+                $this->get('session')->getFlashBag()->add('success','Le nouveau motif a été ajouté avec succès');
+                return $this->redirectToRoute('produit_pro_new_motif');
+            }
+        }
+       
+        return $this->render('FOSUserBundle:Profile:Pro/addMotifsPro.html.twig', array(
+            'user' => $user,
+            'motifs' => $motifs,
+            'form_motif' => $form_motif->createView(),
+        ));
     }
-  
+    
+    
     /**
      * Add Mannequin of a produit entity.
      *
      */
     public function addMannequinAction(Request $request, $id)
     {
-        
         $mannequin = new Mannequin();
         $em = $this->getDoctrine()->getManager();
         $produit_2 = $em->getRepository('KountacBundle:Produits_2')->find($id);
@@ -450,6 +544,29 @@ class ProduitProController extends Controller
             $this->get('session')->getFlashBag()->add('success','Images du mannequin ajoutées avec succès');
             return $this->redirectToRoute('produit_pro_new_3', array('id' => $produit_2->getId()));
         }
+    }
+    
+    /**
+     * Add Mannequin of a produit entity.
+     *
+     */
+    public function setTopMannequinNewProduitAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $image = $em->getRepository('KountacBundle:Media_motif')->find($id);
+        $produit_2 = $image->getProduit2();
+        $image_top = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('top' => '0','produit_2' => $produit_2) );       
+        $image_top->setTop('1');
+        $image->setTop('0');
+        $image->setProduit2($produit_2);
+        $produit_2->getProduit1()->setDateUpdate(new \DateTime('now'));
+        $em->persist($image);
+        $em->persist($image_top);
+        $em->persist($produit_2->getProduit1());
+        $em->flush();
+        
+        $this->get('session')->getFlashBag()->add('success','Choix du top de mannequin effectué avec succès');
+        return $this->redirectToRoute('produit_pro_new_3', array('id' => $produit_2->getId()));
     }
     
     

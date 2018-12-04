@@ -1,0 +1,46 @@
+<form action="{{ path('produit_pro_new_mannequin', {'id' : motif.id}) }}" {{ form_enctype(form_mannequin) }}  method="POST">
+    {{ form_start(form_mannequin) }}
+    {{ form_errors(form_mannequin) }}
+    <li class="row">
+        <div class="col-sm-6">
+            {{ form_row(form_mannequin.nom_mannequin) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form_mannequin.statut_mannequin) }}
+        </div>
+    </li>
+    <li class="row">
+        <div class="col-sm-6">
+            {{ form_row(form_mannequin.taille_standard_mannequin) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form_mannequin.poids_mannequin) }}
+        </div>
+    </li>
+    <li class="row">
+        <div class="col-sm-6">
+            {{ form_row(form_mannequin.taille_mannequin) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form_mannequin.tour_taille_mannequin) }}
+        </div>
+    </li>
+    <li class="row">
+        <div class="col-sm-6">
+            {{ form_row(form_mannequin.tour_poitrine_mannequin) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form_mannequin.tour_grandes_hanches_mannequin) }}
+        </div>
+    </li>
+    <li class="row">
+        <div class="col-sm-6">
+            {{ form_row(form_mannequin.numero_teint_mannequin) }}
+        </div>
+        <div class="col-sm-6">
+            <br><br>{{ form_row(form_mannequin.file) }}
+        </div>
+    </li><br><br>
+    <button class="button" type="submit"><i class="fa fa-check"></i>&nbsp; &nbsp;<span>Ajouter</span></button><br>
+    {{ form_end(form_mannequin) }}
+</form>
