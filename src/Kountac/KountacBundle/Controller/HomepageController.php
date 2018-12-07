@@ -35,7 +35,7 @@ class HomepageController extends Controller
         $pagination = $paginator->paginate(
             $produitsCategorie, /* query NOT result */
             $this->get('request')->query->getInt('page', 1)/*page number*/,
-            12/*limit per page*/
+            24/*limit per page*/
         );
 
 

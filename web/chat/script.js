@@ -62,57 +62,53 @@ $("document").ready(function(){
 	});
 	
 	
-	$('textarea').keypress(
-    function(e){
-        if (e.keyCode == 13) {
-            var msg = $(this).val();
-			var marque_id = $("#idmarq").val();
-			$(this).val('');
-			if(msg!='')
-			$('<div class="msg_a">'+marque_id+'</div>').insertBefore('.msg_push');
-			$.post('http://localhost/kountac_new/web/chat/post/xl', {
-            'message': msg,
-			'marque_id': marque_id},
-			
-			function(data){
+	/*$('textarea').keypress(
+    	function(e){
+			if (e.keyCode == 13) {
+				var msg = $(this).val();
+				var marque_id = $("#idmarq").val();
+				$(this).val('');
+				if(msg!='')
+				$('<div class="msg_a">'+marque_id+'</div>').insertBefore('.msg_push');
+				$.post('http://localhost/kountac_new/web/chat/post/xl', {
+				'message': msg,
+				'marque_id': marque_id},
+				
+				function(data){
 
-                if(data === 'Successful'){
-					
-                     updateChat();
-                }
-                else{
-                  alert("<p>Erreur lors de la connexion...</p>");
-                }
-        
-            },
-
-         );
+					if(data === 'Successful'){
+						
+						updateChat();
+					}
+					else{
+					alert("<p>Erreur lors de la connexion...</p>");
+					}
 			
-			/*var datetime = new Date().toLocaleString();
-		   $('<div>'+datetime+'</div>').insertBefore('.msg_push');
-		   $('<div class="msg_a">'+msg+'</div>').insertBefore('.msg_push');
-			$('.msg_body').scrollTop($('.msg_body')[0].scrollHeight);*/
-        }
-    });
+				},
+
+			);
+				
+			}
+		});*/
 	
 	function updateChat()
 {
-	var marque_id = $("#idmarq").val();
+	/*var marque_id = $("#idmarq").val();
     $.post('http://localhost/kountac_new/web/chat/list/xl', {
 			'marque_id': marque_id},
 			function(data) {
         $('#msg_body').html(data);
 		$('.msg_body').scrollTop($('.msg_body')[0].scrollHeight);
-    });
+    });*/
 }
 
 
 	function updateChat_Author()
 {
-    $.post('http://localhost/kountac_new/web/chat/list_autor/xl',
+    /*$.post('http://localhost/kountac_new/web/chat/list_autor/xl',
 			function(data) {
         $('#msg_body1').html(data);
-    });
+    });*/
 }
 
 var myVar;
