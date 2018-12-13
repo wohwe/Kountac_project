@@ -4,7 +4,6 @@ namespace Kountac\KountacBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-
 /**
  * ProduitsRepository
  *
@@ -172,6 +171,4 @@ class Produits_1Repository extends EntityRepository
         ;
         return $qb->getQuery()->getResult();
     }
-
-
 }

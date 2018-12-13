@@ -43,7 +43,7 @@
                     <div class="page-title">
                         <h3 class="checkout-step">Choisir taille(s) (34-50) de "{{ produit_2.produit1.nom|capitalize }} - {{ produit_2.libelle.libelle }}"</h3>
                     </div>
-                    <form action="{{ path('produit_pro_new_4', { 'id' : produit_2.produit1.id }) }}" method="POST">
+                    <form action="{{ path('produit_pro_new_4', { 'id' : produit_2.id }) }}" method="POST">
                         <div class="box-border">
                             <ul>
                                 <li class="row">

@@ -23,7 +23,7 @@ class Media_motifType extends AbstractType
                                              'attr' => array('class' => 'select form-control'),
                                              ))
             ->add('top','choice', array('choices' => array('0' => 'Oui',
-                                                            '1' => 'Non'),'expanded'=>true,'label' => 'Définir comme mannequin par défaut','required' => true))
+                                                           '1' => 'Non'),'expanded'=>true,'label' => 'Définir comme mannequin par défaut','required' => true))
                 
                 
             ;

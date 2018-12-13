@@ -219,7 +219,17 @@ class ProduitProController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $produit_2 = $em->getRepository('KountacBundle:Produits_2')->find($id);
-        $produit_1 = $produit_2->getProduit1();
+        $produit1 = $produit_2->getProduit1();
+        $user = $this->getUser();
+        $produit_1 = $em->getRepository('KountacBundle:Produits_1')->find($produit_2->getProduit1()->getId());
+        $mannequins = $em->getRepository('KountacBundle:Mannequin')->findByDisponible($user);
+        $images_mannequin = $em->getRepository('KountacBundle:Media_motif')->findByProduits2($produit_2);
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        
+        
+        if ($this->get('request')->getMethod() == 'POST') 
+        {
+            
         
         if ($this->getRequest()->request->get('stock_xs') != 0 ){
                 $stock = $produit_1->getStock();
@@ -358,6 +368,15 @@ class ProduitProController extends Controller
             
             $this->get('session')->getFlashBag()->add('success','Taille(s) et stock(s) ajouté(s) avec succès');
             return $this->redirectToRoute('produit_pro_new_resume', array('id' => $produit_1->getId()));
+    }
+     return $this->render('FOSUserBundle:Profile:Pro/addProduits_4Pro.html.twig', array(
+            'produit_2' => $produit_2,
+            'produit_1' => $produit1,
+            'mannequins' => $mannequins,
+            'images_mannequin' => $images_mannequin,
+            'images' => $images,
+            'user' => $user,
+        ));
     }
     
     

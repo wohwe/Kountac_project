@@ -393,7 +393,7 @@ class ProduitController extends Controller
         $images_all = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $images_autres = $em->getRepository('KountacBundle:Media_motif')->findImagesAutres($produit);
         $marque = $produit->getProduit1()->getMarque();
-	    $categorie = $produit->getProduit1()->getCategorie();
+	$categorie = $produit->getProduit1()->getCategorie();
         $categorieProduits = $em->getRepository('KountacBundle:Produits_1')->getProduitsByCategorie($categorie, $id);
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $commentaires = $em->getRepository('CommentairesBundle:Commentaires')->commentairesProduit($id);
@@ -404,7 +404,6 @@ class ProduitController extends Controller
         
         $form = $this->createForm('Kountac\CommentairesBundle\Form\CommentaireType', $commentaire);
         $form->handleRequest($request);
-        
         if ($request->getMethod() == 'POST') 
         {
             if ($form->isSubmitted() && $form->isValid()) 
@@ -820,41 +819,40 @@ class ProduitController extends Controller
             if ($this->getRequest()->request->get('mannequin') != "tous_les_mannequins" ){
                 
                 $mannequin = $this->getRequest()->request->get('mannequin');
-                $produitsMannequins = $em->getRepository('KountacBundle:Produits_2')->findAvatarByMarque($mannequin,$marque_id);
+                $imagesMannequins = $em->getRepository('KountacBundle:Media_motif')->findAvatarByMarque($mannequin,$marque_id);
             }
             else {
-                $produitsMannequins = $em->getRepository('KountacBundle:Produits_2')->getProduitByMarque($marque_id);
+                $imagesMannequins = $em->getRepository('KountacBundle:Media_motif')->getProduitByMarqueResult($marque_id);
             }
             if ($this->getRequest()->request->get('mannequin') == null ){
                 
-                $produitsMannequins = $em->getRepository('KountacBundle:Produits_2')->getProduitByMarque($marque_id);
+                $imagesMannequins = $em->getRepository('KountacBundle:Media_motif')->getProduitByMarqueResult($marque_id);
             }
         }
         
         $categories = $em->getRepository('KountacBundle:Categories')->findAll();
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
         $form_taillePoids = $this->createForm(new Taille_PoidsType());
-        $produits  = $this->get('knp_paginator')->paginate($produitsMannequins,$this->get('request')->query->get('page', 1),20);
+        $images  = $this->get('knp_paginator')->paginate($imagesMannequins,$this->get('request')->query->get('page', 1),20);
        
         
         $this->get('session')->getFlashBag()->add('success','Résultat de la recherche par avatar');
-        return $this->render('KountacBundle:Default:produits/marque_espaces.html.twig', array('produits' => $produits,
-                                                                                            'categories' => $categories,'produit2' => $produit_2,
+        return $this->render('KountacBundle:Default:produits/marque_espacesResultats.html.twig', array('categories' => $categories,'produit2' => $produit_2,
                                                                                             'motifs' => $motifs,
                                                                                             'form' => $form_taillePoids->createView(),
-                                                                                            'mannequins' => $mannequins,
                                                                                             'images' => $images,
-                                                                                            'tri' => $this->getRequest()->getSession()->get('tri'),
-                                                                                            'all' => $this->getRequest()->getSession()->get('all'),                                                                                
+                                                                                            'mannequins' => $mannequins,
+                                                                                            'form' => $form_taillePoids->createView(),
                                                                                             'euro' => $this->getRequest()->getSession()->get('euro'),
+                                                                                            'all' => $this->getRequest()->getSession()->get('all'),                                                                                
                                                                                             'livre' => $this->getRequest()->getSession()->get('livre'),
                                                                                             'usa' => $this->getRequest()->getSession()->get('usa'),
                                                                                             'naira' => $this->getRequest()->getSession()->get('naira'),
                                                                                             'cfa' => $this->getRequest()->getSession()->get('cfa'),
                                                                                             ));
     }
+    
     
     public function recherche_taillePoidsAction()
     {
@@ -868,8 +866,8 @@ class ProduitController extends Controller
             $poids = $form_taillePoids['poids']->getData();
             $poids_min = $poids - 8; $poids_max = $poids + 8;
             $taille_min = $taille - 0.08; $taille_max = $taille + 0.08;
-            $produitsPoidsTaille = $em->getRepository('KountacBundle:Produits_2')->triTaillePoids($poids_min, $poids_max, $taille_min, $taille_max);
-            $produits  = $this->get('knp_paginator')->paginate($produitsPoidsTaille,$this->get('request')->query->get('page', 1),20);
+            $images_mannequins = $em->getRepository('KountacBundle:Media_motif')->triTaillePoids($poids_min, $poids_max, $taille_min, $taille_max);
+            $produits  = $this->get('knp_paginator')->paginate($images_mannequins,$this->get('request')->query->get('page', 1),20);
         } else {
             throw $this->createNotFoundException('La page n\'exixte pas');
         }
@@ -880,7 +878,7 @@ class ProduitController extends Controller
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
         
         $this->get('session')->getFlashBag()->add('success','Résultat de la recherche par taille et poids');
-        return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
+        return $this->render('KountacBundle:Default:produits/all_productsResultats.html.twig', array('produits' => $produits,
                                                                                             'marques' => $marques,
                                                                                             'motifs' => $motifs,
                                                                                             'images' => $images,
@@ -910,19 +908,15 @@ class ProduitController extends Controller
             $poids = $form_taillePoids['poids']->getData();
             $poids_min = $poids - 8; $poids_max = $poids + 8;
             $taille_min = $taille - 0.08; $taille_max = $taille + 0.08;
-            $produitsPoidsTaille = $em->getRepository('KountacBundle:Produits_2')->triTaillePoidsByMarque($poids_min, $poids_max, $taille_min, $taille_max, $marque_id);
-            $produits  = $this->get('knp_paginator')->paginate($produitsPoidsTaille,$this->get('request')->query->get('page', 1),20);
-        } else {
-            throw $this->createNotFoundException('La page n\'exixte pas');
-        }
+            $images_mannequins = $em->getRepository('KountacBundle:Media_motif')->triTaillePoidsByMarque($poids_min, $poids_max, $taille_min, $taille_max, $marque_id);
+            $images  = $this->get('knp_paginator')->paginate($images_mannequins,$this->get('request')->query->get('page', 1),20);
+        } 
         $categories = $em->getRepository('KountacBundle:Categories')->findAll();
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
         
         $this->get('session')->getFlashBag()->add('success','Résultat de la recherche par taille et poids');
-        return $this->render('KountacBundle:Default:produits/marque_espaces.html.twig', array('produits' => $produits,
-                                                                                            'categories' => $categories,'produit2' => $produit_2,
+        return $this->render('KountacBundle:Default:produits/marque_espacesResultats.html.twig', array('categories' => $categories,'produit2' => $produit_2,
                                                                                             'motifs' => $motifs,
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'images' => $images,

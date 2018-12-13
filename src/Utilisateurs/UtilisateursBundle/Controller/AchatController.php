@@ -15,41 +15,43 @@ class AchatController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit($user);
-       
-        if (!$session->has('achat'))
-            $achat = new Achats();
-        else
-            $achat = $em->getRepository('KountacBundle:Achats')->find($session->get('achat'));
+        if (!$session->has('achat')){
+            $Achat = new Achats();
+        }
+        else{
+                var_dump($Achat);die();
         
+            $Achat = $em->getRepository('KountacBundle:Achats')->find($session->get('achat'));
+        }
         
-        $achat->setDate(new \DateTime());
-        $achat->setUtilisateur($this->getUser());
-        $achat->setValider(0);
-        $achat->setEffacer(0);
-        $achat->setReference(0);
+        $Achat->setDate(new \DateTime());
+        $Achat->setUtilisateur($this->getUser());
+        $Achat->setValider(0);
+        $Achat->setEffacer(0);
+        $Achat->setReference(0);
         /*
         $session = $this->getRequest()->getSession();
         $session->set('euro', '1');
         */
         if ($session->has('euro')){
-            $achat->setEuro(1);
-            $achat->setAchat($this->facture_euro());
+            $Achat->setEuro(1);
+            $Achat->setAchat($this->facture_euro());
         }
         elseif ($session->has('cfa')){ 
-            $achat->setCfa(1);
-            $achat->setAchat($this->facture_fcfa());
+            $Achat->setCfa(1);
+            $Achat->setAchat($this->facture_fcfa());
         }
         elseif ($session->has('livre')){ 
-            $achat->setLivre(1);
-            $achat->setAchat($this->facture_livre());
+            $Achat->setLivre(1);
+            $Achat->setAchat($this->facture_livre());
         }
         elseif ($session->has('usa')){ 
             $achat->setUsa(1);
             $achat->setAchat($this->facture_usa());
         }
         elseif ($session->has('all')){
-            $achat->setAll(1);
-            $achat->setAchat($this->facture_all());
+            $Achat->setAll(1);
+            $Achat->setAchat($this->facture_all());
         }
         elseif ($session->has('naira')){ 
             $achat->setNaira(1);
@@ -57,20 +59,20 @@ class AchatController extends Controller
         }
         
         if (!$session->has('achat')) {
-            $em->persist($achat);
-            $session->set('achat',$achat);
-        }
+            $em->persist($Achat);
+            $session->set('achat',$Achat);
         
-        $em->persist($achat);            
+        }
+        $em->persist($Achat); 
         $em->flush();
         
         return $this->render('FOSUserBundle:Profile:resumeAchat.html.twig', array('achat' => $achat,
                                                                                   'commandes' => $commandes,
                                                                                   'euro' => $this->getRequest()->getSession()->get('euro'),
-                                                                                    'livre' => $this->getRequest()->getSession()->get('livre'),
-                                                                                    'usa' => $this->getRequest()->getSession()->get('usa'),
-                                                                                    'naira' => $this->getRequest()->getSession()->get('naira'),
-                                                                                    'cfa' => $this->getRequest()->getSession()->get('cfa'),
+                                                                                  'livre' => $this->getRequest()->getSession()->get('livre'),
+                                                                                  'usa' => $this->getRequest()->getSession()->get('usa'),
+                                                                                  'naira' => $this->getRequest()->getSession()->get('naira'),
+                                                                                  'cfa' => $this->getRequest()->getSession()->get('cfa'),
                                                                                   'user' => $user));
     }
     

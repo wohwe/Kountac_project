@@ -293,10 +293,11 @@
                                     <h2 class="saider-bar-title">Mannequin(s) disponible(s)</h2>
                                     <div class="layered-content">
                                         <ul class="check-box-list">
+                                            
                                             {% for mannequin in mannequins %}
                                             <li>
-                                                <input type="checkbox" id="{{ mannequin.id }}" name="mannequin[]" value="{{ mannequin.id }}">
-                                                <label for="{{ mannequin.id }}"> <span class="button"></span> 
+                                                <input type="checkbox" id="{{ mannequin.nomMannequin }}" name="mannequin[]" value="{{ mannequin.id }}">
+                                                <label for="{{ mannequin.nomMannequin }}"> <span class="button"></span> 
                                                     <img src="{{ mannequin.AssetPath|imagine_filter('rechercheThumbItem') }}" alt="">
                                                     {{ mannequin.nomMannequin|capitalize }}
                                                     <span class="count"><br> (taille std.:{{ mannequin.tailleStandardMannequin }}, poids: {{ mannequin.poidsMannequin }}Kg, Taille:{{ mannequin.tailleMannequin }}m)</span> 

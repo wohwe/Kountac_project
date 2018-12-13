@@ -26,6 +26,7 @@ class Produits_1Type extends AbstractType
                 ->add('description', 'textarea', array('label' => 'Description du produit*', 'required' => true, 'attr' => array('rows' => 6, 'class' => 'form-control')))
                 ->add('conditions_utilisation', 'textarea', array('label' => 'Conditions d\'utilisation', 'required' => false, 'attr' => array('rows' => 6, 'class' => 'form-control')))
                 ->add('categorie',null , array('attr' => array('class' => 'select form-control'), 'required' => true, 'label' => 'Choisir catégorie*'))
+                ->add('looks',null , array('attr' => array('class' => 'select form-control'), 'required' => true, 'label' => 'Idées look*'))
                 ->add('collection',null , array('attr' => array('class' => 'select form-control'), 'required' => true,'label' => 'Choisir collection*'))
                 ;
     }

@@ -20,13 +20,14 @@
 <!--link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'-->
 
+
 <!-- CSS Style -->
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
 
 <!-- font-awesome & simple line icons CSS -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}" media="all">
+<!--link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}" media="all"-->
 <link rel="stylesheet" type="text/css" href="{{ asset('css/simple-line-icons.css') }}" media="all">
 
 <!-- owl.carousel CSS -->
@@ -158,12 +159,17 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-sm-6 col-md-6 col-xs-12 col-lg-3 collapsed-block">
+        <div class="col-sm-6 col-md-3 col-xs-12 col-lg-2 collapsed-block">
           
             {% render(controller('KountacBundle:Menu:informationFooter')) %}
             
         </div>
-        <div class="col-sm-6 col-md-2 col-xs-12 col-lg-3 collapsed-block">
+        <div class="col-sm-6 col-md-3 col-xs-12 col-lg-2 collapsed-block">
+          
+            {% render(controller('KountacBundle:Menu:insiderFooter')) %}
+            
+        </div>
+        <div class="col-sm-6 col-md-2 col-xs-12 col-lg-2 collapsed-block">
           
            {% render(controller('KountacBundle:Menu:menuCollectionFooter')) %} 
             
@@ -362,7 +368,7 @@
                 document.getElementById("navbar").style.top = "-50px";
               }
             }*/
-        </script>
+ </script>
         {% endblock %}
     </body>
 </html>

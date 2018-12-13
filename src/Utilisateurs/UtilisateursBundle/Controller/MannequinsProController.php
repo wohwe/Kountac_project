@@ -19,7 +19,7 @@ class MannequinsProController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
-        $listesMannequins = $em->getRepository('KountacBundle:Mannequin')->findByMarque($user);
+        $listesMannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         
         $mannequins  = $this->get('knp_paginator')->paginate($listesMannequins,$this->get('request')->query->get('page', 1),10);
         return $this->render('FOSUserBundle:Profile:Pro/listeMannequins.html.twig', array(

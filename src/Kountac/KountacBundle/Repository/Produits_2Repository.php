@@ -1105,48 +1105,7 @@ class Produits_2Repository extends EntityRepository
                 ;
         return $qb->getQuery()->getResult();
     }
-    
-    public function triTaillePoids($poids_min, $poids_max, $taille_min, $taille_max) 
-    {
-        $qb = $this->createQueryBuilder('p2')
-                ->select('p2')
-                ->leftJoin('p2.mannequin', 'm')
-                ->addSelect('m')
-                ->where('m.poids_mannequin >= :poids_min')
-                ->andWhere('m.poids_mannequin <= :poids_max')
-                ->andWhere('m.taille_mannequin >= :taille_min')
-                ->andWhere('m.taille_mannequin <= :taille_max')
-                ->setParameter('poids_min', $poids_min)
-                ->setParameter('poids_max', $poids_max)
-                ->setParameter('taille_min', $taille_min)
-                ->setParameter('taille_max', $taille_max)
-                ->orderBy('p2.id', 'DESC');
-        return $qb->getQuery()->getResult();
-    }
-    
-    public function triTaillePoidsByMarque($poids_min, $poids_max, $taille_min, $taille_max, $marque_id) 
-    {
-        $qb = $this->createQueryBuilder('p2')
-                ->select('p2')
-                ->leftJoin('p2.mannequin', 'm')
-                ->leftJoin('p2.produit_1', 'p1')
-                ->addSelect('m')
-                ->addSelect('p1')
-                ->where('m.poids_mannequin >= :poids_min')
-                ->andWhere('p1.marque = :marque')
-                ->andWhere('m.poids_mannequin <= :poids_max')
-                ->andWhere('m.taille_mannequin >= :taille_min')
-                ->andWhere('m.taille_mannequin <= :taille_max')
-                ->setParameter('poids_min', $poids_min)
-                ->setParameter('poids_max', $poids_max)
-                ->setParameter('taille_min', $taille_min)
-                ->setParameter('taille_max', $taille_max)
-                ->setParameter('marque', $marque_id)
-                ->orderBy('p2.id', 'DESC');
-                        
-        return $qb->getQuery()->getResult();
-    }
-    
+
     public function recherche($chaine) 
     {
         $qb = $this->createQueryBuilder('p2')
@@ -1154,6 +1113,7 @@ class Produits_2Repository extends EntityRepository
                 ->leftJoin('p2.produit_1', 'p1')
                 ->addSelect('p1')
                 ->where('p1.nom like :chaine')
+                ->orWhere('p1.description like :chaine')
                 ->andWhere('p1.stock >= :seuil')
                 ->setParameter('chaine', '%'.$chaine.'%')
                 ->setParameter('seuil', '1')

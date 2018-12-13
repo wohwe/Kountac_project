@@ -40,6 +40,12 @@ class Produits_1
     private $categorie;
     
     /**
+     * @ORM\ManyToOne(targetEntity="Kountac\KountacBundle\Entity\Idees_looks", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    private $looks;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Utilisateurs\UtilisateursBundle\Entity\Utilisateurs", inversedBy="produit_1_marque", cascade={"persist"})
      * @ORM\JoinColumn(name="marque_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
@@ -448,5 +454,29 @@ class Produits_1
     public function getConditionsUtilisation()
     {
         return $this->conditions_utilisation;
+    }
+
+    /**
+     * Set looks
+     *
+     * @param \Kountac\KountacBundle\Entity\Idees_looks $looks
+     *
+     * @return Produits_1
+     */
+    public function setLooks(\Kountac\KountacBundle\Entity\Idees_looks $looks = null)
+    {
+        $this->looks = $looks;
+
+        return $this;
+    }
+
+    /**
+     * Get looks
+     *
+     * @return \Kountac\KountacBundle\Entity\Idees_looks
+     */
+    public function getLooks()
+    {
+        return $this->looks;
     }
 }

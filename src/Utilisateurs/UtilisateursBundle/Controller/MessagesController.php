@@ -3,8 +3,6 @@
 namespace Utilisateurs\UtilisateursBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Kountac\ChatBundle\Entity\Message;
 
 class MessagesController extends Controller
 {

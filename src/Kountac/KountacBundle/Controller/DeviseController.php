@@ -66,7 +66,6 @@ class DeviseController extends Controller
         
         if ($session->has('naira'))
             $session->remove('naira');
-        $this->get('session')->getFlashBag()->add('success','Vous avez choisi la France et la devise Euro €');       
         return $this->redirect($this->generateUrl('kountac_homepage'));
     }
     
@@ -89,7 +88,6 @@ class DeviseController extends Controller
         
         if ($session->has('naira'))
             $session->remove('naira');
-        $this->get('session')->getFlashBag()->add('success','Vous avez choisi l\'Allemagne et la devise Euro €');       
         return $this->redirect($this->generateUrl('kountac_homepage'));
     }
     
@@ -112,7 +110,6 @@ class DeviseController extends Controller
         
         if ($session->has('naira'))
             $session->remove('naira');
-        $this->get('session')->getFlashBag()->add('success','Vous avez choisi le Cameroun pour la devise F CFA');
         return $this->redirect($this->generateUrl('kountac_homepage'));
     }
         
@@ -135,7 +132,6 @@ class DeviseController extends Controller
         
         if ($session->has('naira'))
             $session->remove('naira');
-        $this->get('session')->getFlashBag()->add('success','Vous avez choisi les Etats-unis d\'Amérique pour la devise USD $');
         return $this->redirect($this->generateUrl('kountac_homepage'));
     }
     
@@ -158,7 +154,6 @@ class DeviseController extends Controller
         
         if ($session->has('naira'))
             $session->remove('naira');
-        $this->get('session')->getFlashBag()->add('success','Vous avez choisi l\'Angleterre pour la devise GBP £');
         return $this->redirect($this->generateUrl('kountac_homepage'));
     }
     
@@ -181,7 +176,6 @@ class DeviseController extends Controller
         
         if ($session->has('cfa'))
             $session->remove('cfa');
-        $this->get('session')->getFlashBag()->add('success','Vous avez choisi le Nigéria pour la devise Naïra ₦');
         return $this->redirect($this->generateUrl('kountac_homepage'));
     }
 }

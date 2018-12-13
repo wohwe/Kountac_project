@@ -63,4 +63,9 @@ class Idees_looks
     {
         return $this->nom;
     }
+    
+    public function __toString()
+    {
+        return $this->getNom();
+    }
 }
