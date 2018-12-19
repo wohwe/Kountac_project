@@ -29,8 +29,8 @@
             
               <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
                 <li class="active"> <a href="#description" data-toggle="tab"> Information générale </a> </li>                
-                <li><a>Couleurs</a></li>
-                <li><a>Photos mannequin</a> </li>
+                <li>{% if produit.produit2|length != 0 %}<a href="{{ path('produit_pro_new_2', { 'id' : produit.id }) }}">Couleurs</a>{% else %}<a>Couleurs</a>{% endif %}</li>
+                <li>{% if produit.produit2|length != 0 %}<a href="{{ path('produit_pro_new_3', { 'id' : produit.id }) }}">Photos mannequin</a>{% else %}<a>Photos mannequin</a>{% endif %} </li>
                 <li><a>Stocks par motif</a> </li>
               </ul>
             <br><br>

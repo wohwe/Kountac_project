@@ -116,6 +116,7 @@ class ProduitProController extends Controller
         $form->handleRequest($request);
         $form_motif = $this->createForm('Kountac\KountacBundle\Form\Libelles_motifType');
         $form_mannequin = $this->createForm('Kountac\KountacBundle\Form\MannequinType');
+        
         if ($request->getMethod() == 'POST') 
         {
             if ($form->isSubmitted() && $form->isValid()) {
@@ -219,6 +220,7 @@ class ProduitProController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $produit_2 = $em->getRepository('KountacBundle:Produits_2')->find($id);
+        $produits_3 = $em->getRepository('KountacBundle:Produits_3')->findAll();
         $produit1 = $produit_2->getProduit1();
         $user = $this->getUser();
         $produit_1 = $em->getRepository('KountacBundle:Produits_1')->find($produit_2->getProduit1()->getId());
@@ -233,7 +235,13 @@ class ProduitProController extends Controller
         
         if ($this->getRequest()->request->get('stock_xs') != 0 ){
                 $stock = $produit_1->getStock();
-                $produit = new Produits_3();
+                $value = 34;
+                
+                if ($em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) ) == NULL){
+                    $produit = new Produits_3();
+                }else{
+                    $produit = $em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) );
+                }
                 $stock_xs = $this->getRequest()->request->get('stock_xs') ;
                 $produit_1->setStock($stock + $stock_xs);
                 $produit_2->setStock($produit_2->getStock() + $stock_xs);
@@ -248,7 +256,13 @@ class ProduitProController extends Controller
             
             if ($this->getRequest()->request->get('stock_s') != 0 ){
                 $stock = $produit_1->getStock();
-                $produit = new Produits_3();
+                $value = 36;
+                
+                if ($em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) ) == NULL){
+                    $produit = new Produits_3();
+                }else{
+                    $produit = $em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) );
+                }
                 $stock_s = $this->getRequest()->request->get('stock_s') ;
                 $produit_1->setStock($stock + $stock_s);
                 $produit_2->setStock($produit_2->getStock() + $stock_s);
@@ -263,7 +277,13 @@ class ProduitProController extends Controller
             
             if ($this->getRequest()->request->get('stock_l') != 0 ){
                 $stock = $produit_1->getStock();
-                $produit = new Produits_3();
+                $value = 38;
+                
+                if ($em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) ) == NULL){
+                    $produit = new Produits_3();
+                }else{
+                    $produit = $em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) );
+                }
                 $stock_l = $this->getRequest()->request->get('stock_l') ;
                 $produit_1->setStock($stock + $stock_l);
                 $produit_2->setStock($produit_2->getStock() + $stock_l);
@@ -278,7 +298,13 @@ class ProduitProController extends Controller
             
             if ($this->getRequest()->request->get('stock_m') != 0 ){
                 $stock = $produit_1->getStock();
-                $produit = new Produits_3();
+                $value = 40;
+                
+                if ($em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) ) == NULL){
+                    $produit = new Produits_3();
+                }else{
+                    $produit = $em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) );
+                }
                 $stock_m = $this->getRequest()->request->get('stock_m') ;
                 $produit_1->setStock($stock + $stock_m);
                 $produit_2->setStock($produit_2->getStock() + $stock_m);
@@ -293,7 +319,13 @@ class ProduitProController extends Controller
             
             if ($this->getRequest()->request->get('stock_xl') != 0 ){
                 $stock = $produit_1->getStock();
-                $produit = new Produits_3();
+                $value = 42;
+                
+                if ($em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) ) == NULL){
+                    $produit = new Produits_3();
+                }else{
+                    $produit = $em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) );
+                }
                 $stock_xl = $this->getRequest()->request->get('stock_xl') ;
                 $produit_1->setStock($stock + $stock_xl);
                 $produit_2->setStock($produit_2->getStock() + $stock_xl);
@@ -308,7 +340,13 @@ class ProduitProController extends Controller
             
             if ($this->getRequest()->request->get('stock_2xl') != 0 ){
                 $stock = $produit_1->getStock();
-                $produit = new Produits_3();
+                $value = 44;
+                
+                if ($em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) ) == NULL){
+                    $produit = new Produits_3();
+                }else{
+                    $produit = $em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) );
+                }
                 $stock_2xl = $this->getRequest()->request->get('stock_2xl') ;
                 $produit_1->setStock($stock + $stock_2xl);
                 $produit_2->setStock($produit_2->getStock() + $stock_2xl);
@@ -323,7 +361,13 @@ class ProduitProController extends Controller
             
             if ($this->getRequest()->request->get('stock_3xl') != 0 ){
                 $stock = $produit_1->getStock();
-                $produit = new Produits_3();
+                $value = 46;
+                
+                if ($em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) ) == NULL){
+                    $produit = new Produits_3();
+                }else{
+                    $produit = $em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) );
+                }
                 $stock_3xl = $this->getRequest()->request->get('stock_3xl') ;
                 $produit_1->setStock($stock + $stock_3xl);
                 $produit_2->setStock($produit_2->getStock() + $stock_3xl);
@@ -338,7 +382,13 @@ class ProduitProController extends Controller
             
             if ($this->getRequest()->request->get('stock_4xl') != 0 ){
                 $stock = $produit_1->getStock();
-                $produit = new Produits_3();
+                $value = 48;
+                
+                if ($em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) ) == NULL){
+                    $produit = new Produits_3();
+                }else{
+                    $produit = $em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) );
+                }
                 $stock_4xl = $this->getRequest()->request->get('stock_4xl') ;
                 $produit_1->setStock($stock + $stock_4xl);
                 $produit_2->setStock($produit_2->getStock() + $stock_4xl);
@@ -353,7 +403,13 @@ class ProduitProController extends Controller
             
             if ($this->getRequest()->request->get('stock_5xl') != 0 ){
                 $stock = $produit_1->getStock();
-                $produit = new Produits_3();
+                $value = 50;
+                
+                if ($em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) ) == NULL){
+                    $produit = new Produits_3();
+                }else{
+                    $produit = $em->getRepository('KountacBundle:Produits_3')->findOneBy(array('taille' => $value,'produit_2' => $produit_2) );
+                }
                 $stock_5xl = $this->getRequest()->request->get('stock_5xl') ;
                 $produit_1->setStock($stock + $stock_5xl);
                 $produit_2->setStock($produit_2->getStock() + $stock_5xl);
@@ -367,10 +423,11 @@ class ProduitProController extends Controller
             }
             
             $this->get('session')->getFlashBag()->add('success','Taille(s) et stock(s) ajouté(s) avec succès');
-            return $this->redirectToRoute('produit_pro_new_resume', array('id' => $produit_1->getId()));
+            return $this->redirectToRoute('produit_pro_new_4', array('id' => $produit_2->getId()));
     }
      return $this->render('FOSUserBundle:Profile:Pro/addProduits_4Pro.html.twig', array(
             'produit_2' => $produit_2,
+            'produits_3' => $produits_3,
             'produit_1' => $produit1,
             'mannequins' => $mannequins,
             'images_mannequin' => $images_mannequin,

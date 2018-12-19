@@ -4,7 +4,7 @@ kountac_homepage:
     
 kountac_homepage_index:
     path:     /
-    defaults: { _controller: KountacBundle:Homepage:index_pays_selection }
+    defaults: { _controller: KountacBundle:Homepage:index }
 
 kountac_newsletter:
     path:   /newsletter_subscribe

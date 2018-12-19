@@ -124,4 +124,22 @@ class FormulairesController extends Controller
             'form' => $form->createView()
         ));
     }
+    
+    /**
+     * Forms for pictures add.
+     *
+     */
+    public function stocksTaillesFormAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $produit_2 = $em->getRepository('KountacBundle:Produits_2')->find($id);
+        $libelles = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
+        $user = $this->getUser();
+        
+        return $this->render('FOSUserBundle:Profile:Pro/Produits/addstocks_tailles.html.twig', array(
+            'user' => $user,
+            'produit_2' => $produit_2,
+            'libelles' => $libelles,
+        ));
+    }
 }

@@ -193,7 +193,65 @@
                                 <div class="layered-Category">
                                     <h2 class="saider-bar-title" data-toggle="collapse" data-target="#categorie"><a>Catégorie(s)</a></h2>
                                     <div id="categorie" class="collapse layered-content">
-                                        <ul class="check-box-list">
+                                        {% for categorie in categories %}
+                                            <div class="layered-Category">
+                                                <h2 class="saider-bar-title2" data-toggle="collapse" data-target="#cat{{ categorie.nom|capitalize }}">{{ categorie.nom|capitalize }}</h2>
+                                                <div id="cat{{ categorie.nom|capitalize }}" class="collapse layered-content">
+                                                    {% for categorie2 in categorie.children %}
+                                                        <div class="layered-Category">
+                                                            <h2 class="saider-bar-title3" data-toggle="collapse" data-target="#cat{{ categorie2.nom|capitalize }}">{{ categorie2.nom|capitalize }}</h2>
+                                                            <div id="cat{{ categorie2.nom|capitalize }}" class="collapse layered-content">
+                                                                {% for categorie3 in categorie2.children %}
+                                                                    <small>
+                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="{{ categorie3.id }}" name="categorie" value="{{ categorie3.id }}">
+                                                                        <label for="{{ categorie3.id }}"> <span class="button"></span> {{ categorie3.nom|capitalize }}</label><br>
+                                                                    </small>
+                                                                {% endfor %}
+                                                            </div>
+                                                        </div>                                                       
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        <h2 class="saider-bar-title2">
+                                            <input type="radio" id="toutes_les_categories" name="categorie" value="toutes_les_categories" checked="checked">
+                                            <label for="toutes_les_categories"> <span class="button"></span> Toutes les catégories</label>
+                                        </h2>
+                                        
+
+                                        <!--div class="layered-Category">
+                                            <h2 class="saider-bar-title" data-toggle="collapse" data-target="#cat">Test Header</h2>
+                                            <div id="cat" class="collapse layered-content">
+                                                <ul class="check-box-list">
+                                                    {% for categorie in categories %}
+                                                        <li>
+                                                            <input type="radio" id="{{ categorie.id }}" name="categorie" value="{{ categorie.id }}">
+                                                            <label for="{{ categorie.id }}"> <span class="button"></span> {{ categorie.nom|capitalize }}</label><br>
+                                                            {% for categorie2 in categorie.children %}
+                                                            <tiny>
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="{{ categorie2.id }}" name="categorie" value="{{ categorie2.id }}">
+                                                                <label for="{{ categorie2.id }}"> <span class="button"></span> {{ categorie2.nom|capitalize }}</label><br>
+                                                            </tiny>
+                                                                {% for categorie3 in categorie2.children %}
+                                                                    <small>
+                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="{{ categorie3.id }}" name="categorie" value="{{ categorie3.id }}">
+                                                                        <label for="{{ categorie3.id }}"> <span class="button"></span> {{ categorie3.nom|capitalize }}</label><br>
+                                                                    </small>
+                                                                {% endfor %}
+                                                            {% endfor %}
+                                                        </li>
+                                                    {% endfor %}
+                                                    <li>
+                                                        <input type="radio" id="toutes_les_categories" name="categorie" value="toutes_les_categories" checked="checked">
+                                                        <label for="toutes_les_categories"> <span class="button"></span> Toutes les catégories</label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div-->
+
+
+
+                                        <!--ul class="check-box-list">
                                             {% for categorie in categories %}
                                                 <li>
                                                     <input type="radio" id="{{ categorie.id }}" name="categorie" value="{{ categorie.id }}">
@@ -216,7 +274,7 @@
                                                 <input type="radio" id="toutes_les_categories" name="categorie" value="toutes_les_categories" checked="checked">
                                                 <label for="toutes_les_categories"> <span class="button"></span> Toutes les catégories</label>
                                             </li>
-                                        </ul>
+                                        </ul-->
                                     </div>
                                 </div>
                                     
