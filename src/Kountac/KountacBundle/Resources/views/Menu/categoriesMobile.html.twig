@@ -1,7 +1,7 @@
 <li><a href="">Idées look</a>
 <ul>
     {% for look in looks %}
-    <li><a href="">{{ look.nom }}</a>
+    <li><a href="{{ path('idees_look', { 'look' : look.id}) }}">{{ look.nom }}</a>
       <ul>
           
       </ul>
