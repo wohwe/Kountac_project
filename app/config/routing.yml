@@ -8,6 +8,10 @@ commentaires:
 kountac:
     resource: "@KountacBundle/Resources/config/routing.yml"
     prefix:   /
+
+localisation:
+    path:     /localisation
+    defaults: { _controller: KountacBundle:Homepage:localisation }
     
 utilisateurs:
     resource: "@UtilisateursBundle/Resources/config/routing.yml"
