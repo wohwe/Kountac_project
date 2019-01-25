@@ -19,7 +19,7 @@ class PanierController extends Controller
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit($user);
         
         return $this->render('KountacBundle:Default:pages/panier.html.twig', array('produits' => $produits,
-                                                                                   'commandes' => $commandes,                                                                       
+                                                                                   'commandes' => $commandes,          
                                                                                    'user'  => $user,
                                                                                    'images'  => $images,
                                                                                    'euro' => $this->getRequest()->getSession()->get('euro'),

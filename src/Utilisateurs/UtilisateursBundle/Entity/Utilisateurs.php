@@ -197,6 +197,17 @@ class Utilisateurs extends BaseUser
         parent::__construct();
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * Set nom
      *

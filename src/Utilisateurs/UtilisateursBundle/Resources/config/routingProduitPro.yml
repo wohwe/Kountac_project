@@ -63,6 +63,11 @@ produit_pro_new_edit3:
     defaults: { _controller: "UtilisateursBundle:ProduitPro:new_edit3" }
     methods:  [GET, POST]
     
+produit_pro_new_delete_image:
+    path:     /newDelete_image{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:deleteNewImages" }
+    methods:  [GET, POST]
+    
 produit_pro_new_4:
     path:     /new_4_{id}
     defaults: { _controller: "UtilisateursBundle:ProduitPro:new4" }

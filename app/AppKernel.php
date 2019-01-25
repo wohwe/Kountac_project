@@ -23,7 +23,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Kountac\CommentairesBundle\CommentairesBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-			new Kountac\ChatBundle\ChatBundle(),
+			new Kountac\ChatBundle\ChatBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

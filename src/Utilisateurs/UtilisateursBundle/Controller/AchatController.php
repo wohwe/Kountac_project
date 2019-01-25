@@ -5,6 +5,7 @@ namespace Utilisateurs\UtilisateursBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Kountac\KountacBundle\Entity\Achats;
+use Kountac\KountacBundle\Entity\ServiceLivraison;
 
 class AchatController extends Controller
 {
@@ -19,20 +20,21 @@ class AchatController extends Controller
             $Achat = new Achats();
         }
         else{
-                var_dump($Achat);die();
-        
-            $Achat = $em->getRepository('KountacBundle:Achats')->find($session->get('achat'));
+            //var_dump($session->get('achat'));die();
+            $Achat = new Achats();
+            //$Achat = $em->getRepository('KountacBundle:Achats')->find($session->get('achat'));
+            
         }
         
         $Achat->setDate(new \DateTime());
         $Achat->setUtilisateur($this->getUser());
+        //$Achat->setUtilisateur(17);
+        //$Achat->setEuro(1);
         $Achat->setValider(0);
         $Achat->setEffacer(0);
         $Achat->setReference(0);
-        /*
-        $session = $this->getRequest()->getSession();
-        $session->set('euro', '1');
-        */
+        //$Achat->setAchat("MELI");
+        
         if ($session->has('euro')){
             $Achat->setEuro(1);
             $Achat->setAchat($this->facture_euro());
@@ -46,8 +48,8 @@ class AchatController extends Controller
             $Achat->setAchat($this->facture_livre());
         }
         elseif ($session->has('usa')){ 
-            $achat->setUsa(1);
-            $achat->setAchat($this->facture_usa());
+            $Achat->setUsa(1);
+            $Achat->setAchat($this->facture_usa());
         }
         elseif ($session->has('all')){
             $Achat->setAll(1);
@@ -63,10 +65,18 @@ class AchatController extends Controller
             $session->set('achat',$Achat);
         
         }
+        //var_dump($Achat);
         $em->persist($Achat); 
         $em->flush();
+
+
+        /*$em2 = $this->getDoctrine()->getManager();
+        $livraison = new ServiceLivraison();
+        $livraison->setNom("MELI");
+        $em2->persist($livraison); 
+        $em2->flush();*/
         
-        return $this->render('FOSUserBundle:Profile:resumeAchat.html.twig', array('achat' => $achat,
+        return $this->render('FOSUserBundle:Profile:resumeAchat.html.twig', array('achat' => $Achat,
                                                                                   'commandes' => $commandes,
                                                                                   'euro' => $this->getRequest()->getSession()->get('euro'),
                                                                                   'livre' => $this->getRequest()->getSession()->get('livre'),

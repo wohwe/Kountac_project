@@ -51,7 +51,7 @@ class Achats
     /**
      * @var bool
      * 
-     * @ORM\Column(name="all", type="boolean", nullable=true)
+     * @ORM\Column(name="all_a", type="boolean", nullable=true)
      */
     private $all;
     
@@ -86,7 +86,7 @@ class Achats
     /**
      * @var \DateTime
      * 
-     * @ORM\Column(name="date", type="date")
+     * @ORM\Column(name="date_a", type="date")
      */
     private $date;
 
@@ -213,7 +213,7 @@ class Achats
      * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $utilisateur
      * @return Achats
      */
-    public function setUtilisateur(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $utilisateur = null)
+    public function setUtilisateur($utilisateur)
     {
         $this->utilisateur = $utilisateur;
 
