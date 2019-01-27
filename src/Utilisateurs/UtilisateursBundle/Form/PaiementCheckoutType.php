@@ -11,9 +11,7 @@ class PaiementCheckoutType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('nom','choice',array('choices' => array('Visa' => 'Visa',
-                                                              'MasterCard' => 'MasterCard',
-                                                              'PayPal' => 'PayPal',
+                ->add('nom','choice',array('choices' => array('Visa' => 'Carte bancaire',
                                                               'PaiementLivraison' => 'Paiement à la livraison'),
                                             'label' => 'Choisir type de paiement*',
                                             'attr' => array('class' => 'select form-control')))
