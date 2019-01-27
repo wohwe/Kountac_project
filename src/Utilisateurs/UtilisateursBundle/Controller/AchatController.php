@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Kountac\KountacBundle\Entity\Achats;
 use Kountac\KountacBundle\Entity\ServiceLivraison;
+use \DOMDocument;
 
 class AchatController extends Controller
 {
@@ -65,7 +66,10 @@ class AchatController extends Controller
             $session->set('achat',$Achat);
         
         }
-        //var_dump($Achat);
+
+        $mailCmd = $Achat->getAchat()["facturation"]["email"];
+        $prixCmd = $Achat->getAchat()["prix"];
+        /*var_dump($Achat->getAchat()["prix"] );*/
         $em->persist($Achat); 
         $em->flush();
 
@@ -75,6 +79,120 @@ class AchatController extends Controller
         $livraison->setNom("MELI");
         $em2->persist($livraison); 
         $em2->flush();*/
+
+
+
+
+
+
+// --------------- VARIABLES A MODIFIER ---------------
+
+// Ennonciation de variables
+$pbx_site = '2066365';                                  //variable de test 1999888
+$pbx_rang = '01';                                   //variable de test 32
+$pbx_identifiant = '940881839';             //variable de test 3
+$pbx_cmd = 'CMD00001';                             //variable de test cmd_test1
+$pbx_porteur = $mailCmd;                         //variable de test test@test.fr
+$pbx_total = $prixCmd.".00";                                 //variable de test 100
+// Suppression des points ou virgules dans le montant                       
+    $pbx_total = str_replace(",", "", $pbx_total);
+    $pbx_total = str_replace(".", "", $pbx_total);
+
+// Paramétrage des urls de redirection après paiement
+$pbx_effectue = 'http://kountac.test/profile/achat/api/banque_'.$Achat->getId();
+$pbx_annule = 'http://kountac.test/profile/achat/resume';
+$pbx_refuse = 'http://kountac.test/profile/achat/resume';
+// Paramétrage de l'url de retour back office site
+$pbx_repondre_a = 'http://localhost/Kit_E-transactions_internet_premium_PHP/Exemple.php/';
+// Paramétrage du retour back office site
+$pbx_retour = 'Mt:M;Ref:R;Auto:A;Erreur:E';
+
+// Connection à la base de données
+// mysql_connect...
+// On récupère la clé secrète HMAC (stockée dans une base de données par exemple) et que l’on renseigne dans la variable $keyTest;
+//$keyTest = '0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF';
+$keyTest = 'EC24659FFF8FC61D69F1C96AD9B8BEAF0AA266884D1CC2C1DCE3E19D231131B01E6AF03C45759DCDD1218453DCA8AF106C340CF8B62B0E5DEB10BF206CD6944C';
+
+
+
+// --------------- TESTS DE DISPONIBILITE DES SERVEURS ---------------
+
+$serveurs = array('preprod-tpeweb.paybox.com', //serveur primaire
+'preprod-tpeweb.paybox.com'); //serveur secondaire
+$serveurOK = "";
+//phpinfo(); <== voir paybox
+foreach($serveurs as $serveur){
+$doc = new DOMDocument();
+$doc->loadHTMLFile('https://'.$serveur.'/load.html');
+$server_status = "";
+$element = $doc->getElementById('server_status');
+if($element){
+$server_status = $element->textContent;}
+if($server_status == "OK"){
+// Le serveur est prêt et les services opérationnels
+$serveurOK = $serveur;
+break;}
+// else : La machine est disponible mais les services ne le sont pas.
+}
+//curl_close($ch); <== voir paybox
+if(!$serveurOK){
+die("Erreur : Aucun serveur n'a été trouvé");}
+// Activation de l'univers de préproduction
+//$serveurOK = 'preprod-tpeweb.paybox.com';
+
+//Création de l'url cgi paybox
+$serveurOK = 'https://'.$serveurOK.'/cgi/MYchoix_pagepaiement.cgi';
+// echo $serveurOK;
+
+
+
+// --------------- TRAITEMENT DES VARIABLES ---------------
+
+// On récupère la date au format ISO-8601
+$dateTime = date("c");
+
+// On crée la chaîne à hacher sans URLencodage
+$msg = "PBX_SITE=".$pbx_site.
+"&PBX_RANG=".$pbx_rang.
+"&PBX_IDENTIFIANT=".$pbx_identifiant.
+"&PBX_TOTAL=".$pbx_total.
+"&PBX_DEVISE=978".
+"&PBX_CMD=".$pbx_cmd.
+"&PBX_PORTEUR=".$pbx_porteur.
+"&PBX_REPONDRE_A=".$pbx_repondre_a.
+"&PBX_RETOUR=".$pbx_retour.
+"&PBX_EFFECTUE=".$pbx_effectue.
+"&PBX_ANNULE=".$pbx_annule.
+"&PBX_REFUSE=".$pbx_refuse.
+"&PBX_HASH=SHA512".
+"&PBX_TIME=".$dateTime;
+//echo $msg;
+
+// Si la clé est en ASCII, On la transforme en binaire
+$binKey = pack("H*", $keyTest);
+
+// On calcule l’empreinte (à renseigner dans le paramètre PBX_HMAC) grâce à la fonction hash_hmac et //
+// la clé binaire
+// On envoi via la variable PBX_HASH l'algorithme de hachage qui a été utilisé (SHA512 dans ce cas)
+// Pour afficher la liste des algorithmes disponibles sur votre environnement, décommentez la ligne //
+// suivante
+// print_r(hash_algos());
+$hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
+
+// La chaîne sera envoyée en majuscule, d'où l'utilisation de strtoupper()
+// On crée le formulaire à envoyer
+// ATTENTION : l'ordre des champs est extrêmement important, il doit
+// correspondre exactement à l'ordre des champs dans la chaîne hachée
+
+
+
+
+
+
+
+
+
+
         
         return $this->render('FOSUserBundle:Profile:resumeAchat.html.twig', array('achat' => $Achat,
                                                                                   'commandes' => $commandes,
@@ -83,7 +201,21 @@ class AchatController extends Controller
                                                                                   'usa' => $this->getRequest()->getSession()->get('usa'),
                                                                                   'naira' => $this->getRequest()->getSession()->get('naira'),
                                                                                   'cfa' => $this->getRequest()->getSession()->get('cfa'),
-                                                                                  'user' => $user));
+                                                                                  'user' => $user,
+                                                                'serveurOK' => $serveurOK,
+                                                                'pbx_site' => $pbx_site,
+                                                                'pbx_rang' => $pbx_rang,
+                                                                'pbx_identifiant' => $pbx_identifiant,
+                                                                'pbx_total' => $pbx_total,
+                                                                'pbx_cmd' => $pbx_cmd,
+                                                                'pbx_porteur' => $pbx_porteur,
+                                                                'pbx_repondre_a' => $pbx_repondre_a,
+                                                                'pbx_retour' => $pbx_retour,
+                                                                'pbx_effectue' => $pbx_effectue,
+                                                                'pbx_annule' => $pbx_annule,
+                                                                'pbx_refuse' => $pbx_refuse,
+                                                                'dateTime' => $dateTime,
+                                                                'hmac' => $hmac));
     }
     
     /*
