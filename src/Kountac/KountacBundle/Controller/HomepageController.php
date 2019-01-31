@@ -28,7 +28,7 @@ class HomepageController extends Controller
 
 
 
-
+/*
         // --------------- VARIABLES A MODIFIER ---------------
 
 // Ennonciation de variables
@@ -128,7 +128,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
 // ATTENTION : l'ordre des champs est extrêmement important, il doit
 // correspondre exactement à l'ordre des champs dans la chaîne hachée
 
-
+*/
 
 
 

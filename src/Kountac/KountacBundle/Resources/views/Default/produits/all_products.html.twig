@@ -193,14 +193,16 @@
                                 <div class="layered-Category">
                                     <h2 class="saider-bar-title" data-toggle="collapse" data-target="#categorie"><a>Catégorie(s)</a></h2>
                                     <div id="categorie" class="collapse layered-content">
+                                        {% set nbr = 0 %}
                                         {% for categorie in categories %}
                                             <div class="layered-Category">
                                                 <h2 class="saider-bar-title2" data-toggle="collapse" data-target="#cat{{ categorie.nom|capitalize }}">{{ categorie.nom|capitalize }}</h2>
                                                 <div id="cat{{ categorie.nom|capitalize }}" class="collapse layered-content">
                                                     {% for categorie2 in categorie.children %}
+                                                        {% set nbr = nbr + 1 %}
                                                         <div class="layered-Category">
-                                                            <h2 class="saider-bar-title3" data-toggle="collapse" data-target="#cat{{ categorie2.nom|capitalize }}">{{ categorie2.nom|capitalize }}</h2>
-                                                            <div id="cat{{ categorie2.nom|capitalize }}" class="collapse layered-content">
+                                                            <h2 class="saider-bar-title3" data-toggle="collapse" data-target="#cat{{ nbr }}{{ categorie2.nom|capitalize }}">{{ categorie2.nom|capitalize }}</h2>
+                                                            <div id="cat{{ nbr }}{{ categorie2.nom|capitalize }}" class="collapse layered-content">
                                                                 {% for categorie3 in categorie2.children %}
                                                                     <small>
                                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="{{ categorie3.id }}" name="categorie" value="{{ categorie3.id }}">

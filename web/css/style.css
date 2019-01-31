@@ -1738,6 +1738,9 @@ a.link {
 /******************************************
 9. product hover
 ******************************************/
+.product-thumb img{
+	width: 95%;
+}
 .product-item {
 	list-style: none;
 }
