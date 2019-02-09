@@ -10,6 +10,3 @@ Checkout_index3:
     path:     /3
     defaults: { _controller: UtilisateursBundle:Checkout:index3 }
     
-Checkout_index4:
-    path:     /4
-    defaults: { _controller: UtilisateursBundle:Checkout:index4 }

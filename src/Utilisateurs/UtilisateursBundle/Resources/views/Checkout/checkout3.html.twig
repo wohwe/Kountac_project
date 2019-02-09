@@ -28,10 +28,10 @@
 
 
                     <div class="page-content checkout-page"><div class="page-title">
-                            <h2>Finalisation de la commande (3/4)</h2>
+                            <h2>Finalisation de la commande (3/3)</h2>
                         </div>
                         <h4 class="checkout-sep"></h4>
-                        <h4 class="checkout-sep">1. Information de livraison (adresse de livraison)</h4>
+                        <!--h4 class="checkout-sep">1. Information de livraison (adresse de livraison)</h4>
                         <div class="box-border">
                             <ul>
                                 <li class="row">
@@ -68,7 +68,7 @@
                                     <div class="col-sm-6">
                                         <label><u>Code postal</u> :</label>
                                                 {{ user.cp|upper }}
-                                    </div><!--/ [col] -->
+                                    </div>
                                     <div  class="col-sm-6">
                                         <label><u>Pays</u> :</label>
                                                 {{ user.pays|upper }}
@@ -78,12 +78,12 @@
                                     <div class="col-sm-6">
                                         <label><u>Téléphone mobile</u> :</label>
                                                 {{ user.telephone|capitalize }}
-                                    </div><!--/ [col] -->
+                                    </div>
                                     <div class="col-sm-6">
                                         <label><u>Téléphone fix</u> :</label>
                                                 {{ user.telephonefix|capitalize }}
-                                    </div><!--/ [col] -->
-                                </li><!--/ .row -->
+                                    </div>
+                                </li>
                             </ul>
                             </form>
                         </div>
@@ -105,11 +105,11 @@
                                 </ul>
                         </div>
                         <br>
-                        <h4 class="checkout-sep"></h4>
+                        <h4 class="checkout-sep"></h4-->
                         <h4 class="checkout-sep">3. Méthode de paiement</h4>
                         <div class="box-border">
                                 <ul>
-                                    <form class="col" action="{{ path('Checkout_index3') }}" method="POST" {{ form_enctype(form) }} class="form">
+                                    <form class="col" action="{{ path('resume_achat') }}" method="POST" {{ form_enctype(form) }} class="form">
                                         {{ form_start(form) }}
                                         {{ form_errors(form) }}
 
