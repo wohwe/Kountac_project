@@ -87,11 +87,24 @@ class AchatController extends Controller
 
 // --------------- VARIABLES A MODIFIER ---------------
 
+$jour = "";
+
+if (date("j")<10) {
+    $jour = "0".date("j");
+}else{
+    $jour = date("j");
+}
+$dateReal = date("Y")."-".date("m")."-".$jour;
+$heureReal = date("H").":".date("i").":".date("s");
+
+
+
+
 // Ennonciation de variables
 $pbx_site = '2066365';                                  //variable de test 1999888
 $pbx_rang = '01';                                   //variable de test 32
 $pbx_identifiant = '940881839';             //variable de test 3
-$pbx_cmd = 'CMD00001';                             //variable de test cmd_test1
+$pbx_cmd = $Achat->getId().date("Y").date("m").$jour.$dateReal.$heureReal; //variable de test cmd_test1
 $pbx_porteur = $mailCmd;                         //variable de test test@test.fr
 $pbx_total = $prixCmd.".00";                                 //variable de test 100
 // Suppression des points ou virgules dans le montant                       
@@ -99,11 +112,11 @@ $pbx_total = $prixCmd.".00";                                 //variable de test 
     $pbx_total = str_replace(".", "", $pbx_total);
 
 // Paramétrage des urls de redirection après paiement
-$pbx_effectue = 'http://kountac.test/profile/achat/api/banque_'.$Achat->getId();
-$pbx_annule = 'http://kountac.test/profile/achat/resume';
-$pbx_refuse = 'http://kountac.test/profile/achat/resume';
+$pbx_effectue = 'http://kountac.fr/profile/achat/api/banque_'.$Achat->getId();
+$pbx_annule = 'http://kountac.fr/profile/achat/resume';
+$pbx_refuse = 'http://kountac.fr/profile/achat/resume';
 // Paramétrage de l'url de retour back office site
-$pbx_repondre_a = 'http://localhost/Kit_E-transactions_internet_premium_PHP/Exemple.php/';
+$pbx_repondre_a = 'http://kountac.fr/profile/achat/resume';
 // Paramétrage du retour back office site
 $pbx_retour = 'Mt:M;Ref:R;Auto:A;Erreur:E';
 
@@ -111,14 +124,14 @@ $pbx_retour = 'Mt:M;Ref:R;Auto:A;Erreur:E';
 // mysql_connect...
 // On récupère la clé secrète HMAC (stockée dans une base de données par exemple) et que l’on renseigne dans la variable $keyTest;
 //$keyTest = '0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF';
-$keyTest = 'EC24659FFF8FC61D69F1C96AD9B8BEAF0AA266884D1CC2C1DCE3E19D231131B01E6AF03C45759DCDD1218453DCA8AF106C340CF8B62B0E5DEB10BF206CD6944C';
+$keyTest = 'B2AB4B6512C9EEA8118C3FE84139094A8C6BC3AAB3BD4664F2DB2E7A8D87F949BDE04D8351327560340AD263FB557950C97E53876AE6234B0D58E3F171612731';
 
 
 
 // --------------- TESTS DE DISPONIBILITE DES SERVEURS ---------------
 
-$serveurs = array('preprod-tpeweb.paybox.com', //serveur primaire
-'preprod-tpeweb.paybox.com'); //serveur secondaire
+$serveurs = array('tpeweb.paybox.com', //serveur primaire
+'tpeweb.paybox.com'); //serveur secondaire
 $serveurOK = "";
 //phpinfo(); <== voir paybox
 foreach($serveurs as $serveur){

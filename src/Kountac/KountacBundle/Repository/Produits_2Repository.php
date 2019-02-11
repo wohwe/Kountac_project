@@ -722,6 +722,19 @@ class Produits_2Repository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
+	public function byIdeesLook($look) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->where('p1.looks = :look')
+                ->andWhere('p1.stock >= :seuil')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('seuil', '1')
+                ->setParameter('look', $look);
+        return $qb->getQuery()->getResult();
+    }
     
     /* Destockage de tous les ptoduits de la catégorie "femmes"*/
     public function getCategoriesAllFemmesDestockage($categoriesHautsFemmes, $categoriesBasFemmes, $categoriesEnsemblesFemmes) 

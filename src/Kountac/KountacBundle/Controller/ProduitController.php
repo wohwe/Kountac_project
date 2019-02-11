@@ -654,6 +654,42 @@ class ProduitController extends Controller
                                                                                             'cfa' => $this->getRequest()->getSession()->get('cfa'),
                                                                                          'collection' => $session->get('collection')));
     }
+	
+	public function lookAction($look)
+    {
+        $session = $this->getRequest()->getSession();
+        $session->set('collection', '1');
+        $session->remove('categorie');
+        $session->remove('recherche');
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
+        $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
+        $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
+        $form_taillePoids = $this->createForm(new Taille_PoidsType());                       
+        $produitsLooks = $em->getRepository('KountacBundle:Produits_2')->byIdeesLook($look);
+        $nomIdeesLook = $em->getRepository('KountacBundle:Idees_looks')->find($look)->getNom();
+        $produits  = $this->get('knp_paginator')->paginate($produitsLooks,$this->get('request')->query->get('page', 1),20);
+
+        return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
+                                                                                            'nom' => $nomIdeesLook,
+                                                                                            'marques' => $marques, 
+                                                                                            'images' => $images, 
+                                                                                            'form' => $form_taillePoids->createView(),
+                                                                                            'motifs' => $motifs,
+                                                                                            'categories' => $categories,
+                                                                                            'mannequins' => $mannequins,
+                                                                                            'euro' => $this->getRequest()->getSession()->get('euro'),
+                                                                                            'all' => $this->getRequest()->getSession()->get('all'),                                                                                
+                                                                                            'livre' => $this->getRequest()->getSession()->get('livre'),
+                                                                                            'usa' => $this->getRequest()->getSession()->get('usa'),
+                                                                                            'naira' => $this->getRequest()->getSession()->get('naira'),
+                                                                                            'cfa' => $this->getRequest()->getSession()->get('cfa'),
+                                                                                         'collection' => $session->get('collection')));
+    }
     
     public function rechercheAction()
     {
