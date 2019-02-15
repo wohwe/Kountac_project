@@ -91,30 +91,30 @@
                                                         <center>
                                                                 {% if image.top == 0 %}
                                                                     <a href="{{ path('product', {'id' : image.produit2.id}) }}">
-                                                                        <img src="{{ image.AssetPath|imagine_filter('produitAllThumb') }}" alt="">
+                                                                        <img src="{{ asset(image.AssetPath) }}" alt="">
                                                                     </a>
                                                                     {% if image.path2 %}
                                                                     <a class="hover-img" href="{{ path('product', {'id' : image.produit2.id}) }}">
-                                                                        <img src="{{ image.AssetPath2|imagine_filter('produitAllThumb') }}" alt="">
+                                                                        <img src="{{ asset(image.AssetPath2) }}" alt="">
                                                                     </a>
                                                                     {% endif %}
                                                                     {% if image.path3 %}
                                                                     <a class="hover-img" href="{{ path('product', {'id' : image.produit2.id}) }}">
-                                                                        <img src="{{ image.AssetPath3|imagine_filter('produitAllThumb') }}" alt="">
+                                                                        <img src="{{ asset(image.AssetPath3) }}" alt="">
                                                                     </a>
                                                                     {% endif %}
                                                                 {% else %}
                                                                     <a href="{{ path('product_mannequin', {'id': image.produit2.id, 'id_image': image.id}) }}">
-                                                                        <img src="{{ image.AssetPath|imagine_filter('produitAllThumb') }}" alt="">
+                                                                        <img src="{{ asset(image.AssetPath) }}" alt="">
                                                                     </a>
                                                                     {% if image.path2 %}
                                                                     <a class="hover-img" href="{{ path('product_mannequin', {'id': image.produit2.id, 'id_image': image.id}) }}">
-                                                                        <img src="{{ image.AssetPath2|imagine_filter('produitAllThumb') }}" alt="">
+                                                                        <img src="{{ asset(image.AssetPath2) }}" alt="">
                                                                     </a>
                                                                     {% endif %}
                                                                     {% if image.path3 %}
                                                                     <a class="hover-img" href="{{ path('product_mannequin', {'id': image.produit2.id, 'id_image': image.id}) }}">
-                                                                        <img src="{{ image.AssetPath3|imagine_filter('produitAllThumb') }}" alt="">
+                                                                        <img src="{{ asset(image.AssetPath3) }}" alt="">
                                                                     </a>
                                                                     {% endif %}
                                                                 {% endif %}

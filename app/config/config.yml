@@ -59,7 +59,7 @@ doctrine:
         charset:  UTF8
         
     orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_generate_proxy_classes: false
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
@@ -110,7 +110,7 @@ liip_imagine:
         cache: ~
                 
         produitThumb:
-            quality: 80
+            quality: 100
             filters:
                 thumbnail: { size: [350, 350], mode: inset }
         

@@ -34,7 +34,7 @@ class AchatController extends Controller
         $Achat->setValider(0);
         $Achat->setEffacer(0);
         $Achat->setReference(0);
-        //$Achat->setAchat("MELI");
+        $prixCmd = $Achat->getAchat()["prix"];
         
         if ($session->has('euro')){
             $Achat->setEuro(1);
@@ -43,22 +43,26 @@ class AchatController extends Controller
         elseif ($session->has('cfa')){ 
             $Achat->setCfa(1);
             $Achat->setAchat($this->facture_fcfa());
+            $prixCmd = round($Achat->getAchat()["prix"] / 655.81);
         }
         elseif ($session->has('livre')){ 
             $Achat->setLivre(1);
             $Achat->setAchat($this->facture_livre());
+            $prixCmd = round($Achat->getAchat()["prix"] / 0.879);
         }
         elseif ($session->has('usa')){ 
             $Achat->setUsa(1);
             $Achat->setAchat($this->facture_usa());
+            $prixCmd = round($Achat->getAchat()["prix"] / 1.124);
         }
         elseif ($session->has('all')){
             $Achat->setAll(1);
             $Achat->setAchat($this->facture_all());
         }
         elseif ($session->has('naira')){ 
-            $achat->setNaira(1);
-            $achat->setAchat($this->facture_naira());
+            $Achat->setNaira(1);
+            $Achat->setAchat($this->facture_naira());
+            $prixCmd = round($Achat->getAchat()["prix"] / 406.448);
         }
         
         if (!$session->has('achat')) {
@@ -68,7 +72,6 @@ class AchatController extends Controller
         }
 
         $mailCmd = $Achat->getAchat()["facturation"]["email"];
-        $prixCmd = $Achat->getAchat()["prix"];
         /*var_dump($Achat->getAchat()["prix"] );*/
         $em->persist($Achat); 
         $em->flush();
@@ -104,7 +107,7 @@ $heureReal = date("H").":".date("i").":".date("s");
 $pbx_site = '2066365';                                  //variable de test 1999888
 $pbx_rang = '01';                                   //variable de test 32
 $pbx_identifiant = '940881839';             //variable de test 3
-$pbx_cmd = $Achat->getId().date("Y").date("m").$jour.$dateReal.$heureReal; //variable de test cmd_test1
+$pbx_cmd = $Achat->getId().date("Y").date("m").$jour." ".$heureReal; //variable de test cmd_test1
 $pbx_porteur = $mailCmd;                         //variable de test test@test.fr
 $pbx_total = $prixCmd.".00";                                 //variable de test 100
 // Suppression des points ou virgules dans le montant                       
@@ -723,12 +726,12 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
         $total = 0;
         $total_commande = 0;
         
-        $produits = $em->getRepository('KountacBundle:Produits')->findArray(array_keys($session->get('panier')));
+        $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit_acheter($user);
         
         foreach($produits as $produit)
         {
-            $prixReduction = ($produit->getProduit2()->getCfaprix() - ($produit->getProduit2()->getCfaprix() * $produit->getReduction()/100));
+            $prixReduction = ($produit->getProduit2()->getCfaprix() - ($produit->getProduit2()->getCfaprix() * $produit->getProduit2()->getReduction()/100));
             $prix = ($prixReduction * $panier[$produit->getId()]);
             $total += $prix;
             $produit_2 = $produit->getproduit2();

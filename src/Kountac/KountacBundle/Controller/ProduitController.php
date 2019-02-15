@@ -393,7 +393,7 @@ class ProduitController extends Controller
         $images_all = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $images_autres = $em->getRepository('KountacBundle:Media_motif')->findImagesAutres($produit);
         $marque = $produit->getProduit1()->getMarque();
-	$categorie = $produit->getProduit1()->getCategorie();
+	    $categorie = $produit->getProduit1()->getCategorie();
         $categorieProduits = $em->getRepository('KountacBundle:Produits_1')->getProduitsByCategorie($categorie, $id);
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $commentaires = $em->getRepository('CommentairesBundle:Commentaires')->commentairesProduit($id);
@@ -471,7 +471,7 @@ class ProduitController extends Controller
         $images = $em->getRepository('KountacBundle:Media_motif')->findImagesTops($produit);
         $images_all = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $marque = $produit->getProduit1()->getMarque();
-	$categorie = $produit->getProduit1()->getCategorie();
+	    $categorie = $produit->getProduit1()->getCategorie();
         $categorieProduits = $em->getRepository('KountacBundle:Produits_1')->getProduitsByCategorie($categorie, $id);
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $commentaires = $em->getRepository('CommentairesBundle:Commentaires')->commentairesProduit($id);

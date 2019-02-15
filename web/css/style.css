@@ -1743,6 +1743,7 @@ a.link {
 }
 .product-item {
 	list-style: none;
+	height: 550px; 
 }
 .product-item .product-thumb {
 	position: relative;

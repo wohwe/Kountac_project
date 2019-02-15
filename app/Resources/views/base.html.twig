@@ -387,8 +387,7 @@ function $_GET(param) {
 var $_GET = $_GET();
 var page = $_GET['page'];
 if (typeof page != "undefined") {
-  var url = window.location.href;
-  window.location.href = url+"#all";
+  $('html, body').animate({scrollTop:2150},500);
 }
 
         </script>

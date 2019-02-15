@@ -29,16 +29,16 @@
                                                                     {% for image in images %}
                                                                         {% if image.produit2 == produit and image.top == 0 %}
                                                                         <a href="{{ path('product', {'id' : produit.id}) }}">
-                                                                            <img src="{{ image.AssetPath|imagine_filter('produitThumb') }}" alt="">
+                                                                            <img src="{{ image.AssetPath }}" alt="">
                                                                         </a>
                                                                         {% if image.path2 %}
                                                                         <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
-                                                                            <img src="{{ image.AssetPath2|imagine_filter('produitThumb') }}" alt="">
+                                                                            <img src="{{ image.AssetPath2 }}" alt="">
                                                                         </a>
                                                                         {% endif %}
                                                                         {% if image.path3 %}
                                                                         <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
-                                                                            <img src="{{ image.AssetPath3|imagine_filter('produitThumb') }}" alt="">
+                                                                            <img src="{{ image.AssetPath3 }}" alt="">
                                                                         </a>
                                                                         {% endif %}
                                                                         {% endif %}
@@ -118,16 +118,16 @@
                                                                 {% for image in images %}
                                                                     {% if image.produit2 == produit and image.top == 0 %}
                                                                     <a href="{{ path('product', {'id' : produit.id}) }}">
-                                                                        <img src="{{ image.AssetPath|imagine_filter('produitThumb') }}" alt="">
+                                                                        <img src="{{ image.AssetPath }}" alt="">
                                                                     </a>
                                                                     {% if image.path2 %}
                                                                     <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
-                                                                        <img src="{{ image.AssetPath2|imagine_filter('produitThumb') }}" alt="">
+                                                                        <img src="{{ image.AssetPath2 }}" alt="">
                                                                     </a>
                                                                     {% endif %}
                                                                     {% if image.path3 %}
                                                                     <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
-                                                                        <img src="{{ image.AssetPath3|imagine_filter('produitThumb') }}" alt="">
+                                                                        <img src="{{ image.AssetPath3 }}" alt="">
                                                                     </a>
                                                                     {% endif %}
                                                                     {% endif %}
@@ -222,16 +222,16 @@
                                                                     {% for image in images %}
                                                                         {% if image.produit2 == produit and image.top == 0 %}
                                                                         <a href="{{ path('product', {'id' : produit.id}) }}">
-                                                                            <img src="{{ image.AssetPath|imagine_filter('produitThumb') }}" alt="">
+                                                                            <img src="{{ image.AssetPath }}" alt="">
                                                                         </a>
                                                                         {% if image.path2 %}
                                                                         <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
-                                                                            <img src="{{ image.AssetPath2|imagine_filter('produitThumb') }}" alt="">
+                                                                            <img src="{{ image.AssetPath2 }}" alt="">
                                                                         </a>
                                                                         {% endif %}
                                                                         {% if image.path3 %}
                                                                         <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
-                                                                            <img src="{{ image.AssetPath3|imagine_filter('produitThumb') }}" alt="">
+                                                                            <img src="{{ image.AssetPath3 }}" alt="">
                                                                         </a>
                                                                         {% endif %}
                                                                         {% endif %}
@@ -313,16 +313,16 @@
                                                                     {% for image in images %}
                                                                         {% if image.produit2 == produit and image.top == 0 %}
                                                                         <a href="{{ path('product', {'id' : produit.id}) }}">
-                                                                            <img src="{{ image.AssetPath|imagine_filter('produitThumb') }}" alt="">
+                                                                            <img src="{{ image.AssetPath }}" alt="">
                                                                         </a>
                                                                         {% if image.path2 %}
                                                                         <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
-                                                                            <img src="{{ image.AssetPath2|imagine_filter('produitThumb') }}" alt="">
+                                                                            <img src="{{ image.AssetPath2 }}" alt="">
                                                                         </a>
                                                                         {% endif %}
                                                                         {% if image.path3 %}
                                                                         <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
-                                                                            <img src="{{ image.AssetPath3|imagine_filter('produitThumb') }}" alt="">
+                                                                            <img src="{{ image.AssetPath3 }}" alt="">
                                                                         </a>
                                                                         {% endif %}
                                                                         {% endif %}
@@ -411,16 +411,29 @@
                                             <div class="product-item">
                                                 <div class="item-inner">
                                                     <div class="product-thumb has-hover-img">
+
                                                         <figure>
                                                             <center>
                                                                 {% for image in images %}
                                                                     {% if image.produit2 == produit and image.top == 0 %}
-                                                                        <a href="{{ path('product', {'id' : produit.id}) }}"><img src="{{ image.AssetPath|imagine_filter('produitAllThumb') }}" alt=""></a>
-                                                                        <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}"><img src="{{ image.AssetPath2|imagine_filter('produitAllThumb') }}" alt=""></a>
+                                                                    <a href="{{ path('product', {'id' : produit.id}) }}">
+                                                                        <img src="{{ image.AssetPath }}" alt="">
+                                                                    </a>
+                                                                    {% if image.path2 %}
+                                                                    <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                                                        <img src="{{ image.AssetPath2 }}" alt="">
+                                                                    </a>
+                                                                    {% endif %}
+                                                                    {% if image.path3 %}
+                                                                    <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                                                        <img src="{{ image.AssetPath3 }}" alt="">
+                                                                    </a>
+                                                                    {% endif %}
                                                                     {% endif %}
                                                                 {% endfor %}
                                                             </center>
                                                         </figure>
+
                                                         <div class="pr-info-area animated animate4">
                                                             <a title="Réserver ce produit" href="{{ path('quickViewAllProducts', {'id' : produit.id}) }}" class="quick-view"><i class="fa fa-save"><span>Reserver</span></i></a>
                                                             <a title="Ajouter aux souhaits" href="{{ path('quickViewAllProducts', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-heart"><span>Wishlist</span></i></a>

@@ -127,20 +127,43 @@
                                     <tfoot>
                                         <tr>
                                             <td colspan="2" rowspan="2"></td>
-                                            <td colspan="2"><h4><strong>TOTAL </strong></h4></td>
-                                            <td colspan="2"><h4><strong>{{ (total + total2)|number_format(2) }} F CFA</strong></h4></td>
+                                            <td colspan="2">
+                                                <h4><strong>TOTAL </strong></h4> <br> 
+                                                <h5><strong>TOTAL (Euros) </strong></h5>
+                                            </td>
+                                            <td colspan="2">
+                                                <h4><strong>{{ (total + total2)|number_format(2) }} F CFA</strong></h4> <br>
+                                                <h5><strong>{{ ((total + total2)/655.81)|round|number_format(2) }} €</strong></h5>
+                                            </td>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
                             <br>
-                            <form action="{{ path('validation_achat_final', { 'id' : achat.id }) }}" method="POST">
-                                <input name="token" type="hidden" value="{{ achat.achat.token }}" />
-                                <input name="prix" type="hidden" value="{{ achat.achat.prix }}" />    
-                                <input name="date" type="hidden" value="{{ achat.date|date('d/m/Y (H-m-s)') }}" />
+
+                            <form action="{{ serveurOK }}" method="POST">
+<input type="hidden" name="PBX_SITE" value="{{ pbx_site }}">
+<input type="hidden" name="PBX_RANG" value="{{ pbx_rang }}">
+<input type="hidden" name="PBX_IDENTIFIANT" value="{{ pbx_identifiant }}">
+<input type="hidden" name="PBX_TOTAL" value="{{ pbx_total }}">
+<input type="hidden" name="PBX_DEVISE" value="978">
+<input type="hidden" name="PBX_CMD" value="{{ pbx_cmd }}">
+<input type="hidden" name="PBX_PORTEUR" value="{{ pbx_porteur }}">
+<input type="hidden" name="PBX_REPONDRE_A" value="{{ pbx_repondre_a }}">
+<input type="hidden" name="PBX_RETOUR" value="{{ pbx_retour }}">
+<input type="hidden" name="PBX_EFFECTUE" value="{{ pbx_effectue }}">
+<input type="hidden" name="PBX_ANNULE" value="{{ pbx_annule }}">
+<input type="hidden" name="PBX_REFUSE" value="{{ pbx_refuse }}">
+<input type="hidden" name="PBX_HASH" value="SHA512">
+<input type="hidden" name="PBX_TIME" value="{{ dateTime }}">
+<input type="hidden" name="PBX_HMAC" value="{{ hmac }}">
+
                                 <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider achat</span></button>
+
                             </form>
-                            <a href="{{ path('Checkout_index4') }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
+
+
+                            <a href="{{ path('Checkout_index3') }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
                         {% endif %}
                         </div>
                     </div>
