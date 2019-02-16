@@ -6726,6 +6726,9 @@ p.note {
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 }
+.box-border ul li{
+	margin-top: 10px;
+}
 .checkout-page .box-border {
 	margin-bottom: 15px;
 }

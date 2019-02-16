@@ -28,11 +28,12 @@
                 <ul>
                     <li class="row">
                         <div class="col-sm-6">
-                           {{ form_row(form.sexe.0) }}
-                           {{ form_row(form.sexe.1) }}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.sexe.0) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.sexe.1) }}</div>
+                            </div>
                         </div>
                     </li>
-                    <br>
                     <li class="row">
                         <div class="col-sm-6">
                             {{ form_row(form.nom) }}
@@ -41,7 +42,6 @@
                             {{ form_row(form.prenom) }}
                         </div><!--/ [col] -->
                     </li>
-                    <br>
                     <li class="row">
                         <div class="col-sm-6">
                             <label class="required">Image de profil</label>
@@ -52,19 +52,10 @@
                             {{ form_widget(form.image.file2) }}
                         </div><!--/ [col] -->
                     </li>
-                    <br>
-                    <br>
-                    <li class="row"> 
-                        <div class="col-xs-12">
-                            {{ form_row(form.adresse) }}
-                        </div><!--/ [col] -->
-
-                    </li><!-- / .row -->
-
                     <li class="row">
 
-                        <div class="col-sm-6">
-                           {{ form_row(form.rue) }}
+                        <div  class="col-sm-6">
+                            {{ form_row(form.pays) }}
                         </div><!--/ [col] -->
 
                         <div class="col-sm-6">
@@ -72,26 +63,33 @@
                         </div>
                     </li>
                     
-                    <li class="row">
-
-                        <div class="col-sm-6">
-                           {{ form_row(form.departement) }}
-                        </div><!--/ [col] -->
+                    <!--li class="row">
 
                         <div class="col-sm-6">
                             {{ form_row(form.digicode) }}
                         </div>
-                    </li>
+                    </li-->
 
                     <li class="row">
                         <div class="col-sm-6">
                             {{ form_row(form.cp) }}
                         </div><!--/ [col] -->
 
-                        <div  class="col-sm-6">
-                            {{ form_row(form.pays) }}
+                        <div class="col-sm-6">
+                           {{ form_row(form.departement) }}
                         </div><!--/ [col] -->
                     </li>
+
+                    <li class="row"> 
+                        <div class="col-xs-6">
+                            {{ form_row(form.adresse) }}
+                        </div><!--/ [col] -->
+
+                        <div class="col-sm-6">
+                           {{ form_row(form.rue) }}
+                        </div><!--/ [col] -->
+
+                    </li><!-- / .row -->
                     
                     <li class="row">
                         <div class="col-sm-6">
@@ -102,7 +100,6 @@
                             {{ form_row(form.telephonefix) }}
                         </div><!--/ [col] -->
                     </li>
-                    <br><br>
                     <li class="row">
                         <div class="col-sm-6">
                             {{ form_row(form.username) }}
@@ -122,7 +119,13 @@
                             {{ form_row(form.plainPassword.second) }}
                         </div><!--/ [col] -->
                     </li><!--/ .row -->
-                    <br><br><br>
+                    <br>
+                    <li class="row">
+                        <div class="col-sm-12">
+                            <input type="checkbox" id="condition" required name="">
+                            <label for="condition"> En continuant vous acceptez les politiques et <a href="#">conditions d'utilisations</a>.</label>
+                        </div>
+                    </li>
                     <li>
                         <button class="button" type="submit"><i class="icon-login"></i>&nbsp; <span>{{ 'registration.submit'|trans }}</span></button>
                     </li>

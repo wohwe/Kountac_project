@@ -35,11 +35,11 @@ class RegistrationProType extends RegistrationFormType
                 ->add('adresse','text', array('attr' => array('class' => 'input form-control'),'label' => 'Adresse*','required' => true))
                 ->add('pays','country', array('attr' => array('class' => 'select form-control'),'label' => 'Pays/Région*','required' => true))
                 ->add('ville','text', array('attr' => array('class' => 'input form-control'),'label' => 'Ville*','required' => true))
-                ->add('departement','text', array('attr' => array('class' => 'input form-control'),'label' => 'Département','required' => false))
+                ->add('departement','text', array('attr' => array('class' => 'input form-control'),'label' => 'Département','required' => true))
                 ->add('digicode','number', array('attr' => array('class' => 'input form-control'),'label' => 'Digicode','required' => false))
                 ->add('rue','text', array('attr' => array('class' => 'input form-control'),'label' => 'Complément d\'adresse','required' => false))
                 ->add('cp','number', array('attr' => array('class' => 'input form-control'),'label' => 'Code postal*','required' => true))
-                ->add('telephone','number', array('attr' => array('class' => 'input form-control'),'label' => 'Téléphone mobile','required' => false))
+                ->add('telephone','number', array('attr' => array('class' => 'input form-control'),'label' => 'Téléphone mobile','required' => true))
                 ->add('telephonefix','number', array('attr' => array('class' => 'input form-control'),'label' => 'Téléphone 2','required' => false))
                 ->add('image', new MediaType())
                 ;
