@@ -7,7 +7,27 @@
 
 {% block body_text %}
 {% autoescape false %}
-{{ 'registration.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
+
+<!--{{ 'registration.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}-->
+
+
+    	<div style="height:70px; background:#f4a137; text-align:center; margin : 10px; padding : 10px;">
+    		<img src="{{ asset('images/logo.png') }}" height=50 alt="Kountac">
+    		<label style="margin-top : 10px; font-size : 20px; ">Bienvenue chez Kountac</label>
+    	</div>
+    	<div style="margin : 10px; padding : 10px;">
+    		Bonjour <span style="font-weight: bold;">{{ user.username }}</span>. <br><br>
+    		Pour valider votre compte utilisateur, cliquez sur le boutton ci-après 
+    		<a href="{{ confirmationUrl }}"><input style="height:50px; text-align : center; background : #f4a137; border : none; color : black; width : 150px; font-weight: bold;" type="button" value="Cliquez ici" name=""></a> <br><br>
+
+    		Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.<br><br>
+
+			Cordialement,<br>
+			L'équipe Kountac.
+    	</div>
+
+
+
 {% endautoescape %}
 {% endblock %}
 {% block body_html %}{% endblock %}
