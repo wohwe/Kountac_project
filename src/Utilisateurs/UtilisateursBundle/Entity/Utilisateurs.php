@@ -189,6 +189,21 @@ class Utilisateurs extends BaseUser
      * @ORM\Column(type="float", nullable=true)
      */
     private $telephonefix_entreprise;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $code;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $codeparrain;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $points;
 
     
     
@@ -446,6 +461,78 @@ class Utilisateurs extends BaseUser
     public function getTelephonefix()
     {
         return $this->telephonefix;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     *
+     * @return Utilisateurs
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set codeparrain
+     *
+     * @param string $codeparrain
+     *
+     * @return Utilisateurs
+     */
+    public function setCodeparrain($codeparrain)
+    {
+        $this->codeparrain = $codeparrain;
+
+        return $this;
+    }
+
+    /**
+     * Get codeparrain
+     *
+     * @return string
+     */
+    public function getCodeparrain()
+    {
+        return $this->codeparrain;
+    }
+
+    /**
+     * Set points
+     *
+     * @param string $points
+     *
+     * @return Utilisateurs
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return string
+     */
+    public function getPoints()
+    {
+        return $this->points;
     }
 
     /**

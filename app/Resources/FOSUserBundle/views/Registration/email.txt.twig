@@ -11,7 +11,13 @@
 <!--{{ 'registration.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}-->
 
 
-    	<div style="height:70px; background:#f4a137; text-align:center; margin : 10px; padding : 10px;">
+
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+
+	<div style="height:70px; background:#f4a137; text-align:center; margin : 10px; padding : 10px;">
     		<img src="{{ asset('images/logo.png') }}" height=50 alt="Kountac">
     		<label style="margin-top : 10px; font-size : 20px; ">Bienvenue chez Kountac</label>
     	</div>
@@ -26,8 +32,4 @@
 			L'équipe Kountac.
     	</div>
 
-
-
-{% endautoescape %}
 {% endblock %}
-{% block body_html %}{% endblock %}

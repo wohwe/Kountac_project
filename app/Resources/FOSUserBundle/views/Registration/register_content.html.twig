@@ -44,7 +44,7 @@
                     </li>
                     <li class="row">
                         <div class="col-sm-6">
-                            <label class="required">Image de profil</label>
+                            <label class="required">Image de profil (facultatif)</label>
                             {{ form_widget(form.image.file) }}
                         </div>
                         <div class="col-sm-6">
@@ -74,10 +74,11 @@
                         <div class="col-sm-6">
                             {{ form_row(form.cp) }}
                         </div><!--/ [col] -->
-
+                        
                         <div class="col-sm-6">
-                           {{ form_row(form.departement) }}
+                            {{ form_row(form.codeparrain) }}
                         </div><!--/ [col] -->
+
                     </li>
 
                     <li class="row"> 
