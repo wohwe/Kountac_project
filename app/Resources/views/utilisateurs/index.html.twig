@@ -65,7 +65,7 @@
                                                     <strong>{% if utilisateur.prenom %} {{ utilisateur.prenom|capitalize }} {% endif %} {{ utilisateur.nom|capitalize }}</strong><br>
                                                     <small><u>Email:</u> {{ utilisateur.email }}<br>
                                                            <u>Adresse:</u> {{ utilisateur.adresse|capitalize }}<br>
-                                                           <u>Code postale:</u> {{ utilisateur.cp }}<br>
+                                                           <u>Code postal:</u> {{ utilisateur.cp }}<br>
                                                            <u>Rue:</u> {{ utilisateur.rue }}<br>
                                                            <u>Ville:</u> {{ utilisateur.ville|capitalize }}<br>
                                                            <u>Pays:</u> {{ utilisateur.pays|capitalize }}<br>
@@ -94,7 +94,7 @@
                                                 {% if utilisateur.marque %}
                                                 <td class="cart_description"><p class="product-name"><a><u>Nom</u>: {{ utilisateur.marque|capitalize }} </a></p><br><br>
                                                     <small><u>Adresse:</u> {{ utilisateur.adresseentreprise }}<br>
-                                                           <u>Code postale:</u> {{ utilisateur.cpentreprise }}<br>
+                                                           <u>Code postal:</u> {{ utilisateur.cpentreprise }}<br>
                                                            <u>Rue:</u> {{ utilisateur.rueentreprise }}<br>
                                                            <u>Ville:</u> {{ utilisateur.villeentreprise|capitalize }}<br>
                                                            <u>Pays:</u> {{ utilisateur.paysentreprise|capitalize }}<br>
