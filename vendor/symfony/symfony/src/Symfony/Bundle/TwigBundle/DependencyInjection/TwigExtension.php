@@ -14,8 +14,8 @@ namespace Symfony\Bundle\TwigBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileExistenceResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -26,12 +26,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class TwigExtension extends Extension
 {
-    /**
-     * Responds to the twig configuration parameter.
-     *
-     * @param array            $configs
-     * @param ContainerBuilder $container
-     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
@@ -52,7 +46,7 @@ class TwigExtension extends Extension
         foreach ($configs as $key => $config) {
             if (isset($config['globals'])) {
                 foreach ($config['globals'] as $name => $value) {
-                    if (is_array($value) && isset($value['key'])) {
+                    if (\is_array($value) && isset($value['key'])) {
                         $configs[$key]['globals'][$name] = array(
                             'key' => $name,
                             'value' => $value,
@@ -89,6 +83,7 @@ class TwigExtension extends Extension
             }
         }
 
+        // paths are modified in ExtensionPass if forms are enabled
         $container->getDefinition('twig.cache_warmer')->replaceArgument(2, $config['paths']);
         $container->getDefinition('twig.template_iterator')->replaceArgument(2, $config['paths']);
 
@@ -136,6 +131,11 @@ class TwigExtension extends Extension
         unset($config['autoescape_service'], $config['autoescape_service_method']);
 
         $container->getDefinition('twig')->replaceArgument(1, $config);
+
+        if (false === $config['cache']) {
+            $container->removeDefinition('twig.cache_warmer');
+            $container->removeDefinition('twig.template_cache_warmer');
+        }
 
         $this->addClassesToCompile(array(
             'Twig_Environment',

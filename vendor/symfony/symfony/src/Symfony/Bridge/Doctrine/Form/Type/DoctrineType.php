@@ -176,7 +176,7 @@ abstract class DoctrineType extends AbstractType
                     $entityLoader
                 );
 
-                if ($hash !== null) {
+                if (null !== $hash) {
                     $choiceLoaders[$hash] = $doctrineChoiceLoader;
                 }
 
@@ -237,11 +237,7 @@ abstract class DoctrineType extends AbstractType
             $em = $registry->getManagerForClass($options['class']);
 
             if (null === $em) {
-                throw new RuntimeException(sprintf(
-                    'Class "%s" seems not to be a managed Doctrine entity. '.
-                    'Did you forget to map it?',
-                    $options['class']
-                ));
+                throw new RuntimeException(sprintf('Class "%s" seems not to be a managed Doctrine entity. Did you forget to map it?', $options['class']));
             }
 
             return $em;
@@ -250,7 +246,7 @@ abstract class DoctrineType extends AbstractType
         // deprecation note
         $propertyNormalizer = function (Options $options, $propertyName) {
             if ($propertyName) {
-                @trigger_error('The "property" option is deprecated since version 2.7 and will be removed in 3.0. Use "choice_label" instead.', E_USER_DEPRECATED);
+                @trigger_error('The "property" option is deprecated since Symfony 2.7 and will be removed in 3.0. Use "choice_label" instead.', E_USER_DEPRECATED);
             }
 
             return $propertyName;
@@ -259,8 +255,8 @@ abstract class DoctrineType extends AbstractType
         // Invoke the query builder closure so that we can cache choice lists
         // for equal query builders
         $queryBuilderNormalizer = function (Options $options, $queryBuilder) {
-            if (is_callable($queryBuilder)) {
-                $queryBuilder = call_user_func($queryBuilder, $options['em']->getRepository($options['class']));
+            if (\is_callable($queryBuilder)) {
+                $queryBuilder = \call_user_func($queryBuilder, $options['em']->getRepository($options['class']));
             }
 
             return $queryBuilder;
@@ -269,7 +265,7 @@ abstract class DoctrineType extends AbstractType
         // deprecation note
         $loaderNormalizer = function (Options $options, $loader) {
             if ($loader) {
-                @trigger_error('The "loader" option is deprecated since version 2.7 and will be removed in 3.0. Override getLoader() instead.', E_USER_DEPRECATED);
+                @trigger_error('The "loader" option is deprecated since Symfony 2.7 and will be removed in 3.0. Override getLoader() instead.', E_USER_DEPRECATED);
             }
 
             return $loader;

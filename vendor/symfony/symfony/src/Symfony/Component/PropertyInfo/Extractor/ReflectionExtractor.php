@@ -25,22 +25,16 @@ class ReflectionExtractor implements PropertyListExtractorInterface, PropertyTyp
 {
     /**
      * @internal
-     *
-     * @var string[]
      */
     public static $mutatorPrefixes = array('add', 'remove', 'set');
 
     /**
      * @internal
-     *
-     * @var string[]
      */
     public static $accessorPrefixes = array('is', 'can', 'get');
 
     /**
      * @internal
-     *
-     * @var string[]
      */
     public static $arrayMutatorPrefixes = array('add', 'remove');
 
@@ -82,7 +76,7 @@ class ReflectionExtractor implements PropertyListExtractorInterface, PropertyTyp
             $properties[$propertyName] = $propertyName;
         }
 
-        return array_values($properties);
+        return $properties ? array_values($properties) : null;
     }
 
     /**
@@ -167,7 +161,7 @@ class ReflectionExtractor implements PropertyListExtractorInterface, PropertyTyp
             return;
         }
 
-        if (in_array($prefix, self::$arrayMutatorPrefixes)) {
+        if (\in_array($prefix, self::$arrayMutatorPrefixes)) {
             $type = new Type(Type::BUILTIN_TYPE_ARRAY, false, null, true, new Type(Type::BUILTIN_TYPE_INT), $type);
         }
 
@@ -193,7 +187,7 @@ class ReflectionExtractor implements PropertyListExtractorInterface, PropertyTyp
             return array($this->extractFromReflectionType($reflectionType));
         }
 
-        if (in_array($prefix, array('is', 'can'))) {
+        if (\in_array($prefix, array('is', 'can'))) {
             return array(new Type(Type::BUILTIN_TYPE_BOOL));
         }
     }

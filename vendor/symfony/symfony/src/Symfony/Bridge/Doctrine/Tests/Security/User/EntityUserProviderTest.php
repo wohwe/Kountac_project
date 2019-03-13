@@ -11,11 +11,11 @@
 
 namespace Symfony\Bridge\Doctrine\Tests\Security\User;
 
+use Doctrine\ORM\Tools\SchemaTool;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
 use Symfony\Bridge\Doctrine\Test\DoctrineTestHelper;
 use Symfony\Bridge\Doctrine\Tests\Fixtures\User;
-use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
-use Doctrine\ORM\Tools\SchemaTool;
 
 class EntityUserProviderTest extends TestCase
 {
@@ -82,7 +82,7 @@ class EntityUserProviderTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation Implementing Symfony\Component\Security\Core\User\UserProviderInterface in a Doctrine repository when using the entity provider is deprecated since version 2.8 and will not be supported in 3.0. Make the repository implement Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface instead.
+     * @expectedDeprecation Implementing Symfony\Component\Security\Core\User\UserProviderInterface in a Doctrine repository when using the entity provider is deprecated since Symfony 2.8 and will not be supported in 3.0. Make the repository implement Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface instead.
      */
     public function testLoadUserByUsernameWithUserProviderRepositoryAndWithoutProperty()
     {
@@ -176,7 +176,7 @@ class EntityUserProviderTest extends TestCase
         $provider = new EntityUserProvider($this->getManager($em), 'Symfony\Bridge\Doctrine\Tests\Fixtures\User', 'name');
 
         $user2 = $em->getReference('Symfony\Bridge\Doctrine\Tests\Fixtures\User', array('id1' => 1, 'id2' => 1));
-        $this->assertTrue($provider->supportsClass(get_class($user2)));
+        $this->assertTrue($provider->supportsClass(\get_class($user2)));
     }
 
     public function testLoadUserByUserNameShouldLoadUserWhenProperInterfaceProvided()

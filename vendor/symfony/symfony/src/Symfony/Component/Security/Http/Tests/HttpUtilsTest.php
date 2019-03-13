@@ -15,8 +15,8 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\HttpUtils;
 
 class HttpUtilsTest extends TestCase
@@ -36,6 +36,52 @@ class HttpUtilsTest extends TestCase
         $response = $utils->createRedirectResponse($this->getRequest(), 'http://symfony.com/');
 
         $this->assertTrue($response->isRedirect('http://symfony.com/'));
+    }
+
+    public function testCreateRedirectResponseWithDomainRegexp()
+    {
+        $utils = new HttpUtils($this->getUrlGenerator(), null, '#^https?://symfony\.com$#i');
+        $response = $utils->createRedirectResponse($this->getRequest(), 'http://symfony.com/blog');
+
+        $this->assertTrue($response->isRedirect('http://symfony.com/blog'));
+    }
+
+    public function testCreateRedirectResponseWithRequestsDomain()
+    {
+        $utils = new HttpUtils($this->getUrlGenerator(), null, '#^https?://%s$#i');
+        $response = $utils->createRedirectResponse($this->getRequest(), 'http://localhost/blog');
+
+        $this->assertTrue($response->isRedirect('http://localhost/blog'));
+    }
+
+    /**
+     * @dataProvider badRequestDomainUrls
+     */
+    public function testCreateRedirectResponseWithBadRequestsDomain($url)
+    {
+        $utils = new HttpUtils($this->getUrlGenerator(), null, '#^https?://%s$#i');
+        $response = $utils->createRedirectResponse($this->getRequest(), $url);
+
+        $this->assertTrue($response->isRedirect('http://localhost/'));
+    }
+
+    public function badRequestDomainUrls()
+    {
+        return array(
+            array('http://pirate.net/foo'),
+            array('http:\\\\pirate.net/foo'),
+            array('http:/\\pirate.net/foo'),
+            array('http:\\/pirate.net/foo'),
+            array('http://////pirate.net/foo'),
+        );
+    }
+
+    public function testCreateRedirectResponseWithProtocolRelativeTarget()
+    {
+        $utils = new HttpUtils($this->getUrlGenerator(), null, '#^https?://%s$#i');
+        $response = $utils->createRedirectResponse($this->getRequest(), '//evil.com/do-bad-things');
+
+        $this->assertTrue($response->isRedirect('http://localhost//evil.com/do-bad-things'), 'Protocol-relative redirection should not be supported for security reasons');
     }
 
     public function testCreateRedirectResponseWithRouteName()

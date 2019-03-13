@@ -53,7 +53,7 @@ class MoneyTypeTest extends BaseTypeTest
         $view = $this->factory->create(static::TESTED_TYPE, null, array('currency' => 'JPY'))
             ->createView();
 
-        $this->assertTrue((bool) strstr($view->vars['money_pattern'], '¥'));
+        $this->assertSame('¥ {{ widget }}', $view->vars['money_pattern']);
     }
 
     // https://github.com/symfony/symfony/issues/5458
@@ -71,5 +71,25 @@ class MoneyTypeTest extends BaseTypeTest
     public function testSubmitNull($expected = null, $norm = null, $view = null)
     {
         parent::testSubmitNull($expected, $norm, '');
+    }
+
+    public function testMoneyPatternWithoutCurrency()
+    {
+        $view = $this->factory->create(static::TESTED_TYPE, null, array('currency' => false))
+            ->createView();
+
+        $this->assertSame('{{ widget }}', $view->vars['money_pattern']);
+    }
+
+    public function testSubmitNullUsesDefaultEmptyData($emptyData = '10.00', $expectedData = 10.0)
+    {
+        $form = $this->factory->create(static::TESTED_TYPE, null, array(
+            'empty_data' => $emptyData,
+        ));
+        $form->submit(null);
+
+        $this->assertSame($emptyData, $form->getViewData());
+        $this->assertSame($expectedData, $form->getNormData());
+        $this->assertSame($expectedData, $form->getData());
     }
 }

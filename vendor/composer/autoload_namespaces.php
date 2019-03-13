@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Twig_Extensions_' => array($vendorDir . '/twig/extensions/lib'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
-    'SensioLabs\\Security' => array($vendorDir . '/sensiolabs/security-checker'),
+    'Stfalcon\\Bundle\\TinymceBundle' => array($vendorDir . '/stfalcon/tinymce-bundle'),
     'Knp\\Component' => array($vendorDir . '/knplabs/knp-components/src'),
     'Knp\\Bundle\\MenuBundle' => array($vendorDir . '/knplabs/knp-menu-bundle'),
     'Imagine' => array($vendorDir . '/imagine/imagine/lib'),

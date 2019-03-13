@@ -11,10 +11,10 @@
 
 namespace Symfony\Bundle\TwigBundle\CacheWarmer;
 
+use Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplateFinderInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplateFinderInterface;
 use Symfony\Component\Templating\TemplateReference;
 use Twig\Error\Error;
 
@@ -33,11 +33,7 @@ class TemplateCacheCacheWarmer implements CacheWarmerInterface
     private $paths;
 
     /**
-     * Constructor.
-     *
-     * @param ContainerInterface      $container The dependency injection container
-     * @param TemplateFinderInterface $finder    The template paths cache warmer
-     * @param array                   $paths     Additional twig paths to warm
+     * @param array $paths Additional twig paths to warm
      */
     public function __construct(ContainerInterface $container, TemplateFinderInterface $finder = null, array $paths = array())
     {

@@ -11,9 +11,9 @@
 
 namespace Symfony\Component\Form;
 
+use Symfony\Component\Form\Exception\BadMethodCallException;
 use Symfony\Component\Form\Exception\InvalidArgumentException;
 use Symfony\Component\Form\Exception\OutOfBoundsException;
-use Symfony\Component\Form\Exception\BadMethodCallException;
 
 /**
  * Iterates over the errors of a form.
@@ -32,26 +32,17 @@ class FormErrorIterator implements \RecursiveIterator, \SeekableIterator, \Array
 {
     /**
      * The prefix used for indenting nested error messages.
-     *
-     * @var string
      */
     const INDENTATION = '    ';
 
-    /**
-     * @var FormInterface
-     */
     private $form;
-
-    /**
-     * @var FormError[]|FormErrorIterator[]
-     */
     private $errors;
 
     /**
      * Creates a new iterator.
      *
-     * @param FormInterface $form   The erroneous form
-     * @param array         $errors The form errors
+     * @param FormInterface                   $form   The erroneous form
+     * @param FormError[]|FormErrorIterator[] $errors The form errors
      *
      * @throws InvalidArgumentException If the errors are invalid
      */
@@ -59,12 +50,7 @@ class FormErrorIterator implements \RecursiveIterator, \SeekableIterator, \Array
     {
         foreach ($errors as $error) {
             if (!($error instanceof FormError || $error instanceof self)) {
-                throw new InvalidArgumentException(sprintf(
-                    'The errors must be instances of '.
-                    '"\Symfony\Component\Form\FormError" or "%s". Got: "%s".',
-                    __CLASS__,
-                    is_object($error) ? get_class($error) : gettype($error)
-                ));
+                throw new InvalidArgumentException(sprintf('The errors must be instances of "Symfony\Component\Form\FormError" or "%s". Got: "%s".', __CLASS__, \is_object($error) ? \get_class($error) : \gettype($error)));
             }
         }
 
@@ -107,8 +93,8 @@ class FormErrorIterator implements \RecursiveIterator, \SeekableIterator, \Array
     /**
      * Returns the current element of the iterator.
      *
-     * @return FormError|FormErrorIterator An error or an iterator containing
-     *                                     nested errors.
+     * @return FormError|FormErrorIterator an error or an iterator containing
+     *                                     nested errors
      */
     public function current()
     {
@@ -242,7 +228,7 @@ class FormErrorIterator implements \RecursiveIterator, \SeekableIterator, \Array
      */
     public function count()
     {
-        return count($this->errors);
+        return \count($this->errors);
     }
 
     /**

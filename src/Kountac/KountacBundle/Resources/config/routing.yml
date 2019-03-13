@@ -5,6 +5,10 @@ kountac_homepage:
 kountac_homepage_index:
     path:     /
     defaults: { _controller: KountacBundle:Homepage:index }
+    
+pages:
+    path:     /page/{valeur}
+    defaults: { _controller: KountacBundle:PagesAdmin:affiche }
 
 kountac_newsletter:
     path:   /newsletter_subscribe
@@ -57,3 +61,7 @@ kountac_adminAchats:
 kountac_adminNewsletters:
     resource: "@KountacBundle/Resources/config/routingAdmin/newsletters.yml"
     prefix:   /admin/Newsletters/
+    
+kountac_adminPages:
+    resource: "@KountacBundle/Resources/config/routingAdmin/pages.yml"
+    prefix:   /admin/Pages/

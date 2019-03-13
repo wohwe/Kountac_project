@@ -168,14 +168,6 @@ class MenuController extends Controller
                                                                                             'categorie' => $session->get('categorie')));
     }
     
-    public function menuCollectionFooterAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $collections = $em->getRepository('KountacBundle:Collections')->findAll();
-        
-        return $this->render('KountacBundle:Menu:collectionFooter.html.twig', array('collections' => $collections));
-    }
-    
     public function newsletterFooterAction(Request $request)
     {
         $newsletter = new \Kountac\KountacBundle\Entity\Newsletters();
@@ -216,14 +208,38 @@ class MenuController extends Controller
     
     public function insiderFooterAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
         
-        return $this->render('KountacBundle:Menu:insiderFooter.html.twig');
+        $listePages = $em->getRepository('KountacBundle:Pages')->getAide();
+        $pages  = $this->get('knp_paginator')->paginate($listePages,$this->get('request')->query->get('page', 1),10);
+        
+        return $this->render('KountacBundle:Menu:insiderFooter.html.twig', array(
+            'pages' => $pages,
+            'user' => $user,
+        ));
     }
     
     public function informationFooterAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
         
-        return $this->render('KountacBundle:Menu:informationFooter.html.twig');
+        $listePages = $em->getRepository('KountacBundle:Pages')->getInfos();
+        $pages  = $this->get('knp_paginator')->paginate($listePages,$this->get('request')->query->get('page', 1),10);
+        
+        return $this->render('KountacBundle:Menu:informationFooter.html.twig', array(
+            'pages' => $pages,
+            'user' => $user,
+        ));
+    }
+    
+    public function menuCollectionFooterAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $collections = $em->getRepository('KountacBundle:Collections')->findAll();
+        
+        return $this->render('KountacBundle:Menu:collectionFooter.html.twig', array('collections' => $collections));
     }
     
 }

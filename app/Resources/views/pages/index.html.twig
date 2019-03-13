@@ -1,0 +1,92 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                        <li><strong>Toutes les pages d'en queue</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End -->
+    
+    <section class="main-container col2-right-layout">
+  <div class="main container">
+    <div class="row">
+      <div class="col-main col-sm-9 col-xs-12">
+        <div class="col-main">
+                <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                            {% if pages|length != 0 %}
+                                <h2>Liste de toutes les pages d'en queue</h2>
+                            {% endif %}
+                        </div>
+
+                        <div class="order-detail-content">
+                        {% if pages|length == 0 %}
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td><center><h1>Liste de pages vide</h1></center></td>
+                                    </tr>
+                                </table>
+                            </div>  
+                        {% else %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Page</th>
+                                            <th>Catégorie</th>
+                                            <th  class="action">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for page in pages %}
+                                            <tr>
+                                                <td class="action"><a href=""> {{ page.id }} </a></td>
+                                                <td class="cart_description"><p class="product-name"><a> {{ page.titre }} </a></p></td>
+                                                <td class="cart_description"><p class="product-name"><a> {{ page.categorie }} </a></p></td>
+                                                <td class="action">
+                                                    <a title="Modifiez la page {{ page.titre|capitalize }} " href="{{ path('adminCategories_edit', {'id' : page.id}) }}"><i class="fa fa-pencil"></i></a>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <a title="Retirer la page" href="{{ path('adminPages_delete', {'id' : page.id}) }}"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="pagination-area ">
+                        </div>
+                            <center>
+                                {{ knp_pagination_render(pages) }}
+                            </center>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <aside class="right sidebar col-sm-3 col-xs-12">
+        {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+        <br><br>
+        {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+      </aside>
+    </div>
+  </div>
+  </section>
+{% endblock %}

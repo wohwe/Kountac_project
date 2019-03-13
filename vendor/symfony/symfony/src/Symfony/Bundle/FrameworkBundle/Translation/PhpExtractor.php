@@ -13,8 +13,8 @@ namespace Symfony\Bundle\FrameworkBundle\Translation;
 
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\Extractor\AbstractFileExtractor;
-use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\Extractor\ExtractorInterface;
+use Symfony\Component\Translation\MessageCatalogue;
 
 /**
  * PhpExtractor extracts translation messages from a PHP template.
@@ -29,15 +29,11 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
 
     /**
      * Prefix for new found message.
-     *
-     * @var string
      */
     private $prefix = '';
 
     /**
      * The sequence that captures translation messages.
-     *
-     * @var array
      */
     protected $sequences = array(
         array(
@@ -212,7 +208,7 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
                     } elseif (self::MESSAGE_TOKEN === $item) {
                         $message = $this->getValue($tokenIterator);
 
-                        if (count($sequence) === ($sequenceKey + 1)) {
+                        if (\count($sequence) === ($sequenceKey + 1)) {
                             break;
                         }
                     } elseif (self::METHOD_ARGUMENTS_TOKEN === $item) {

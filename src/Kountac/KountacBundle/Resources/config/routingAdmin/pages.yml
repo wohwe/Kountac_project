@@ -1,0 +1,17 @@
+adminPages_index:
+    path:     /
+    defaults: { _controller: "KountacBundle:PagesAdmin:index" }
+    
+adminPages_ajouter:
+    path:     /new
+    defaults: { _controller: "KountacBundle:PagesAdmin:new" }
+    methods:  [GET, POST]
+    
+adminPages_images:
+    path:     /image
+    defaults: { _controller: "KountacBundle:PagesAdmin:image" }
+    methods:  [GET, POST]
+    
+adminPages_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "KountacBundle:PagesAdmin:delete" }

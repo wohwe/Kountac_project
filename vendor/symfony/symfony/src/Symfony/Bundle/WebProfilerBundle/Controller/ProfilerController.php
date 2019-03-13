@@ -22,8 +22,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
 /**
- * ProfilerController.
- *
  * @author Fabien Potencier <fabien@symfony.com>
  */
 class ProfilerController
@@ -36,8 +34,6 @@ class ProfilerController
     private $toolbarPosition;
 
     /**
-     * Constructor.
-     *
      * @param UrlGeneratorInterface $generator       The URL Generator
      * @param Profiler              $profiler        The profiler
      * @param Environment           $twig            The twig environment
@@ -126,7 +122,7 @@ class ProfilerController
      */
     public function purgeAction()
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
 
         if (null === $this->profiler) {
             throw new NotFoundHttpException('The profiler must be enabled.');
@@ -221,8 +217,6 @@ class ProfilerController
     /**
      * Renders the profiler search bar.
      *
-     * @param Request $request The current HTTP Request
-     *
      * @return Response A Response instance
      *
      * @throws NotFoundHttpException
@@ -313,8 +307,6 @@ class ProfilerController
 
     /**
      * Narrows the search bar.
-     *
-     * @param Request $request The current HTTP Request
      *
      * @return Response A Response instance
      *

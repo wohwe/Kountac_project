@@ -142,6 +142,13 @@ function toggle(a, recursive) {
         return false;
     }
 
+    if (doc.createEvent && s.dispatchEvent) {
+        var event = doc.createEvent('Event');
+        event.initEvent('sf-dump-expanded' === newClass ? 'sfbeforedumpexpand' : 'sfbeforedumpcollapse', true, false);
+
+        s.dispatchEvent(event);
+    }
+
     a.lastChild.innerHTML = arrow;
     s.className = s.className.replace(/\bsf-dump-(compact|expanded)\b/, newClass);
 
@@ -392,7 +399,7 @@ EOHTML;
             $s = '</span>';
             $c = $c[$i = 0];
             do {
-                $s .= isset($map[$c[$i]]) ? $map[$c[$i]] : sprintf('\x%02X', ord($c[$i]));
+                $s .= isset($map[$c[$i]]) ? $map[$c[$i]] : sprintf('\x%02X', \ord($c[$i]));
             } while (isset($c[++$i]));
 
             return $s.$style;
@@ -404,7 +411,7 @@ EOHTML;
             $v = $style.$v;
         }
         if ($cchrCount && '>' === substr($v, -1)) {
-            $v = substr($v, 0, -strlen($style));
+            $v = substr($v, 0, -\strlen($style));
         } else {
             $v .= '</span>';
         }

@@ -13,8 +13,8 @@ namespace Symfony\Bridge\Twig\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Twig\Environment;
@@ -90,7 +90,7 @@ EOF
 
         $types = array('functions', 'filters', 'tests', 'globals');
 
-        if ($input->getOption('format') === 'json') {
+        if ('json' === $input->getOption('format')) {
             $data = array();
             foreach ($types as $type) {
                 foreach ($twig->{'get'.ucfirst($type)}() as $name => $entity) {
@@ -128,27 +128,27 @@ EOF
 
     private function getMetadata($type, $entity)
     {
-        if ($type === 'globals') {
+        if ('globals' === $type) {
             return $entity;
         }
-        if ($type === 'tests') {
+        if ('tests' === $type) {
             return;
         }
-        if ($type === 'functions' || $type === 'filters') {
+        if ('functions' === $type || 'filters' === $type) {
             $cb = $entity->getCallable();
             if (null === $cb) {
                 return;
             }
-            if (is_array($cb)) {
+            if (\is_array($cb)) {
                 if (!method_exists($cb[0], $cb[1])) {
                     return;
                 }
                 $refl = new \ReflectionMethod($cb[0], $cb[1]);
-            } elseif (is_object($cb) && method_exists($cb, '__invoke')) {
+            } elseif (\is_object($cb) && method_exists($cb, '__invoke')) {
                 $refl = new \ReflectionMethod($cb, '__invoke');
-            } elseif (function_exists($cb)) {
+            } elseif (\function_exists($cb)) {
                 $refl = new \ReflectionFunction($cb);
-            } elseif (is_string($cb) && preg_match('{^(.+)::(.+)$}', $cb, $m) && method_exists($m[1], $m[2])) {
+            } elseif (\is_string($cb) && preg_match('{^(.+)::(.+)$}', $cb, $m) && method_exists($m[1], $m[2])) {
                 $refl = new \ReflectionMethod($m[1], $m[2]);
             } else {
                 throw new \UnexpectedValueException('Unsupported callback type');
@@ -164,7 +164,7 @@ EOF
                 array_shift($args);
             }
 
-            if ($type === 'filters') {
+            if ('filters' === $type) {
                 // remove the value the filter is applied on
                 array_shift($args);
             }
@@ -184,32 +184,32 @@ EOF
 
     private function getPrettyMetadata($type, $entity)
     {
-        if ($type === 'tests') {
+        if ('tests' === $type) {
             return '';
         }
 
         try {
             $meta = $this->getMetadata($type, $entity);
-            if ($meta === null) {
+            if (null === $meta) {
                 return '(unknown?)';
             }
         } catch (\UnexpectedValueException $e) {
             return ' <error>'.$e->getMessage().'</error>';
         }
 
-        if ($type === 'globals') {
-            if (is_object($meta)) {
-                return ' = object('.get_class($meta).')';
+        if ('globals' === $type) {
+            if (\is_object($meta)) {
+                return ' = object('.\get_class($meta).')';
             }
 
             return ' = '.substr(@json_encode($meta), 0, 50);
         }
 
-        if ($type === 'functions') {
+        if ('functions' === $type) {
             return '('.implode(', ', $meta).')';
         }
 
-        if ($type === 'filters') {
+        if ('filters' === $type) {
             return $meta ? '('.implode(', ', $meta).')' : '';
         }
     }

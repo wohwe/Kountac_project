@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.31.86",
+    "Version": "2.1.41.97",
     "Names": {
         "AC": "Eilean na Deasgabhalach",
         "AD": "Andorra",
@@ -18,7 +18,7 @@
         "AW": "Arùba",
         "AX": "Na h-Eileanan Åland",
         "AZ": "Asarbaideàn",
-        "BA": "Bosna agus Hearsagobhana",
+        "BA": "Bosna is Hearsagobhana",
         "BB": "Barbados",
         "BD": "Bangladais",
         "BE": "A’ Bheilg",
@@ -183,7 +183,7 @@
         "PK": "Pagastàn",
         "PL": "A’ Phòlainn",
         "PM": "Saint Pierre agus Miquelon",
-        "PN": "Eileanan Peit a’ Chàirn",
+        "PN": "Eileanan Pheit a’ Chàirn",
         "PR": "Porto Rìceo",
         "PS": "Na Ranntairean Palastaineach",
         "PT": "A’ Phortagail",

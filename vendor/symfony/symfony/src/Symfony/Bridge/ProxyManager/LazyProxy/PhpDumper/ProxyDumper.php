@@ -25,24 +25,11 @@ use Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\DumperInterface;
  */
 class ProxyDumper implements DumperInterface
 {
-    /**
-     * @var string
-     */
     private $salt;
-
-    /**
-     * @var LazyLoadingValueHolderGenerator
-     */
     private $proxyGenerator;
-
-    /**
-     * @var BaseGeneratorStrategy
-     */
     private $classGenerator;
 
     /**
-     * Constructor.
-     *
      * @param string $salt
      */
     public function __construct($salt = '')
@@ -70,7 +57,7 @@ class ProxyDumper implements DumperInterface
         if ($definition->isShared()) {
             $instantiation .= " \$this->services['$id'] =";
 
-            if (defined('Symfony\Component\DependencyInjection\ContainerInterface::SCOPE_CONTAINER') && ContainerInterface::SCOPE_CONTAINER !== $scope = $definition->getScope(false)) {
+            if (\defined('Symfony\Component\DependencyInjection\ContainerInterface::SCOPE_CONTAINER') && ContainerInterface::SCOPE_CONTAINER !== $scope = $definition->getScope(false)) {
                 $instantiation .= " \$this->scopedServices['$scope']['$id'] =";
             }
         }
@@ -108,13 +95,15 @@ EOF;
      */
     public function getProxyCode(Definition $definition)
     {
-        return $this->classGenerator->generate($this->generateProxyClass($definition));
+        return preg_replace(
+            '/(\$this->initializer[0-9a-f]++) && \1->__invoke\(\$this->(valueHolder[0-9a-f]++), (.*?), \1\);/',
+            '$1 && ($1->__invoke(\$$2, $3, $1) || 1) && $this->$2 = \$$2;',
+            $this->classGenerator->generate($this->generateProxyClass($definition))
+        );
     }
 
     /**
      * Produces the proxy class name for the given definition.
-     *
-     * @param Definition $definition
      *
      * @return string
      */
@@ -124,8 +113,6 @@ EOF;
     }
 
     /**
-     * @param Definition $definition
-     *
      * @return ClassGenerator
      */
     private function generateProxyClass(Definition $definition)

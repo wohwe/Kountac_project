@@ -9,9 +9,11 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder()
     {
-        $builder = new TreeBuilder();
+        $treeBuilder = new TreeBuilder('knp_paginator');
+        // BC layer for symfony/config < 4.2
+        $rootNode = method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('knp_paginator');
 
-        $builder->root('knp_paginator')
+        $rootNode
             ->addDefaultsIfNotSet()
             ->children()
                 ->arrayNode('default_options')
@@ -29,13 +31,13 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('pagination')
-                        ->defaultValue('KnpPaginatorBundle:Pagination:sliding.html.twig')
+                        ->defaultValue('@KnpPaginator/Pagination/sliding.html.twig')
                         ->end()
                         ->scalarNode('filtration')
-                        ->defaultValue('KnpPaginatorBundle:Pagination:filtration.html.twig')
+                        ->defaultValue('@KnpPaginator/Pagination/filtration.html.twig')
                         ->end()
                         ->scalarNode('sortable')
-                        ->defaultValue('KnpPaginatorBundle:Pagination:sortable_link.html.twig')
+                        ->defaultValue('@KnpPaginator/Pagination/sortable_link.html.twig')
                         ->end()
                     ->end()
                 ->end()
@@ -44,6 +46,6 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
-        return $builder;
+        return $treeBuilder;
     }
 }

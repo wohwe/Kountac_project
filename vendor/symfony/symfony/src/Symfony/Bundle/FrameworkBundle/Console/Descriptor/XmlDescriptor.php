@@ -122,8 +122,6 @@ class XmlDescriptor extends Descriptor
     /**
      * Writes DOM document.
      *
-     * @param \DOMDocument $dom
-     *
      * @return \DOMDocument|string
      */
     private function writeDocument(\DOMDocument $dom)
@@ -133,8 +131,6 @@ class XmlDescriptor extends Descriptor
     }
 
     /**
-     * @param RouteCollection $routes
-     *
      * @return \DOMDocument
      */
     private function getRouteCollectionDocument(RouteCollection $routes)
@@ -165,7 +161,7 @@ class XmlDescriptor extends Descriptor
             $routeXML->setAttribute('name', $name);
         }
 
-        $routeXML->setAttribute('class', get_class($route));
+        $routeXML->setAttribute('class', \get_class($route));
 
         $routeXML->appendChild($pathXML = $dom->createElement('path'));
         $pathXML->setAttribute('regex', $route->compile()->getRegex());
@@ -220,8 +216,6 @@ class XmlDescriptor extends Descriptor
     }
 
     /**
-     * @param ParameterBag $parameters
-     *
      * @return \DOMDocument
      */
     private function getContainerParametersDocument(ParameterBag $parameters)
@@ -279,7 +273,7 @@ class XmlDescriptor extends Descriptor
         } else {
             $dom->appendChild($serviceXML = $dom->createElement('service'));
             $serviceXML->setAttribute('id', $id);
-            $serviceXML->setAttribute('class', get_class($service));
+            $serviceXML->setAttribute('class', \get_class($service));
         }
 
         return $dom;
@@ -346,7 +340,7 @@ class XmlDescriptor extends Descriptor
         if ($factory = $definition->getFactory()) {
             $serviceXML->appendChild($factoryXML = $dom->createElement('factory'));
 
-            if (is_array($factory)) {
+            if (\is_array($factory)) {
                 if ($factory[0] instanceof Reference) {
                     $factoryXML->setAttribute('service', (string) $factory[0]);
                 } elseif ($factory[0] instanceof Definition) {
@@ -412,9 +406,6 @@ class XmlDescriptor extends Descriptor
     }
 
     /**
-     * @param string $parameter
-     * @param array  $options
-     *
      * @return \DOMDocument
      */
     private function getContainerParameterDocument($parameter, $options = array())
@@ -483,12 +474,12 @@ class XmlDescriptor extends Descriptor
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($callableXML = $dom->createElement('callable'));
 
-        if (is_array($callable)) {
+        if (\is_array($callable)) {
             $callableXML->setAttribute('type', 'function');
 
-            if (is_object($callable[0])) {
+            if (\is_object($callable[0])) {
                 $callableXML->setAttribute('name', $callable[1]);
-                $callableXML->setAttribute('class', get_class($callable[0]));
+                $callableXML->setAttribute('class', \get_class($callable[0]));
             } else {
                 if (0 !== strpos($callable[1], 'parent::')) {
                     $callableXML->setAttribute('name', $callable[1]);
@@ -505,7 +496,7 @@ class XmlDescriptor extends Descriptor
             return $dom;
         }
 
-        if (is_string($callable)) {
+        if (\is_string($callable)) {
             $callableXML->setAttribute('type', 'function');
 
             if (false === strpos($callable, '::')) {
@@ -529,7 +520,7 @@ class XmlDescriptor extends Descriptor
 
         if (method_exists($callable, '__invoke')) {
             $callableXML->setAttribute('type', 'object');
-            $callableXML->setAttribute('name', get_class($callable));
+            $callableXML->setAttribute('name', \get_class($callable));
 
             return $dom;
         }

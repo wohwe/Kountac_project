@@ -11,8 +11,8 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\DependencyInjection;
 
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\FrameworkExtension;
+use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Loader\ClosureLoader;
@@ -97,6 +97,15 @@ abstract class FrameworkExtensionTest extends TestCase
         $container = $this->createContainerFromFile('full');
 
         $this->assertTrue($container->hasDefinition('esi'), '->registerEsiConfiguration() loads esi.xml');
+        $this->assertTrue($container->hasDefinition('fragment.renderer.esi'));
+    }
+
+    public function testEsiInactive()
+    {
+        $container = $this->createContainerFromFile('default_config');
+
+        $this->assertFalse($container->hasDefinition('fragment.renderer.esi'));
+        $this->assertFalse($container->hasDefinition('esi'));
     }
 
     public function testSsi()
@@ -104,6 +113,15 @@ abstract class FrameworkExtensionTest extends TestCase
         $container = $this->createContainerFromFile('full');
 
         $this->assertTrue($container->hasDefinition('ssi'), '->registerSsiConfiguration() loads ssi.xml');
+        $this->assertTrue($container->hasDefinition('fragment.renderer.ssi'));
+    }
+
+    public function testSsiInactive()
+    {
+        $container = $this->createContainerFromFile('default_config');
+
+        $this->assertFalse($container->hasDefinition('fragment.renderer.ssi'));
+        $this->assertFalse($container->hasDefinition('ssi'));
     }
 
     public function testEnabledProfiler()
@@ -236,24 +254,24 @@ abstract class FrameworkExtensionTest extends TestCase
         $files = array_map('realpath', $options['resource_files']['en']);
         $ref = new \ReflectionClass('Symfony\Component\Validator\Validation');
         $this->assertContains(
-            strtr(dirname($ref->getFileName()).'/Resources/translations/validators.en.xlf', '/', DIRECTORY_SEPARATOR),
+            strtr(\dirname($ref->getFileName()).'/Resources/translations/validators.en.xlf', '/', \DIRECTORY_SEPARATOR),
             $files,
             '->registerTranslatorConfiguration() finds Validator translation resources'
         );
         $ref = new \ReflectionClass('Symfony\Component\Form\Form');
         $this->assertContains(
-            strtr(dirname($ref->getFileName()).'/Resources/translations/validators.en.xlf', '/', DIRECTORY_SEPARATOR),
+            strtr(\dirname($ref->getFileName()).'/Resources/translations/validators.en.xlf', '/', \DIRECTORY_SEPARATOR),
             $files,
             '->registerTranslatorConfiguration() finds Form translation resources'
         );
         $ref = new \ReflectionClass('Symfony\Component\Security\Core\Security');
         $this->assertContains(
-            strtr(dirname($ref->getFileName()).'/Resources/translations/security.en.xlf', '/', DIRECTORY_SEPARATOR),
+            strtr(\dirname($ref->getFileName()).'/Resources/translations/security.en.xlf', '/', \DIRECTORY_SEPARATOR),
             $files,
             '->registerTranslatorConfiguration() finds Security translation resources'
         );
         $this->assertContains(
-            strtr(__DIR__.'/Fixtures/translations/test_paths.en.yml', '/', DIRECTORY_SEPARATOR),
+            strtr(__DIR__.'/Fixtures/translations/test_paths.en.yml', '/', \DIRECTORY_SEPARATOR),
             $files,
             '->registerTranslatorConfiguration() finds translation resources in custom paths'
         );
@@ -285,7 +303,7 @@ abstract class FrameworkExtensionTest extends TestCase
         $container = $this->createContainerFromFile('full');
 
         $ref = new \ReflectionClass('Symfony\Component\Form\Form');
-        $xmlMappings = array(dirname($ref->getFileName()).'/Resources/config/validation.xml');
+        $xmlMappings = array(\dirname($ref->getFileName()).'/Resources/config/validation.xml');
 
         $calls = $container->getDefinition('validator.builder')->getMethodCalls();
 
@@ -378,10 +396,10 @@ abstract class FrameworkExtensionTest extends TestCase
         $this->assertCount(2, $xmlMappings);
         try {
             // Testing symfony/symfony
-            $this->assertStringEndsWith('Component'.DIRECTORY_SEPARATOR.'Form/Resources/config/validation.xml', $xmlMappings[0]);
+            $this->assertStringEndsWith('Component'.\DIRECTORY_SEPARATOR.'Form/Resources/config/validation.xml', $xmlMappings[0]);
         } catch (\Exception $e) {
             // Testing symfony/framework-bundle with deps=high
-            $this->assertStringEndsWith('symfony'.DIRECTORY_SEPARATOR.'form/Resources/config/validation.xml', $xmlMappings[0]);
+            $this->assertStringEndsWith('symfony'.\DIRECTORY_SEPARATOR.'form/Resources/config/validation.xml', $xmlMappings[0]);
         }
         $this->assertStringEndsWith('TestBundle/Resources/config/validation.xml', $xmlMappings[1]);
 
@@ -405,10 +423,10 @@ abstract class FrameworkExtensionTest extends TestCase
 
         try {
             // Testing symfony/symfony
-            $this->assertStringEndsWith('Component'.DIRECTORY_SEPARATOR.'Form/Resources/config/validation.xml', $xmlMappings[0]);
+            $this->assertStringEndsWith('Component'.\DIRECTORY_SEPARATOR.'Form/Resources/config/validation.xml', $xmlMappings[0]);
         } catch (\Exception $e) {
             // Testing symfony/framework-bundle with deps=high
-            $this->assertStringEndsWith('symfony'.DIRECTORY_SEPARATOR.'form/Resources/config/validation.xml', $xmlMappings[0]);
+            $this->assertStringEndsWith('symfony'.\DIRECTORY_SEPARATOR.'form/Resources/config/validation.xml', $xmlMappings[0]);
         }
         $this->assertStringEndsWith('CustomPathBundle/Resources/config/validation.xml', $xmlMappings[1]);
 
@@ -426,6 +444,20 @@ abstract class FrameworkExtensionTest extends TestCase
         $this->assertCount(4, $calls);
         $this->assertSame('addXmlMappings', $calls[3][0]);
         // no cache, no annotations, no static methods
+    }
+
+    public function testValidationTranslationDomain()
+    {
+        $container = $this->createContainerFromFile('validation_translation_domain');
+
+        $this->assertSame('messages', $container->getParameter('validator.translation_domain'));
+    }
+
+    public function testValidationStrictEmail()
+    {
+        $container = $this->createContainerFromFile('validation_strict_email');
+
+        $this->assertTrue($container->getDefinition('validator.email')->getArgument(0));
     }
 
     public function testFormsCanBeEnabledWithoutCsrfProtection()
@@ -564,7 +596,7 @@ abstract class FrameworkExtensionTest extends TestCase
 
     protected function createContainerFromFile($file, $data = array())
     {
-        $cacheKey = md5(get_class($this).$file.serialize($data));
+        $cacheKey = md5(\get_class($this).$file.serialize($data));
         if (isset(self::$containerCache[$cacheKey])) {
             return self::$containerCache[$cacheKey];
         }

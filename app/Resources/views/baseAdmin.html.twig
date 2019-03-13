@@ -178,6 +178,8 @@
   <footer>
     <div class="container">
       <div class="row">
+
+
         <div class="col-sm-6 col-md-3 col-xs-12 col-lg-3 collapsed-block">
           {% render(controller('KountacBundle:Menu:informationFooter')) %}
         </div>
@@ -200,6 +202,7 @@
             </ul>
           </div>
         </div>
+        
       </div>
     </div>
     <div class="footer-coppyright">
@@ -262,6 +265,18 @@
 
 <!-- flexslider js --> 
 <script type="text/javascript" src="{{ asset('admin/js/jquery.flexslider.js') }}"></script> 
+
+
+
+<script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript" src="{{ asset('ckeditor/samples/js/sample.js') }}"></script>
+<script type="text/javascript" src="{{ asset('ckeditor/samples/css/samples.css') }}"></script>
+<script type="text/javascript" src="{{ asset('ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css') }}"></script>
+<script>
+  initSample();
+</script>
+
+
 <!-- Hot Deals Timer 1--> 
 <script type="text/javascript">
       var dthen1 = new Date("12/25/16 11:59:00 PM");

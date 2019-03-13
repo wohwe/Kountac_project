@@ -30,7 +30,7 @@ class Stopwatch
 
     public function __construct()
     {
-        $this->sections = $this->activeSections = array('__root__' => new Section('__root__'));
+        $this->sections = $this->activeSections = array('__root__' => new Section(null));
     }
 
     /**
@@ -76,7 +76,7 @@ class Stopwatch
     {
         $this->stop('__section__');
 
-        if (1 == count($this->activeSections)) {
+        if (1 == \count($this->activeSections)) {
             throw new \LogicException('There is no started section to stop.');
         }
 

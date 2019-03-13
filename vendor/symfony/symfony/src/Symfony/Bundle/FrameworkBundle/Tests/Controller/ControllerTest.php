@@ -11,8 +11,8 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -223,6 +223,9 @@ class ControllerTest extends TestCase
         $this->assertSame(302, $response->getStatusCode());
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     public function testAddFlash()
     {
         $flashBag = new FlashBag();

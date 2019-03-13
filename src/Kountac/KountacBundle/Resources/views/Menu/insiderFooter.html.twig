@@ -2,6 +2,9 @@
     <h3 class="links-title">Aide<a class="expander visible-xs" href="#TabBlock-3">+</a></h3>
     <div class="tabBlock" id="TabBlock-3">
         <ul class="list-links list-unstyled">
+            {% for page in pages %}
+                <li> <a href="{{ path('pages', { 'valeur' : page.lien}) }}">{{ page.titre }}</a> </li>
+            {% endfor %}
             <li> <a href="#">Prendre ses mesures</a> </li>
             <li> <a href="#">Suivre sa commande</a> </li>
             <li> <a href="#">Résoudre les soucis autour d'une commande</a> </li>
