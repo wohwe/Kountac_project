@@ -8,7 +8,7 @@
                     <ul>
                         <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
                         <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
-                        <li><strong>Nouvelle page d'en queue</strong></li>
+                        <li><strong>Modification d'une page d'en queue</strong></li>
                     </ul>
                     {% for flashMessage in app.session.flashbag.get('success') %}
                         <div class="alert-box">
@@ -31,7 +31,7 @@
                 <div class="col-main col-sm-9 col-xs-12">
                     <div class="page-content checkout-page">
                     <div class="page-title">
-                        <h2 class="checkout-step">Ajout d'une page</h2>
+                        <h2 class="checkout-step">Modifier cette page {{ pages.titre }}</h2>
                     </div>
                     
                     {{ form_start(form) }}
@@ -61,7 +61,7 @@
                                 <div class="col-sm-6">
                                 </div>
                                 <div class="col-sm-6">
-                                    <button class="button pull-right" type="submit"></i>&nbsp; &nbsp;<span>Enregistrer</span></button>
+                                    <button class="button pull-right" type="submit"></i>&nbsp; &nbsp;<span>Modifier</span></button>
                                 </div>
                             </li>
                         </ul>
@@ -72,48 +72,48 @@
 
 
                 <div class="order-detail-content">
-                            {% if images|length == 0 %}
-                                <div>
-                                    <table>
+                    {% if images|length == 0 %}
+                        <div>
+                            <table>
+                                <tr>
+                                    <td><center><h1>Liste des images vide</h1></center></td>
+                                </tr>
+                            </table>
+                        </div>  
+                    {% else %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered cart_summary">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>image</th>
+                                        <th>lien</th>
+                                        <th  class="action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for image in images %}
                                         <tr>
-                                            <td><center><h1>Liste des images vide</h1></center></td>
+                                            <td class="action"><a href=""> {{ image.id }} </a></td>
+                                            <td class="cart_description">
+                                                <img src="{{ asset('uploadProduits/' ~ image.lien) }}">
+                                            </td>
+                                            <td class="cart_description"><p class="product-name"><a> {{ asset('uploadProduits/' ~ image.lien) }} </a></p></td>
+                                            <td class="action">
+                                                <a title="Retirer la image" href=""><i class="fa fa-trash"></i></a>
+                                            </td>
                                         </tr>
-                                    </table>
-                                </div>  
-                            {% else %}
-                                <div class="table-responsive">
-                                    <table class="table table-bordered cart_summary">
-                                        <thead>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>image</th>
-                                                <th>lien</th>
-                                                <th  class="action">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for image in images %}
-                                                <tr>
-                                                    <td class="action"><a href=""> {{ image.id }} </a></td>
-                                                    <td class="cart_description">
-                                                        <img src="{{ asset('uploadProduits/' ~ image.lien) }}">
-                                                    </td>
-                                                    <td class="cart_description"><p class="product-name"><a> {{ asset('uploadProduits/' ~ image.lien) }} </a></p></td>
-                                                    <td class="action">
-                                                        <a title="Retirer la image" href=""><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            <div class="pagination-area ">
-                            </div>
-                                <center>
-                                    {{ knp_pagination_render(images) }}
-                                </center>
-                            {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
+                    <div class="pagination-area ">
+                    </div>
+                        <center>
+                            {{ knp_pagination_render(images) }}
+                        </center>
+                    {% endif %}
+                </div>
 
 
 

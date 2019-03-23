@@ -97,6 +97,34 @@ class PagesAdminController extends Controller
             'form' => $form->createView(),
         ));
     }
+
+    
+    /**
+     * Edit a produit entity.
+     *
+     */
+    public function editAction(Request $request, Pages $pages)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $listeImages = $em->getRepository('KountacBundle:Images')->findAll();
+        $images0  = $this->get('knp_paginator')->paginate($listeImages,$this->get('request')->query->get('page', 1),10);
+        $editForm = $this->createForm('Kountac\KountacBundle\Form\PagesType', $pages);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->get('session')->getFlashBag()->add('success','Pages modifiée avec succès');
+            return $this->redirectToRoute('adminPages_index');
+        }
+
+        return $this->render('pages/edit.html.twig', array(
+            'pages' => $pages,
+            'images' => $images0,
+            'form' => $editForm->createView(),
+            'user' => $user,
+        ));
+    }
     
     /**
      * Add a image entity.

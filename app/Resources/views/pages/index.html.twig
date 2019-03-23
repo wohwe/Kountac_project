@@ -61,7 +61,7 @@
                                                 <td class="cart_description"><p class="product-name"><a> {{ page.titre }} </a></p></td>
                                                 <td class="cart_description"><p class="product-name"><a> {{ page.categorie }} </a></p></td>
                                                 <td class="action">
-                                                    <a title="Modifiez la page {{ page.titre|capitalize }} " href="{{ path('adminCategories_edit', {'id' : page.id}) }}"><i class="fa fa-pencil"></i></a>
+                                                    <a title="Modifiez la page {{ page.titre|capitalize }} " href="{{ path('adminPages_edit', {'id' : page.id}) }}"><i class="fa fa-pencil"></i></a>
                                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                                     <a title="Retirer la page" href="{{ path('adminPages_delete', {'id' : page.id}) }}"><i class="fa fa-trash"></i></a>
                                                 </td>

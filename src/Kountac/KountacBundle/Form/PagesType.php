@@ -24,8 +24,7 @@ class PagesType extends AbstractType
                 ->add('categorie','choice', array('choices' => array(
                                                         'Information' => 'Information',
                                                         'Aide' => 'Aide',
-                                                        'Collection' => 'Collection',
-                                                        'Nous_contacter' => 'Nous contacter'),
+                                                        'Conditions' => 'Conditions d\'utilisation'),
                                                 'label' => 'Categories*',
                                                 'required' => true,
                                                 'attr' => array('class' => 'select form-control')))

@@ -15,3 +15,8 @@ adminPages_images:
 adminPages_delete:
     path:     /{id}/delete
     defaults: { _controller: "KountacBundle:PagesAdmin:delete" }
+    
+adminPages_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "KountacBundle:PagesAdmin:edit" }
+    methods:  [GET, POST]
