@@ -49,12 +49,12 @@ class AchatController extends Controller
         elseif ($session->has('livre')){ 
             $Achat->setLivre(1);
             $Achat->setAchat($this->facture_livre());
-            $prixCmd = round($Achat->getAchat()["prix"] / 0.879);
+            $prixCmd = round(self::convertCurrency($Achat->getAchat()["prix"], 'GBP', 'EUR'));
         }
         elseif ($session->has('usa')){ 
             $Achat->setUsa(1);
             $Achat->setAchat($this->facture_usa());
-            $prixCmd = round($Achat->getAchat()["prix"] / 1.124);
+            $prixCmd = round(self::convertCurrency($Achat->getAchat()["prix"], 'USD', 'EUR'));
         }
         elseif ($session->has('all')){
             $Achat->setAll(1);
@@ -63,7 +63,7 @@ class AchatController extends Controller
         elseif ($session->has('naira')){ 
             $Achat->setNaira(1);
             $Achat->setAchat($this->facture_naira());
-            $prixCmd = round($Achat->getAchat()["prix"] / 406.448);
+            $prixCmd = round(self::convertCurrency($Achat->getAchat()["prix"], 'NGN', 'EUR'));
         }
         
         if (!$session->has('achat')) {
