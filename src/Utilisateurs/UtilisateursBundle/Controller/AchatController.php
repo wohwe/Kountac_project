@@ -43,7 +43,8 @@ class AchatController extends Controller
         elseif ($session->has('cfa')){ 
             $Achat->setCfa(1);
             $Achat->setAchat($this->facture_fcfa());
-            $prixCmd = round($Achat->getAchat()["prix"] / 655.81);
+            $prixCmd = round(self::convertCurrency($Achat->getAchat()["prix"], 'XAF', 'EUR'));
+            //$prixCmd = self::convertCurrency($Achat->getAchat()["prix"], 'XAF', 'EUR');
         }
         elseif ($session->has('livre')){ 
             $Achat->setLivre(1);
@@ -784,4 +785,27 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
         $achat['token'] = bin2hex($generator->nextBytes(20));
         return $achat;
     }
+
+
+
+
+    public function convertCurrency($amount,$from_currency,$to_currency){
+        $apikey = '4299d5a4b2ea8a1e2027';
+
+        $from_Currency = urlencode($from_currency);
+        $to_Currency = urlencode($to_currency);
+        $query =  "{$from_Currency}_{$to_Currency}";
+
+        $json = file_get_contents("https://free.currencyconverterapi.com/api/v6/convert?q={$query}&compact=ultra&apiKey={$apikey}");
+        $obj = json_decode($json, true);
+
+        $val = floatval($obj["$query"]);
+
+
+        $total = $val * $amount;
+        return number_format($total, 2, '.', '');
+    }
+
+
+
 }
