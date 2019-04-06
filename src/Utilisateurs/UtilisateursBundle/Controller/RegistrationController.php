@@ -17,6 +17,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class RegistrationController extends BaseController
 {
+
+    public function __construct()
+    {
+    }
 	
 /**
  * @Route("/pro/register", name="pro_user_register")
@@ -24,7 +28,7 @@ class RegistrationController extends BaseController
 	
     public function registerProAction(Request $request)
     {
-$path = __DIR__."/../../../../vendor/friendsofsymfony/user-bundle/Controller/fichier.txt";
+$path = __DIR__."/../../../../web/fichier.txt";
 $chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 $code = '';
 for($i=0; $i<7; $i++){
