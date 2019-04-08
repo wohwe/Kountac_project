@@ -11,12 +11,4 @@
     <route id="fos_user_profile_edit" path="/edit" methods="GET POST">
         <default key="_controller">fos_user.profile.controller:editAction</default>
     </route>
-
-    <route id="pro_user_profile_show" path="/pro" methods="GET">
-        <default key="_controller">FOSUserBundle:Profile:showPro</default>
-    </route>
-
-    <route id="pro_user_profile_edit" path="/pro/edit" methods="GET POST">
-        <default key="_controller">FOSUserBundle:Profile:editPro</default>
-    </route>
 </routes>
