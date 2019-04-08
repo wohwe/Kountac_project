@@ -11,5 +11,4 @@
     <route id="fos_user_profile_edit" path="/edit" methods="GET POST">
         <default key="_controller">fos_user.profile.controller:editAction</default>
     </route>
-
 </routes>
