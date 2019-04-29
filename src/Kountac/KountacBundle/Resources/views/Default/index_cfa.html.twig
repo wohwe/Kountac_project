@@ -194,7 +194,6 @@
             </div>
         </div>
     </div>
-
     <div class="container new-layout"  style="margin-top: 30px;">
         <div class="special-products">
             <div class="home-tab">
@@ -207,6 +206,7 @@
                         <div id="special-products-slider" class="product-flexslider hidden-buttons">
                             <div class="slider-items slider-width-col4">
                                 {% set nbr = 0 %}
+
                                 {% for produit1 in nouveaux %}
                                     {% for produit in produit1.produit2 %}
                                         {% if produit.cfaprix %}
@@ -221,19 +221,19 @@
                                                                 <center>
                                                                     {% for image in images %}
                                                                         {% if image.produit2 == produit and image.top == 0 %}
-                                                                        <a href="{{ path('product', {'id' : produit.id}) }}">
-                                                                            <img src="{{ image.AssetPath }}" alt="">
-                                                                        </a>
-                                                                        {% if image.path2 %}
-                                                                        <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
-                                                                            <img src="{{ image.AssetPath2 }}" alt="">
-                                                                        </a>
-                                                                        {% endif %}
-                                                                        {% if image.path3 %}
-                                                                        <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
-                                                                            <img src="{{ image.AssetPath3 }}" alt="">
-                                                                        </a>
-                                                                        {% endif %}
+                                                                            <a href="{{ path('product', {'id' : produit.id}) }}">
+                                                                                <img src="{{ image.AssetPath }}" alt="">
+                                                                            </a>
+                                                                            {% if image.path2 %}
+                                                                            <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                                                                <img src="{{ image.AssetPath2 }}" alt="">
+                                                                            </a>
+                                                                            {% endif %}
+                                                                            {% if image.path3 %}
+                                                                            <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                                                                <img src="{{ image.AssetPath3 }}" alt="">
+                                                                            </a>
+                                                                            {% endif %}
                                                                         {% endif %}
                                                                     {% endfor %}
                                                                 </center>
