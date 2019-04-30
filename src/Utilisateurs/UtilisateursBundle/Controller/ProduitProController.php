@@ -655,7 +655,9 @@ class ProduitProController extends Controller
         $em = $this->getDoctrine()->getManager();
         $image = $em->getRepository('KountacBundle:Media_motif')->find($id);
         $produit_2 = $image->getProduit2();
-        $image_top = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('top' => '0','produit_2' => $produit_2) );       
+        $image_top = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('top' => '0','produit_2' => $produit_2) );      
+        //echo "<script>console.log( 'Debug Objects: " . $image . "' );</script>"; 
+        //var_dump($image);
         $image_top->setTop('1');
         $image->setTop('0');
         $image->setProduit2($produit_2);
@@ -667,6 +669,7 @@ class ProduitProController extends Controller
         
         $this->get('session')->getFlashBag()->add('success','Choix du top de mannequin effectué avec succès');
         return $this->redirectToRoute('produit_pro_show', array('id' => $produit_2->getProduit1()->getId()));
+        //return NULL;
     }
     
     

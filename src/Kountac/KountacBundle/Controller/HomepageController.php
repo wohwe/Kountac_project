@@ -200,10 +200,27 @@ class HomepageController extends Controller
 
         } else if($pays == "")
         {
-            $session->set('cfa', '1');
+            /*$session->set('cfa', '1');
         
             if ($session->has('euro'))
                 $session->remove('euro');
+            
+            if ($session->has('livre'))
+                $session->remove('livre');
+            
+            if ($session->has('all'))
+                $session->remove('all');
+            
+            if ($session->has('usa'))
+                $session->remove('usa');
+            
+            if ($session->has('naira'))
+                $session->remove('naira');*/
+
+            $session->set('euro', '1');
+        
+            if ($session->has('cfa'))
+                $session->remove('cfa');
             
             if ($session->has('livre'))
                 $session->remove('livre');
