@@ -12,6 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class Produits_2Repository extends EntityRepository
 {
+
+    public function findByRand() 
+    {
+        return  $this->createQueryBuilder('u')
+            ->addSelect('RAND() as HIDDEN rand')
+            ->addOrderBy('rand')
+            ->getQuery()
+            ->getResult();
+
+        /*$qb = $this->createQueryBuilder('u')
+                ->select('u')
+                ->orderBy('rand');
+        return $qb->getQuery()->getResult();*/
+    }
+    
     public function getProduitByMarque($marque_id) 
     {
         $qb = $this->createQueryBuilder('p2')

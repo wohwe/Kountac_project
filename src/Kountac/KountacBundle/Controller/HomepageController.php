@@ -46,14 +46,15 @@ class HomepageController extends Controller
         $session = $this->getRequest()->getSession();
         
         //$produits = $em->getRepository('KountacBundle:Produits_1')->findAll(); 
-        $produits = $em->getRepository('KountacBundle:Produits_1')->findBy([], ['id' => 'DESC']);        
+        $produits = $em->getRepository('KountacBundle:Produits_1')->findBy([], ['id' => 'DESC']); 
+        //$produits = $em->getRepository('KountacBundle:Produits_1')->findByRand();        
         $images = $em->getRepository('KountacBundle:Media_motif')->findAll();        
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();        
         $populaires = $em->getRepository('KountacBundle:Produits_1')->getProduitsByPopularite();
         $nouveaux = $em->getRepository('KountacBundle:Produits_1')->getProduitsByNouveaute();
         $reductions = $em->getRepository('KountacBundle:Produits_2')->getProduitsByReduction(); 
         $dernieresVentes = $em->getRepository('KountacBundle:Produits_1')->getProduitsByPopulariteTime();
-        $produitsCategorie = $em->getRepository('KountacBundle:Produits_2')->findAll();
+        $produitsCategorie = $em->getRepository('KountacBundle:Produits_2')->findByRand();
         $produits2  = $this->get('knp_paginator')->paginate($produitsCategorie, $this->get('request')->query->get('page', 1),32);
         
         if ($session->has('panier'))
