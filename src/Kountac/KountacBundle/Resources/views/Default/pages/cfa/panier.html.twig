@@ -106,7 +106,7 @@
                                                     <a href="{{ path('product', {'id' : produit.produit2.id}) }}">
                                                         {% for image in images %}
                                                             {% if image.produit2 == produit.produit2 and image.top == 0 %}
-                                                                <img src="{{ image.AssetPath|imagine_filter('cartThumbItem') }}" alt="">
+                                                                <img src="../{{ image.AssetPath }}" alt="">
                                                             {% endif %}
                                                         {% endfor %}
                                                     </a>
