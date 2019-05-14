@@ -217,7 +217,7 @@ class HomepageController extends Controller
             
             if ($session->has('naira'))
                 $session->remove('naira');*/
-
+                
             $session->set('euro', '1');
         
             if ($session->has('cfa'))

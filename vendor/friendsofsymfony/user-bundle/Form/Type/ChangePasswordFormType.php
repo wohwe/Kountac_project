@@ -56,7 +56,7 @@ class ChangePasswordFormType extends AbstractType
                 new UserPassword($constraintsOptions),
             ),
             'attr' => array(
-                'autocomplete' => 'current-password',
+                'autocomplete' => 'current-password', 'class' => 'input form-control'
             ),
         ));
 
@@ -65,7 +65,7 @@ class ChangePasswordFormType extends AbstractType
             'options' => array(
                 'translation_domain' => 'FOSUserBundle',
                 'attr' => array(
-                    'autocomplete' => 'new-password',
+                    'autocomplete' => 'new-password','class' => 'input form-control'
                 ),
             ),
             'first_options' => array('label' => 'form.new_password'),

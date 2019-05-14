@@ -13,7 +13,31 @@ class UtilisateursType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom')->add('prenom')->add('sexe')->add('pays')->add('adresse')->add('rue')->add('ville')->add('cp')->add('telephone')->add('telephonefix')->add('code')->add('codeparrain')->add('marque')->add('pays_entreprise')->add('ville_entreprise')->add('adresse_entreprise')->add('rue_entreprise')->add('cp_entreprise')->add('telephone_entreprise')->add('telephonefix_entreprise')->add('image')->add('service_livraison')->add('service_paiement');
+        $builder->add('nom', 'attr' => array('class' => 'input form-control'))
+                ->add('prenom', 'attr' => array('class' => 'input form-control'))
+                ->add('username', 'attr' => array('class' => 'input form-control'))
+                ->add('sexe', 'attr' => array('class' => 'input form-control'))
+                ->add('pays', 'attr' => array('class' => 'input form-control'))
+                ->add('adresse', 'attr' => array('class' => 'input form-control'))
+                ->add('rue', 'attr' => array('class' => 'input form-control'))
+                ->add('ville', 'attr' => array('class' => 'input form-control'))
+                ->add('cp', 'attr' => array('class' => 'input form-control'))
+                ->add('telephone', 'attr' => array('class' => 'input form-control'))
+                ->add('telephonefix', 'attr' => array('class' => 'input form-control'))
+                ->add('code', 'attr' => array('class' => 'input form-control'))
+                ->add('codeparrain', 'attr' => array('class' => 'input form-control'))
+                ->add('marque', 'attr' => array('class' => 'input form-control'))
+                ->add('pays_entreprise', 'attr' => array('class' => 'input form-control'))
+                ->add('ville_entreprise', 'attr' => array('class' => 'input form-control'))
+                ->add('adresse_entreprise', 'attr' => array('class' => 'input form-control'))
+                ->add('rue_entreprise', 'attr' => array('class' => 'input form-control'))
+                ->add('cp_entreprise', 'attr' => array('class' => 'input form-control'))
+                ->add('telephone_entreprise', 'attr' => array('class' => 'input form-control'))
+                ->add('telephonefix_entreprise', 'attr' => array('class' => 'input form-control'))
+                ->add('image', 'attr' => array('class' => 'input form-control'))
+                ->add('service_livraison', 'attr' => array('class' => 'input form-control'))
+                ->add('service_paiement', 'attr' => array('class' => 'input form-control'))
+                ;
     }
     
     /**

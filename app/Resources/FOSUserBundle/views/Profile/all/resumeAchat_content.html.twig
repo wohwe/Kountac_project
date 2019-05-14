@@ -61,7 +61,7 @@
                                         {% for produit in achat.achat.produit %}
                                             {% if produit.prix %}
                                             <tr>
-                                                <td class="cart_product"><img src="{{ produit.image.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></td>
+                                                <td class="cart_product"><img src="../../../{{ produit.image.AssetPath }}" alt=""></td>
                                                 <td class="cart_description">
                                                     <p class="product-name"><a>{{ produit.reference|capitalize }} - {{ produit.motif|capitalize }} </a></p><br>
                                                 </td>

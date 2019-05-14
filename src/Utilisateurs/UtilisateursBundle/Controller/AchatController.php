@@ -34,11 +34,12 @@ class AchatController extends Controller
         $Achat->setValider(0);
         $Achat->setEffacer(0);
         $Achat->setReference(0);
-        $prixCmd = $Achat->getAchat()["prix"];
+        //$prixCmd = $Achat->getAchat()["prix"];
         
         if ($session->has('euro')){
             $Achat->setEuro(1);
             $Achat->setAchat($this->facture_euro());
+            $prixCmd = $Achat->getAchat()["prix"];
         }
         elseif ($session->has('cfa')){ 
             $Achat->setCfa(1);
