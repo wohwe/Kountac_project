@@ -40,7 +40,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle',  'attr' => array('class' => 'input form-control')))
-            ->add('username', array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle',  'attr' => array('class' => 'input form-control')))
+            ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle',  'attr' => array('class' => 'input form-control')))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'options' => array(

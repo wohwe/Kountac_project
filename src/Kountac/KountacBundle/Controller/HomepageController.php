@@ -54,7 +54,10 @@ class HomepageController extends Controller
         $nouveaux = $em->getRepository('KountacBundle:Produits_1')->getProduitsByNouveaute();
         $reductions = $em->getRepository('KountacBundle:Produits_2')->getProduitsByReduction(); 
         $dernieresVentes = $em->getRepository('KountacBundle:Produits_1')->getProduitsByPopulariteTime();
-        $produitsCategorie = $em->getRepository('KountacBundle:Produits_2')->findByRand();
+        //$produitsCategorie = $em->getRepository('KountacBundle:Produits_2')->findByRand(); /* with random from databas*/
+        $produitsCategorie = $em->getRepository('KountacBundle:Produits_2')->findAll();
+        
+        shuffle($produitsCategorie);
         $produits2  = $this->get('knp_paginator')->paginate($produitsCategorie, $this->get('request')->query->get('page', 1),32);
         
         if ($session->has('panier'))
@@ -256,9 +259,11 @@ class HomepageController extends Controller
         }
 
 
-
-
-        //var_dump($produits2);die();
+        shuffle($produits);
+        shuffle($nouveaux);
+        shuffle($dernieresVentes);
+        shuffle($populaires);
+        //var_dump($nouveaux);die();
         return $this->render('KountacBundle:Default:index2.html.twig', array('produits' => $produits,'user' => $this->getUser(),
                                                                             'populaires' => $populaires,
                                                                             'nouveaux' => $nouveaux,
