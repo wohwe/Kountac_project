@@ -125,7 +125,7 @@ class Produits_1
 
     /**
      * Get id
-     *
+     *--
      * @return integer
      */
     public function getId()
