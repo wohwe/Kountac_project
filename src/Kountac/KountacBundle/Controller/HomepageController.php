@@ -259,11 +259,6 @@ class HomepageController extends Controller
         }
 
 
-        /*shuffle($produits);
-        shuffle($nouveaux);
-        shuffle($dernieresVentes);
-        shuffle($populaires);
-        shuffle($populaires);*/
 
         $newPopulaires = array();
         $newReductions = array();
@@ -340,9 +335,7 @@ class HomepageController extends Controller
         shuffle($newReductions);
         shuffle($newNouveaux);
         shuffle($newDernieresVentes);
-
-        /*$val = $populaires[0]->getProduit2();
-        var_dump($val[1]->getProduit1()->getNom());die();*/
+        
         return $this->render('KountacBundle:Default:index2.html.twig', array('produits' => $produits,'user' => $this->getUser(),
                                                                             'populaires' => $newPopulaires,
                                                                             'nouveaux' => $newNouveaux,
