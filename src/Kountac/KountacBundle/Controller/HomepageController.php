@@ -259,19 +259,98 @@ class HomepageController extends Controller
         }
 
 
-        shuffle($produits);
+        /*shuffle($produits);
         shuffle($nouveaux);
         shuffle($dernieresVentes);
         shuffle($populaires);
-        //var_dump($nouveaux);die();
+        shuffle($populaires);*/
+
+        $newPopulaires = array();
+        $newReductions = array();
+        $newNouveaux = array();
+        $newDernieresVentes = array();
+
+        foreach ($populaires as $produit1) {
+            foreach ($produit1->getProduit2() as $produit) {
+                $tab = array(
+                    "id" => $produit->getId(),
+                    "cfaprix" => $produit->getCfaprix(),
+                    "reduction" => $produit->getReduction(),
+                    "cfaprixCommande" => $produit->getCfaprixCommande(),
+                    "libelle" => $produit->getLibelle(),
+                    "produit1Nom" => $produit->getProduit1()->getNom(),
+                    "prod" => $produit,
+                    "produit1MarqueM" => $produit->getProduit1()->getMarque()->getMarque(),
+                    "produit1ImageAssetM" => $produit->getProduit1()->getMarque()->getImage()->getAssetPath()
+                );
+                array_push($newPopulaires, $tab);
+            }
+        }
+
+        foreach ($reductions as $produit) {
+            $tab = array(
+                "id" => $produit->getId(),
+                "cfaprix" => $produit->getCfaprix(),
+                "reduction" => $produit->getReduction(),
+                "cfaprixCommande" => $produit->getCfaprixCommande(),
+                "libelle" => $produit->getLibelle(),
+                "produit1Nom" => $produit->getProduit1()->getNom(),
+                "prod" => $produit,
+                "produit1MarqueM" => $produit->getProduit1()->getMarque()->getMarque(),
+                "produit1ImageAssetM" => $produit->getProduit1()->getMarque()->getImage()->getAssetPath()
+            );
+            array_push($newReductions, $tab);
+        }
+
+        foreach ($nouveaux as $produit1) {
+            foreach ($produit1->getProduit2() as $produit) {
+                $tab = array(
+                    "id" => $produit->getId(),
+                    "cfaprix" => $produit->getCfaprix(),
+                    "reduction" => $produit->getReduction(),
+                    "cfaprixCommande" => $produit->getCfaprixCommande(),
+                    "libelle" => $produit->getLibelle(),
+                    "produit1Nom" => $produit->getProduit1()->getNom(),
+                    "prod" => $produit,
+                    "produit1MarqueM" => $produit->getProduit1()->getMarque()->getMarque(),
+                    "produit1ImageAssetM" => $produit->getProduit1()->getMarque()->getImage()->getAssetPath()
+                );
+                array_push($newNouveaux, $tab);
+            }
+        }
+
+        foreach ($dernieresVentes as $produit1) {
+            foreach ($produit1->getProduit2() as $produit) {
+                $tab = array(
+                    "id" => $produit->getId(),
+                    "cfaprix" => $produit->getCfaprix(),
+                    "reduction" => $produit->getReduction(),
+                    "cfaprixCommande" => $produit->getCfaprixCommande(),
+                    "libelle" => $produit->getLibelle(),
+                    "produit1Nom" => $produit->getProduit1()->getNom(),
+                    "prod" => $produit,
+                    "produit1MarqueM" => $produit->getProduit1()->getMarque()->getMarque(),
+                    "produit1ImageAssetM" => $produit->getProduit1()->getMarque()->getImage()->getAssetPath()
+                );
+                array_push($newDernieresVentes, $tab);
+            }
+        }
+
+        shuffle($newPopulaires);
+        shuffle($newReductions);
+        shuffle($newNouveaux);
+        shuffle($newDernieresVentes);
+
+        /*$val = $populaires[0]->getProduit2();
+        var_dump($val[1]->getProduit1()->getNom());die();*/
         return $this->render('KountacBundle:Default:index2.html.twig', array('produits' => $produits,'user' => $this->getUser(),
-                                                                            'populaires' => $populaires,
-                                                                            'nouveaux' => $nouveaux,
+                                                                            'populaires' => $newPopulaires,
+                                                                            'nouveaux' => $newNouveaux,
                                                                             'images' => $images,
                                                                             'mannequins' => $mannequins,
-                                                                            'reductions' => $reductions,
+                                                                            'reductions' => $newReductions,
                                                                             'produits2' => $produits2,
-                                                                            'dernieresVentes' => $dernieresVentes,
+                                                                            'dernieresVentes' => $newDernieresVentes,
                                                                             'panier' => $panier,
                                                                             'euro' => $session->get('euro'),
                                                                             'all' => $session->get('all'),
