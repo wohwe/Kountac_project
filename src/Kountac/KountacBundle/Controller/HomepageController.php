@@ -270,6 +270,11 @@ class HomepageController extends Controller
                 $tab = array(
                     "id" => $produit->getId(),
                     "cfaprix" => $produit->getCfaprix(),
+                    "europrix" => $produit->getEuroprix(),
+                    "allprix" => $produit->getAllprix(),
+                    "livreprix" => $produit->getLivreprix(),
+                    "nairaprix" => $produit->getNairaprix(),
+                    "usaprix" => $produit->getUsaprix(),
                     "reduction" => $produit->getReduction(),
                     "cfaprixCommande" => $produit->getCfaprixCommande(),
                     "libelle" => $produit->getLibelle(),
@@ -286,6 +291,11 @@ class HomepageController extends Controller
             $tab = array(
                 "id" => $produit->getId(),
                 "cfaprix" => $produit->getCfaprix(),
+                    "europrix" => $produit->getEuroprix(),
+                    "allprix" => $produit->getAllprix(),
+                    "livreprix" => $produit->getLivreprix(),
+                    "nairaprix" => $produit->getNairaprix(),
+                    "usaprix" => $produit->getUsaprix(),
                 "reduction" => $produit->getReduction(),
                 "cfaprixCommande" => $produit->getCfaprixCommande(),
                 "libelle" => $produit->getLibelle(),
@@ -302,6 +312,11 @@ class HomepageController extends Controller
                 $tab = array(
                     "id" => $produit->getId(),
                     "cfaprix" => $produit->getCfaprix(),
+                    "europrix" => $produit->getEuroprix(),
+                    "allprix" => $produit->getAllprix(),
+                    "livreprix" => $produit->getLivreprix(),
+                    "nairaprix" => $produit->getNairaprix(),
+                    "usaprix" => $produit->getUsaprix(),
                     "reduction" => $produit->getReduction(),
                     "cfaprixCommande" => $produit->getCfaprixCommande(),
                     "libelle" => $produit->getLibelle(),
@@ -319,6 +334,11 @@ class HomepageController extends Controller
                 $tab = array(
                     "id" => $produit->getId(),
                     "cfaprix" => $produit->getCfaprix(),
+                    "europrix" => $produit->getEuroprix(),
+                    "allprix" => $produit->getAllprix(),
+                    "livreprix" => $produit->getLivreprix(),
+                    "nairaprix" => $produit->getNairaprix(),
+                    "usaprix" => $produit->getUsaprix(),
                     "reduction" => $produit->getReduction(),
                     "cfaprixCommande" => $produit->getCfaprixCommande(),
                     "libelle" => $produit->getLibelle(),
@@ -335,7 +355,7 @@ class HomepageController extends Controller
         shuffle($newReductions);
         shuffle($newNouveaux);
         shuffle($newDernieresVentes);
-        
+
         return $this->render('KountacBundle:Default:index2.html.twig', array('produits' => $produits,'user' => $this->getUser(),
                                                                             'populaires' => $newPopulaires,
                                                                             'nouveaux' => $newNouveaux,
