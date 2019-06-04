@@ -1,60 +1,64 @@
 ﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
-<!-- Basic page needs -->
-<meta charset="utf-8">
-<!--[if IE]>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <![endif]-->
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Kountac</title>
-<meta name="description" content="">
+  {% block head %}
+  <!-- Basic page needs -->
+  <meta charset="utf-8">
+  <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Kountac | Vente made in Africa | La mode africaine d’aujourd’hui | {% block title %}{% endblock %}</title>
+  {% block meta %}
+  <meta name="keywords" content="Chemises, Blazers, Pulls et Gillets, vêtements, Bagages, Ballerines, Jeans, Pantalons, Baskets, Chaussures, Boucles, Bracelet, Cartable, sacs..." />
+  {% endblock %}
+  <meta name="robots" content="index,follow" />
 
-<!-- Mobile specific metas  -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Mobile specific metas  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Favicon  -->
-<link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+  <!-- Favicon  -->
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
-<!-- Google Fonts -->
-<!--link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'-->
+  <!-- Google Fonts -->
+  <!--link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'-->
 
 
-<!-- CSS Style -->
+  <!-- CSS Style -->
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
 
-<!-- font-awesome & simple line icons CSS -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}" media="all">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/simple-line-icons.css') }}" media="all">
+  <!-- font-awesome & simple line icons CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}" media="all">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/simple-line-icons.css') }}" media="all">
 
-<!-- owl.carousel CSS -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/owl.carousel.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/owl.theme.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/owl.transitions.css') }}">
+  <!-- owl.carousel CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/owl.carousel.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/owl.theme.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/owl.transitions.css') }}">
 
-<!-- animate CSS  -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css') }}" media="all">
+  <!-- animate CSS  -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css') }}" media="all">
 
-<!-- flexslider CSS -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/flexslider.css') }}" >
+  <!-- flexslider CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/flexslider.css') }}" >
 
-<!-- jquery-ui.min CSS  -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+  <!-- jquery-ui.min CSS  -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
 
-<!-- Revolution Slider CSS -->
-<link href="{{ asset('css/revolution-slider.css') }}" rel="stylesheet">
+  <!-- Revolution Slider CSS -->
+  <link href="{{ asset('css/revolution-slider.css') }}" rel="stylesheet">
 
-<!-- style CSS -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" media="all">
+  <!-- style CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" media="all">
 
-<!-- quick_view_popup CSS -->
-<link rel="stylesheet" href="{{ asset('css/quick_view_popup.css') }}" type="text/css">
-<!-- chat CSS -->
-<link rel="stylesheet" href="{{ asset('chat/chat.css') }}" type="text/css">
-
+  <!-- quick_view_popup CSS -->
+  <link rel="stylesheet" href="{{ asset('css/quick_view_popup.css') }}" type="text/css">
+  <!-- chat CSS -->
+  <link rel="stylesheet" href="{{ asset('chat/chat.css') }}" type="text/css">
+  {% endblock %}
 </head>
 
 <body class="cms-index-index cms-home-page">

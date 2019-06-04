@@ -1,5 +1,14 @@
 {% extends "::base.html.twig" %}
 
+
+{% block title %}
+  {{ produit.produit1.nom|capitalize }} - {{ produit.libelle.libelle|capitalize }}
+{% endblock %}
+ 
+{% block meta %}
+  <meta name="description" content="{{ produit.produit1.categorie|trans}}, {{ produit.produit1.nom }}, {{ produit.produit1.description|capitalize }} " />
+{% endblock %}
+
 {% block body %}
 
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
