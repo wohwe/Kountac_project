@@ -204,7 +204,7 @@ class HomepageController extends Controller
 
         } else if($pays == "")
         {
-            $session->set('cfa', '1');
+            /*$session->set('cfa', '1');
         
             if ($session->has('euro'))
                 $session->remove('euro');
@@ -219,9 +219,9 @@ class HomepageController extends Controller
                 $session->remove('usa');
             
             if ($session->has('naira'))
-                $session->remove('naira');
+                $session->remove('naira');*/
                 
-            /*$session->set('euro', '1');
+            $session->set('euro', '1');
         
             if ($session->has('cfa'))
                 $session->remove('cfa');
@@ -236,7 +236,7 @@ class HomepageController extends Controller
                 $session->remove('usa');
             
             if ($session->has('naira'))
-                $session->remove('naira');*/
+                $session->remove('naira');
 
         }else
         {
@@ -277,6 +277,11 @@ class HomepageController extends Controller
                     "usaprix" => $produit->getUsaprix(),
                     "reduction" => $produit->getReduction(),
                     "cfaprixCommande" => $produit->getCfaprixCommande(),
+                    "europrixCommande" => $produit->getEuroprixCommande(),
+                    "allprixCommande" => $produit->getAllprixCommande(),
+                    "livreprixCommande" => $produit->getLivreprixCommande(),
+                    "nairaprixCommande" => $produit->getNairaprixCommande(),
+                    "usaprixCommande" => $produit->getUsaprixCommande(),
                     "libelle" => $produit->getLibelle(),
                     "produit1Nom" => $produit->getProduit1()->getNom(),
                     "prod" => $produit,
@@ -298,6 +303,11 @@ class HomepageController extends Controller
                     "usaprix" => $produit->getUsaprix(),
                 "reduction" => $produit->getReduction(),
                 "cfaprixCommande" => $produit->getCfaprixCommande(),
+                    "europrixCommande" => $produit->getEuroprixCommande(),
+                    "allprixCommande" => $produit->getAllprixCommande(),
+                    "livreprixCommande" => $produit->getLivreprixCommande(),
+                    "nairaprixCommande" => $produit->getNairaprixCommande(),
+                    "usaprixCommande" => $produit->getUsaprixCommande(),
                 "libelle" => $produit->getLibelle(),
                 "produit1Nom" => $produit->getProduit1()->getNom(),
                 "prod" => $produit,
@@ -319,6 +329,11 @@ class HomepageController extends Controller
                     "usaprix" => $produit->getUsaprix(),
                     "reduction" => $produit->getReduction(),
                     "cfaprixCommande" => $produit->getCfaprixCommande(),
+                    "europrixCommande" => $produit->getEuroprixCommande(),
+                    "allprixCommande" => $produit->getAllprixCommande(),
+                    "livreprixCommande" => $produit->getLivreprixCommande(),
+                    "nairaprixCommande" => $produit->getNairaprixCommande(),
+                    "usaprixCommande" => $produit->getUsaprixCommande(),
                     "libelle" => $produit->getLibelle(),
                     "produit1Nom" => $produit->getProduit1()->getNom(),
                     "prod" => $produit,
@@ -341,6 +356,11 @@ class HomepageController extends Controller
                     "usaprix" => $produit->getUsaprix(),
                     "reduction" => $produit->getReduction(),
                     "cfaprixCommande" => $produit->getCfaprixCommande(),
+                    "europrixCommande" => $produit->getEuroprixCommande(),
+                    "allprixCommande" => $produit->getAllprixCommande(),
+                    "livreprixCommande" => $produit->getLivreprixCommande(),
+                    "nairaprixCommande" => $produit->getNairaprixCommande(),
+                    "usaprixCommande" => $produit->getUsaprixCommande(),
                     "libelle" => $produit->getLibelle(),
                     "produit1Nom" => $produit->getProduit1()->getNom(),
                     "prod" => $produit,
