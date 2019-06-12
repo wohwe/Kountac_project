@@ -14,7 +14,8 @@ class SurMesuresCategorieController extends Controller
         $session->remove('collection');
         $session->remove('recherche');
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();       
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();  
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
@@ -48,6 +49,7 @@ class SurMesuresCategorieController extends Controller
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
                                                                                             'nom' => "Sur mesure Femmes",
                                                                                             'marques' => $marques, 
+                                                                                            'images' => $images,
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,
                                                                                             'categories' => $categories,
@@ -68,7 +70,8 @@ class SurMesuresCategorieController extends Controller
         $session->remove('collection');
         $session->remove('recherche');
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();       
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll(); 
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
@@ -100,7 +103,8 @@ class SurMesuresCategorieController extends Controller
 
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
                                                                                             'nom' => "Sur mesure Femmes ->> Hauts",
-                                                                                            'marques' => $marques, 
+                                                                                            'marques' => $marques,
+                                                                                            'images' => $images, 
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,
                                                                                             'categories' => $categories,
@@ -121,7 +125,8 @@ class SurMesuresCategorieController extends Controller
         $session->remove('collection');
         $session->remove('recherche');
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();       
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll(); 
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
@@ -151,7 +156,8 @@ class SurMesuresCategorieController extends Controller
 
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
                                                                                             'nom' => "Sur mesure Femmes ->> Bas",
-                                                                                            'marques' => $marques, 
+                                                                                            'marques' => $marques,
+                                                                                            'images' => $images,  
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,
                                                                                             'categories' => $categories,
@@ -172,7 +178,8 @@ class SurMesuresCategorieController extends Controller
         $session->remove('collection');
         $session->remove('recherche');
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();       
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll(); 
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
@@ -202,7 +209,8 @@ class SurMesuresCategorieController extends Controller
 
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
                                                                                             'nom' => "Sur mesure Femmes ->> Ensembles",
-                                                                                            'marques' => $marques, 
+                                                                                            'marques' => $marques,
+                                                                                            'images' => $images,  
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,
                                                                                             'categories' => $categories,
@@ -223,7 +231,8 @@ class SurMesuresCategorieController extends Controller
         $session->remove('collection');
         $session->remove('recherche');
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();       
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll(); 
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
@@ -256,7 +265,8 @@ class SurMesuresCategorieController extends Controller
 
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
                                                                                             'nom' => "Sur mesure Hommes",
-                                                                                            'marques' => $marques, 
+                                                                                            'marques' => $marques,
+                                                                                            'images' => $images,  
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,
                                                                                             'categories' => $categories,
@@ -277,7 +287,8 @@ class SurMesuresCategorieController extends Controller
         $session->remove('collection');
         $session->remove('recherche');
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();       
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll(); 
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
@@ -309,7 +320,8 @@ class SurMesuresCategorieController extends Controller
 
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
                                                                                             'nom' => "Sur mesure Hommes ->> Hauts",
-                                                                                            'marques' => $marques, 
+                                                                                            'marques' => $marques,
+                                                                                            'images' => $images,  
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,
                                                                                             'categories' => $categories,
@@ -330,7 +342,8 @@ class SurMesuresCategorieController extends Controller
         $session->remove('collection');
         $session->remove('recherche');
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();       
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll(); 
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
@@ -360,7 +373,8 @@ class SurMesuresCategorieController extends Controller
 
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
                                                                                             'nom' => "Sur mesure Hommes ->> Bas",
-                                                                                            'marques' => $marques, 
+                                                                                            'marques' => $marques,
+                                                                                            'images' => $images,  
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,
                                                                                             'categories' => $categories,
@@ -381,7 +395,8 @@ class SurMesuresCategorieController extends Controller
         $session->remove('collection');
         $session->remove('recherche');
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();       
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll(); 
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
@@ -412,7 +427,8 @@ class SurMesuresCategorieController extends Controller
 
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
                                                                                             'nom' => "Sur mesure Hommes ->> Ensembles",
-                                                                                            'marques' => $marques, 
+                                                                                            'marques' => $marques,
+                                                                                            'images' => $images,  
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,
                                                                                             'categories' => $categories,
@@ -433,7 +449,8 @@ class SurMesuresCategorieController extends Controller
         $session->remove('collection');
         $session->remove('recherche');
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();       
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll(); 
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
@@ -466,7 +483,8 @@ class SurMesuresCategorieController extends Controller
 
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
                                                                                             'nom' => "Sur mesure Enfants",
-                                                                                            'marques' => $marques, 
+                                                                                            'marques' => $marques,
+                                                                                            'images' => $images,  
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,
                                                                                             'categories' => $categories,
@@ -487,7 +505,8 @@ class SurMesuresCategorieController extends Controller
         $session->remove('collection');
         $session->remove('recherche');
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();       
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll(); 
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
@@ -519,7 +538,8 @@ class SurMesuresCategorieController extends Controller
 
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
                                                                                             'nom' => "Sur mesure Enfants ->> Hauts",
-                                                                                            'marques' => $marques, 
+                                                                                            'marques' => $marques,
+                                                                                            'images' => $images,  
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,
                                                                                             'categories' => $categories,
@@ -540,7 +560,8 @@ class SurMesuresCategorieController extends Controller
         $session->remove('collection');
         $session->remove('recherche');
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();       
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll(); 
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
@@ -570,7 +591,8 @@ class SurMesuresCategorieController extends Controller
 
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
                                                                                             'nom' => "Sur mesure Enfants ->> Bas",
-                                                                                            'marques' => $marques, 
+                                                                                            'marques' => $marques,
+                                                                                            'images' => $images,  
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,
                                                                                             'categories' => $categories,
@@ -591,7 +613,8 @@ class SurMesuresCategorieController extends Controller
         $session->remove('collection');
         $session->remove('recherche');
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();       
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll(); 
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
@@ -621,7 +644,8 @@ class SurMesuresCategorieController extends Controller
 
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
                                                                                             'nom' => "Sur mesure Enfants ->> Ensembles",
-                                                                                            'marques' => $marques, 
+                                                                                            'marques' => $marques,
+                                                                                            'images' => $images,  
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,
                                                                                             'categories' => $categories,
