@@ -85,6 +85,26 @@ class RegistrationController extends Controller
 
                 $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
+
+                $message = (new \Swift_Message('Confirmation Email'))
+                    ->setFrom('contact@kountac.fr')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            // app/Resources/views/Emails/registration.html.twig
+                            'emails/registration.html.twig',
+                            array('name' => $user->getUserName(),
+                                  'confirmationUrl' => $user->getConfirmationToken(),)
+                        ),
+                        'text/html'
+                    )
+                ;
+
+                $this->get('mailer')->send($message);
+
+
+                //var_dump($user); die();
+
                 return $response;
             }
 

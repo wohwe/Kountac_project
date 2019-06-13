@@ -1,8 +1,22 @@
-<h3>You did it! You registered!</h3>
+{% trans_default_domain 'FOSUserBundle' %}
 
-Hi {{ name }}! You're successfully registered.
 
-{# example, assuming you have a route named "login" #}
-To login, go to: ...</a>.
 
-Thanks!
+{% block body_html %}
+
+    <div style="height:70px; background:#f4a137; text-align:center; margin : 10px; padding : 10px;">
+            <img src="{{ asset('images/logo.png') }}" height=50 alt="Kountac">
+            <label style="margin-top : 10px; font-size : 20px; ">Bienvenue chez Kountac</label>
+        </div>
+        <div style="margin : 10px; padding : 10px;">
+            Bonjour <span style="font-weight: bold;">{{ name }}</span>. <br><br>
+            Pour valider votre compte utilisateur, cliquez sur le boutton ci-après <br>
+            <a href="https://www.kountac.fr/register/confirm/{{ confirmUrl }}"><input style="height:50px; text-align : center; background : #f4a137; border : none; color : black; width : 150px; font-weight: bold; cursor:pointer;" type="button" value="Cliquez ici" name=""></a> <br><br>
+
+            Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.<br><br>
+
+            Cordialement,<br>
+            L'équipe Kountac.
+        </div>
+
+{% endblock %}
