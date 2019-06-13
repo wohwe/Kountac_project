@@ -94,7 +94,7 @@ class RegistrationController extends Controller
                             // app/Resources/views/Emails/registration.html.twig
                             'emails/registration.html.twig',
                             array('name' => $user->getUserName(),
-                                  'confirmationUrl' => $user->getConfirmationToken(),)
+                                  'confirmUrl' => $user->getConfirmationToken(),)
                         ),
                         'text/html'
                     )
