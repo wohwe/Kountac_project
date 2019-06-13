@@ -450,7 +450,7 @@ class HomepageController extends Controller
                 $this->renderView(
                     // app/Resources/views/Emails/registration.html.twig
                     'emails/registration.html.twig',
-                    array('name' => 'ChrisME', 'confirmUrl'='url Test')
+                    array('name' => 'ChrisME', 'confirmUrl'=>'url Test')
                 ),
                 'text/html'
             )
