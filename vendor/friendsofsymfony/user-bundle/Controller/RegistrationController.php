@@ -83,8 +83,6 @@ class RegistrationController extends Controller
                     $response = new RedirectResponse($url);
                 }
 
-                $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
 
                 $message = (new \Swift_Message('Confirmation Email'))
                     ->setFrom('contact@kountac.fr')
@@ -104,6 +102,8 @@ class RegistrationController extends Controller
 
 
                 //var_dump($user); die();
+
+                $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
                 return $response;
             }
