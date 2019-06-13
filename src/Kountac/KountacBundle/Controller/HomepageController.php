@@ -436,4 +436,38 @@ class HomepageController extends Controller
         // parameters to template
         return $this->render('KountacBundle:Default:index2.html.twig', array('pagination' => $pagination));
     }
+
+
+
+    /* test to send mail*/
+
+    public function sendMailAction()
+    {
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('contact@kountac.fr')
+            ->setTo('christianmeli81@gmail.com')
+            ->setBody(
+                $this->renderView(
+                    // app/Resources/views/Emails/registration.html.twig
+                    'emails/registration.html.twig',
+                    array('name' => 'ChrisME')
+                ),
+                'text/html'
+            )
+            /*
+             * If you also want to include a plaintext version of the message
+            ->addPart(
+                $this->renderView(
+                    'Emails/registration.txt.twig',
+                    array('name' => $name)
+                ),
+                'text/plain'
+            )
+            */
+        ;
+
+        $this->get('mailer')->send($message);
+
+        return $this->redirectToRoute('homepage');
+    }
 }
