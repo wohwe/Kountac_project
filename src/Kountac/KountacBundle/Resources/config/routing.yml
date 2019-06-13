@@ -3,7 +3,7 @@ kountac_homepage:
     defaults: { _controller: KountacBundle:Homepage:index }
 
 testmail:
-    path:     /single/{id}/
+    path:     /single/
     defaults: { _controller: KountacBundle:Homepage:sendMail }
     
 kountac_homepage_index:
