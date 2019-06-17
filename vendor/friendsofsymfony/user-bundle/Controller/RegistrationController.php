@@ -85,7 +85,7 @@ class RegistrationController extends Controller
 
 
                 $message = (new \Swift_Message('Confirmation Email'))
-                    ->setFrom('contact@kountac.fr' => 'Kountac')
+                    ->setFrom('contact@kountac.fr')
                     ->setTo($user->getEmail())
                     ->setBody(
                         $this->renderView(
