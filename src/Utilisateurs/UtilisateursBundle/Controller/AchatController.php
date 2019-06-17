@@ -4,7 +4,12 @@ namespace Utilisateurs\UtilisateursBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Kountac\KountacBundle\Entity\Produits_1;
+use Kountac\KountacBundle\Entity\Produits_2;
+use Kountac\KountacBundle\Entity\Produits_3;
 use Kountac\KountacBundle\Entity\Achats;
+use Kountac\KountacBundle\Entity\SousAchats;
+use Kountac\KountacBundle\Entity\Commandes;
 use Kountac\KountacBundle\Entity\ServiceLivraison;
 use \DOMDocument;
 
@@ -243,6 +248,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
     {
         $em = $this->getDoctrine()->getManager();
         $achat = $em->getRepository('KountacBundle:Achats')->find($id);
+
         $user = $this->getUser();
         $session = $this->getRequest()->getSession();
         $panier = $session->get('panier');
@@ -277,13 +283,11 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
         $achat->setReference($this->container->get('setNewReference')->reference());
         $em->flush();   
         
-        $session->remove('panier');
-        $session->remove('achat');
         
         //Ici le mail de validation
         $message = \Swift_Message::newInstance()
                 ->setSubject('Validation de votre achat')
-                ->setFrom(array('ornoirets@gmail.com' => "Kountac"))
+                ->setFrom(array('contact@kountac.fr' => "Kountac"))
                 ->setTo($achat->getUtilisateur()->getEmailCanonical())
                 ->setCharset('utf-8')
                 ->setContentType('text/html')
@@ -292,6 +296,54 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
         $this->get('mailer')->send($message);
         
         $this->get('session')->getFlashBag()->add('success','Votre commande a été validée avec succès');
+
+        //$myproduits2 = $em->getRepository('KountacBundle:Produits_2')->findId($achat->getAchat()['produit']);
+
+
+        $sousachats = $achat->getAchat()['produit'];
+
+        foreach ($sousachats as $sousachat) {
+            $NewSousAchat = new SousAchats();
+
+            $idUserSAchat = $user->getId();
+            $idMarqueSAchat = $sousachat['image']->getProduit2()->getProduit1()->getMarque()->getId();
+            $imageMarqueSAchat = $sousachat['image'];
+            //$refMarqueSAchat = $sousachat['reference'];
+            $motifMarqueSAchat = $sousachat['motif'];
+            $qteMarqueSAchat = $sousachat['quantite'];
+            $prixMarqueSAchat = $sousachat['prix'];
+
+            $NewSousAchat->setDate(new \DateTime());
+            $NewSousAchat->setUtilisateur($this->getUser());
+            $NewSousAchat->setValider(0);
+            $NewSousAchat->setEffacer(0);
+            //$NewSousAchat->setReference($refMarqueSAchat);
+            $NewSousAchat->setAchat($sousachat);
+
+            if ($session->has('euro')){
+                $NewSousAchat->setEuro(1);
+            }
+            elseif ($session->has('cfa')){ 
+                $NewSousAchat->setCfa(1);
+            }
+            elseif ($session->has('livre')){ 
+                $NewSousAchat->setLivre(1);
+            }
+            elseif ($session->has('usa')){ 
+                $NewSousAchat->setUsa(1);
+            }
+            elseif ($session->has('all')){
+                $NewSousAchat->setAll(1);
+            }
+            elseif ($session->has('naira')){ 
+                $NewSousAchat->setNaira(1);
+            }
+
+            $em->persist($NewSousAchat);
+        }
+        $em->flush();
+        $session->remove('panier');
+        $session->remove('achat');
         
         return $this->redirect($this->generateUrl('achat_index'));
     }
@@ -394,6 +446,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
                                                          'motif' => $produit->getproduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
                                                          'prix' => round($prixReduction,2),
+                                                         'devise' => 'euro'
                                                             );
         }
         
@@ -463,6 +516,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
                                                          'motif' => $produit->getproduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
                                                          'prix' => round($prixReduction,2),
+                                                         'devise' => 'all'
                                                             );
         }
         
@@ -533,6 +587,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
                                                          'motif' => $produit->getProduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
                                                          'prix' => round($prixReduction,2),
+                                                         'devise' => 'livre'
                                                             );
         }
         
@@ -603,6 +658,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
                                                          'motif' => $produit->getProduit2()->getLibelle()->getLibelle(),                                         
                                                          'quantite' => $panier[$produit->getId()],
                                                          'prix' => round($prixReduction,2),
+                                                         'devise' => 'usa'
                                                             );
         }
         
@@ -673,6 +729,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
                                                          'motif' => $produit->getProduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
                                                          'prix' => round($prixReduction,2),
+                                                         'devise' => 'naira'
                                                             );
         }
         
@@ -743,6 +800,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
                                                          'motif' => $produit->getProduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
                                                          'prix' => round($prixReduction,2),
+                                                         'devise' => 'fcfa'
                                                             );
         }  
         
