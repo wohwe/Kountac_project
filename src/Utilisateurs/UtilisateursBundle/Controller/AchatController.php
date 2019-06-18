@@ -10,6 +10,7 @@ use Kountac\KountacBundle\Entity\Produits_3;
 use Kountac\KountacBundle\Entity\Achats;
 use Kountac\KountacBundle\Entity\SousAchats;
 use Kountac\KountacBundle\Entity\Commandes;
+use Kountac\UtilisateursBundle\Entity\Utilisateurs;
 use Kountac\KountacBundle\Entity\ServiceLivraison;
 use \DOMDocument;
 
@@ -304,9 +305,9 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
 
         foreach ($sousachats as $sousachat) {
             $NewSousAchat = new SousAchats();
+            $idMarqueSAchat = $sousachat['image']->getProduit2()->getProduit1()->getMarque()->getId();
 
             $idUserSAchat = $user->getId();
-            $idMarqueSAchat = $sousachat['image']->getProduit2()->getProduit1()->getMarque()->getId();
             $imageMarqueSAchat = $sousachat['image'];
             //$refMarqueSAchat = $sousachat['reference'];
             $motifMarqueSAchat = $sousachat['motif'];
@@ -317,6 +318,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
             $NewSousAchat->setUtilisateur($this->getUser());
             $NewSousAchat->setValider(0);
             $NewSousAchat->setEffacer(0);
+            $NewSousAchat->setMarque($idMarqueSAchat);
             //$NewSousAchat->setReference($refMarqueSAchat);
             $NewSousAchat->setAchat($sousachat);
 

@@ -22,4 +22,14 @@ class UtilisateursRepository extends EntityRepository
         ;
         return $qb->getQuery()->getResult();
     }
+    
+    public function getUserById($id) 
+    {
+        $qb = $this->createQueryBuilder('u')
+                ->select('u')
+                ->where('u.id = :id')
+                ->setParameter('id', $id)
+        ;
+        return $qb->getQuery()->getResult();
+    }
 }

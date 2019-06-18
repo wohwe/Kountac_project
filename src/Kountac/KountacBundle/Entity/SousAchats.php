@@ -26,6 +26,13 @@ class SousAchats
      * @ORM\JoinColumn(nullable=true)
      */    
     private $utilisateur;
+    
+    /**
+     * @var int
+     * 
+     * @ORM\Column(name="marque_id", type="integer")
+     */
+    private $marque;
 
     
     /**
@@ -222,6 +229,29 @@ class SousAchats
     public function getUtilisateur()
     {
         return $this->utilisateur;
+    }
+
+    /**
+     * Set marque
+     *
+     * @param int $marque
+     * @return int
+     */
+    public function setMarque($marque)
+    {
+        $this->marque = $marque;
+
+        return $this;
+    }
+
+    /**
+     * Get marque
+     *
+     * @return int
+     */
+    public function getMarque()
+    {
+        return $this->marque;
     }
 
 
