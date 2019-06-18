@@ -8,6 +8,11 @@ sous_achat_pro_index:
     defaults: { _controller: "UtilisateursBundle:CommandePro:sousAchat" }
     methods:  GET
     
+details_sous_achat:
+    path:     /achat-en-instance/{id}
+    defaults: { _controller: "UtilisateursBundle:CommandePro:sousAchat" }
+    methods:  GET
+    
 commande_pro_show:
     path:     /{id}_show
     defaults: { _controller: "UtilisateursBundle:CommandePro:show" }
