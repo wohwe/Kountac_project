@@ -49,6 +49,16 @@ class SousAchatsRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
+    public function getAchatsById($id) 
+    {
+        $qb = $this->createQueryBuilder('u')
+                ->select('u')
+                ->where('u.id = :id')
+                ->setParameter('id', $id)
+        ;
+        return $qb->getQuery()->getResult();
+    }
+    
     public function getAchatsByIdUser($id) 
     {
         $qb = $this->createQueryBuilder('u')

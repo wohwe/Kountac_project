@@ -29,7 +29,7 @@
                 <div class="cart">
                         <div class="page-content page-order"><div class="page-title">
                             {% if commandes|length != 0 %}
-                                <h2>Liste d'achats client en instance &nbsp;&nbsp;{% if user.sexe %}Mme.{% else %}M.{% endif %} {{ user.prenom|capitalize }} {{ user.nom|capitalize }}</h2>
+                                <h2>Détails de l'achat "{{ commandes[0].achat.reference }}" &nbsp;&nbsp;{% if user.sexe %}Mme.{% else %}M.{% endif %} {{ user.prenom|capitalize }} {{ user.nom|capitalize }}</h2>
                             {% endif %}
                         </div>
 
@@ -44,30 +44,41 @@
                             </div>  
                         {% else %}
                             <div class="table-responsive">
-                                <table class="table table-bordered cart_summary">
-                                    <thead>
+                                <div class="col-lg-5">
+                                    <img class="cart_product" src="../../../uploadProduits/{{ commandes[0].achat.image.path }}">
+                                </div>
+                                <div class="col-lg-6">
+                                    <table class="table table-bordered cart_summary">
                                         <tr>
-                                            <th class="cart_product">Aperçu</th>
-                                            <th>Description</th>
-                                            <th>Quantité</th>
-                                            <th>Prix commande</th>
-                                            <th>Date d'ajout</th>
-                                            <th>Statut</th>
-                                            <th  class="action">Action</th>
+                                            <td class="cart_product">Reférence</td>
+                                            <td class="cart_product">{{ commandes[0].achat.reference }}</td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for commande in commandes %}
-                                            <td class="cart_product"><img src="../../../uploadProduits/{{ commande.achat.image.path }}" alt=""></td>
-                                            <td class="cart_product">{{ commande.achat.reference }}</td>
-                                            <td class="cart_product">{{ commande.achat.quantite }}</td>
-                                            <td class="cart_product">{{ commande.achat.prix }}</td>
-                                            <td class="cart_product">{{ commande.date.date }}</td>
-                                            <td class="cart_product"><b>En attente</b></td>
-                                            <td class="cart_product"><a href="{{ path('sous_achat_pro_index', {'id' : commande.id}) }}">Visualiser</a></td>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                                        <tr>
+                                            <td class="cart_product">Quantité</td>
+                                            <td class="cart_product">{{ commandes[0].achat.quantite }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Prix</td>
+                                            <td class="cart_product">{{ commandes[0].achat.prix }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Date</td>
+                                            <td class="cart_product">{{ commandes[0].date.date }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Accepter</td>
+                                            <td class="cart_product">{{ commandes[0].date.date }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Livraison gérée par Kountac</td>
+                                            <td class="cart_product">{{ commandes[0].date.date }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Expédié</td>
+                                            <td class="cart_product">{{ commandes[0].date.date }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
                         <div class="pagination-area ">
                         </div>
