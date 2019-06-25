@@ -49,7 +49,7 @@
                                                             <a title="Ajouter aux souhaits" href="{{ path('quickView', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-heart"><span>Wishlist</span></i></a>
                                                             <a title="Comparer ce produit" href="{{ path('quickView', {'id' : produit.id}) }}" class="compare"><i class="fa fa-exchange"><span>Compare</span></i></a>
                                                             {% if produit.nairaprixCommande %}
-                                                                <a title="Commander sur mesure, prix pour une commande sur mesure : {{ produit.nairaprixCommande|number_format(2) }} F CFA" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-pencil"><span>Commander sur mesure</span></i></a>
+                                                                <a title="Commander sur mesure, prix pour une commande sur mesure : {{ produit.nairaprixCommande|number_format(2) }} ₦" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-pencil"><span>Commander sur mesure</span></i></a>
                                                             {% endif %}
                                                         </div>
                                                     </div>
@@ -59,11 +59,11 @@
                                                             <div class="item-content">
                                                                 <div class="item-price">
                                                                     {% if produit.reduction == 0 %}
-                                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </span> </div>
+                                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} ₦</span> </span> </div>
                                                                     {% else %}
                                                                     <div class="price-box">
-                                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </p>
-                                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.nairaprix|number_format(2) }} F CFA</span> </p>
+                                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} ₦</span> </p>
+                                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.nairaprix|number_format(2) }} ₦</span> </p>
                                                                     </div>
                                                                     {% endif %}
                                                                 </div>
@@ -137,7 +137,7 @@
                                                             <a title="Ajouter aux souhaits" href="{{ path('quickView', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-heart"><span>Wishlist</span></i></a>
                                                             <a title="Comparer ce produit" href="{{ path('quickView', {'id' : produit.id}) }}" class="compare"><i class="fa fa-exchange"><span>Compare</span></i></a>
                                                             {% if produit.nairaprixCommande %}
-                                                                <a title="Commander sur mesure, prix pour une commande sur mesure : {{ produit.nairaprixCommande|number_format(2) }} F CFA" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-pencil"><span>Commander sur mesure</span></i></a>
+                                                                <a title="Commander sur mesure, prix pour une commande sur mesure : {{ produit.nairaprixCommande|number_format(2) }} ₦" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-pencil"><span>Commander sur mesure</span></i></a>
                                                             {% endif %}
                                                         </div>
                                                     </div>
@@ -147,11 +147,11 @@
                                                             <div class="item-content">
                                                                 <div class="item-price">
                                                                     {% if produit.reduction == 0 %}
-                                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </span> </div>
+                                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} ₦</span> </span> </div>
                                                                     {% else %}
                                                                     <div class="price-box">
-                                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </p>
-                                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.nairaprix|number_format(2) }} F CFA</span> </p>
+                                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} ₦</span> </p>
+                                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.nairaprix|number_format(2) }} ₦</span> </p>
                                                                     </div>
                                                                     {% endif %}
                                                                 </div>
@@ -237,7 +237,7 @@
                                                             <a title="Ajouter aux souhaits" href="{{ path('quickView', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-heart"><span>Wishlist</span></i></a>
                                                             <a title="Comparer ce produit" href="{{ path('quickView', {'id' : produit.id}) }}" class="compare"><i class="fa fa-exchange"><span>Compare</span></i></a>
                                                             {% if produit.nairaprixCommande %}
-                                                                <a title="Commander sur mesure, prix pour une commande sur mesure : {{ produit.nairaprixCommande|number_format(2) }} F CFA" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-pencil"><span>Commander sur mesure</span></i></a>
+                                                                <a title="Commander sur mesure, prix pour une commande sur mesure : {{ produit.nairaprixCommande|number_format(2) }} ₦" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-pencil"><span>Commander sur mesure</span></i></a>
                                                             {% endif %}
                                                         </div>
                                                     </div>
@@ -247,11 +247,11 @@
                                                             <div class="item-content">
                                                                 <div class="item-price">
                                                                     {% if produit.reduction == 0 %}
-                                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </span> </div>
+                                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} ₦</span> </span> </div>
                                                                     {% else %}
                                                                     <div class="price-box">
-                                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </p>
-                                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.nairaprix|number_format(2) }} F CFA</span> </p>
+                                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} ₦</span> </p>
+                                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.nairaprix|number_format(2) }} ₦</span> </p>
                                                                     </div>
                                                                     {% endif %}
                                                                 </div>
@@ -326,7 +326,7 @@
                                                             <a title="Ajouter aux souhaits" href="{{ path('quickView', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-heart"><span>Wishlist</span></i></a>
                                                             <a title="Comparer ce produit" href="{{ path('quickView', {'id' : produit.id}) }}" class="compare"><i class="fa fa-exchange"><span>Compare</span></i></a>
                                                             {% if produit.nairaprixCommande %}
-                                                                <a title="Commander sur mesure, prix pour une commande sur mesure : {{ produit.nairaprixCommande|number_format(2) }} F CFA" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-pencil"><span>Commander sur mesure</span></i></a>
+                                                                <a title="Commander sur mesure, prix pour une commande sur mesure : {{ produit.nairaprixCommande|number_format(2) }} ₦" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}" class="wishlist"><i class="fa fa-pencil"><span>Commander sur mesure</span></i></a>
                                                             {% endif %}
                                                         </div>
                                                     </div>
@@ -336,11 +336,11 @@
                                                             <div class="item-content">
                                                                 <div class="item-price">
                                                                     {% if produit.reduction == 0 %}
-                                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </span> </div>
+                                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} ₦</span> </span> </div>
                                                                     {% else %}
                                                                     <div class="price-box">
-                                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </p>
-                                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.nairaprix|number_format(2) }} F CFA</span> </p>
+                                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} ₦</span> </p>
+                                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.nairaprix|number_format(2) }} ₦</span> </p>
                                                                     </div>
                                                                     {% endif %}
                                                                 </div>
