@@ -19,7 +19,7 @@ class CommandeProController extends Controller
         $listesCommandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByPro($user);
         
         $commandes  = $this->get('knp_paginator')->paginate($listesCommandes,$this->get('request')->query->get('page', 1),10);
-        return $this->render('FOSUserBundle:Profile:Pro/ListeMesCommande.html.twig', array(
+        return $this->render('FOSUserBundle:Profile:Pro/listeMesCommande.html.twig', array(
             'commandes' => $commandes,
             'user' => $user,
             'euro' => $this->getRequest()->getSession()->get('euro'),
