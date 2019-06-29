@@ -1,8 +1,11 @@
-<ul id="chat">
+<div id="chat">
 {% for message in messages %}
-    
-    <div class="author"><span>{{ message.author }}</span> <span class="date">({{ message.insertDate|date("d/M/Y")}})</span></div>
+    {% if app.user.username==message.author %}
+    <div class="author"><span class="date" style="float:top">{{ message.insertDate|date("d-M-Y \\à H:i:s ")}}</span></div>
 	<div class="msg_a">{{ message.message }}</div>
-   
+	{% else %}
+	<div class="author"><span class="date" style="float:top">{{ message.insertDate|date("d-M-Y \\à H:i:s ")}}</span></div>
+	<div class="msg_b">{{ message.message }}</div>
+	{% endif %}
 {% endfor %}
-</ul>
+</div>

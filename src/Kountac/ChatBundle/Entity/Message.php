@@ -5,8 +5,8 @@ namespace Kountac\ChatBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="chatmessage")
- * @ORM\Entity(repositoryClass="Kountac\ChatBundle\Repository\MessageRepository")
+ * @ORM\Entity
+ * @ORM\Table(name="ChatMessage")
  */
 class Message
 {
