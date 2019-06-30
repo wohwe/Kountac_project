@@ -303,5 +303,123 @@ class SousAchats
     public function getCfa()
     {
         return $this->cfa;
+    }/**
+     * Set euro
+     *
+     * @param boolean $euro
+     *
+     * @return Achats
+     */
+    public function setEuro($euro)
+    {
+        $this->euro = $euro;
+
+        return $this;
+    }
+
+    /**
+     * Get euro
+     *
+     * @return boolean
+     */
+    public function getEuro()
+    {
+        return $this->euro;
+    }
+
+    /**
+     * Set livre
+     *
+     * @param boolean $livre
+     *
+     * @return Achats
+     */
+    public function setLivre($livre)
+    {
+        $this->livre = $livre;
+
+        return $this;
+    }
+
+    /**
+     * Get livre
+     *
+     * @return boolean
+     */
+    public function getLivre()
+    {
+        return $this->livre;
+    }
+
+    /**
+     * Set usa
+     *
+     * @param boolean $usa
+     *
+     * @return Achats
+     */
+    public function setUsa($usa)
+    {
+        $this->usa = $usa;
+
+        return $this;
+    }
+
+    /**
+     * Get usa
+     *
+     * @return boolean
+     */
+    public function getUsa()
+    {
+        return $this->usa;
+    }
+
+    /**
+     * Set naira
+     *
+     * @param boolean $naira
+     *
+     * @return Achats
+     */
+    public function setNaira($naira)
+    {
+        $this->naira = $naira;
+
+        return $this;
+    }
+
+    /**
+     * Get naira
+     *
+     * @return boolean
+     */
+    public function getNaira()
+    {
+        return $this->naira;
+    }
+
+    /**
+     * Set all
+     *
+     * @param boolean $all
+     *
+     * @return Achats
+     */
+    public function setAll($all)
+    {
+        $this->all = $all;
+
+        return $this;
+    }
+
+    /**
+     * Get all
+     *
+     * @return boolean
+     */
+    public function getAll()
+    {
+        return $this->all;
     }
 }

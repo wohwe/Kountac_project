@@ -1,11 +1,11 @@
 {% extends "::base.html.twig" %}
 
 {% block title %}
-  {{ euro|length != 0 ? nom|capitalize : "Recherche" }}
+  {{ euro|length != 0 ? "Filtre" : "Recherche" }}
 {% endblock %}
  
 {% block meta %}
-  <meta name="description" content="{{ euro|length != 0 ? nom|capitalize : "Recherche" }} -  Achetez le nouveau prêt à porter africain -  Les dernières tendances modes Africaine en un clic -  The new made in Africa, la qualité africaine livrée chez vous -  Originalité et authenticité, la mode africaine chez vous" />
+  <meta name="description" content="{{ euro|length != 0 ? "Filtre" : "Recherche" }} -  Achetez le nouveau prêt à porter africain -  Les dernières tendances modes Africaine en un clic -  The new made in Africa, la qualité africaine livrée chez vous -  Originalité et authenticité, la mode africaine chez vous" />
 {% endblock %}
 
 {% block body %}
