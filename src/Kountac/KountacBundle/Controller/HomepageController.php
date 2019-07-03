@@ -204,7 +204,7 @@ class HomepageController extends Controller
 
         } else if($pays == "")
         {
-            /*$session->set('cfa', '1');
+            $session->set('cfa', '1');
         
             if ($session->has('euro'))
                 $session->remove('euro');
@@ -219,9 +219,9 @@ class HomepageController extends Controller
                 $session->remove('usa');
             
             if ($session->has('naira'))
-                $session->remove('naira');*/
+                $session->remove('naira');
                 
-            $session->set('euro', '1');
+            /*$session->set('euro', '1');
         
             if ($session->has('cfa'))
                 $session->remove('cfa');
@@ -236,7 +236,7 @@ class HomepageController extends Controller
                 $session->remove('usa');
             
             if ($session->has('naira'))
-                $session->remove('naira');
+                $session->remove('naira');*/
 
         }else
         {

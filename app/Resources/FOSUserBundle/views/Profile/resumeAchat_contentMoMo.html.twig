@@ -1,3 +1,4 @@
+{% if euro|length != 0 %}
 {% set total = 0 %}
 {% set total2 = 0 %}
 <div class="breadcrumbs">
@@ -69,10 +70,10 @@
                                                     {{ produit.quantite }}
                                                 </td>
                                                 <td class="price">
-                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ produit.prix|number_format(2) }} F CFA</span> </span></div>
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ produit.prix|number_format(2) }} €</span> </span></div>
                                                 </td>
                                                 <td class="price">
-                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ (produit.prix * produit.quantite)|number_format(2) }} F CFA</span> </span></div>
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ (produit.prix * produit.quantite)|number_format(2) }} €</span> </span></div>
                                                 </td>
                                             </tr>
                                         {% set total = total + (produit.prix * produit.quantite) %}
@@ -80,7 +81,7 @@
                                         {% endfor %}
                                         {% endif %}
                                         {% for commande in commandes %}
-                                            {% if commande.produit.cfaprixCommande %}
+                                            {% if commande.produit.europrixCommande %}
                                             <tr>
                                                 <td class="cart_product"><img src="{{ commande.produit.picture.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></td>
                                                 <td class="cart_description">
@@ -90,13 +91,13 @@
                                                     1
                                                 </td>
                                                 <td class="price">
-                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ commande.produit.cfaprixCommande|number_format(2) }} F CFA</span> </span></div>
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ commande.produit.europrixCommande|number_format(2) }} €</span> </span></div>
                                                 </td>
                                                 <td class="price">
-                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ commande.produit.cfaprixCommande|number_format(2) }} F CFA</span> </span></div>
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ commande.produit.europrixCommande|number_format(2) }} €</span> </span></div>
                                                 </td>
                                             </tr>
-                                            {% set total2 = total2 + commande.produit.cfaprixCommande %}
+                                            {% set total2 = total2 + commande.produit.europrixCommande %}
                                             {% endif %}
                                         {% endfor %}
                                     </tbody>
@@ -127,14 +128,8 @@
                                     <tfoot>
                                         <tr>
                                             <td colspan="2" rowspan="2"></td>
-                                            <td colspan="2">
-                                                <h4><strong>TOTAL </strong></h4> <br> 
-                                                <h5><strong>TOTAL (Euros) </strong></h5>
-                                            </td>
-                                            <td colspan="2">
-                                                <h4><strong>{{ (total + total2)|number_format(2) }} F CFA</strong></h4> <br>
-                                                <h5><strong>{{ ((total + total2)/655.81)|round|number_format(2) }} €</strong></h5>
-                                            </td>
+                                            <td colspan="2"><h4><strong>TOTAL </strong></h4></td>
+                                            <td colspan="2"><h4><strong>{{ (total + total2)|number_format(2) }} €</strong></h4></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -158,67 +153,18 @@
 <input type="hidden" name="PBX_TIME" value="{{ dateTime }}">
 <input type="hidden" name="PBX_HMAC" value="{{ hmac }}">
 
-                                {% if app.session.get('paiement').nom == "Visa" %}
-
                                 <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider achat</span></button>
-
-                                {% endif %}
 
                             </form>
 
 
 
-
-
-
-
-
-{% if app.session.get('paiement').nom == "MobileMoney" %}
-
-
-<form action="https://www.kountac.fr/wecashup/Callback.php" method="POST" id="wecashup">
-
-
-        <script async src="https://www.wecashup.com/library/MobileMoney.js" class="wecashup_button"
-        data-demo
-        data-sender-lang="en"
-        data-sender-phonenumber=""
-        data-receiver-uid="25BwdYycWOOBrc5r6vdrAp9SpSY2"
-        data-receiver-public-key="pk_test_LrWq1WojznebDJXr"
-        data-transaction-parent-uid=""
-        data-transaction-receiver-total-amount="1000"
-        data-transaction-receiver-reference="XVT2VBF"
-        data-transaction-sender-reference="XVT2VBF"
-        data-sender-firstname="Test"
-        data-sender-lastname="Test"
-        data-transaction-method="pull"
-        data-image="https://storage.googleapis.com/wecashup/frontend/img/airfrance.png"
-        data-name="Air France"
-        data-crypto="true"
-        data-cash="true"
-        data-telecom="true"
-        data-m-wallet="true"
-        data-split="true"
-        configuration-id="3"
-        data-marketplace-mode="false"
-        data-product-1-name="Billet ABJ PRS"
-        data-product-1-quantity="1"
-        data-product-1-unit-price="594426"
-        data-product-1-reference="XVT2VBF"
-        data-product-1-category="Billeterie"
-        data-product-1-description="France is in the Air"
-        >
-
-        </script>
-
-</form>
-
-
-{% endif %}
-
-
-
-
+                            <!--form action="{{ path('validation_achat_final', { 'id' : achat.id }) }}" method="POST">
+                                <input name="token" type="hidden" value="{{ achat.achat.token }}" />
+                                <input name="prix" type="hidden" value="{{ achat.achat.prix }}" />    
+                                <input name="date" type="hidden" value="{{ achat.date|date('d/m/Y (H-m-s)') }}" />
+                                <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider achat</span></button>
+                            </form-->
 
 
 
@@ -241,3 +187,14 @@
     </div>
   </div>
   </section>
+{% elseif cfa|length != 0 %}
+    {% include 'FOSUserBundle:Profile:cfa/resumeAchat_content.html.twig' %}
+{% elseif usa|length != 0 %}
+    {% include 'FOSUserBundle:Profile:usa/resumeAchat_content.html.twig' %}
+{% elseif naira|length != 0 %}
+    {% include 'FOSUserBundle:Profile:naira/resumeAchat_content.html.twig' %}
+{% elseif livre|length != 0 %}
+    {% include 'FOSUserBundle:Profile:livre/resumeAchat_content.html.twig' %}
+{% elseif all|length != 0 %}
+    {% include 'FOSUserBundle:Profile:all/resumeAchat_content.html.twig' %}
+{% endif %}

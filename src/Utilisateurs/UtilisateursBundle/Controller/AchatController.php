@@ -91,8 +91,7 @@ class AchatController extends Controller
         $em2->persist($livraison); 
         $em2->flush();*/
 
-
-
+        
 
 
 
@@ -211,13 +210,6 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
 
 
 
-
-
-
-
-
-
-        
         return $this->render('FOSUserBundle:Profile:resumeAchat.html.twig', array('achat' => $Achat,
                                                                                   'commandes' => $commandes,
                                                                                   'euro' => $this->getRequest()->getSession()->get('euro'),

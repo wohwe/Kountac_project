@@ -11,6 +11,7 @@ class PaiementFullCheckoutType extends AbstractType
     {
         $builder
                 ->add('nom','choice',array('choices' => array('Visa' => 'Carte bancaire',
+                                                              'MobileMoney' => 'Mobile Money',
                                                               'PaiementLivraison' => 'Paiement à la livraison'),
                                             'label' => 'Choisir type de paiement*',
                                             'attr' => array('class' => 'select form-control')))

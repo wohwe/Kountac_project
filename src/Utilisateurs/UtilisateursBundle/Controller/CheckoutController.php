@@ -112,18 +112,18 @@ class CheckoutController extends Controller
                 $paimentDetails = array();
                 
                 $nomPaiement = $form['nom']->getData();
-                $titulaireCartePaiement = $form['titulaire']->getData();
+                /*$titulaireCartePaiement = $form['titulaire']->getData();
                 $numeroCartePaiement = $form['numero']->getData();
                 $numeroverifCartePaiement = $form['numeroverification']->getData();
                 $moixExpCartePaiement = $form['moisexp']->getData();
-                $anneeExpCartePaiement = $form['anneeexp']->getData();
+                $anneeExpCartePaiement = $form['anneeexp']->getData();*/
                 
                 $paimentDetails['nom'] = $nomPaiement;
-                $paimentDetails['titulaire'] = $titulaireCartePaiement;
+                /*$paimentDetails['titulaire'] = $titulaireCartePaiement;
                 $paimentDetails['numero'] = $numeroCartePaiement;
                 $paimentDetails['numeroVerification'] = $numeroverifCartePaiement;
                 $paimentDetails['moisExpiration'] = $moixExpCartePaiement;
-                $paimentDetails['anneeExpiration'] = $anneeExpCartePaiement;
+                $paimentDetails['anneeExpiration'] = $anneeExpCartePaiement;*/
                 
                 $session->set('paiement',$paimentDetails);
                 $servicePaiement->setNom($nomPaiement);
@@ -139,7 +139,10 @@ class CheckoutController extends Controller
                 $em->persist($user);
                 $em->flush();
 
-                return $this->render('UtilisateursBundle:Checkout:checkout4.html.twig',array('user' => $user,'images' => $images,
+
+                //echo $nomPaiement; die();
+                
+                /*return $this->render('UtilisateursBundle:Checkout:checkout4.html.twig',array('user' => $user,'images' => $images,
                                                                                         'paiement' => $this->getRequest()->getSession()->get('paiement'),
                                                                                         'euro' => $this->getRequest()->getSession()->get('euro'),
                                                                                         'all' => $this->getRequest()->getSession()->get('all'),
@@ -151,7 +154,10 @@ class CheckoutController extends Controller
                                                                                         'commandes' => $commandes,
                                                                                         'form' => $editForm->createView(),
                                                                                         'panier' => $session->get('panier')
-        ));
+        ));*/
+
+            return $this->redirectToRoute('resume_achat');
+
             }
         }
          
