@@ -1,5 +1,6 @@
 {% set total = 0 %}
 {% set total2 = 0 %}
+{% set totalMoRes = 0 %}
 <div class="breadcrumbs">
     <div class="container">
         <div class="row">
@@ -132,6 +133,10 @@
                                                 <h5><strong>TOTAL (Euros) </strong></h5>
                                             </td>
                                             <td colspan="2">
+
+    {% set totalMo = (total + total2)|number_format(0) %}
+    {% set totalMoSpli = totalMo|split(',') %}
+    {% set totalMoRes = totalMoSpli[0] ~ totalMoSpli[1] %}
                                                 <h4><strong>{{ (total + total2)|number_format(2) }} F CFA</strong></h4> <br>
                                                 <h5><strong>{{ ((total + total2)/655.81)|round|number_format(2) }} €</strong></h5>
                                             </td>
@@ -178,7 +183,6 @@
 
 <form action="https://www.kountac.fr/wecashup/Callback.php" method="POST" id="wecashup">
 
-
         <script async src="https://www.wecashup.com/library/MobileMoney.js" class="wecashup_button"
         data-demo
         data-sender-lang="fr"
@@ -186,7 +190,7 @@
         data-receiver-uid="25BwdYycWOOBrc5r6vdrAp9SpSY2"
         data-receiver-public-key="pk_test_LrWq1WojznebDJXr"
         data-transaction-parent-uid=""
-        data-transaction-receiver-total-amount="{{ (total + total2)|number_format(2) }}"
+        data-transaction-receiver-total-amount="{{ totalMoRes }}"
         data-transaction-receiver-reference="XVT2VBF"
         data-transaction-sender-reference="XVT2VBF"
         data-sender-firstname="{{ user.prenom|capitalize }}"
