@@ -58,7 +58,7 @@ class HomepageController extends Controller
         $produitsCategorie = $em->getRepository('KountacBundle:Produits_2')->findAll();
         
         shuffle($produitsCategorie);
-        $produits2  = $this->get('knp_paginator')->paginate($produitsCategorie, $this->get('request')->query->get('page', 1),32);
+        $produits2  = $this->get('knp_paginator')->paginate($produitsCategorie, $this->get('request')->query->get('page', 1),24);
         
         if ($session->has('panier'))
             $panier = $session->get('panier');        
