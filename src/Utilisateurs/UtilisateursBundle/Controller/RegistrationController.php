@@ -96,6 +96,7 @@ if($fin === true){
         $user->addRole("ROLE_PRO");
         $user->setCode($codebd);
         $user->setPoints(1000);
+        $user->setVerifier(0);
         
         $event = new GetResponseUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);

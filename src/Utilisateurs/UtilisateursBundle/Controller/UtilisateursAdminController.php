@@ -71,6 +71,21 @@ class UtilisateursAdminController extends Controller
         
         return $this->redirectToRoute('adminUtilisateurs_index');
     }
+
+    /**
+     * Unverify an utilisateur account.
+     *
+     */
+    public function unverifyAction(Utilisateurs $utilisateur)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur->setVerifier(0);
+        $em->persist($utilisateur);
+        $em->flush();
+        $this->get('session')->getFlashBag()->add('success','Compte utilisateur bloqué avec succès');
+        
+        return $this->redirectToRoute('adminUtilisateurs_index');
+    }
     
     /**
      * Enabled an utilisateur account.
@@ -80,6 +95,21 @@ class UtilisateursAdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $utilisateur->setEnabled(1);
+        $em->persist($utilisateur);
+        $em->flush();
+        $this->get('session')->getFlashBag()->add('success','Compte utilisateur activé avec succès');
+        
+        return $this->redirectToRoute('adminUtilisateurs_index');
+    }
+    
+    /**
+     * Verify an utilisateur account.
+     *
+     */
+    public function verifyAction(Utilisateurs $utilisateur)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur->setVerifier(1);
         $em->persist($utilisateur);
         $em->flush();
         $this->get('session')->getFlashBag()->add('success','Compte utilisateur activé avec succès');

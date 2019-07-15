@@ -52,6 +52,7 @@
                                             <th>A propos</th>
                                             <th>Type compte</th>
                                             <th>Etat</th>
+                                            <th>Vérifier</th>
                                             <th>Dernière connexion</th>
                                             <th>Informations marque</th>
                                             <th  class="action">Action</th>
@@ -89,6 +90,14 @@
                                                 </td>
                                                 {% endif %}
                                                 <td class="action">
+                                                    
+                                                    {% if utilisateur.verifier != 1 %}
+                                                    <a title="Valider la vérification" href="{{ path('adminUtilisateurs_verify', {'id' : utilisateur.id}) }}"><input type="checkbox" data-toggle="toggle"></a><br>
+                                                    {% else %}
+                                                    <a title="Annuler la vérification" href="{{ path('adminUtilisateurs_unverify', {'id' : utilisateur.id}) }}"><input type="checkbox" checked data-toggle="toggle"></i></a><br>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="action">
                                                     {{ utilisateur.lastlogin|date('d M Y') }}
                                                 </td>
                                                 {% if utilisateur.marque %}
@@ -111,13 +120,14 @@
                                                 </td>
                                                 {% endif %}
                                                 <td class="action">
-                                                    <a title="Regardez utilisateur" href="{{ path('adminUtilisateurs_show', {'id' : utilisateur.id}) }}"><i class="fa fa-search"></i></a><br>
+                                                    <a title="Regardez utilisateur" href="{{ path('adminUtilisateurs_show', {'id' : utilisateur.id}) }}"><i class="fa fa-search"></i></a><br><br>
                                                     {% if utilisateur.enabled %}
                                                     <a title="Bloquez compte utilisateur" href="{{ path('adminUtilisateurs_disabled', {'id' : utilisateur.id}) }}"><i class="fa fa-lock"></i></a><br>
                                                     {% else %}
                                                     <a title="Débloquez compte utilisateur" href="{{ path('adminUtilisateurs_enabled', {'id' : utilisateur.id}) }}"><i class="fa fa-unlock"></i></a><br>
                                                     {% endif %}
-                                                    <br><br><a title="Effacez compte utilisateur" href="{{ path('adminUtilisateurs_delete', {'id' : utilisateur.id}) }}"><i class="fa fa-trash"></i></a>
+                                                    <br><a title="Effacez compte utilisateur" href="{{ path('adminUtilisateurs_delete', {'id' : utilisateur.id}) }}"><i class="fa fa-trash"></i></a> <br> <br>
+                                                    
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -143,4 +153,5 @@
     </div>
   </div>
   </section>
+
 {% endblock %}

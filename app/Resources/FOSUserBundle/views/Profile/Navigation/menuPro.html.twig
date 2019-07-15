@@ -1,7 +1,10 @@
+
 <div class="sidebar-checkout block">
+    
     <div class="sidebar-bar-title">
         &nbsp;&nbsp;<h3>MENU</h3>
     </div><br>
+    {% if user.verifier!=0 %}
     <div class="manufacturer-area">
         <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Produits</h2>
         <div class="saide-bar-menu">
@@ -59,4 +62,9 @@
           </ul>
         </div>
     </div>
+    {% else %}
+    <div class="manufacturer-area">
+        Hello <b>{{ user.prenom }}</b> une fois votre compte vérifié vous aurez accès à l'intégralité des fonctionnaliées de votre espace !!!
+    </div>
+    {% endif %}
 </div>

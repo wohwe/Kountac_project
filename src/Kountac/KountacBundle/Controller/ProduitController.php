@@ -15,7 +15,7 @@ class ProduitController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         
-        $TousProduits = $em->getRepository('KountacBundle:Produits_2')->findAll();
+        $TousProduits = $em->getRepository('KountacBundle:Produits_2')->findBy([], ['id' => 'DESC']);
         $categories = $em->getRepository('KountacBundle:Categories')->getCategoriesByName();
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
@@ -240,6 +240,9 @@ class ProduitController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $produit_2 = $em->getRepository('KountacBundle:Produits_2')->find($id);
+        if (!$produit_2) {
+            return $this->redirectToRoute('homepage');
+        }
         $marque_id = $produit_2->getProduit1()->getMarque();
         $TousProduits = $em->getRepository('KountacBundle:Produits_2')->getProduitByMarque($marque_id);
         $categories = $em->getRepository('KountacBundle:Categories')->getCategoriesByName();
@@ -389,6 +392,9 @@ class ProduitController extends Controller
         $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
         $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
+        if (!$produit) {
+            return $this->redirectToRoute('homepage');
+        }
         $images = $em->getRepository('KountacBundle:Media_motif')->findImagesTops($produit);
         $images_all = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $images_autres = $em->getRepository('KountacBundle:Media_motif')->findImagesAutres($produit);

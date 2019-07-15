@@ -204,6 +204,11 @@ class Utilisateurs extends BaseUser
      * @ORM\Column(type="integer", nullable=true)
      */
     private $points;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $verifier;
 
     
     
@@ -533,6 +538,30 @@ class Utilisateurs extends BaseUser
     public function getPoints()
     {
         return $this->points;
+    }
+
+    /**
+     * Set verifier
+     *
+     * @param string $verifier
+     *
+     * @return Utilisateurs
+     */
+    public function setVerifier($verifier)
+    {
+        $this->verifier = $verifier;
+
+        return $this;
+    }
+
+    /**
+     * Get verifier
+     *
+     * @return string
+     */
+    public function getVerifier()
+    {
+        return $this->verifier;
     }
 
     /**

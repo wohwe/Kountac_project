@@ -10,6 +10,14 @@ adminUtilisateurs_enabled:
 adminUtilisateurs_disabled:
     path:     /disabled_{id}
     defaults: { _controller: "UtilisateursBundle:UtilisateursAdmin:disabled" }
+    
+adminUtilisateurs_verify:
+    path:     /verify/{id}
+    defaults: { _controller: "UtilisateursBundle:UtilisateursAdmin:verify" }
+    
+adminUtilisateurs_unverify:
+    path:     /unverify/{id}
+    defaults: { _controller: "UtilisateursBundle:UtilisateursAdmin:unverify" }
 
 adminUtilisateurs_show:
     path:     /{id}/show
