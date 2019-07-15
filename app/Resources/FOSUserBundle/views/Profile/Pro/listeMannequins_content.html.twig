@@ -1,4 +1,3 @@
-{% if euro|length != 0 %}
 <div class="breadcrumbs">
     <div class="container">
       <div class="row">
@@ -125,12 +124,3 @@
     </div>
   </div>
   </section>
-{% elseif cfa|length != 0 %}
-    {% include 'FOSUserBundle:Profile:Pro/cfa/listeReservations_content.html.twig' %}
-{% elseif naira|length != 0 %}
-    {% include 'FOSUserBundle:Profile:Pro/naira/listeReservations_content.html.twig' %}
-{% elseif usa|length != 0 %}
-    {% include 'FOSUserBundle:Profile:Pro/usa/listeReservations_content.html.twig' %}
-{% elseif livre|length != 0 %}
-    {% include 'FOSUserBundle:Profile:Pro/livre/listeReservations_content.html.twig' %}
-{% endif %}
