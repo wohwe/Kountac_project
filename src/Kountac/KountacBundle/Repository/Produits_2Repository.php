@@ -39,6 +39,56 @@ class Produits_2Repository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
+    public function getAll() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->orderBy('p2.id', 'DESC');
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function getPrixEuro() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('MIN(p2.europrix) AS mineuro, MAX(p2.europrix) AS maxeuro');
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function getPrixCFA() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('MIN(p2.cfaprix) AS mincfa, MAX(p2.cfaprix) AS maxcfa');
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function getPrixUSA() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('MIN(p2.usaprix) AS minusa, MAX(p2.usaprix) AS maxusa');
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function getPrixLivre() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('MIN(p2.livreprix) AS minlivre, MAX(p2.livreprix) AS maxlivre');
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function getPrixNaira() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('MIN(p2.nairaprix) AS minnaira, MAX(p2.nairaprix) AS maxnaira');
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function getPrixAll() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('MIN(p2.allprix) AS minall, MAX(p2.allprix) AS maxall');
+        return $qb->getQuery()->getResult();
+    }
+    
     public function getProductByTri($prix, $motif, $taille, $marque, $categorie) 
     {
         $qb = $this->createQueryBuilder('p2')

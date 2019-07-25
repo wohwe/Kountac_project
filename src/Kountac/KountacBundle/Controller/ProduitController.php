@@ -15,14 +15,20 @@ class ProduitController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         
-        $TousProduits = $em->getRepository('KountacBundle:Produits_2')->findBy([], ['id' => 'DESC']);
+        $TousProduits = $em->getRepository('KountacBundle:Produits_2')->getAll();
+        $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
+        $cfaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixCFA();
+        $usaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixUSA();
+        $livreprix = $em->getRepository('KountacBundle:Produits_2')->getPrixLivre();
+        $nairaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixNaira();
+        $allprix = $em->getRepository('KountacBundle:Produits_2')->getPrixAll();
         $categories = $em->getRepository('KountacBundle:Categories')->getCategoriesByName();
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
         $form_taillePoids = $this->createForm(new Taille_PoidsType());
-        $produits  = $this->get('knp_paginator')->paginate($TousProduits,$this->get('request')->query->get('page', 1),20);
+        $produits  = $this->get('knp_paginator')->paginate($TousProduits,$this->get('request')->query->get('pages', 1),21);
        
         if ($session->has('tri'))
             $session->remove('tri');
@@ -197,7 +203,7 @@ class ProduitController extends Controller
                 }
             }
              
-            $produits_resultat  = $this->get('knp_paginator')->paginate($ProduitsTries,$this->get('request')->query->get('page', 1),24);
+            $produits_resultat  = $this->get('knp_paginator')->paginate($ProduitsTries,$this->get('request')->query->get('page', 1),21);
             
             if (!$session->has('tri'))
                 $session->set('tri', '1');
@@ -220,6 +226,12 @@ class ProduitController extends Controller
         }
        
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
+                                                                                            'cfaprix' => $cfaprix,
+                                                                                            'europrix' => $europrix,
+                                                                                            'usaprix' => $usaprix,
+                                                                                            'livreprix' => $livreprix,
+                                                                                            'nairaprix' => $nairaprix,
+                                                                                            'allprix' => $allprix,
                                                                                             'marques' => $marques,
                                                                                             'motifs' => $motifs,
                                                                                             'categories' => $categories,
