@@ -67,7 +67,7 @@
                                                 <td class="cart_product">{{ commande.id }}</td>
                                                 <td class="cart_product">{{ commande.achat.reference }}</td>
                                                 <td class="cart_product">{{ commande.achat.quantite }}</td>
-                                                <td class="cart_product">{{ commande.achat.reference }}</td>
+                                                <td class="cart_product">{{ commande.achat.taille }}</td>
                                                 <td class="cart_product">{{ commande.achat.prix }}</td>
                                                 <td class="cart_product">{{ commande.date.date }}</td>
                                                 <td class="cart_product">{{ commandes[0].utilisateur.prenom ~ " " ~ commandes[0].utilisateur.nom }}</td>
@@ -76,7 +76,6 @@
                                                 <td class="cart_product"><a href="{{ path('sous_achat_pro_index', {'id' : commande.id}) }}">Visualiser</a></td>
                                             </tr>
                                         {% endfor %}
-                                        {{ dump(commandes[0].utilisateur.prenom) }}
                                     </tbody>
                                 </table>
                             </div>

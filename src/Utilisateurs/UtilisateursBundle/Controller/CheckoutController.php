@@ -108,22 +108,15 @@ class CheckoutController extends Controller
             if ($form->isSubmitted() && $form->isValid()) {
                 if (!$session->has('paiement')) 
                     $session->set('paiement',array());
+
+                if (!$session->has('panier'))
+                    $session->set('panier', array());
                 
                 $paimentDetails = array();
                 
                 $nomPaiement = $form['nom']->getData();
-                /*$titulaireCartePaiement = $form['titulaire']->getData();
-                $numeroCartePaiement = $form['numero']->getData();
-                $numeroverifCartePaiement = $form['numeroverification']->getData();
-                $moixExpCartePaiement = $form['moisexp']->getData();
-                $anneeExpCartePaiement = $form['anneeexp']->getData();*/
                 
                 $paimentDetails['nom'] = $nomPaiement;
-                /*$paimentDetails['titulaire'] = $titulaireCartePaiement;
-                $paimentDetails['numero'] = $numeroCartePaiement;
-                $paimentDetails['numeroVerification'] = $numeroverifCartePaiement;
-                $paimentDetails['moisExpiration'] = $moixExpCartePaiement;
-                $paimentDetails['anneeExpiration'] = $anneeExpCartePaiement;*/
                 
                 $session->set('paiement',$paimentDetails);
                 $servicePaiement->setNom($nomPaiement);

@@ -4,9 +4,9 @@ namespace Utilisateurs\UtilisateursBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Kountac\KountacBundle\Entity\Produits_1;
-use Kountac\KountacBundle\Entity\Produits_2;
-use Kountac\KountacBundle\Entity\Produits_3;
+use Kountac\KountacBundle\Entity\produits_1;
+use Kountac\KountacBundle\Entity\produits_2;
+use Kountac\KountacBundle\Entity\produits_3;
 use Kountac\KountacBundle\Entity\Achats;
 use Kountac\KountacBundle\Entity\SousAchats;
 use Kountac\KountacBundle\Entity\Commandes;
@@ -247,11 +247,12 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
         $panier = $session->get('panier');
         
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit($user);
-        $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
+        $produits = $em->getRepository('KountacBundle:produits_3')->findArray(array_keys($session->get('panier')));
         
         foreach($produits as $produit)
         {
             $quantite = $panier[$produit->getId()];            
+            $taille = $panier[$produit->getId()];            
             $stocknew = $produit->getProduit2()->getProduit1()->getStock() - $quantite;
             $stocknew_motif =  $produit->getProduit2()->getStock() - $quantite;
             $popularite = $produit->getProduit2()->getProduit1()->getPopularite();
@@ -290,7 +291,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
         
         $this->get('session')->getFlashBag()->add('success','Votre commande a été validée avec succès');
 
-        //$myproduits2 = $em->getRepository('KountacBundle:Produits_2')->findId($achat->getAchat()['produit']);
+        //$myproduits2 = $em->getRepository('KountacBundle:produits_2')->findId($achat->getAchat()['produit']);
 
 
         $sousachats = $achat->getAchat()['produit'];
@@ -425,7 +426,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
         $total = 0;
         $total_commande = 0;
         
-        $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
+        $produits = $em->getRepository('KountacBundle:produits_3')->findArray(array_keys($session->get('panier')));
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit_acheter($user);
         
         foreach($produits as $produit)
@@ -436,6 +437,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
             $produit_2 = $produit->getproduit2();
             $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
             $achat['produit'][$produit->getId()] = array('image' => $image,
+                                                         'taille' => $produit->getTaille(),
                                                          'reference' => $produit->getproduit2()->getProduit1()->getNom(),
                                                          'motif' => $produit->getproduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
@@ -495,7 +497,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
         $total = 0;
         $total_commande = 0;
         
-        $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
+        $produits = $em->getRepository('KountacBundle:produits_3')->findArray(array_keys($session->get('panier')));
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit_acheter($user);
         //var_dump($commandes);die();
         foreach($produits as $produit)
@@ -506,6 +508,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
             $produit_2 = $produit->getproduit2();
             $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
             $achat['produit'][$produit->getId()] = array('image' => $image,
+                                                         'taille' => $produit->getTaille(),
                                                          'reference' => $produit->getproduit2()->getProduit1()->getNom(),
                                                          'motif' => $produit->getproduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
@@ -566,7 +569,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
         $total = 0;
         $total_commande = 0;
         
-        $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
+        $produits = $em->getRepository('KountacBundle:produits_3')->findArray(array_keys($session->get('panier')));
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit_acheter($user);
         
         foreach($produits as $produit)
@@ -577,6 +580,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
             $produit_2 = $produit->getproduit2();
             $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
             $achat['produit'][$produit->getId()] = array('image' => $image,
+                                                         'taille' => $produit->getTaille(),
                                                          'reference' => $produit->getProduit2()->getProduit1()->getNom(),
                                                          'motif' => $produit->getProduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
@@ -637,7 +641,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
         $total = 0;
         $total_commande = 0;
         
-        $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
+        $produits = $em->getRepository('KountacBundle:produits_3')->findArray(array_keys($session->get('panier')));
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit_acheter($user);
         
         foreach($produits as $produit)
@@ -648,6 +652,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
             $produit_2 = $produit->getproduit2();
             $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
             $achat['produit'][$produit->getId()] = array('image' => $image,
+                                                         'taille' => $produit->getTaille(),
                                                          'reference' => $produit->getProduit2()->getProduit1()->getNom(),
                                                          'motif' => $produit->getProduit2()->getLibelle()->getLibelle(),                                         
                                                          'quantite' => $panier[$produit->getId()],
@@ -708,7 +713,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
         $total = 0;
         $total_commande = 0;
         
-        $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
+        $produits = $em->getRepository('KountacBundle:produits_3')->findArray(array_keys($session->get('panier')));
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit_acheter($user);
         
         foreach($produits as $produit)
@@ -719,6 +724,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
             $produit_2 = $produit->getproduit2();
             $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
             $achat['produit'][$produit->getId()] = array('image' => $image,
+                                                         'taille' => $produit->getTaille(),
                                                          'reference' => $produit->getProduit2()->getproduit1()->getNom(),
                                                          'motif' => $produit->getProduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
@@ -779,7 +785,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
         $total = 0;
         $total_commande = 0;
         
-        $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
+        $produits = $em->getRepository('KountacBundle:produits_3')->findArray(array_keys($session->get('panier')));
         $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit_acheter($user);
         
         foreach($produits as $produit)
@@ -790,6 +796,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
             $produit_2 = $produit->getproduit2();
             $image = $em->getRepository('KountacBundle:Media_motif')->findOneBy(array('produit_2' => $produit_2, 'top' => 0));
             $achat['produit'][$produit->getId()] = array('image' => $image,
+                                                         'taille' => $produit->getTaille(),
                                                          'reference' => $produit->getProduit2()->getproduit1()->getNom(),
                                                          'motif' => $produit->getProduit2()->getLibelle()->getLibelle(),
                                                          'quantite' => $panier[$produit->getId()],
