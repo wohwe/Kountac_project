@@ -179,7 +179,7 @@
                                         <ul class="check-box-list">
                                             <li>
                                                 <fieldset>
-                                                    <output name="result4">0</output> 
+                                                    <output name="result4">{{ livreprix[0].minlivre }}</output> 
                                                     <input type="range" name="prix" min="{{ livreprix[0].minlivre }}" max="{{ livreprix[0].maxlivre }}" step="1" autocomplete="off" oninput="result4.value=parseInt(prix.value)"/>
                                                 </fieldset>
                                             </li>

@@ -177,7 +177,7 @@
                                         <ul class="check-box-list">
                                             <li>
                                                 <fieldset>
-                                                    <output name="result4">0</output> 
+                                                    <output name="result4">{{ cfaprix[0].mincfa }}</output> 
                                                     <input type="range" name="prix" min="{{ cfaprix[0].mincfa }}" max="{{ cfaprix[0].maxcfa }}" value="0" step="1" oninput="result4.value=parseInt(prix.value)" autocomplete="off" />
                                                 </fieldset>
                                             </li>

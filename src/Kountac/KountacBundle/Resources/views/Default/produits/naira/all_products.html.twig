@@ -177,7 +177,7 @@
                                         <ul class="check-box-list">
                                             <li>
                                                 <fieldset>
-                                                    <output name="result4">0</output> 
+                                                    <output name="result4">{{ nairaprix[0].minnaira }}</output> 
                                                     <input type="range" name="prix" min="{{ nairaprix[0].minnaira }}" max="{{ nairaprix[0].maxnaira }}" step="1" autocomplete="off" oninput="result4.value=parseInt(prix.value)"/>
                                                 </fieldset>
                                             </li>

@@ -48,24 +48,35 @@
                                     <thead>
                                         <tr>
                                             <th class="cart_product">Aperçu</th>
+                                            <th>N° Commande</th>
                                             <th>Description</th>
                                             <th>Quantité</th>
+                                            <th>Taille</th>
                                             <th>Prix commande</th>
                                             <th>Date d'ajout</th>
+                                            <th>Nom du client</th>
+                                            <th>Adresse de livraison</th>
                                             <th>Statut</th>
                                             <th  class="action">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for commande in commandes %}
-                                            <td class="cart_product"><img src="../../../uploadProduits/{{ commande.achat.image.path }}" alt=""></td>
-                                            <td class="cart_product">{{ commande.achat.reference }}</td>
-                                            <td class="cart_product">{{ commande.achat.quantite }}</td>
-                                            <td class="cart_product">{{ commande.achat.prix }}</td>
-                                            <td class="cart_product">{{ commande.date.date }}</td>
-                                            <td class="cart_product"><b>En attente</b></td>
-                                            <td class="cart_product"><a href="{{ path('sous_achat_pro_index', {'id' : commande.id}) }}">Visualiser</a></td>
+                                            <tr>
+                                                <td class="cart_product"><img src="../../../uploadProduits/{{ commande.achat.image.path }}" alt=""></td>
+                                                <td class="cart_product">{{ commande.id }}</td>
+                                                <td class="cart_product">{{ commande.achat.reference }}</td>
+                                                <td class="cart_product">{{ commande.achat.quantite }}</td>
+                                                <td class="cart_product">{{ commande.achat.reference }}</td>
+                                                <td class="cart_product">{{ commande.achat.prix }}</td>
+                                                <td class="cart_product">{{ commande.date.date }}</td>
+                                                <td class="cart_product">{{ commandes[0].utilisateur.prenom ~ " " ~ commandes[0].utilisateur.nom }}</td>
+                                                <td class="cart_product">{{ commandes[0].utilisateur.adresse }}</td>
+                                                <td class="cart_product"><b>En attente</b></td>
+                                                <td class="cart_product"><a href="{{ path('sous_achat_pro_index', {'id' : commande.id}) }}">Visualiser</a></td>
+                                            </tr>
                                         {% endfor %}
+                                        {{ dump(commandes[0].utilisateur.prenom) }}
                                     </tbody>
                                 </table>
                             </div>
