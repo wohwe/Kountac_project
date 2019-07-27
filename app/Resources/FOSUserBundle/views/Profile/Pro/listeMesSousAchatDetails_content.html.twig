@@ -29,7 +29,7 @@
                 <div class="cart">
                         <div class="page-content page-order"><div class="page-title">
                             {% if commandes|length != 0 %}
-                                <h2>Détails de l'achat "{{ commandes[0].achat.reference }}" &nbsp;&nbsp;{% if user.sexe %}Mme.{% else %}M.{% endif %} {{ user.prenom|capitalize }} {{ user.nom|capitalize }}</h2>
+                                <h2>Détails de l'achatss "{{ commandes[0].achat.reference }}" &nbsp;&nbsp;{% if user.sexe %}Mme.{% else %}M.{% endif %} {{ user.prenom|capitalize }} {{ user.nom|capitalize }}</h2>
                             {% endif %}
                         </div>
 
@@ -51,7 +51,7 @@
                                     <table class="table table-bordered cart_summary">
                                         <tr>
                                             <td class="cart_product">Reférence</td>
-                                            <td class="cart_product">{{ commandes[0].achat.reference }}</td>
+                                            <td class="cart_product">{{ commandes[0].achat.referencess }}</td>
                                         </tr>
                                         <tr>
                                             <td class="cart_product">Quantité</td>

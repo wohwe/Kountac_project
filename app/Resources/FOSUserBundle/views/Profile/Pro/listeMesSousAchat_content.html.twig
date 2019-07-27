@@ -73,7 +73,7 @@
                                                 <td class="cart_product">{{ commandes[0].utilisateur.prenom ~ " " ~ commandes[0].utilisateur.nom }}</td>
                                                 <td class="cart_product">{{ commandes[0].utilisateur.adresse }}</td>
                                                 <td class="cart_product"><b>En attente</b></td>
-                                                <td class="cart_product"><a href="{{ path('sous_achat_pro_index', {'id' : commande.id}) }}">Visualiser</a></td>
+                                                <td class="cart_product"><a href="{{ path('details_sous_achat', {'id' : commande.id}) }}">Visualiser</a></td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
