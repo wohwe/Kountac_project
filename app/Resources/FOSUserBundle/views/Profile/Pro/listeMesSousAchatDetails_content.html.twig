@@ -51,11 +51,15 @@
                                     <table class="table table-bordered cart_summary">
                                         <tr>
                                             <td class="cart_product">Reférence</td>
-                                            <td class="cart_product">{{ commandes[0].achat.referencess }}</td>
+                                            <td class="cart_product">{{ commandes[0].achat.reference }}</td>
                                         </tr>
                                         <tr>
                                             <td class="cart_product">Quantité</td>
                                             <td class="cart_product">{{ commandes[0].achat.quantite }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Taille</td>
+                                            <td class="cart_product">{{ commandes[0].achat.taille }}</td>
                                         </tr>
                                         <tr>
                                             <td class="cart_product">Prix</td>
@@ -67,15 +71,53 @@
                                         </tr>
                                         <tr>
                                             <td class="cart_product">Accepter</td>
-                                            <td class="cart_product">{{ commandes[0].date.date }}</td>
+                                            <td class="cart_product">
+                                                {% if commandes[0].accepter == 1 %}
+                                                    <a title="Commande acceptée" href="{{ path('accepter_sous_achat', {'id' : commandes[0].id}) }}"><input class="form-control" type="checkbox" checked disabled data-toggle="toggle"></a><br>
+                                                {% else %}
+                                                    <a title="Accepter la commande" href="{{ path('accepter_sous_achat', {'id' : commandes[0].id}) }}"><input class="form-control" type="checkbox" data-toggle="toggle"></i></a><br>
+                                                {% endif %}
+                                            </td>
                                         </tr>
+                                        <tr>
+                                            <td class="cart_product">Adresse/Contact de livraison</td>
+                                            <td class="cart_product">{{ commandes[0].utilisateur.adresse ~ ", " ~ commandes[0].utilisateur.rue ~ ", " ~ commandes[0].utilisateur.ville ~ ", CP : " ~ commandes[0].utilisateur.cp ~ ", Tel : " ~ commandes[0].utilisateur.telephone}}</td>
+                                        </tr>
+                                        {% if commandes[0].accepter == 1 %}
                                         <tr>
                                             <td class="cart_product">Livraison gérée par Kountac</td>
-                                            <td class="cart_product">{{ commandes[0].date.date }}</td>
+                                            <td class="cart_product">
+                                                {% if commandes[0].livraison == 1 %}
+                                                    <a title="passer la livraison à NON" href="{{ path('disable_livraison_sous_achat', {'id' : commandes[0].id}) }}"><input class="form-control" type="checkbox" checked data-toggle="toggle"></a><br>
+                                                {% else %}
+                                                    <a title="passer la livraison à OUI" href="{{ path('livraison_sous_achat', {'id' : commandes[0].id}) }}"><input class="form-control" type="checkbox" data-toggle="toggle"></i></a><br>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td class="cart_product">Délai de livraison (Jours)</td>
+                                            <td class="cart_product">
+                                                <form data-achat="{{ commandes[0].id }}">
+                                                    <select class="form-control">
+                                                        {% for i in 1..30 %}
+                                                            <option value="{{i}}">{{i}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </form>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="cart_product">Expédié</td>
-                                            <td class="cart_product">{{ commandes[0].date.date }}</td>
+                                            <td class="cart_product">Date d'expédition en cour</td>
+                                            <td class="cart_product">
+                                                {{app.session.get('currentDate')}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Date de reception probable</td>
+                                            <td class="cart_product delai">
+                                                
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -100,6 +142,30 @@
   </div>
   </section>
 
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="../../../../js/ajax.js"></script>
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<script type="text/javascript">
+    (function(){
+        $('select').on('change', function() {
+          //alert( this.value );
+          delai($('form').data('achat'), this.value);
+        });
+        function delai(id, nbr){
+            getData({
+                //url:"{{ path('delai_sous_achat', {'nbr' : "nbr"}) }}",
+                url:"delai_livraison/"+nbr,
+                method: "GET",
+                async:true,
+                onBegin:function(){
+                    console.log("eee");
+                },
+                onSuccess: function(e){
+                    $(".delai").text(e);
+                }
+            });
+        }
+    })();
+</script>

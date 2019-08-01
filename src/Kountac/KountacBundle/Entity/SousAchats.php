@@ -105,6 +105,27 @@ class SousAchats
      */
     private $achat;
 
+    /**
+     * @var int
+     * 
+     * @ORM\Column(name="statut", type="string")
+     */
+    private $statut;
+
+    /**
+     * @var int
+     * 
+     * @ORM\Column(name="accepter", type="integer")
+     */
+    private $accepter;
+
+    /**
+     * @var int
+     * 
+     * @ORM\Column(name="livraison", type="integer")
+     */
+    private $livraison;
+
 
     /**
      * Get id
@@ -206,6 +227,75 @@ class SousAchats
     public function getAchat()
     {
         return $this->achat;
+    }
+
+    /**
+     * Set accepter
+     *
+     * @param array $accepter
+     * @return Achats
+     */
+    public function setAccepter($accepter)
+    {
+        $this->accepter = $accepter;
+
+        return $this;
+    }
+
+    /**
+     * Get accepter
+     *
+     * @return integer 
+     */
+    public function getAccepter()
+    {
+        return $this->accepter;
+    }
+
+    /**
+     * Set livraison
+     *
+     * @param array $livraison
+     * @return Achats
+     */
+    public function setLivraison($livraison)
+    {
+        $this->livraison = $livraison;
+
+        return $this;
+    }
+
+    /**
+     * Get livraison
+     *
+     * @return integer 
+     */
+    public function getLivraison()
+    {
+        return $this->livraison;
+    }
+
+    /**
+     * Set statut
+     *
+     * @param array $statut
+     * @return Achats
+     */
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return string 
+     */
+    public function getStatut()
+    {
+        return $this->statut;
     }
 
     /**

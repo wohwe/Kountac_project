@@ -55,7 +55,7 @@
                                             <th>Prix commande</th>
                                             <th>Date d'ajout</th>
                                             <th>Nom du client</th>
-                                            <th>Adresse de livraison</th>
+                                            <th>Adresse/Contact de livraison</th>
                                             <th>Statut</th>
                                             <th  class="action">Action</th>
                                         </tr>
@@ -71,8 +71,8 @@
                                                 <td class="cart_product">{{ commande.achat.prix }}</td>
                                                 <td class="cart_product">{{ commande.date.date }}</td>
                                                 <td class="cart_product">{{ commandes[0].utilisateur.prenom ~ " " ~ commandes[0].utilisateur.nom }}</td>
-                                                <td class="cart_product">{{ commandes[0].utilisateur.adresse }}</td>
-                                                <td class="cart_product"><b>En attente</b></td>
+                                                <td class="cart_product">{{ commandes[0].utilisateur.adresse ~ ", " ~ commandes[0].utilisateur.rue ~ ", " ~ commandes[0].utilisateur.ville ~ ", CP : " ~ commandes[0].utilisateur.cp ~ ", Tel : " ~ commandes[0].utilisateur.telephone}}</td>
+                                                <td class="cart_product"><b>{{ commandes[0].statut }}</b></td>
                                                 <td class="cart_product"><a href="{{ path('details_sous_achat', {'id' : commande.id}) }}">Visualiser</a></td>
                                             </tr>
                                         {% endfor %}
