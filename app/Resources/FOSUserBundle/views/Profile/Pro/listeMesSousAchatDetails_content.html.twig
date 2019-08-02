@@ -21,7 +21,7 @@
   <!-- Breadcrumbs End --> 
 {% trans_default_domain 'FOSUserBundle' %}
 <!-- Main Container -->
-<section class="main-container col2-right-layout">
+<section class="main-container col2-right-layout" >
   <div class="main container">
     <div class="row">
       <div class="col-main col-sm-9 col-xs-12">
@@ -43,7 +43,7 @@
                                 </table>
                             </div>  
                         {% else %}
-                            <div class="table-responsive">
+                            <div class="table-responsive mytab" data-achat="{{ commandes[0].id }}">
                                 <div class="col-lg-5">
                                     <img class="cart_product" src="../../../uploadProduits/{{ commandes[0].achat.image.path }}">
                                 </div>
@@ -67,7 +67,7 @@
                                         </tr>
                                         <tr>
                                             <td class="cart_product">Date</td>
-                                            <td class="cart_product">{{ commandes[0].date.date }}</td>
+                                            <td class="cart_product">{{ commandes[0].date.date|date("d/m/Y") }}</td>
                                         </tr>
                                         <tr>
                                             <td class="cart_product">Accepter</td>
@@ -87,15 +87,21 @@
                                         <tr>
                                             <td class="cart_product">Livraison gérée par Kountac</td>
                                             <td class="cart_product">
+                                                {% set check = "" %}
                                                 {% if commandes[0].livraison == 1 %}
-                                                    <a title="passer la livraison à NON" href="{{ path('disable_livraison_sous_achat', {'id' : commandes[0].id}) }}"><input class="form-control" type="checkbox" checked data-toggle="toggle"></a><br>
+                                                    {% set check = "checked" %}
                                                 {% else %}
-                                                    <a title="passer la livraison à OUI" href="{{ path('livraison_sous_achat', {'id' : commandes[0].id}) }}"><input class="form-control" type="checkbox" data-toggle="toggle"></i></a><br>
+                                                    {% set check = "" %}
                                                 {% endif %}
+                                                <input class="form-control livraison" type="checkbox" data-check="{{ check }}" {{ check }} data-toggle="toggle">
                                             </td>
                                         </tr>
                                         {% endif %}
-                                        <tr>
+                                        {% set display = "none" %}
+                                        {% if commandes[0].livraison != 1 %}
+                                            {% set display = "block" %}
+                                        {% endif %}
+                                        <tr class="div"  style="">
                                             <td class="cart_product">Délai de livraison (Jours)</td>
                                             <td class="cart_product">
                                                 <form data-achat="{{ commandes[0].id }}">
@@ -107,16 +113,26 @@
                                                 </form>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr class="div"  style="">
                                             <td class="cart_product">Date d'expédition en cour</td>
                                             <td class="cart_product">
                                                 {{app.session.get('currentDate')}}
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr class="div"  style="">
                                             <td class="cart_product">Date de reception probable</td>
                                             <td class="cart_product delai">
-                                                
+                                                {{app.session.get('deliveryDate').date|date("d/m/Y")}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Expédier</td>
+                                            <td class="cart_product">
+                                                {% if commandes[0].livraison == 1 %}
+                                                    <a title="Expédier" href="{{ path('disable_livraison_sous_achat', {'id' : commandes[0].id}) }}"><input class="form-control" type="checkbox" checked data-toggle="toggle"></a><br>
+                                                {% else %}
+                                                    <a title="Livraison déja expédier" href="{{ path('livraison_sous_achat', {'id' : commandes[0].id}) }}"><input class="form-control" type="checkbox" data-toggle="toggle"></i></a><br>
+                                                {% endif %}
                                             </td>
                                         </tr>
                                     </table>
@@ -149,9 +165,26 @@
 
 <script type="text/javascript">
     (function(){
+        /*if ($('.livraison').data("check")) {
+            disable_livraison($('.mytab').data('achat'));
+        }else{
+            enable_livraison($('.mytab').data('achat'));
+        }*/
         $('select').on('change', function() {
           //alert( this.value );
           delai($('form').data('achat'), this.value);
+        });
+        $('.livraison').on('change', function() {
+          //alert( this.value );
+            if ($('.livraison').data("check")) {
+                disable_livraison($('.mytab').data('achat'));
+                $('.livraison').data("check", "");
+                //document.location.href = "{{ path('disable_livraison_sous_achat', {'id' : commandes[0].id}) }}";
+            }else{
+                enable_livraison($('.mytab').data('achat'));
+                $('.livraison').data("check", "checked");
+                //document.location.href = "{{ path('livraison_sous_achat', {'id' : commandes[0].id}) }}";
+            }
         });
         function delai(id, nbr){
             getData({
@@ -164,6 +197,34 @@
                 },
                 onSuccess: function(e){
                     $(".delai").text(e);
+                }
+            });
+        }
+        function disable_livraison(id){
+            getData({
+                //url:"{{ path('delai_sous_achat', {'nbr' : "nbr"}) }}",
+                url:"disable_livraison/"+id,
+                method: "GET",
+                async:true,
+                onBegin:function(){
+                    
+                },
+                onSuccess: function(e){
+                    $(".div").fadeIn();
+                }
+            });
+        }
+        function enable_livraison(id){
+            getData({
+                //url:"{{ path('delai_sous_achat', {'nbr' : "nbr"}) }}",
+                url:"livraison/"+id,
+                method: "GET",
+                async:true,
+                onBegin:function(){
+
+                },
+                onSuccess: function(e){
+                    $(".div").fadeOut();
                 }
             });
         }

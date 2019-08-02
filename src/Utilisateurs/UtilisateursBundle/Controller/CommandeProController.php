@@ -73,7 +73,13 @@ class CommandeProController extends Controller
         //var_dump($listesCommandes);
         $currentDate = date("d/m/Y");
 
+        $probaDate = new DateTime();
+        $probaDate->setDate(date('Y'), date('m'), date('d'));
+
+        $newDate = $probaDate->modify('+1 days');
+
         $this->get('session')->set('currentDate',$currentDate);
+        $this->get('session')->set('deliveryDate',$newDate);
         
         $commandes  = $this->get('knp_paginator')->paginate($listesCommandes,$this->get('request')->query->get('page', 1),10);
         return $this->render('FOSUserBundle:Profile:Pro/ListeMesSousAchatDetails.html.twig', array(
@@ -134,8 +140,10 @@ class CommandeProController extends Controller
         $currentDate = date("d/m/Y");
 
         $this->get('session')->set('currentDate',$currentDate);
+
+        return new Response('ok');
         
-        return $this->redirectToRoute('details_sous_achat', array('id' => $sousAchat->getId()));
+        //return $this->redirectToRoute('details_sous_achat', array('id' => $sousAchat->getId()));
     }
 
     /**
@@ -153,8 +161,10 @@ class CommandeProController extends Controller
         $currentDate = date("d/m/Y");
 
         $this->get('session')->set('currentDate',$currentDate);
+
+        return new Response('ok');
         
-        return $this->redirectToRoute('details_sous_achat', array('id' => $sousAchat->getId()));
+        //return $this->redirectToRoute('details_sous_achat', array('id' => $sousAchat->getId()));
     }
 
     /**
