@@ -125,9 +125,6 @@ class CommandeProController extends Controller
         return $this->redirectToRoute('details_sous_achat', array('id' => $sousAchat->getId()));
     }
 
-    /**
-     * Livraison of sous achat.
-     */
     public function livraisonSousAchatAction(SousAchats $sousAchat)
     {
         $user = $this->getUser();
@@ -143,12 +140,9 @@ class CommandeProController extends Controller
 
         return new Response('ok');
         
-        //return $this->redirectToRoute('details_sous_achat', array('id' => $sousAchat->getId()));
     }
 
-    /**
-     * Livraison of sous achat.
-     */
+    
     public function disableLivraisonSousAchatAction(SousAchats $sousAchat)
     {
         $user = $this->getUser();
@@ -164,20 +158,12 @@ class CommandeProController extends Controller
 
         return new Response('ok');
         
-        //return $this->redirectToRoute('details_sous_achat', array('id' => $sousAchat->getId()));
     }
 
-    /**
-     * Livraison of sous achat.
-     */
-    public function delaiLivraisonSousAchatAction(/*SousAchats $sousAchat, */$nbr)
+    public function delaiLivraisonSousAchatAction($nbr)
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        /*$sousAchat->setLivraison(0);
-        $em->persist($sousAchat);
-        $em->flush();*/
-
 
         $currentDate = date("d/m/Y");
 
@@ -191,6 +177,26 @@ class CommandeProController extends Controller
 
         return new Response($newDate->format("d/m/Y"));
         
+    }
+
+
+    public function expedierLivraisonSousAchatAction(SousAchats $sousAchat)
+    {
+        $currentDate = date("Y-m-d");
+
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $sousAchat->setExpedier(1);
+        $sousAchat->setDate_expedition($currentDate);
+        $sousAchat->setDate_reception($this->get('session')->get('deliveryDate')->format("Y-m-d"));
+        $em->persist($sousAchat);
+        $em->flush();
+
+
+
+        $this->get('session')->set('currentDate',$currentDate);
+
+        return $this->redirectToRoute('details_sous_achat', array('id' => $sousAchat->getId()));
     }
     
     

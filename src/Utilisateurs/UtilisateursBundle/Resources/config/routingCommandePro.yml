@@ -34,6 +34,11 @@ delai_sous_achat:
     defaults: { _controller: "UtilisateursBundle:CommandePro:delaiLivraisonSousAchat" }
     methods:  GET
     
+expedier_sous_achat:
+    path:     /achat-en-instance/expedier_livraison/{id}
+    defaults: { _controller: "UtilisateursBundle:CommandePro:expedierLivraisonSousAchat" }
+    methods:  GET
+    
 commande_pro_show:
     path:     /{id}_show
     defaults: { _controller: "UtilisateursBundle:CommandePro:show" }

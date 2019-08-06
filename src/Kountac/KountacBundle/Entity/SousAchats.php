@@ -126,6 +126,27 @@ class SousAchats
      */
     private $livraison;
 
+    /**
+     * @var int
+     * 
+     * @ORM\Column(name="expedier", type="integer")
+     */
+    private $expedier;
+
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="date_expedition", type="string")
+     */
+    private $date_expedition;
+
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="date_reception", type="string")
+     */
+    private $date_reception;
+
 
     /**
      * Get id
@@ -273,6 +294,75 @@ class SousAchats
     public function getLivraison()
     {
         return $this->livraison;
+    }
+
+    /**
+     * Set expedier
+     *
+     * @param array $expedier
+     * @return Achats
+     */
+    public function setExpedier($expedier)
+    {
+        $this->expedier = $expedier;
+
+        return $this;
+    }
+
+    /**
+     * Get expedier
+     *
+     * @return integer 
+     */
+    public function getExpedier()
+    {
+        return $this->expedier;
+    }
+
+    /**
+     * Set date_expedition
+     *
+     * @param array $date_expedition
+     * @return Achats
+     */
+    public function setDate_expedition($date_expedition)
+    {
+        $this->date_expedition = $date_expedition;
+
+        return $this;
+    }
+
+    /**
+     * Get date_expedition
+     *
+     * @return integer 
+     */
+    public function getDate_expedition()
+    {
+        return $this->date_expedition;
+    }
+
+    /**
+     * Set date_reception
+     *
+     * @param array $date_reception
+     * @return Achats
+     */
+    public function setDate_reception($date_reception)
+    {
+        $this->date_reception = $date_reception;
+
+        return $this;
+    }
+
+    /**
+     * Get date_reception
+     *
+     * @return integer 
+     */
+    public function getDate_reception()
+    {
+        return $this->date_reception;
     }
 
     /**
