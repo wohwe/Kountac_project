@@ -20,6 +20,7 @@ class SousAchatsRepository extends EntityRepository
                 ->andWhere('u.valider = 1')
                 ->andWhere('u.reference != 0')
                 ->andWhere('u.effacer != 1')
+                ->andWhere('u.statut != "Expedier"')
                 ->orderBy('u.id')
                 ->setParameter('utilisateur', $utilisateur);
         
