@@ -133,7 +133,7 @@
                                                 <td class="cart_product">Date d'expédition en cour</td>
                                                 <td class="cart_product">
                                                     {% if commandes[0].expedier == 1 %}
-                                                        {{ commandes[0].date_expedition|date("m/d/Y") }}
+                                                        {{ commandes[0].date_expedition|date("d/m/Y") }}
                                                     {% else %}
                                                         {{app.session.get('currentDate')}}
                                                     {% endif %}
@@ -144,7 +144,7 @@
                                                 <td class="cart_product">Date de reception probable</td>
                                                 <td class="cart_product delai" data-delai="">
                                                     {% if commandes[0].expedier == 1 %}
-                                                        {{ commandes[0].date_reception|date("m/d/Y") }}
+                                                        {{ commandes[0].date_reception|date("d/m/Y") }}
                                                     {% else %}
                                                         {{app.session.get('currentDate')}}
                                                     {% endif %}
@@ -159,7 +159,14 @@
                                                     {% else %}
                                                         {% set check = "" %}
                                                     {% endif %}
-                                                    <input class="form-control expedier" disabled type="checkbox"  data-achat="{{ commandes[0].id }}" data-check="{{ check }}" {{ check }} data-toggle="toggle">
+
+                                                    {% set isLivraison = "" %}
+                                                    {% if commandes[0].livraison == 1 %}
+                                                        {% set isLivraison = "" %}
+                                                    {% else %}
+                                                        {% set isLivraison = "disabled" %}
+                                                    {% endif %}
+                                                    <input class="form-control expedier" {{ isLivraison }} type="checkbox"  data-achat="{{ commandes[0].id }}" data-check="{{ check }}" {{ check }} data-toggle="toggle">
                                                 </td>
                                             </tr>
                                         {% endif %}
@@ -251,6 +258,7 @@
                 },
                 onSuccess: function(e){
                     $(".div").fadeIn();
+                    location.reload();
                 }
             });
         }

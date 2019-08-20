@@ -187,6 +187,7 @@ class CommandeProController extends Controller
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $sousAchat->setExpedier(1);
+        $sousAchat->setStatut("Expedier");
         $sousAchat->setDate_expedition($currentDate);
         $sousAchat->setDate_reception($this->get('session')->get('deliveryDate')->format("Y-m-d"));
         $em->persist($sousAchat);
@@ -196,7 +197,7 @@ class CommandeProController extends Controller
 
         $this->get('session')->set('currentDate',$currentDate);
 
-        return $this->redirectToRoute('details_sous_achat', array('id' => $sousAchat->getId()));
+        return $this->redirectToRoute('sous_achat_pro_index');
     }
     
     

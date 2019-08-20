@@ -147,6 +147,20 @@ class SousAchats
      */
     private $date_reception;
 
+    /**
+     * @var int
+     * 
+     * @ORM\Column(name="statut_reception", type="integer")
+     */
+    private $statut_reception;
+
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="date_livraison", type="string")
+     */
+    private $date_livraison;
+
 
     /**
      * Get id
@@ -386,6 +400,52 @@ class SousAchats
     public function getStatut()
     {
         return $this->statut;
+    }
+
+    /**
+     * Set statut_reception
+     *
+     * @param array $statut_reception
+     * @return Achats
+     */
+    public function setStatut_reception($statut_reception)
+    {
+        $this->statut_reception = $statut_reception;
+
+        return $this;
+    }
+
+    /**
+     * Get statut_reception
+     *
+     * @return integer 
+     */
+    public function getStatut_reception()
+    {
+        return $this->statut_reception;
+    }
+
+    /**
+     * Set date_livraison
+     *
+     * @param array $date_livraison
+     * @return Achats
+     */
+    public function setDate_livraison($date_livraison)
+    {
+        $this->date_livraison = $date_livraison;
+
+        return $this;
+    }
+
+    /**
+     * Get date_livraison
+     *
+     * @return string 
+     */
+    public function getDate_livraison()
+    {
+        return $this->date_livraison;
     }
 
     /**
