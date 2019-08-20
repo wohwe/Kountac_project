@@ -296,7 +296,9 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
 
         $sousachats = $achat->getAchat()['produit'];
 
+        $index = 0;
         foreach ($sousachats as $sousachat) {
+            $index++;
             $NewSousAchat = new SousAchats();
             $idMarqueSAchat = $sousachat['image']->getProduit2()->getProduit1()->getMarque()->getId();
 
@@ -307,6 +309,14 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
             $qteMarqueSAchat = $sousachat['quantite'];
             $prixMarqueSAchat = $sousachat['prix'];
 
+            $currentDateTime = date('Y-m-d H:i:s');
+            $currentDateTime = str_replace(" ", "", $currentDateTime);
+            $currentDateTime = str_replace("-", "", $currentDateTime);
+            $currentDateTime = str_replace(":", "", $currentDateTime);
+            $currentDateTime = strtoupper($currentDateTime)."".$index;
+
+            $numCmd = "$currentDateTime";
+
             $NewSousAchat->setDate(new \DateTime());
             $NewSousAchat->setUtilisateur($this->getUser());
             $NewSousAchat->setValider(0);
@@ -315,7 +325,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
             $NewSousAchat->setLivraison(0);
             $NewSousAchat->setStatut("En attente");
             $NewSousAchat->setMarque($idMarqueSAchat);
-            //$NewSousAchat->setReference($refMarqueSAchat);
+            $NewSousAchat->setReference($numCmd);
             $NewSousAchat->setAchat($sousachat);
 
             if ($session->has('euro')){
