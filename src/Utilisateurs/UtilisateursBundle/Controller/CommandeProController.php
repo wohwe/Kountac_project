@@ -48,7 +48,7 @@ class CommandeProController extends Controller
         $currentDate = date("d/m/Y");
 
         $this->get('session')->set('currentDate',$currentDate);
-        
+
         $commandes  = $this->get('knp_paginator')->paginate($listesCommandes,$this->get('request')->query->get('page', 1),10);
         return $this->render('FOSUserBundle:Profile:Pro/listeMesSousAchat.html.twig', array(
             'commandes' => $commandes,
@@ -193,6 +193,8 @@ class CommandeProController extends Controller
         $em->persist($sousAchat);
         $em->flush();
 
+        $countSousAchat = $em->getRepository('KountacBundle:SousAchats')->getSousAchatsCount($user->getId());
+        $this->get('session')->set('nbrSousAchat', count($countSousAchat));
 
 
         $this->get('session')->set('currentDate',$currentDate);

@@ -19,8 +19,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+
 class ProfileController extends BaseController
 {
+
 
     public function __construct()
     {
@@ -29,8 +31,11 @@ class ProfileController extends BaseController
     
     public function showProAction(Request $request)
     {
-        
+
         $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $countSousAchat = $em->getRepository('KountacBundle:SousAchats')->getSousAchatsCount($user->getId());
+        $this->get('session')->set('nbrSousAchat', count($countSousAchat));
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }

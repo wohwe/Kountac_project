@@ -62,7 +62,11 @@
                                     </thead>
                                     <tbody>
                                         {% for commande in commandes %}
-                                            <tr>
+                                            {% set color = "" %}
+                                            {% if commande.statut != "Expedier" %}
+                                                {% set color = "#f2dede" %}
+                                            {% endif %}
+                                            <tr  style="background-color: {{ color }}">
                                                 <td class="cart_product"><img src="../../../uploadProduits/{{ commande.achat.image.path }}" alt=""></td>
                                                 <td class="cart_product">{{ commande.reference }}</td>
                                                 <td class="cart_product">{{ commande.achat.reference }}</td>

@@ -20,7 +20,6 @@ class SousAchatsRepository extends EntityRepository
                 ->andWhere('u.valider = 1')
                 ->andWhere('u.reference != 0')
                 ->andWhere('u.effacer != 1')
-                ->andWhere('u.statut != "Expedier"')
                 ->orderBy('u.id')
                 ->setParameter('utilisateur', $utilisateur);
         
@@ -59,13 +58,26 @@ class SousAchatsRepository extends EntityRepository
         ;
         return $qb->getQuery()->getResult();
     }
-    
-    public function getAchatsByIdUser($id) 
+
+    public function getAchatsByIdUser($id)
     {
         $qb = $this->createQueryBuilder('u')
-                ->select('u')
-                ->where('u.marque = :id')
-                ->setParameter('id', $id)
+            ->select('u')
+            ->where('u.marque = :id')
+            ->setParameter('id', $id)
+            ->orderBy('u.expedier')
+        ;
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getSousAchatsCount($id)
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.marque = :id')
+            ->andWhere('u.statut != :statut')
+            ->setParameter('id', $id)
+            ->setParameter('statut', "Expedier")
         ;
         return $qb->getQuery()->getResult();
     }
