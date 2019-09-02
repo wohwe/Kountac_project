@@ -293,4 +293,40 @@ class CommandeProController extends Controller
         
         return $this->redirectToRoute('commande_pro_index');
     }
+
+    public function echeanceSousAchatAction(SousAchats $sousAchat){
+
+        $currentDate = date("Y-m-d");
+        $dateReception = $sousAchat->getDate_reception();
+
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $diff = abs($dateReception - $currentDate); // abs pour avoir la valeur absolute, ainsi éviter d'avoir une différence négative
+        $retour = array();
+
+        $tmp = $diff;
+        $retour['second'] = $tmp % 60;
+
+        $tmp = floor( ($tmp - $retour['second']) /60 );
+        $retour['minute'] = $tmp % 60;
+
+        $tmp = floor( ($tmp - $retour['minute'])/60 );
+        $retour['hour'] = $tmp % 24;
+
+        $tmp = floor( ($tmp - $retour['hour'])  /24 );
+        $retour['day'] = $tmp;
+
+        echo json_encode($retour);
+
+        /*
+        $now = time();
+        $nextM = strtotime('next monday');
+        $tps_restant = dateDiff($nextM,$now) ;
+        echo "<br>";
+        Echo "Il reste : " .$tps_restant['day'] ." jours " .$tps_restant['hour'] ." Heures " .$tps_restant['minute'] ." minutes " .$tps_restant['second'] ." secondes " ;
+        */
+    }
+
+
 }

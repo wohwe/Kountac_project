@@ -314,6 +314,7 @@ $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
             $currentDateTime = str_replace("-", "", $currentDateTime);
             $currentDateTime = str_replace(":", "", $currentDateTime);
             $currentDateTime = strtoupper($currentDateTime)."".$index;
+            $currentDateTime = substr($currentDateTime,2);
 
             $numCmd = "$currentDateTime";
 
