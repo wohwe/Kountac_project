@@ -184,8 +184,10 @@
                                         <ul class="check-box-list">
                                             <li>
                                                 <fieldset>
-                                                    <output name="result4">100</output> 
-                                                    <input type="range" name="prix" min="0" max="1000" step="10" value="100" oninput="result4.value=parseInt(prix.value)"/>
+                                                    <!--output name="result4">{{ europrix[0].mineuro }}</output>
+                                                    <input type="range" multiple name="prix" min="{{ europrix[0].mineuro }}" max="{{ europrix[0].maxeuro }}" value="0" step="1" oninput="result4.value=parseInt(prix.value)" autocomplete="off" /-->
+                                                    <input type="text" name="result4" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold; margin: 10px;">
+                                                    <div id="slider-range" style=" margin-left: 10px; margin-right: 10px;"></div>
                                                 </fieldset>
                                             </li>
                                         </ul>
@@ -376,15 +378,34 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(function () {
-            $('.range').next().text('--'); // Valeur par défaut
-            $('.range').on('input', function () {
-                var $set = $(this).val();
-                $(this).next().text($set);
-            });
-        });
-    </script>
+        <!--script type="text/javascript">
+                $(function () {
+                    $('.range').next().text('--'); // Valeur par défaut
+                    $('.range').on('input', function () {
+                        var $set = $(this).val();
+                        $(this).next().text($set);
+                    });
+                });
+            </script-->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $( function() {
+                $( "#slider-range" ).slider({
+                    range: true,
+                    min: {{ europrix[0].mineuro }},
+                    max: {{ europrix[0].maxeuro }},
+                    values: [ {{ europrix[0].mineuro }}, {{ europrix[0].maxeuro }} ],
+                    slide: function( event, ui ) {
+                        $( "#amount" ).val(ui.values[ 0 ].toLocaleString('en') + " - " + ui.values[ 1 ].toLocaleString('en')  );
+                    }
+                });
+                $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ).toLocaleString('en') + " - " +
+                    $( "#slider-range" ).slider( "values", 1 ).toLocaleString('en') );
+            } );
+        </script>
     {% elseif cfa|length != 0 %}
         {% include 'KountacBundle:Default:produits/cfa/marque_espacesTaillePoids.html.twig' %}
     {% elseif livre|length != 0 %}

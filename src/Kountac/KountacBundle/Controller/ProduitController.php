@@ -209,6 +209,12 @@ class ProduitController extends Controller
                 $session->set('tri', '1');
         
             return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits_resultat,
+                'cfaprix' => $cfaprix,
+                'europrix' => $europrix,
+                'usaprix' => $usaprix,
+                'livreprix' => $livreprix,
+                'nairaprix' => $nairaprix,
+                'allprix' => $allprix,
                                                                                             'categories' => $categories,
                                                                                             'marques' => $marques,
                                                                                             'mannequins' => $mannequins,
