@@ -2,10 +2,10 @@
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Aug 09, 2019 at 02:08 PM
--- Server version: 5.7.19
--- PHP Version: 5.6.31
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  Dim 08 sep. 2019 à 21:50
+-- Version du serveur :  5.7.19
+-- Version de PHP :  7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `kountacffauser3`
+-- Base de données :  `kountacffauser3`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `achats`
+-- Structure de la table `achats`
 --
 
 DROP TABLE IF EXISTS `achats`;
@@ -46,20 +46,19 @@ CREATE TABLE IF NOT EXISTS `achats` (
   PRIMARY KEY (`id`),
   KEY `IDX_9920924EFB88E14F` (`utilisateur_id`),
   KEY `utilisateur_id` (`utilisateur_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `achats`
+-- Déchargement des données de la table `achats`
 --
 
 INSERT INTO `achats` (`id`, `utilisateur_id`, `valider`, `effacer`, `euro`, `all_a`, `livre`, `usa`, `cfa`, `naira`, `date_a`, `reference`, `achat`) VALUES
-(97, 8, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, '2019-07-25', 1, 'a:6:{s:7:\"produit\";a:1:{i:54;a:7:{s:5:\"image\";O:40:\"Kountac\\KountacBundle\\Entity\\Media_motif\":11:{s:44:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0id\";i:46;s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0mannequin\";O:53:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Mannequin\":16:{s:17:\"__isInitialized__\";b:0;s:42:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0id\";i:24;s:46:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0marque\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0picture\";N;s:4:\"file\";N;s:50:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_ajout\";N;s:51:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_update\";N;s:53:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0nom_mannequin\";N;s:65:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_standard_mannequin\";N;s:55:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0poids_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_mannequin\";N;s:62:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0numero_teint_mannequin\";N;s:61:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_taille_mannequin\";N;s:63:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_poitrine_mannequin\";N;s:70:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_grandes_hanches_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0statut_mannequin\";N;}s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0produit_2\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_2\":27:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0id\";i:50;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_1\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_1\":16:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0id\";i:27;s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0collection\";O:55:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Collections\":3:{s:17:\"__isInitialized__\";b:0;s:44:\"\0Kountac\\KountacBundle\\Entity\\Collections\0id\";i:4;s:45:\"\0Kountac\\KountacBundle\\Entity\\Collections\0nom\";N;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0produit_2\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0categorie\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Categories\":5:{s:17:\"__isInitialized__\";b:0;s:43:\"\0Kountac\\KountacBundle\\Entity\\Categories\0id\";i:14;s:49:\"\0Kountac\\KountacBundle\\Entity\\Categories\0children\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Categories\0parent\";N;s:44:\"\0Kountac\\KountacBundle\\Entity\\Categories\0nom\";N;}s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0looks\";O:55:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Idees_looks\":3:{s:17:\"__isInitialized__\";b:0;s:44:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0id\";i:5;s:45:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0nom\";N;}s:47:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0marque\";C:51:\"Utilisateurs\\UtilisateursBundle\\Entity\\Utilisateurs\":206:{a:8:{i:0;s:60:\"$2y$13$nF5bt32v7MmjOp74xFGJXOKKylzV4VNYxWWsyLoDh0JB4ZtMOz8ge\";i:1;N;i:2;s:7:\"kroskel\";i:3;s:7:\"Kroskel\";i:4;b:1;i:5;i:8;i:6;s:23:\"ornelladjoukui@yahoo.fr\";i:7;s:23:\"ornelladjoukui@yahoo.fr\";}}s:44:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0nom\";s:10:\"Veste Sota\";s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0matiere\";s:5:\"Coton\";s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0description\";s:209:\"La veste Sota est une veste en coton couleur jaune soufre, qui descend jusque au-dessous des petites hanches. Elle possède une poche de chaque côté, n’est pas boutonnée et présente un large col cranté.\";s:63:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0conditions_utilisation\";s:341:\"Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. Cette veste peut être séchée à la machine, en choisissant le programme adéquat. Repasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.\";s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0popularite\";i:1;s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0stock\";i:27;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateajout\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2018-12-14 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateupdate\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2018-12-15 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateachat\";N;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_3\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0commentaire\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0libelle\";O:58:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Libelles_motif\":6:{s:17:\"__isInitialized__\";b:1;s:47:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0id\";i:25;s:54:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0mannequin\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:52:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0libelle\";s:5:\"Jaune\";s:4:\"path\";s:45:\"e413af2371c7bf4458a0af5d18622f6823179d93.jpeg\";s:4:\"file\";N;}s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0stock\";i:27;s:45:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0etat\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0reduction\";d:0;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprix\";d:70;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprixCommande\";d:110;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprecommande\";b:0;s:49:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrix\";d:65;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrixCommande\";d:105;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrecommande\";b:0;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprix\";d:27000;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprixCommande\";d:42000;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprecommande\";b:0;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprix\";d:80;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprixCommande\";d:120;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprecommande\";b:0;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprix\";d:65;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprixCommande\";d:105;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprecommande\";b:0;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprix\";d:17900;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprixCommande\";d:35900;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprecommande\";b:0;}s:4:\"path\";s:45:\"275a95fbf667e267ec46fe65204c0c6af231b510.jpeg\";s:5:\"path2\";s:46:\"dc0d0ce54740af42c31ebcbdba2e39a2a7acc4be2.jpeg\";s:5:\"path3\";s:46:\"a3845775a3879f5f22aa92b8b2de2df2a07e77fc3.jpeg\";s:45:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0top\";b:0;s:4:\"file\";N;s:5:\"file2\";N;s:5:\"file3\";N;s:9:\"modifieLe\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2019-07-25 15:26:07.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}}s:6:\"taille\";s:2:\"34\";s:9:\"reference\";s:10:\"Veste Sota\";s:5:\"motif\";s:5:\"Jaune\";s:8:\"quantite\";s:1:\"2\";s:4:\"prix\";d:27000;s:6:\"devise\";s:4:\"fcfa\";}}s:9:\"livraison\";a:10:{s:6:\"prenom\";s:7:\"Ornella\";s:3:\"nom\";s:7:\"DJOUKUI\";s:5:\"email\";s:23:\"ornelladjoukui@yahoo.fr\";s:9:\"telephone\";d:644784429;s:12:\"telephonefix\";d:644784429;s:7:\"adresse\";s:16:\"12 rue de Valois\";s:2:\"cp\";d:91940;s:5:\"ville\";s:8:\"Les Ulis\";s:4:\"pays\";s:2:\"FR\";s:3:\"Rue\";s:16:\"12 rue du valois\";}s:11:\"facturation\";a:10:{s:6:\"prenom\";s:7:\"Ornella\";s:3:\"nom\";s:7:\"DJOUKUI\";s:5:\"email\";s:23:\"ornelladjoukui@yahoo.fr\";s:9:\"telephone\";d:644784429;s:12:\"telephonefix\";d:644784429;s:7:\"adresse\";s:16:\"12 rue de Valois\";s:2:\"cp\";d:91940;s:5:\"ville\";s:8:\"Les Ulis\";s:4:\"pays\";s:2:\"FR\";s:3:\"Rue\";s:16:\"12 rue du valois\";}s:4:\"prix\";d:54000;s:12:\"prixCommande\";d:0;s:5:\"token\";s:40:\"6c28550fe4e8082e553286f06cee05401da712f0\";}'),
-(98, 41, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, '2019-07-25', 2, 'a:6:{s:7:\"produit\";a:1:{i:62;a:7:{s:5:\"image\";O:40:\"Kountac\\KountacBundle\\Entity\\Media_motif\":11:{s:44:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0id\";i:46;s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0mannequin\";O:53:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Mannequin\":16:{s:17:\"__isInitialized__\";b:0;s:42:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0id\";i:24;s:46:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0marque\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0picture\";N;s:4:\"file\";N;s:50:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_ajout\";N;s:51:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_update\";N;s:53:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0nom_mannequin\";N;s:65:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_standard_mannequin\";N;s:55:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0poids_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_mannequin\";N;s:62:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0numero_teint_mannequin\";N;s:61:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_taille_mannequin\";N;s:63:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_poitrine_mannequin\";N;s:70:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_grandes_hanches_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0statut_mannequin\";N;}s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0produit_2\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_2\":27:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0id\";i:50;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_1\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_1\":16:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0id\";i:27;s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0collection\";O:55:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Collections\":3:{s:17:\"__isInitialized__\";b:0;s:44:\"\0Kountac\\KountacBundle\\Entity\\Collections\0id\";i:4;s:45:\"\0Kountac\\KountacBundle\\Entity\\Collections\0nom\";N;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0produit_2\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0categorie\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Categories\":5:{s:17:\"__isInitialized__\";b:0;s:43:\"\0Kountac\\KountacBundle\\Entity\\Categories\0id\";i:14;s:49:\"\0Kountac\\KountacBundle\\Entity\\Categories\0children\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Categories\0parent\";N;s:44:\"\0Kountac\\KountacBundle\\Entity\\Categories\0nom\";N;}s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0looks\";O:55:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Idees_looks\":3:{s:17:\"__isInitialized__\";b:0;s:44:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0id\";i:5;s:45:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0nom\";N;}s:47:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0marque\";C:66:\"Proxies\\__CG__\\Utilisateurs\\UtilisateursBundle\\Entity\\Utilisateurs\":206:{a:8:{i:0;s:60:\"$2y$13$nF5bt32v7MmjOp74xFGJXOKKylzV4VNYxWWsyLoDh0JB4ZtMOz8ge\";i:1;N;i:2;s:7:\"kroskel\";i:3;s:7:\"Kroskel\";i:4;b:1;i:5;i:8;i:6;s:23:\"ornelladjoukui@yahoo.fr\";i:7;s:23:\"ornelladjoukui@yahoo.fr\";}}s:44:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0nom\";s:10:\"Veste Sota\";s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0matiere\";s:5:\"Coton\";s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0description\";s:209:\"La veste Sota est une veste en coton couleur jaune soufre, qui descend jusque au-dessous des petites hanches. Elle possède une poche de chaque côté, n’est pas boutonnée et présente un large col cranté.\";s:63:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0conditions_utilisation\";s:341:\"Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. Cette veste peut être séchée à la machine, en choisissant le programme adéquat. Repasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.\";s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0popularite\";i:2;s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0stock\";i:25;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateajout\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2018-12-14 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateupdate\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2018-12-15 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateachat\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2019-07-25 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_3\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0commentaire\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0libelle\";O:58:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Libelles_motif\":6:{s:17:\"__isInitialized__\";b:1;s:47:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0id\";i:25;s:54:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0mannequin\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:52:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0libelle\";s:5:\"Jaune\";s:4:\"path\";s:45:\"e413af2371c7bf4458a0af5d18622f6823179d93.jpeg\";s:4:\"file\";N;}s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0stock\";i:25;s:45:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0etat\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0reduction\";d:0;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprix\";d:70;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprixCommande\";d:110;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprecommande\";b:0;s:49:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrix\";d:65;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrixCommande\";d:105;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrecommande\";b:0;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprix\";d:27000;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprixCommande\";d:42000;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprecommande\";b:0;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprix\";d:80;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprixCommande\";d:120;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprecommande\";b:0;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprix\";d:65;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprixCommande\";d:105;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprecommande\";b:0;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprix\";d:17900;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprixCommande\";d:35900;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprecommande\";b:0;}s:4:\"path\";s:45:\"275a95fbf667e267ec46fe65204c0c6af231b510.jpeg\";s:5:\"path2\";s:46:\"dc0d0ce54740af42c31ebcbdba2e39a2a7acc4be2.jpeg\";s:5:\"path3\";s:46:\"a3845775a3879f5f22aa92b8b2de2df2a07e77fc3.jpeg\";s:45:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0top\";b:0;s:4:\"file\";N;s:5:\"file2\";N;s:5:\"file3\";N;s:9:\"modifieLe\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2019-07-25 16:25:08.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}}s:6:\"taille\";s:2:\"50\";s:9:\"reference\";s:10:\"Veste Sota\";s:5:\"motif\";s:5:\"Jaune\";s:8:\"quantite\";s:1:\"1\";s:4:\"prix\";d:27000;s:6:\"devise\";s:4:\"fcfa\";}}s:9:\"livraison\";a:10:{s:6:\"prenom\";s:5:\"Chris\";s:3:\"nom\";s:3:\"MEL\";s:5:\"email\";s:24:\"christianmeli81@yahoo.fr\";s:9:\"telephone\";d:689880522;s:12:\"telephonefix\";d:698880522;s:7:\"adresse\";s:4:\"test\";s:2:\"cp\";d:1234;s:5:\"ville\";s:6:\"Douala\";s:4:\"pays\";s:2:\"AF\";s:3:\"Rue\";s:9:\"Logbessou\";}s:11:\"facturation\";a:10:{s:6:\"prenom\";s:5:\"Chris\";s:3:\"nom\";s:3:\"MEL\";s:5:\"email\";s:24:\"christianmeli81@yahoo.fr\";s:9:\"telephone\";d:689880522;s:12:\"telephonefix\";d:698880522;s:7:\"adresse\";s:4:\"test\";s:2:\"cp\";d:1234;s:5:\"ville\";s:6:\"Douala\";s:4:\"pays\";s:2:\"AF\";s:3:\"Rue\";s:9:\"Logbessou\";}s:4:\"prix\";d:27000;s:12:\"prixCommande\";d:0;s:5:\"token\";s:40:\"77b337aeb1e1c6f7ff9798c9218b089eec793ef3\";}');
+(1, 15, 1, 0, NULL, NULL, NULL, NULL, 1, NULL, '2019-08-20', 1, 'a:6:{s:7:\"produit\";a:2:{i:424;a:7:{s:5:\"image\";O:40:\"Kountac\\KountacBundle\\Entity\\Media_motif\":11:{s:44:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0id\";i:188;s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0mannequin\";O:53:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Mannequin\":16:{s:17:\"__isInitialized__\";b:0;s:42:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0id\";i:22;s:46:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0marque\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0picture\";N;s:4:\"file\";N;s:50:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_ajout\";N;s:51:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_update\";N;s:53:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0nom_mannequin\";N;s:65:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_standard_mannequin\";N;s:55:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0poids_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_mannequin\";N;s:62:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0numero_teint_mannequin\";N;s:61:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_taille_mannequin\";N;s:63:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_poitrine_mannequin\";N;s:70:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_grandes_hanches_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0statut_mannequin\";N;}s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0produit_2\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_2\":27:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0id\";i:107;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_1\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_1\":16:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0id\";i:46;s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0collection\";O:55:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Collections\":3:{s:17:\"__isInitialized__\";b:0;s:44:\"\0Kountac\\KountacBundle\\Entity\\Collections\0id\";i:4;s:45:\"\0Kountac\\KountacBundle\\Entity\\Collections\0nom\";N;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0produit_2\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0categorie\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Categories\":5:{s:17:\"__isInitialized__\";b:0;s:43:\"\0Kountac\\KountacBundle\\Entity\\Categories\0id\";i:22;s:49:\"\0Kountac\\KountacBundle\\Entity\\Categories\0children\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Categories\0parent\";N;s:44:\"\0Kountac\\KountacBundle\\Entity\\Categories\0nom\";N;}s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0looks\";O:55:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Idees_looks\":3:{s:17:\"__isInitialized__\";b:0;s:44:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0id\";i:1;s:45:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0nom\";N;}s:47:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0marque\";C:66:\"Proxies\\__CG__\\Utilisateurs\\UtilisateursBundle\\Entity\\Utilisateurs\":206:{a:8:{i:0;s:60:\"$2y$13$nF5bt32v7MmjOp74xFGJXOKKylzV4VNYxWWsyLoDh0JB4ZtMOz8ge\";i:1;N;i:2;s:7:\"kroskel\";i:3;s:7:\"Kroskel\";i:4;b:1;i:5;i:8;i:6;s:23:\"ornelladjoukui@yahoo.fr\";i:7;s:23:\"ornelladjoukui@yahoo.fr\";}}s:44:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0nom\";s:17:\"Ensemble slim 3/4\";s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0matiere\";s:5:\"Coton\";s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0description\";s:797:\"Le slim ¾ est un tailleur pantalon composé d’un pantalon près du corps et d’une veste ajustée aux manches ¾,  au col légèrement montant et boutonnée sur le devant. L’ensemble est confectionné dans un tissu uni légèrement stretch, rehaussé au niveau des poignets par un tissu teinté artisanalement à la cire. Il se décline en trois variantes de couleur de base différente : citron, feuille et chair. Une fermeture éclaire invisible permet d’enfiler la combinaison très aisément.\r\nLe tissu utilisé est un coton glacé - mélange de coton et d’élasthanne (96% coton et 4% élasthanne)\r\nAttention, le procédé de teinture artisanale étant totalement manuel, certains écarts au niveau des couleurs des parties teintées peuvent être constatés par rapport aux photos.\";s:63:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0conditions_utilisation\";s:305:\"Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage.\r\nLe séchage au sèche-linge est déconseillé.\r\nRepasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.\";s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0popularite\";i:1;s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0stock\";i:108;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateajout\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2018-12-17 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateupdate\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2018-12-17 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateachat\";N;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_3\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0commentaire\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0libelle\";O:58:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Libelles_motif\":6:{s:17:\"__isInitialized__\";b:1;s:47:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0id\";i:25;s:54:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0mannequin\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:52:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0libelle\";s:5:\"Jaune\";s:4:\"path\";s:45:\"e413af2371c7bf4458a0af5d18622f6823179d93.jpeg\";s:4:\"file\";N;}s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0stock\";i:54;s:45:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0etat\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0reduction\";d:0;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprix\";d:93;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprixCommande\";d:133;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprecommande\";b:1;s:49:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrix\";d:88;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrixCommande\";d:128;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrecommande\";b:1;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprix\";d:36900;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprixCommande\";d:51900;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprecommande\";b:1;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprix\";d:105;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprixCommande\";d:145;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprecommande\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprix\";d:90;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprixCommande\";d:130;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprecommande\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprix\";d:21300;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprixCommande\";d:36300;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprecommande\";b:1;}s:4:\"path\";s:45:\"a25350652ed633f88a718bcfcf14a8db7b401c77.jpeg\";s:5:\"path2\";s:46:\"05840090370937c48fe04ef51e97db3e9990c2e82.jpeg\";s:5:\"path3\";s:46:\"dd11662afd5b0f12378d5723f1bdb585b9e8ef9d3.jpeg\";s:45:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0top\";b:0;s:4:\"file\";N;s:5:\"file2\";N;s:5:\"file3\";N;s:9:\"modifieLe\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2019-08-20 03:16:10.137126\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}}s:6:\"taille\";s:2:\"34\";s:9:\"reference\";s:17:\"Ensemble slim 3/4\";s:5:\"motif\";s:5:\"Jaune\";s:8:\"quantite\";s:1:\"1\";s:4:\"prix\";d:36900;s:6:\"devise\";s:4:\"fcfa\";}i:585;a:7:{s:5:\"image\";O:40:\"Kountac\\KountacBundle\\Entity\\Media_motif\":11:{s:44:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0id\";i:256;s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0mannequin\";O:53:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Mannequin\":16:{s:17:\"__isInitialized__\";b:0;s:42:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0id\";i:20;s:46:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0marque\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0picture\";N;s:4:\"file\";N;s:50:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_ajout\";N;s:51:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_update\";N;s:53:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0nom_mannequin\";N;s:65:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_standard_mannequin\";N;s:55:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0poids_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_mannequin\";N;s:62:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0numero_teint_mannequin\";N;s:61:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_taille_mannequin\";N;s:63:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_poitrine_mannequin\";N;s:70:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_grandes_hanches_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0statut_mannequin\";N;}s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0produit_2\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_2\":27:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0id\";i:128;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_1\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_1\":16:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0id\";i:55;s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0collection\";r:29;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0produit_2\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0categorie\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Categories\":5:{s:17:\"__isInitialized__\";b:0;s:43:\"\0Kountac\\KountacBundle\\Entity\\Categories\0id\";i:26;s:49:\"\0Kountac\\KountacBundle\\Entity\\Categories\0children\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Categories\0parent\";N;s:44:\"\0Kountac\\KountacBundle\\Entity\\Categories\0nom\";N;}s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0looks\";O:55:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Idees_looks\":3:{s:17:\"__isInitialized__\";b:0;s:44:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0id\";i:4;s:45:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0nom\";N;}s:47:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0marque\";r:47;s:44:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0nom\";s:18:\"Robe voile Ninelle\";s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0matiere\";s:5:\"Coton\";s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0description\";s:446:\"Cette belle robe longue des grandes occasions marie un tissu uni, un tissu teinté artisanalement à la cire et un voile, dans une harmonie de formes et de couleurs. Transparente dans un décolleté profond, elle se fait très sage ailleurs, et le voile forme une traine légère qui figure une sorte de grande aile au milieu du dos. La robe, près du corps, s’évase à partir des hanches pour rendre aisé n’importe quel mouvement de danse.\";s:63:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0conditions_utilisation\";s:534:\"De par sa composition mélangée, il est conseillé de laver cette robe soit à sec, soit à la main à l’eau tiède savonneuse ; on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 30° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. \r\nRepasser au programme laine en protégeant d’une trop grande chaleur du fer par une pattemouille.\";s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0popularite\";i:3;s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0stock\";i:72;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateajout\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2018-12-17 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateupdate\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2019-04-30 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateachat\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2019-08-20 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_3\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0commentaire\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0libelle\";r:80;s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0stock\";i:27;s:45:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0etat\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0reduction\";d:0;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprix\";d:149;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprixCommande\";d:189;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprecommande\";b:1;s:49:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrix\";d:144;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrixCommande\";d:184;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrecommande\";b:1;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprix\";d:65600;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprixCommande\";d:80600;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprecommande\";b:1;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprix\";d:160;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprixCommande\";d:200;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprecommande\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprix\";d:146;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprixCommande\";d:186;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprecommande\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprix\";d:30900;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprixCommande\";d:45900;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprecommande\";b:1;}s:4:\"path\";s:45:\"488405edf057489636273e66d9a87127b608c2d7.jpeg\";s:5:\"path2\";s:46:\"a9d5b2a2a659235c7c1bb035ef487425925d30f92.jpeg\";s:5:\"path3\";s:46:\"62b3328296230632232dff95bff9370f5ed9609e3.jpeg\";s:45:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0top\";b:0;s:4:\"file\";N;s:5:\"file2\";N;s:5:\"file3\";N;s:9:\"modifieLe\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2019-08-20 03:16:10.153153\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}}s:6:\"taille\";s:2:\"50\";s:9:\"reference\";s:18:\"Robe voile Ninelle\";s:5:\"motif\";s:5:\"Jaune\";s:8:\"quantite\";s:1:\"1\";s:4:\"prix\";d:65600;s:6:\"devise\";s:4:\"fcfa\";}}s:9:\"livraison\";a:10:{s:6:\"prenom\";s:9:\"CHRISTIAN\";s:3:\"nom\";s:4:\"MELI\";s:5:\"email\";s:25:\"christianmeli81@gmail.com\";s:9:\"telephone\";d:698880522;s:12:\"telephonefix\";d:698880522;s:7:\"adresse\";s:12:\"Bonamoussadi\";s:2:\"cp\";d:0;s:5:\"ville\";s:6:\"Douala\";s:4:\"pays\";s:2:\"CM\";s:3:\"Rue\";s:26:\"fin goudron afrique du sud\";}s:11:\"facturation\";a:10:{s:6:\"prenom\";s:9:\"CHRISTIAN\";s:3:\"nom\";s:4:\"MELI\";s:5:\"email\";s:25:\"christianmeli81@gmail.com\";s:9:\"telephone\";d:698880522;s:12:\"telephonefix\";d:698880522;s:7:\"adresse\";s:12:\"Bonamoussadi\";s:2:\"cp\";d:0;s:5:\"ville\";s:6:\"Douala\";s:4:\"pays\";s:2:\"CM\";s:3:\"Rue\";s:26:\"fin goudron afrique du sud\";}s:4:\"prix\";d:102500;s:12:\"prixCommande\";d:0;s:5:\"token\";s:40:\"9c48a84a99045c11cec714f91c4d6f928fd21102\";}');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Structure de la table `categories`
 --
 
 DROP TABLE IF EXISTS `categories`;
@@ -72,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 ) ENGINE=InnoDB AUTO_INCREMENT=266 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `categories`
+-- Déchargement des données de la table `categories`
 --
 
 INSERT INTO `categories` (`id`, `parent_id`, `nom`) VALUES
@@ -242,7 +241,7 @@ INSERT INTO `categories` (`id`, `parent_id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chatmessage`
+-- Structure de la table `chatmessage`
 --
 
 DROP TABLE IF EXISTS `chatmessage`;
@@ -261,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `chatmessage` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `collections`
+-- Structure de la table `collections`
 --
 
 DROP TABLE IF EXISTS `collections`;
@@ -272,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `collections` (
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `collections`
+-- Déchargement des données de la table `collections`
 --
 
 INSERT INTO `collections` (`id`, `nom`) VALUES
@@ -288,7 +287,7 @@ INSERT INTO `collections` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `commandes`
+-- Structure de la table `commandes`
 --
 
 DROP TABLE IF EXISTS `commandes`;
@@ -322,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `commandes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `commentaires`
+-- Structure de la table `commentaires`
 --
 
 DROP TABLE IF EXISTS `commentaires`;
@@ -338,7 +337,7 @@ CREATE TABLE IF NOT EXISTS `commentaires` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `commentaires`
+-- Déchargement des données de la table `commentaires`
 --
 
 INSERT INTO `commentaires` (`id`, `produit_id`, `titre`, `pseudo`, `contenu`, `date`) VALUES
@@ -349,7 +348,7 @@ INSERT INTO `commentaires` (`id`, `produit_id`, `titre`, `pseudo`, `contenu`, `d
 -- --------------------------------------------------------
 
 --
--- Table structure for table `idees_looks`
+-- Structure de la table `idees_looks`
 --
 
 DROP TABLE IF EXISTS `idees_looks`;
@@ -360,7 +359,7 @@ CREATE TABLE IF NOT EXISTS `idees_looks` (
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `idees_looks`
+-- Déchargement des données de la table `idees_looks`
 --
 
 INSERT INTO `idees_looks` (`id`, `nom`) VALUES
@@ -380,7 +379,7 @@ INSERT INTO `idees_looks` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `images`
+-- Structure de la table `images`
 --
 
 DROP TABLE IF EXISTS `images`;
@@ -391,7 +390,7 @@ CREATE TABLE IF NOT EXISTS `images` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `images`
+-- Déchargement des données de la table `images`
 --
 
 INSERT INTO `images` (`id`, `lien`) VALUES
@@ -401,7 +400,7 @@ INSERT INTO `images` (`id`, `lien`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `libelles_motif`
+-- Structure de la table `libelles_motif`
 --
 
 DROP TABLE IF EXISTS `libelles_motif`;
@@ -413,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `libelles_motif` (
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `libelles_motif`
+-- Déchargement des données de la table `libelles_motif`
 --
 
 INSERT INTO `libelles_motif` (`id`, `libelle`, `path`) VALUES
@@ -439,7 +438,7 @@ INSERT INTO `libelles_motif` (`id`, `libelle`, `path`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mannequin`
+-- Structure de la table `mannequin`
 --
 
 DROP TABLE IF EXISTS `mannequin`;
@@ -463,7 +462,7 @@ CREATE TABLE IF NOT EXISTS `mannequin` (
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `mannequin`
+-- Déchargement des données de la table `mannequin`
 --
 
 INSERT INTO `mannequin` (`id`, `marque_id`, `path`, `date_ajout`, `date_update`, `nom_mannequin`, `taille_standard_mannequin`, `poids_mannequin`, `taille_mannequin`, `numero_teint_mannequin`, `tour_taille_mannequin`, `tour_poitrine_mannequin`, `tour_grandes_hanches_mannequin`, `statut_mannequin`) VALUES
@@ -478,7 +477,7 @@ INSERT INTO `mannequin` (`id`, `marque_id`, `path`, `date_ajout`, `date_update`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `media`
+-- Structure de la table `media`
 --
 
 DROP TABLE IF EXISTS `media`;
@@ -490,7 +489,7 @@ CREATE TABLE IF NOT EXISTS `media` (
 ) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `media`
+-- Déchargement des données de la table `media`
 --
 
 INSERT INTO `media` (`id`, `path`, `path2`) VALUES
@@ -549,7 +548,7 @@ INSERT INTO `media` (`id`, `path`, `path2`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `media_motif`
+-- Structure de la table `media_motif`
 --
 
 DROP TABLE IF EXISTS `media_motif`;
@@ -564,10 +563,10 @@ CREATE TABLE IF NOT EXISTS `media_motif` (
   PRIMARY KEY (`id`),
   KEY `IDX_98CAB30A58DDEC98` (`mannequin_id`),
   KEY `IDX_98CAB30ACBFE8EFB` (`produit_2_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=267 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=260 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `media_motif`
+-- Déchargement des données de la table `media_motif`
 --
 
 INSERT INTO `media_motif` (`id`, `path`, `path2`, `path3`, `top`, `mannequin_id`, `produit_2_id`) VALUES
@@ -732,15 +731,12 @@ INSERT INTO `media_motif` (`id`, `path`, `path2`, `path3`, `top`, `mannequin_id`
 (253, '0f5859166714a9f3edebf0dd450b96bc8b99222e.jpeg', 'b5f8007785025e2695615b21138a493e24cb55ae2.jpeg', 'fea9f8368ace35673704b6317467c36ffafe29093.jpeg', 1, 22, 128),
 (256, '488405edf057489636273e66d9a87127b608c2d7.jpeg', 'a9d5b2a2a659235c7c1bb035ef487425925d30f92.jpeg', '62b3328296230632232dff95bff9370f5ed9609e3.jpeg', 0, 20, 128),
 (258, '14eef52b15743d6a52c21fee754c5a9e1a80ed2d.jpeg', 'b46c05359247c9192a95dbe3e0b02252562e8d7d2.jpeg', '0738adb53571131c176fac7ada33e236190ebef63.jpeg', 1, 20, 129),
-(259, 'fbf45d7669648e1a09a56fdda0642066b5f092c8.jpeg', '93cd046d8c03a53970d38d181f33f38668fe46922.jpeg', 'bec67b556989932ced8e144ab0f50d7b357dde923.jpeg', 0, 22, 129),
-(264, 'b69128e3aa41d452731b1e8747d16a03faddb179.jpeg', '1b922aff947d3d598dc8743462fdc2f08d0649cb2.jpeg', 'f06cea5ef59484f1fc3918474640cf08bb6d34613.jpeg', 0, 21, 133),
-(265, '555ea28585bd5f4fb27bd31b6f24f517edb86273.jpeg', '783ee1c3751beebae76839caf76a1dd044d6c4682.jpeg', '1368ee4ae439d24b46a51d6d5e265ae9e6aa4d303.jpeg', 0, 19, 135),
-(266, '69506b388633661277e5738a0ed263fa9ee3f0cb.jpeg', NULL, NULL, 0, 19, 136);
+(259, 'fbf45d7669648e1a09a56fdda0642066b5f092c8.jpeg', '93cd046d8c03a53970d38d181f33f38668fe46922.jpeg', 'bec67b556989932ced8e144ab0f50d7b357dde923.jpeg', 0, 22, 129);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mesures`
+-- Structure de la table `mesures`
 --
 
 DROP TABLE IF EXISTS `mesures`;
@@ -833,7 +829,7 @@ CREATE TABLE IF NOT EXISTS `mesures` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `newsletters`
+-- Structure de la table `newsletters`
 --
 
 DROP TABLE IF EXISTS `newsletters`;
@@ -845,7 +841,7 @@ CREATE TABLE IF NOT EXISTS `newsletters` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `newsletters`
+-- Déchargement des données de la table `newsletters`
 --
 
 INSERT INTO `newsletters` (`id`, `email`, `date`) VALUES
@@ -861,7 +857,7 @@ INSERT INTO `newsletters` (`id`, `email`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pages`
+-- Structure de la table `pages`
 --
 
 DROP TABLE IF EXISTS `pages`;
@@ -876,7 +872,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pages`
+-- Déchargement des données de la table `pages`
 --
 
 INSERT INTO `pages` (`id`, `lien`, `titre`, `type`, `categorie`, `contenu`) VALUES
@@ -887,7 +883,7 @@ INSERT INTO `pages` (`id`, `lien`, `titre`, `type`, `categorie`, `contenu`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payscfa`
+-- Structure de la table `payscfa`
 --
 
 DROP TABLE IF EXISTS `payscfa`;
@@ -900,7 +896,7 @@ CREATE TABLE IF NOT EXISTS `payscfa` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payseuro`
+-- Structure de la table `payseuro`
 --
 
 DROP TABLE IF EXISTS `payseuro`;
@@ -913,7 +909,7 @@ CREATE TABLE IF NOT EXISTS `payseuro` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payslivre`
+-- Structure de la table `payslivre`
 --
 
 DROP TABLE IF EXISTS `payslivre`;
@@ -926,7 +922,7 @@ CREATE TABLE IF NOT EXISTS `payslivre` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `paysnaira`
+-- Structure de la table `paysnaira`
 --
 
 DROP TABLE IF EXISTS `paysnaira`;
@@ -939,7 +935,7 @@ CREATE TABLE IF NOT EXISTS `paysnaira` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `paysusa`
+-- Structure de la table `paysusa`
 --
 
 DROP TABLE IF EXISTS `paysusa`;
@@ -952,7 +948,7 @@ CREATE TABLE IF NOT EXISTS `paysusa` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `precommandes`
+-- Structure de la table `precommandes`
 --
 
 DROP TABLE IF EXISTS `precommandes`;
@@ -965,7 +961,7 @@ CREATE TABLE IF NOT EXISTS `precommandes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produits_1`
+-- Structure de la table `produits_1`
 --
 
 DROP TABLE IF EXISTS `produits_1`;
@@ -989,17 +985,17 @@ CREATE TABLE IF NOT EXISTS `produits_1` (
   KEY `IDX_AC7EF571BCF5E72D` (`categorie_id`),
   KEY `IDX_AC7EF5714827B9B2` (`marque_id`),
   KEY `IDX_AC7EF5716852BE12` (`looks_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `produits_1`
+-- Déchargement des données de la table `produits_1`
 --
 
 INSERT INTO `produits_1` (`id`, `collection_id`, `categorie_id`, `marque_id`, `nom`, `matiere`, `description`, `popularite`, `stock`, `dateajout`, `dateupdate`, `dateachat`, `conditions_utilisation`, `looks_id`) VALUES
 (25, 4, 19, 8, 'Pantalon Jogodo', 'Coton', 'Le pantalon Jogodo est un pantalon en coton de couleur bleu marine, qui épouse les formes sans serrer, à taille haute, avec deux poches et terminé par une large ceinture.', 2, 26, '2018-12-14', '2018-12-15', '2019-07-04', 'Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage.\r\nCe pantalon peut être séché à la machine, en choisissant le programme adéquat.\r\n\r\nRepasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 5),
 (27, 4, 14, 8, 'Veste Sota', 'Coton', 'La veste Sota est une veste en coton couleur jaune soufre, qui descend jusque au-dessous des petites hanches. Elle possède une poche de chaque côté, n’est pas boutonnée et présente un large col cranté.', 3, 24, '2018-12-14', '2018-12-15', '2019-07-25', 'Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. Cette veste peut être séchée à la machine, en choisissant le programme adéquat. Repasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 5),
 (29, 2, 26, 8, 'Robe Kinkin', 'Coton', 'La robe Kinkin est une robe courte qui associe tissu uni et tissu teinté à la cire (appelé WAX), par une alternance de bandes horizontales et verticales qui mettent en valeur les rondeurs naturelles du corps. Le décolleté devant descend jusqu’en dessous de la poitrine en formant un joli trapèze avec les larges bretelles. La forme des hanches est soulignée par le bouffant de la jupe.', 1, 81, '2018-12-14', '2018-12-15', NULL, 'Les trois modèles associant un tissu en coton uni et un tissu teinté à la cire, il est conseillé, au moins pour les premiers lavages, de procéder à un lavage à la main à l’eau tiède savonneuse, mais on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. Le séchage au sèche-linge est possible mais pas conseillé. Repasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 8),
-(31, 6, 26, 8, 'Robe Ouarga', 'Coton', 'La robe Ouarga est une robe courte en coton qui associe tissu uni et tissu légèrement stretché teinté artisanalement à la cire, dans une alternance de bandes verticales sur le devant fixées par deux fermetures éclairs. De la même manière, les courbes des hanches sont dessinées par des pièces rapportées et ajustées avec des fermetures éclairs. Il se décline en trois couleurs : blanc, fuchsia et noir. Attention, le procédé de teinture artisanale étant totalement manuel, certains écarts au niveau des couleurs des parties teintées peuvent être constatés par rapport aux photos.', 2, 78, '2018-12-14', '2018-12-15', '2019-07-25', 'Les trois modèles associant un tissu en coton uni et un tissu teinté à la cire, il est conseillé, au moins pour les premiers lavages, de procéder à un lavage à la main à l’eau tiède savonneuse, mais on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. Le séchage au sèche-linge est possible mais pas conseillé. Repasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 12),
+(31, 6, 26, 8, 'Robe Ouarga', 'Coton', 'La robe Ouarga est une robe courte en coton qui associe tissu uni et tissu légèrement stretché teinté artisanalement à la cire, dans une alternance de bandes verticales sur le devant fixées par deux fermetures éclairs. De la même manière, les courbes des hanches sont dessinées par des pièces rapportées et ajustées avec des fermetures éclairs. Il se décline en trois couleurs : blanc, fuchsia et noir. Attention, le procédé de teinture artisanale étant totalement manuel, certains écarts au niveau des couleurs des parties teintées peuvent être constatés par rapport aux photos.', 4, 74, '2018-12-14', '2018-12-15', '2019-08-20', 'Les trois modèles associant un tissu en coton uni et un tissu teinté à la cire, il est conseillé, au moins pour les premiers lavages, de procéder à un lavage à la main à l’eau tiède savonneuse, mais on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. Le séchage au sèche-linge est possible mais pas conseillé. Repasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 12),
 (33, 2, 26, 8, 'Robe Annabella', 'Coton', 'La robe Annabella est une robe asymétrique avec un dos qui descend un peu au-dessus du genou et un devant qui monte progressivement en formant une sorte de triangle. Le décolleté, très original, descend vers la poitrine en forme rectangulaire et s’achève au cou par un col mao triple. La robe est complétée par des mancherons. La robe Annabella se décline en trois versions :  une version fuchsia en coton uni et deux versions en léger tissu damassé en coton bleu-ciel et orange. Dans ces deux cas, les mancherons ainsi le col et le bas de la robe sont soulignés par des rappels en tissu teinté artisanalement à la cire. Attention, le procédé de teinture artisanale étant totalement manuel, certains écarts au niveau des couleurs des parties teintées peuvent être constatés par rapport aux photos.', 1, 81, '2018-12-15', '2018-12-15', NULL, 'Pour la robe Annabella fuchsia, il est conseillé d’utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. Cette veste peut être séchée à la machine, en choisissant le programme adéquat. Pour les robes Annabella Bleu-ciel et orange, pour les premiers lavages, il est conseillé de laver cette robe à la main à l’eau tiède savonneuse, mais on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. Le séchage au sèche-linge est déconseillé. Repasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 12),
 (34, 4, 19, 8, 'Pantalon Saiyens', 'Coton', 'Le pantalon Saiyens, décliné en trois motifs à dominante indigo, jaune ou noire, est un pantalon à pinces à taille haute. Très confortable, il a une coupe droite joliment froncée aux extrémités ; deux poches appliquées basses agrémentent l’ensemble. Dans le modèle indigo, les appliques sont réalisées avec un tissu teinté artisanalement à la cire ; dans les modèles jaune et noir, elles sont réalisées en Wax. Il est accompagné ici de la ceinture-corset Cintra.', 1, 81, '2018-12-15', '2018-12-15', NULL, 'Pour les premiers lavages, il est conseillé de laver ce pantalon à la main à l’eau tiède savonneuse, mais on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. Le séchage au sèche-linge est déconseillé. Repasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 1),
 (35, 4, 13, 8, 'Ceinture corset Cintra', 'Coton', 'La ceinture-corset Cintra est une ceinture haute élastique montée avec des baleines posées régulièrement sur la circonférence. Elle épouse sans serrer et met en valeur toutes les formes féminines. Elle se décline selon trois dominantes : bleu et violet, noir et bleu, orange et bleu. Le modèle bleu et violet est fabriqué avec un tissu teinté à la cire artisanalement, les deux autres sont réalisés en Wax.', 1, 81, '2018-12-15', '2018-12-15', NULL, 'Pour les premiers lavages, il est conseillé de laver cette ceinture à la main à l’eau tiède savonneuse, mais on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. Le séchage au sèche-linge est déconseillé. Repasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 1),
@@ -1010,22 +1006,20 @@ INSERT INTO `produits_1` (`id`, `collection_id`, `categorie_id`, `marque_id`, `n
 (41, 4, 10, 8, 'Blouson raglan', 'Coton', 'Le blouson raglan est un blouson court qui se termine par une taille élastique. Il est fermé par une fermeture éclair et est muni de deux poche de chaque côté. Il se décline en quatre variantes (marron, rouge, bleu et vert) qui alternent des manches en tissu teinté artisanalement à la cire et tissu uni. Les motifs des manches sont soulignés par une bordure unie. Il est doublé. La matière principale est le coton.\r\nAttention, le procédé de teinture artisanale étant totalement manuel, certains écarts au niveau des couleurs des parties teintées peuvent être constatés par rapport aux photos.', 3, 133, '2018-12-15', '2018-12-15', '2019-06-17', 'Pour les premiers lavages, il est conseillé de laver ce blouson à la main à l’eau tiède savonneuse, mais on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés.\r\nDans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage.\r\nLe séchage au sèche-linge est fortement déconseillé.\r\nRepasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 2),
 (44, 4, 10, 8, 'Blouson Rangers', 'Coton', 'Ce joli blouson est caractérisé par des épaulettes qui jouent également le rôle de sur-mancherons, ce qui rend gracieux un modèle classiquement plutôt masculin. Il est décliné en quatre modèles à dominante : blanche, noire, orange et verte ; deux modèles « prototypes » sont également présentés, sur les tons marron et bleu. Les manches sont confectionnées avec des tissus teintés artisanalement à la cire, des poches sont insérées dans le col, et fermées par des zips, d’autres sont insérées plus classiquement, et couvertes par un rabat.', 1, 126, '2018-12-17', '2018-12-17', NULL, 'Pour les premiers lavages, il est conseillé de laver ce blouson à la main à l’eau tiède savonneuse, mais on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. \r\nLe séchage au sèche-linge est déconseillé. \r\nRepasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 8),
 (45, 4, 25, 8, 'Manteau Dragdyeing', 'Coton', 'Le manteau Dragdyeing est un manteau court, décolleté sur le devant avec des manches 3/4. Il est zippé devant et muni de deux poches. Les manches sont de couleur unie, le reste du corps comprend des parties teintées à la cire. Il est près du corps.\r\nLa matière principale est différente pour les deux manteaux. Le Dragdyeing fuchsia, est principalement en coton teinté de façon industrielle à la cire (communément appelé WAX) ; les parties uniformes sont en coton glacé - mélange de coton et d’élasthanne (96% coton et 4% élasthanne)\r\nLe Dragdyeing feuille est en tissu ciré imperméable. Les poches, la bande en bas du vêtement, et le col sont en coton teinté de façon artisanale. Attention, le procédé de teinture artisanale étant totalement manuel, certains écarts au niveau des couleurs des parties teintées peuvent être constatés par rapport aux photos.\r\nLes deux manteaux sont bordés de fines dentelles noires au cou et aux manches .\r\nAttention, le procédé de teinture artisanale étant totalement manuel, certains écarts au niveau des couleurs des parties teintées peuvent être constatés par rapport aux photos.', 2, 53, '2018-12-17', '2018-12-17', '2019-07-04', 'Pour les premiers lavages, il est conseillé de laver ce manteau à la main à l’eau tiède savonneuse, mais on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés sur ce tissu.\r\nDans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage.\r\nLe séchage au sèche-linge est forcément déconseillé.\r\nRepasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 1),
-(46, 4, 22, 8, 'Ensemble slim 3/4', 'Coton', 'Le slim ¾ est un tailleur pantalon composé d’un pantalon près du corps et d’une veste ajustée aux manches ¾,  au col légèrement montant et boutonnée sur le devant. L’ensemble est confectionné dans un tissu uni légèrement stretch, rehaussé au niveau des poignets par un tissu teinté artisanalement à la cire. Il se décline en trois variantes de couleur de base différente : citron, feuille et chair. Une fermeture éclaire invisible permet d’enfiler la combinaison très aisément.\r\nLe tissu utilisé est un coton glacé - mélange de coton et d’élasthanne (96% coton et 4% élasthanne)\r\nAttention, le procédé de teinture artisanale étant totalement manuel, certains écarts au niveau des couleurs des parties teintées peuvent être constatés par rapport aux photos.', 1, 108, '2018-12-17', '2018-12-17', NULL, 'Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage.\r\nLe séchage au sèche-linge est déconseillé.\r\nRepasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 1),
+(46, 4, 22, 8, 'Ensemble slim 3/4', 'Coton', 'Le slim ¾ est un tailleur pantalon composé d’un pantalon près du corps et d’une veste ajustée aux manches ¾,  au col légèrement montant et boutonnée sur le devant. L’ensemble est confectionné dans un tissu uni légèrement stretch, rehaussé au niveau des poignets par un tissu teinté artisanalement à la cire. Il se décline en trois variantes de couleur de base différente : citron, feuille et chair. Une fermeture éclaire invisible permet d’enfiler la combinaison très aisément.\r\nLe tissu utilisé est un coton glacé - mélange de coton et d’élasthanne (96% coton et 4% élasthanne)\r\nAttention, le procédé de teinture artisanale étant totalement manuel, certains écarts au niveau des couleurs des parties teintées peuvent être constatés par rapport aux photos.', 2, 107, '2018-12-17', '2018-12-17', '2019-08-20', 'Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage.\r\nLe séchage au sèche-linge est déconseillé.\r\nRepasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 1),
 (47, 4, 26, 8, 'Robe d\'Elfes', 'Coton', 'Cette jolie robe se croise en portefeuille sur le devant par un arrondi superposant plusieurs épaisseurs de tissus différents, selon le modèle et comportant en dernier un voile léger. Elle se décline en trois tonalités mais aussi trois finitions différentes comportant des paillettes ou des dessins complémentaires ; le col asymétrique complète ce modèle tout à fait adapté à être porté dans une occasion festive.', 1, 81, '2018-12-17', '2018-12-17', NULL, 'Pour les premiers lavages, il est conseillé de laver cette robe à la main à l’eau tiède savonneuse, mais on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. \r\nLe séchage au sèche-linge est déconseillé. \r\nRepasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 11),
 (48, 4, 26, 8, 'Robe Anastasie', 'Coton', 'La robe Anastasie a la forme d’une veste croisée près du corps, décolletée et sans col appliqué. Les tissus unis sont rehaussés par des appliqués en tissus teintés artisanalement à la cire. Elle se décline en trois couleurs : blanc, jaune et noir.La robe Anastasie a la forme d’une veste croisée près du corps, décolletée et sans col appliqué. Les tissus unis sont rehaussés par des appliqués en tissus teintés artisanalement à la cire. Elle se décline en trois couleurs : blanc, jaune et noir.', 24, 58, '2018-12-17', '2018-12-17', '2019-06-17', 'Pour les premiers lavages, il est conseillé de laver cette robe à la main à l’eau tiède savonneuse, mais on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. \r\nLe séchage au sèche-linge est déconseillé. \r\nRepasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 5),
 (52, 4, 21, 8, 'Combinaison Sarah', 'Coton', 'Les caractéristiques de cette élégante combinaison sont les petits décolletés au niveau des épaules et les épaulettes/mancherons très travaillées en même temps que le col montant. La pièce centrale est confectionner à l’aide d’un tissu teinté artisanalement à la cire sur des tons rappelant la couleur de base de la combinaison : bleue, verte ou rouge pour ce modèle adapté en toute situation, de la plus quotidienne à l’événement festif.', 2, 80, '2018-12-17', '2018-12-17', '2019-07-25', 'Pour les premiers lavages, il est conseillé de laver cette combinaison à la main à l’eau tiède savonneuse, mais on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. \r\nLe séchage au sèche-linge est déconseillé. \r\nRepasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 4),
 (54, 4, 26, 8, 'Robe soirée Ciri', 'Polyester', 'Véritable robe de princesse, la robe de soirée Ciri est une robe longue sans manches et qui épouse le corps jusqu’à la taille pour s’évaser ensuite en un grand pli au dos confectionné avec du WAX et qui tient le rôle d’une traîne. Des appliques de passementeries judicieusement agencées agrémentent cette belle robe pour les occasions festives.\r\nLa matière principale est du satin de polyester.', 2, 107, '2018-12-17', '2018-12-17', '2019-06-17', 'De par sa composition et sa confection, il est conseillé de laver cette robe à sec ou bien à la main à l’eau tiède savonneuse, mais on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. \r\nLe séchage au sèche-linge est fortement déconseillé. \r\nRepasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.', 11),
-(55, 4, 26, 8, 'Robe voile Ninelle', 'Coton', 'Cette belle robe longue des grandes occasions marie un tissu uni, un tissu teinté artisanalement à la cire et un voile, dans une harmonie de formes et de couleurs. Transparente dans un décolleté profond, elle se fait très sage ailleurs, et le voile forme une traine légère qui figure une sorte de grande aile au milieu du dos. La robe, près du corps, s’évase à partir des hanches pour rendre aisé n’importe quel mouvement de danse.', 1, 78, '2018-12-17', '2019-04-30', NULL, 'De par sa composition mélangée, il est conseillé de laver cette robe soit à sec, soit à la main à l’eau tiède savonneuse ; on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 30° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. \r\nRepasser au programme laine en protégeant d’une trop grande chaleur du fer par une pattemouille.', 4),
+(55, 4, 26, 8, 'Robe voile Ninelle', 'Coton', 'Cette belle robe longue des grandes occasions marie un tissu uni, un tissu teinté artisanalement à la cire et un voile, dans une harmonie de formes et de couleurs. Transparente dans un décolleté profond, elle se fait très sage ailleurs, et le voile forme une traine légère qui figure une sorte de grande aile au milieu du dos. La robe, près du corps, s’évase à partir des hanches pour rendre aisé n’importe quel mouvement de danse.', 4, 71, '2018-12-17', '2019-04-30', '2019-08-20', 'De par sa composition mélangée, il est conseillé de laver cette robe soit à sec, soit à la main à l’eau tiède savonneuse ; on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 30° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. \r\nRepasser au programme laine en protégeant d’une trop grande chaleur du fer par une pattemouille.', 4),
 (59, 5, 10, 8, 'Prototype', 'Coton', 'Prototype pour tester le paiement par carte bancaire', 3, -1, '2019-02-09', '2019-02-09', '2019-02-13', 'Laver à la main :-)', 1),
-(60, 1, 1, 8, 'couleurs', 'Coton', 'couleurscouleurscouleurscouleurscouleurscouleurscouleurscouleurs', 1, 1, '2019-02-13', '2019-02-13', NULL, 'couleurscouleurscouleurs', 1),
 (61, 1, 1, 41, 'Produit test', 'Coton', 'test', 67, -114, '2019-06-17', '2019-06-17', '2019-06-18', 'aucune', 1),
-(62, 1, 1, 41, 'Produit test', 'Coton', 'ykhfjh', 1, NULL, '2019-06-18', '2019-06-18', NULL, 'bghv;hnbkl', 1),
-(63, 1, 1, 8, 'Produit test', 'Coton', 'khcv', 1, NULL, '2019-07-12', '2019-07-12', NULL, 'gbjbkhj', 1);
+(62, 1, 1, 41, 'Produit test', 'Coton', 'ykhfjh', 1, NULL, '2019-06-18', '2019-06-18', NULL, 'bghv;hnbkl', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produits_2`
+-- Structure de la table `produits_2`
 --
 
 DROP TABLE IF EXISTS `produits_2`;
@@ -1057,10 +1051,10 @@ CREATE TABLE IF NOT EXISTS `produits_2` (
   PRIMARY KEY (`id`),
   KEY `IDX_3577A4CBD94B2115` (`produit_1_id`),
   KEY `IDX_3577A4CB25DD318D` (`libelle_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `produits_2`
+-- Déchargement des données de la table `produits_2`
 --
 
 INSERT INTO `produits_2` (`id`, `produit_1_id`, `libelle_id`, `stock`, `etat`, `reduction`, `europrix`, `europrixCommande`, `cfaprix`, `cfaprixCommande`, `usaprix`, `usaprixCommande`, `livreprix`, `livreprixCommande`, `nairaprix`, `nairaprixCommande`, `allprix`, `allprixCommande`, `allprecommande`, `europrecommande`, `cfaprecommande`, `usaprecommande`, `livreprecommande`, `nairaprecommande`) VALUES
@@ -1070,7 +1064,7 @@ INSERT INTO `produits_2` (`id`, `produit_1_id`, `libelle_id`, `stock`, `etat`, `
 (55, 29, 30, 27, 1, 0, 63, 103, 25700, 40700, 78, 118, 65, 105, 17300, 35300, 68, 108, 0, 0, 0, 0, 0, 0),
 (56, 29, 34, 27, 1, 0, 63, 103, 25700, 40700, 78, 118, 65, 105, 17300, 35300, 68, 108, 0, 0, 0, 0, 0, 0),
 (60, 31, 35, 27, 1, 0, 77, 117, 32000, 47000, 95, 135, 80, 120, 20200, 35200, 82, 122, 0, 0, 0, 0, 0, 0),
-(61, 31, 30, 27, 1, 0, 77, 117, 32000, 47000, 95, 135, 80, 120, 20200, 35200, 82, 122, 0, 0, 0, 0, 0, 0),
+(61, 31, 30, 23, 1, 0, 77, 117, 32000, 47000, 95, 135, 80, 120, 20200, 35200, 82, 122, 0, 0, 0, 0, 0, 0),
 (62, 31, 36, 24, 1, 0, 77, 117, 32000, 47000, 95, 135, 80, 120, 20200, 35200, 82, 122, 0, 0, 0, 0, 0, 0),
 (65, 33, 30, 27, 1, 0, 71, 111, 29200, 44200, 90, 130, 73, 113, 18900, 33900, 76, 116, 0, 0, 0, 0, 0, 0),
 (66, 33, 17, 27, 1, 0, 71, 111, 29200, 44200, 90, 130, 73, 113, 18900, 33900, 76, 116, 0, 0, 0, 0, 0, 0),
@@ -1106,7 +1100,7 @@ INSERT INTO `produits_2` (`id`, `produit_1_id`, `libelle_id`, `stock`, `etat`, `
 (104, 44, 33, 27, 1, 0, 97, 137, 40600, 55600, 113, 153, 99, 139, 22800, 37800, 102, 142, 1, 1, 1, 1, 1, 1),
 (105, 45, 30, 27, 1, 0, 105, 145, 44400, 59400, 121, 161, 108, 148, 24400, 39400, 110, 150, 1, 1, 1, 1, 1, 1),
 (106, 45, 20, 26, 1, 0, 105, 145, 44400, 59400, 121, 161, 108, 148, 24400, 39400, 110, 150, 1, 1, 1, 1, 1, 1),
-(107, 46, 25, 54, 1, 0, 88, 128, 36900, 51900, 105, 145, 90, 130, 21300, 36300, 93, 133, 1, 1, 1, 1, 1, 1),
+(107, 46, 25, 53, 1, 0, 88, 128, 36900, 51900, 105, 145, 90, 130, 21300, 36300, 93, 133, 1, 1, 1, 1, 1, 1),
 (108, 46, 22, 27, 1, 0, 88, 128, 36900, 51900, 105, 145, 90, 130, 21300, 36300, 93, 133, 1, 1, 1, 1, 1, 1),
 (109, 46, 33, 27, 1, 0, 88, 128, 36900, 51900, 105, 145, 90, 130, 21300, 36300, 93, 133, 1, 1, 1, 1, 1, 1),
 (110, 47, 30, 27, 1, 0, 90, 130, 37600, 52600, 105, 145, 92, 132, 21600, 36600, 95, 135, 1, 1, 1, 1, 1, 1),
@@ -1123,18 +1117,13 @@ INSERT INTO `produits_2` (`id`, `produit_1_id`, `libelle_id`, `stock`, `etat`, `
 (125, 54, 29, 27, 1, 0, 141, 181, 63900, 78900, 156, 196, 143, 183, 30200, 45200, 146, 186, 1, 1, 1, 1, 1, 1),
 (126, 54, 32, 26, 1, 0, 141, 181, 63900, 78900, 156, 196, 143, 183, 30200, 45200, 146, 186, 1, 1, 1, 1, 1, 1),
 (127, 55, 21, 27, 1, 0, 144, 184, 65600, 80600, 160, 200, 146, 186, 30900, 45900, 149, 189, 0, 0, 0, 0, 0, 0),
-(128, 55, 25, 27, 1, 0, 144, 184, 65600, 80600, 160, 200, 146, 186, 30900, 45900, 149, 189, 1, 1, 1, 1, 1, 1),
-(129, 55, 34, 24, 1, 0, 144, 184, 65600, 80600, 160, 200, 146, 186, 30900, 45900, 149, 189, 1, 1, 1, 1, 1, 1),
-(133, 59, 21, -1, 1, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0),
-(134, 60, 17, 1, 1, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0),
-(135, 61, 17, 100, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(136, 62, 17, NULL, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0),
-(137, 63, 17, NULL, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11, 1, 0, 0, 0, 0, 0, 0);
+(128, 55, 25, 26, 1, 0, 144, 184, 65600, 80600, 160, 200, 146, 186, 30900, 45900, 149, 189, 1, 1, 1, 1, 1, 1),
+(129, 55, 34, 18, 1, 0, 144, 184, 65600, 80600, 160, 200, 146, 186, 30900, 45900, 149, 189, 1, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produits_3`
+-- Structure de la table `produits_3`
 --
 
 DROP TABLE IF EXISTS `produits_3`;
@@ -1145,10 +1134,10 @@ CREATE TABLE IF NOT EXISTS `produits_3` (
   `stock` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_4270945DCBFE8EFB` (`produit_2_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=599 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=594 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `produits_3`
+-- Déchargement des données de la table `produits_3`
 --
 
 INSERT INTO `produits_3` (`id`, `produit_2_id`, `taille`, `stock`) VALUES
@@ -1206,7 +1195,7 @@ INSERT INTO `produits_3` (`id`, `produit_2_id`, `taille`, `stock`) VALUES
 (105, 60, '46', 3),
 (106, 60, '48', 3),
 (107, 60, '50', 3),
-(108, 61, '34', 3),
+(108, 61, '34', -1),
 (109, 61, '36', 3),
 (110, 61, '38', 3),
 (111, 61, '40', 3),
@@ -1517,7 +1506,7 @@ INSERT INTO `produits_3` (`id`, `produit_2_id`, `taille`, `stock`) VALUES
 (421, 106, '46', 3),
 (422, 106, '48', 3),
 (423, 106, '50', 3),
-(424, 107, '34', 3),
+(424, 107, '34', 2),
 (425, 107, '36', 3),
 (426, 107, '38', 3),
 (427, 107, '40', 3),
@@ -1678,7 +1667,7 @@ INSERT INTO `produits_3` (`id`, `produit_2_id`, `taille`, `stock`) VALUES
 (582, 128, '44', 3),
 (583, 128, '46', 3),
 (584, 128, '48', 3),
-(585, 128, '50', 3),
+(585, 128, '50', 2),
 (586, 129, '34', 3),
 (587, 129, '36', 3),
 (588, 129, '38', 3),
@@ -1686,16 +1675,12 @@ INSERT INTO `produits_3` (`id`, `produit_2_id`, `taille`, `stock`) VALUES
 (590, 129, '42', 3),
 (591, 129, '44', 3),
 (592, 129, '46', 3),
-(593, 129, '48', 3),
-(595, 133, '36', -1),
-(596, 134, '36', 1),
-(597, 135, '34', -129),
-(598, 135, '36', 15);
+(593, 129, '48', -3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reservations`
+-- Structure de la table `reservations`
 --
 
 DROP TABLE IF EXISTS `reservations`;
@@ -1714,7 +1699,7 @@ CREATE TABLE IF NOT EXISTS `reservations` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `servicelivraison`
+-- Structure de la table `servicelivraison`
 --
 
 DROP TABLE IF EXISTS `servicelivraison`;
@@ -1725,7 +1710,7 @@ CREATE TABLE IF NOT EXISTS `servicelivraison` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `servicelivraison`
+-- Déchargement des données de la table `servicelivraison`
 --
 
 INSERT INTO `servicelivraison` (`id`, `nom`) VALUES
@@ -1742,7 +1727,7 @@ INSERT INTO `servicelivraison` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `servicepaiement`
+-- Structure de la table `servicepaiement`
 --
 
 DROP TABLE IF EXISTS `servicepaiement`;
@@ -1753,7 +1738,7 @@ CREATE TABLE IF NOT EXISTS `servicepaiement` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `servicepaiement`
+-- Déchargement des données de la table `servicepaiement`
 --
 
 INSERT INTO `servicepaiement` (`id`, `nom`) VALUES
@@ -1766,7 +1751,7 @@ INSERT INTO `servicepaiement` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sousachats`
+-- Structure de la table `sousachats`
 --
 
 DROP TABLE IF EXISTS `sousachats`;
@@ -1783,7 +1768,7 @@ CREATE TABLE IF NOT EXISTS `sousachats` (
   `cfa` int(11) DEFAULT NULL,
   `naira` int(11) DEFAULT NULL,
   `date_a` date NOT NULL,
-  `reference` int(11) DEFAULT NULL,
+  `reference` varchar(255) DEFAULT NULL,
   `achat` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
   `statut` varchar(255) DEFAULT NULL,
   `accepter` int(11) DEFAULT NULL,
@@ -1796,19 +1781,20 @@ CREATE TABLE IF NOT EXISTS `sousachats` (
   PRIMARY KEY (`id`),
   KEY `utilisateurs` (`utilisateur_id`),
   KEY `utilisateur_id` (`utilisateur_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `sousachats`
+-- Déchargement des données de la table `sousachats`
 --
 
 INSERT INTO `sousachats` (`id`, `utilisateur_id`, `marque_id`, `valider`, `effacer`, `euro`, `all_a`, `livre`, `usa`, `cfa`, `naira`, `date_a`, `reference`, `achat`, `statut`, `accepter`, `livraison`, `expedier`, `date_expedition`, `date_reception`, `statut_reception`, `date_livraison`) VALUES
-(4, 8, 8, 0, 0, NULL, NULL, NULL, NULL, 1, NULL, '2019-07-25', NULL, 'a:7:{s:5:\"image\";O:40:\"Kountac\\KountacBundle\\Entity\\Media_motif\":11:{s:44:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0id\";i:46;s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0mannequin\";O:53:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Mannequin\":16:{s:17:\"__isInitialized__\";b:0;s:42:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0id\";i:24;s:46:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0marque\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0picture\";N;s:4:\"file\";N;s:50:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_ajout\";N;s:51:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_update\";N;s:53:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0nom_mannequin\";N;s:65:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_standard_mannequin\";N;s:55:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0poids_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_mannequin\";N;s:62:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0numero_teint_mannequin\";N;s:61:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_taille_mannequin\";N;s:63:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_poitrine_mannequin\";N;s:70:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_grandes_hanches_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0statut_mannequin\";N;}s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0produit_2\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_2\":27:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0id\";i:50;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_1\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_1\":16:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0id\";i:27;s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0collection\";O:55:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Collections\":3:{s:17:\"__isInitialized__\";b:0;s:44:\"\0Kountac\\KountacBundle\\Entity\\Collections\0id\";i:4;s:45:\"\0Kountac\\KountacBundle\\Entity\\Collections\0nom\";N;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0produit_2\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0categorie\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Categories\":5:{s:17:\"__isInitialized__\";b:0;s:43:\"\0Kountac\\KountacBundle\\Entity\\Categories\0id\";i:14;s:49:\"\0Kountac\\KountacBundle\\Entity\\Categories\0children\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Categories\0parent\";N;s:44:\"\0Kountac\\KountacBundle\\Entity\\Categories\0nom\";N;}s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0looks\";O:55:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Idees_looks\":3:{s:17:\"__isInitialized__\";b:0;s:44:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0id\";i:5;s:45:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0nom\";N;}s:47:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0marque\";C:51:\"Utilisateurs\\UtilisateursBundle\\Entity\\Utilisateurs\":206:{a:8:{i:0;s:60:\"$2y$13$nF5bt32v7MmjOp74xFGJXOKKylzV4VNYxWWsyLoDh0JB4ZtMOz8ge\";i:1;N;i:2;s:7:\"kroskel\";i:3;s:7:\"Kroskel\";i:4;b:1;i:5;i:8;i:6;s:23:\"ornelladjoukui@yahoo.fr\";i:7;s:23:\"ornelladjoukui@yahoo.fr\";}}s:44:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0nom\";s:10:\"Veste Sota\";s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0matiere\";s:5:\"Coton\";s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0description\";s:209:\"La veste Sota est une veste en coton couleur jaune soufre, qui descend jusque au-dessous des petites hanches. Elle possède une poche de chaque côté, n’est pas boutonnée et présente un large col cranté.\";s:63:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0conditions_utilisation\";s:341:\"Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. Cette veste peut être séchée à la machine, en choisissant le programme adéquat. Repasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.\";s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0popularite\";i:1;s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0stock\";i:27;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateajout\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2018-12-14 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateupdate\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2018-12-15 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateachat\";N;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_3\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0commentaire\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0libelle\";O:58:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Libelles_motif\":6:{s:17:\"__isInitialized__\";b:1;s:47:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0id\";i:25;s:54:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0mannequin\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:52:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0libelle\";s:5:\"Jaune\";s:4:\"path\";s:45:\"e413af2371c7bf4458a0af5d18622f6823179d93.jpeg\";s:4:\"file\";N;}s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0stock\";i:27;s:45:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0etat\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0reduction\";d:0;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprix\";d:70;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprixCommande\";d:110;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprecommande\";b:0;s:49:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrix\";d:65;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrixCommande\";d:105;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrecommande\";b:0;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprix\";d:27000;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprixCommande\";d:42000;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprecommande\";b:0;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprix\";d:80;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprixCommande\";d:120;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprecommande\";b:0;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprix\";d:65;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprixCommande\";d:105;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprecommande\";b:0;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprix\";d:17900;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprixCommande\";d:35900;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprecommande\";b:0;}s:4:\"path\";s:45:\"275a95fbf667e267ec46fe65204c0c6af231b510.jpeg\";s:5:\"path2\";s:46:\"dc0d0ce54740af42c31ebcbdba2e39a2a7acc4be2.jpeg\";s:5:\"path3\";s:46:\"a3845775a3879f5f22aa92b8b2de2df2a07e77fc3.jpeg\";s:45:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0top\";b:0;s:4:\"file\";N;s:5:\"file2\";N;s:5:\"file3\";N;s:9:\"modifieLe\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2019-07-25 15:26:07.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}}s:6:\"taille\";s:2:\"34\";s:9:\"reference\";s:10:\"Veste Sota\";s:5:\"motif\";s:5:\"Jaune\";s:8:\"quantite\";s:1:\"2\";s:4:\"prix\";d:27000;s:6:\"devise\";s:4:\"fcfa\";}', 'Expedier', 1, 0, 1, '2019-08-07', '2019-08-12', NULL, NULL);
+(1, 15, 8, 0, 0, NULL, NULL, NULL, NULL, 1, NULL, '2019-08-20', '201908200316291', 'a:7:{s:5:\"image\";O:40:\"Kountac\\KountacBundle\\Entity\\Media_motif\":11:{s:44:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0id\";i:188;s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0mannequin\";O:53:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Mannequin\":16:{s:17:\"__isInitialized__\";b:0;s:42:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0id\";i:22;s:46:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0marque\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0picture\";N;s:4:\"file\";N;s:50:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_ajout\";N;s:51:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_update\";N;s:53:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0nom_mannequin\";N;s:65:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_standard_mannequin\";N;s:55:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0poids_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_mannequin\";N;s:62:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0numero_teint_mannequin\";N;s:61:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_taille_mannequin\";N;s:63:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_poitrine_mannequin\";N;s:70:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_grandes_hanches_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0statut_mannequin\";N;}s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0produit_2\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_2\":27:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0id\";i:107;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_1\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_1\":16:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0id\";i:46;s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0collection\";O:55:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Collections\":3:{s:17:\"__isInitialized__\";b:0;s:44:\"\0Kountac\\KountacBundle\\Entity\\Collections\0id\";i:4;s:45:\"\0Kountac\\KountacBundle\\Entity\\Collections\0nom\";N;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0produit_2\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0categorie\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Categories\":5:{s:17:\"__isInitialized__\";b:0;s:43:\"\0Kountac\\KountacBundle\\Entity\\Categories\0id\";i:22;s:49:\"\0Kountac\\KountacBundle\\Entity\\Categories\0children\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Categories\0parent\";N;s:44:\"\0Kountac\\KountacBundle\\Entity\\Categories\0nom\";N;}s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0looks\";O:55:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Idees_looks\":3:{s:17:\"__isInitialized__\";b:0;s:44:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0id\";i:1;s:45:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0nom\";N;}s:47:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0marque\";C:66:\"Proxies\\__CG__\\Utilisateurs\\UtilisateursBundle\\Entity\\Utilisateurs\":206:{a:8:{i:0;s:60:\"$2y$13$nF5bt32v7MmjOp74xFGJXOKKylzV4VNYxWWsyLoDh0JB4ZtMOz8ge\";i:1;N;i:2;s:7:\"kroskel\";i:3;s:7:\"Kroskel\";i:4;b:1;i:5;i:8;i:6;s:23:\"ornelladjoukui@yahoo.fr\";i:7;s:23:\"ornelladjoukui@yahoo.fr\";}}s:44:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0nom\";s:17:\"Ensemble slim 3/4\";s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0matiere\";s:5:\"Coton\";s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0description\";s:797:\"Le slim ¾ est un tailleur pantalon composé d’un pantalon près du corps et d’une veste ajustée aux manches ¾,  au col légèrement montant et boutonnée sur le devant. L’ensemble est confectionné dans un tissu uni légèrement stretch, rehaussé au niveau des poignets par un tissu teinté artisanalement à la cire. Il se décline en trois variantes de couleur de base différente : citron, feuille et chair. Une fermeture éclaire invisible permet d’enfiler la combinaison très aisément.\r\nLe tissu utilisé est un coton glacé - mélange de coton et d’élasthanne (96% coton et 4% élasthanne)\r\nAttention, le procédé de teinture artisanale étant totalement manuel, certains écarts au niveau des couleurs des parties teintées peuvent être constatés par rapport aux photos.\";s:63:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0conditions_utilisation\";s:305:\"Dans le cas de lavages au lave—linge, utiliser un programme à 40° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage.\r\nLe séchage au sèche-linge est déconseillé.\r\nRepasser au programme coton en protégeant d’une trop grande chaleur du fer par une pattemouille.\";s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0popularite\";i:1;s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0stock\";i:108;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateajout\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2018-12-17 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateupdate\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2018-12-17 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateachat\";N;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_3\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0commentaire\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0libelle\";O:58:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Libelles_motif\":6:{s:17:\"__isInitialized__\";b:1;s:47:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0id\";i:25;s:54:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0mannequin\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:52:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0libelle\";s:5:\"Jaune\";s:4:\"path\";s:45:\"e413af2371c7bf4458a0af5d18622f6823179d93.jpeg\";s:4:\"file\";N;}s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0stock\";i:54;s:45:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0etat\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0reduction\";d:0;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprix\";d:93;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprixCommande\";d:133;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprecommande\";b:1;s:49:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrix\";d:88;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrixCommande\";d:128;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrecommande\";b:1;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprix\";d:36900;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprixCommande\";d:51900;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprecommande\";b:1;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprix\";d:105;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprixCommande\";d:145;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprecommande\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprix\";d:90;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprixCommande\";d:130;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprecommande\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprix\";d:21300;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprixCommande\";d:36300;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprecommande\";b:1;}s:4:\"path\";s:45:\"a25350652ed633f88a718bcfcf14a8db7b401c77.jpeg\";s:5:\"path2\";s:46:\"05840090370937c48fe04ef51e97db3e9990c2e82.jpeg\";s:5:\"path3\";s:46:\"dd11662afd5b0f12378d5723f1bdb585b9e8ef9d3.jpeg\";s:45:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0top\";b:0;s:4:\"file\";N;s:5:\"file2\";N;s:5:\"file3\";N;s:9:\"modifieLe\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2019-08-20 03:16:10.137126\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}}s:6:\"taille\";s:2:\"34\";s:9:\"reference\";s:17:\"Ensemble slim 3/4\";s:5:\"motif\";s:5:\"Jaune\";s:8:\"quantite\";s:1:\"1\";s:4:\"prix\";d:36900;s:6:\"devise\";s:4:\"fcfa\";}', 'Expedier', 1, 0, 1, '2019-08-20', '2019-08-30', NULL, NULL),
+(2, 15, 8, 0, 0, NULL, NULL, NULL, NULL, 1, NULL, '2019-08-20', '201908200316292', 'a:7:{s:5:\"image\";O:40:\"Kountac\\KountacBundle\\Entity\\Media_motif\":11:{s:44:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0id\";i:256;s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0mannequin\";O:53:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Mannequin\":16:{s:17:\"__isInitialized__\";b:0;s:42:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0id\";i:20;s:46:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0marque\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0picture\";N;s:4:\"file\";N;s:50:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_ajout\";N;s:51:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0date_update\";N;s:53:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0nom_mannequin\";N;s:65:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_standard_mannequin\";N;s:55:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0poids_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0taille_mannequin\";N;s:62:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0numero_teint_mannequin\";N;s:61:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_taille_mannequin\";N;s:63:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_poitrine_mannequin\";N;s:70:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0tour_grandes_hanches_mannequin\";N;s:56:\"\0Kountac\\KountacBundle\\Entity\\Mannequin\0statut_mannequin\";N;}s:51:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0produit_2\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_2\":27:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0id\";i:128;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_1\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Produits_1\":16:{s:17:\"__isInitialized__\";b:1;s:43:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0id\";i:55;s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0collection\";O:55:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Collections\":3:{s:17:\"__isInitialized__\";b:0;s:44:\"\0Kountac\\KountacBundle\\Entity\\Collections\0id\";i:4;s:45:\"\0Kountac\\KountacBundle\\Entity\\Collections\0nom\";N;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0produit_2\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0categorie\";O:54:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Categories\":5:{s:17:\"__isInitialized__\";b:0;s:43:\"\0Kountac\\KountacBundle\\Entity\\Categories\0id\";i:26;s:49:\"\0Kountac\\KountacBundle\\Entity\\Categories\0children\";N;s:47:\"\0Kountac\\KountacBundle\\Entity\\Categories\0parent\";N;s:44:\"\0Kountac\\KountacBundle\\Entity\\Categories\0nom\";N;}s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0looks\";O:55:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Idees_looks\":3:{s:17:\"__isInitialized__\";b:0;s:44:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0id\";i:4;s:45:\"\0Kountac\\KountacBundle\\Entity\\Idees_looks\0nom\";N;}s:47:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0marque\";C:66:\"Proxies\\__CG__\\Utilisateurs\\UtilisateursBundle\\Entity\\Utilisateurs\":206:{a:8:{i:0;s:60:\"$2y$13$nF5bt32v7MmjOp74xFGJXOKKylzV4VNYxWWsyLoDh0JB4ZtMOz8ge\";i:1;N;i:2;s:7:\"kroskel\";i:3;s:7:\"Kroskel\";i:4;b:1;i:5;i:8;i:6;s:23:\"ornelladjoukui@yahoo.fr\";i:7;s:23:\"ornelladjoukui@yahoo.fr\";}}s:44:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0nom\";s:18:\"Robe voile Ninelle\";s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0matiere\";s:5:\"Coton\";s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0description\";s:446:\"Cette belle robe longue des grandes occasions marie un tissu uni, un tissu teinté artisanalement à la cire et un voile, dans une harmonie de formes et de couleurs. Transparente dans un décolleté profond, elle se fait très sage ailleurs, et le voile forme une traine légère qui figure une sorte de grande aile au milieu du dos. La robe, près du corps, s’évase à partir des hanches pour rendre aisé n’importe quel mouvement de danse.\";s:63:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0conditions_utilisation\";s:534:\"De par sa composition mélangée, il est conseillé de laver cette robe soit à sec, soit à la main à l’eau tiède savonneuse ; on peut aussi utiliser une lessive liquide ou quelques gouttes de shampoing. Les nettoyants et les lessives en poudre ne sont pas recommandés. Dans le cas de lavages au lave—linge, utiliser un programme à 30° maximum, une lessive liquide sans agent blanchissant et opter pour un faible essorage. \r\nRepasser au programme laine en protégeant d’une trop grande chaleur du fer par une pattemouille.\";s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0popularite\";i:3;s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0stock\";i:72;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateajout\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2018-12-17 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:51:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateupdate\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2019-04-30 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_1\0dateachat\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2019-08-20 00:00:00.000000\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}}s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0produit_3\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:52:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0commentaire\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0libelle\";O:58:\"Proxies\\__CG__\\Kountac\\KountacBundle\\Entity\\Libelles_motif\":6:{s:17:\"__isInitialized__\";b:1;s:47:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0id\";i:25;s:54:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0mannequin\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:13:\"\0*\0collection\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:53:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0elements\";a:0:{}}s:14:\"\0*\0initialized\";b:0;}s:52:\"\0Kountac\\KountacBundle\\Entity\\Libelles_motif\0libelle\";s:5:\"Jaune\";s:4:\"path\";s:45:\"e413af2371c7bf4458a0af5d18622f6823179d93.jpeg\";s:4:\"file\";N;}s:46:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0stock\";i:27;s:45:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0etat\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0reduction\";d:0;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprix\";d:149;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprixCommande\";d:189;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0allprecommande\";b:1;s:49:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrix\";d:144;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrixCommande\";d:184;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0europrecommande\";b:1;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprix\";d:65600;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprixCommande\";d:80600;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0cfaprecommande\";b:1;s:48:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprix\";d:160;s:56:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprixCommande\";d:200;s:55:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0usaprecommande\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprix\";d:146;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprixCommande\";d:186;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0livreprecommande\";b:1;s:50:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprix\";d:30900;s:58:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprixCommande\";d:45900;s:57:\"\0Kountac\\KountacBundle\\Entity\\Produits_2\0nairaprecommande\";b:1;}s:4:\"path\";s:45:\"488405edf057489636273e66d9a87127b608c2d7.jpeg\";s:5:\"path2\";s:46:\"a9d5b2a2a659235c7c1bb035ef487425925d30f92.jpeg\";s:5:\"path3\";s:46:\"62b3328296230632232dff95bff9370f5ed9609e3.jpeg\";s:45:\"\0Kountac\\KountacBundle\\Entity\\Media_motif\0top\";b:0;s:4:\"file\";N;s:5:\"file2\";N;s:5:\"file3\";N;s:9:\"modifieLe\";O:8:\"DateTime\":3:{s:4:\"date\";s:26:\"2019-08-20 03:16:10.153153\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:3:\"UTC\";}}s:6:\"taille\";s:2:\"50\";s:9:\"reference\";s:18:\"Robe voile Ninelle\";s:5:\"motif\";s:5:\"Jaune\";s:8:\"quantite\";s:1:\"1\";s:4:\"prix\";d:65600;s:6:\"devise\";s:4:\"fcfa\";}', 'Expedier', 1, 1, 1, '2019-08-20', '2019-08-21', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sur_mesures`
+-- Structure de la table `sur_mesures`
 --
 
 DROP TABLE IF EXISTS `sur_mesures`;
@@ -1821,7 +1807,7 @@ CREATE TABLE IF NOT EXISTS `sur_mesures` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `utilisateurs`
+-- Structure de la table `utilisateurs`
 --
 
 DROP TABLE IF EXISTS `utilisateurs`;
@@ -1876,22 +1862,22 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 ) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `utilisateurs`
+-- Déchargement des données de la table `utilisateurs`
 --
 
 INSERT INTO `utilisateurs` (`id`, `image_id`, `service_livraison_id`, `service_paiement_id`, `username`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `password`, `last_login`, `confirmation_token`, `password_requested_at`, `roles`, `nom`, `prenom`, `sexe`, `pays`, `adresse`, `rue`, `ville`, `cp`, `telephone`, `telephonefix`, `code`, `codeparrain`, `points`, `marque`, `description_entreprise`, `pays_entreprise`, `ville_entreprise`, `adresse_entreprise`, `rue_entreprise`, `cp_entreprise`, `telephone_entreprise`, `telephonefix_entreprise`, `departement`, `digicode`, `verifier`) VALUES
-(3, 3, 1, 1, 'damss_admin', 'damss_admin', 'dwohwe@yahoo.fr', 'dwohwe@yahoo.fr', 1, NULL, '$2y$13$825iw1zFYHGg2CVlbb2lT.93ZD/rG.JwLHfy/1y6qI0ahZk0WEV8K', '2019-08-01 06:22:28', NULL, NULL, 'a:2:{i:0;s:8:\"ROLE_PRO\";i:1;s:10:\"ROLE_ADMIN\";}', 'Sambo', 'Damien', '0', 'AF', 'Ngaoundéré', '12 rue de Valois', 'Ngaoundéré', 454, 3398432804665, 237694584538, NULL, NULL, NULL, 'kountac_admin', 'Administration de Kountac', 'CM', 'Ngaoundéré', 'Ngaoundéré', 'Comportement bar', 454, 6564545454, 679835554, '', NULL, NULL),
+(3, 3, 1, 1, 'damss_admin', 'damss_admin', 'dwohwe@yahoo.fr', 'dwohwe@yahoo.fr', 1, NULL, '$2y$13$825iw1zFYHGg2CVlbb2lT.93ZD/rG.JwLHfy/1y6qI0ahZk0WEV8K', '2019-09-05 14:14:21', NULL, NULL, 'a:2:{i:0;s:8:\"ROLE_PRO\";i:1;s:10:\"ROLE_ADMIN\";}', 'Sambo', 'Damien', '0', 'AF', 'Ngaoundéré', '12 rue de Valois', 'Ngaoundéré', 454, 3398432804665, 237694584538, NULL, NULL, NULL, 'kountac_admin', 'Administration de Kountac', 'CM', 'Ngaoundéré', 'Ngaoundéré', 'Comportement bar', 454, 6564545454, 679835554, '', NULL, NULL),
 (5, 5, NULL, NULL, 'bantou_nomade', 'bantou_nomade', 'damien.wohwe@univ-ndere.cm', 'damien.wohwe@univ-ndere.cm', 1, NULL, '$2y$13$ns43CLX2C1nK6fKmesEA2.lmzQzEF8vAuotP/4Vclskv5cFbJcDp6', '2018-12-19 14:02:16', NULL, NULL, 'a:1:{i:0;s:8:\"ROLE_PRO\";}', 'Wohwe Sambo', 'Damien', '0', 'AF', 'Ngaoundéré', NULL, 'Ngaoundéré', 454, 33984328046, NULL, NULL, NULL, NULL, 'Damien Wohwe Sambo', 'A propos de ma marque personnelle', 'FR', 'Ngaoundéré', 'Ngaoundéré', '12 rue de valois', 454, 33984328046, NULL, 'Mfoundi', 4545, NULL),
 (7, 7, 7, NULL, 'donapav', 'donapav', 'donapav@gmail.com', 'donapav@gmail.com', 1, NULL, '$2y$13$2OKOXseHfzx4mPz/WpwVR.Eij2e4fsrw7adC4gNAT/ECqOwX9rlpq', '2019-04-17 13:23:12', NULL, NULL, 'a:2:{i:0;s:8:\"ROLE_PRO\";i:1;s:10:\"ROLE_ADMIN\";}', 'Pavolini', 'Donatella', '1', 'FR', '12 rue du Valois', '12 rue du valois', 'Les Ulis', 91940, 781857285, 164915537, NULL, NULL, NULL, 'Kroskel', 'Ça, c\'est à faire. Encore un souci d\'adresse : ici il y a \"adresse\" puis \"rue\"... Et je ne comprends pas : peut-on ou pas créer plusieurs comptes perso pour la même marque ?', 'FR', 'Les Ulis', NULL, '12 rue du valois', 91940, 781857285, NULL, 'Essonne', NULL, NULL),
-(8, 8, 4, 3, 'Kroskel', 'kroskel', 'ornelladjoukui@yahoo.fr', 'ornelladjoukui@yahoo.fr', 1, NULL, '$2y$13$nF5bt32v7MmjOp74xFGJXOKKylzV4VNYxWWsyLoDh0JB4ZtMOz8ge', '2019-08-06 13:52:53', NULL, NULL, 'a:1:{i:0;s:8:\"ROLE_PRO\";}', 'DJOUKUI', 'Ornella', '1', 'FR', '12 rue de Valois', '12 rue du valois', 'Les Ulis', 91940, 644784429, 644784429, NULL, NULL, NULL, 'Kroskel', 'Kroskel est une marque de prêt à porter et de sur-mesure spécialisée dans la création de vêtements et d\'accessoires pour femmes, hommes et enfants. La marque personnalise ses créations en associant du tissus teintés de façon artisanale à des matières plus classiques. Le résultat donne une ligne chaude qui ajoute sa touche d\'originalité à ce qui se définit comme de la mode Afropéenne. Les produits sont conçus et modélisés en France, et exclusivement fabriqués en Afrique. Par ce choix du lieu de fabrication, la marque espère apporter sa patte au développement du continent.', 'FR', 'Les Ulis', '12 rue de Valois', 'De Valois', 91940, 644784429, 644784429, 'Essonne', NULL, 1),
-(15, 16, 5, 4, 'ChrisME', 'chrisme', 'christianmeli81@gmail.com', 'christianmeli81@gmail.com', 1, NULL, '$2y$13$3zrZEmYNgkq138fyl.46cOe7xpcghR4OqWc/vsvi4j0SkIqNvGmw6', '2019-07-15 01:31:16', NULL, NULL, 'a:0:{}', 'MELI', 'CHRISTIAN', '0', 'CM', 'Bonamoussadi', 'fin goudron afrique du sud', 'Douala', 0, 698880522, 698880522, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'WOURI', 0, NULL),
+(8, 8, 4, 3, 'Kroskel', 'kroskel', 'ornelladjoukui@yahoo.fr', 'ornelladjoukui@yahoo.fr', 1, NULL, '$2y$13$nF5bt32v7MmjOp74xFGJXOKKylzV4VNYxWWsyLoDh0JB4ZtMOz8ge', '2019-09-05 14:15:04', NULL, NULL, 'a:1:{i:0;s:8:\"ROLE_PRO\";}', 'DJOUKUI', 'Ornella', '1', 'FR', '12 rue de Valois', '12 rue du valois', 'Les Ulis', 91940, 644784429, 644784429, NULL, NULL, NULL, 'Kroskel', 'Kroskel est une marque de prêt à porter et de sur-mesure spécialisée dans la création de vêtements et d\'accessoires pour femmes, hommes et enfants. La marque personnalise ses créations en associant du tissus teintés de façon artisanale à des matières plus classiques. Le résultat donne une ligne chaude qui ajoute sa touche d\'originalité à ce qui se définit comme de la mode Afropéenne. Les produits sont conçus et modélisés en France, et exclusivement fabriqués en Afrique. Par ce choix du lieu de fabrication, la marque espère apporter sa patte au développement du continent.', 'FR', 'Les Ulis', '12 rue de Valois', 'De Valois', 91940, 644784429, 644784429, 'Essonne', NULL, 1),
+(15, 16, 5, 4, 'ChrisME', 'chrisme', 'christianmeli81@gmail.com', 'christianmeli81@gmail.com', 1, NULL, '$2y$13$3zrZEmYNgkq138fyl.46cOe7xpcghR4OqWc/vsvi4j0SkIqNvGmw6', '2019-09-05 14:14:42', NULL, NULL, 'a:0:{}', 'MELI', 'CHRISTIAN', '0', 'CM', 'Bonamoussadi', 'fin goudron afrique du sud', 'Douala', 0, 698880522, 698880522, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'WOURI', 0, NULL),
 (17, 22, 3, NULL, 'MonsieurPi', 'monsieurpi', 'jmfcad@hotmail.fr', 'jmfcad@hotmail.fr', 1, NULL, '$2y$13$99Zjf27ovJAq87qKj0zhbugmLzlWCeJwRxJUQElYP4xt.oKBPKo6C', '2019-02-22 16:25:51', NULL, NULL, 'a:0:{}', 'Roux', 'Mattias', '0', 'FR', '12', 'rue de Valois', 'Les Ulis', 91940, 659261956, 984328046, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '91', NULL, NULL),
 (18, 27, NULL, NULL, 'foster05', 'foster05', 'mtinafoss05@gmail.com', 'mtinafoss05@gmail.com', 1, NULL, '$2y$13$Nd/5Pd1942e0QbbFvGD8I.a/c92NjiliOVdS5urEiim4GY.j.ff9O', '2019-02-10 18:56:42', NULL, NULL, 'a:0:{}', 'Fossi', 'Tatiana', '1', 'DE', 'Niersterfeldstr', '03', 'Dortmund', 44329, 15731383571, 23113098782, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Nordrhein-Westfalen', NULL, NULL),
 (19, 28, NULL, NULL, 'Tata rosalie', 'tata rosalie', 'kengne.rosalie@yahoo.fr', 'kengne.rosalie@yahoo.fr', 1, NULL, '$2y$13$paoxRYD6.9XZIKxO9ZgrxuWjxbflPA4HhnJu94k6U8B5eriotDuxC', '2019-02-10 19:23:02', NULL, NULL, 'a:0:{}', 'Kengne', 'Rosalie', '1', 'CM', 'Hapy', 'Odza', 'Yaoundé', 7652, 699539509, 679525263, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Mfoundi', NULL, NULL),
 (20, 29, 6, NULL, 'NDJOO', 'ndjoo', 'djovany.7@gmail.com', 'djovany.7@gmail.com', 1, NULL, '$2y$13$abXceN/2UigY6ljOlMHFcegO6e0mkyZiddSj6f2ke0VxEIuLFU8sy', '2019-04-11 16:13:51', NULL, NULL, 'a:2:{i:0;s:8:\"ROLE_PRO\";i:1;s:10:\"ROLE_ADMIN\";}', 'DJOUKUI', 'Ornella', '1', 'FR', '12 rue de Valois', 'Res La Treille', 'Les Ulis', 91940, 783770322, 783770322, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ESSONNE', 1234, NULL),
 (21, 32, NULL, NULL, 'Wadouf', 'wadouf', 'wadouf@gmail.com', 'wadouf@gmail.com', 1, NULL, '$2y$13$UFhRPLRz/eNUsnUL94rUBep8xsqaQXsC6cWfYmvLH5kQxW3QnrMN.', '2019-02-13 14:01:16', NULL, NULL, 'a:0:{}', 'WADOUFEY', 'Abel', '0', 'CM', 'Ngousso, Yaoundé Cameroun', NULL, 'Yaoundé', 157, 696472400, 650125212, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Yaoundé 4', 237, NULL),
 (22, 34, 8, NULL, 'donapavo', 'donapavo', 'donapavo@free.fr', 'donapavo@free.fr', 1, NULL, '$2y$13$caFjqnh9.dIQsvMBtKYH3uCrBB5SqgakdSEs/HskUoOxGDNnIYCU6', '2019-02-22 16:21:37', NULL, NULL, 'a:0:{}', 'Pavolini', 'Donatella', '1', 'FR', '66 rue du couvent', '66 rue du couvent', 'Limours', 91470, 781857285, 164915537, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Essonne', NULL, NULL),
-(41, 59, 9, 5, 'ChrisME237', 'chrisme237', 'christianmeli81@yahoo.fr', 'christianmeli81@yahoo.fr', 1, NULL, '$2y$13$WNWDhJGIWGmuwWzuSTFPiunq9IS7/qnOFlQXFO2jRyw8JAvrA.WNu', '2019-07-25 16:23:37', NULL, NULL, 'a:1:{i:0;s:8:\"ROLE_PRO\";}', 'MEL', 'Chris', '0', 'AF', 'test', 'Logbessou', 'Douala', 1234, 689880522, 698880522, '4WE53PA \n', NULL, 1000, 'ChrisME237', 'ergsq f sdw f', 'AF', 'Douala', NULL, 'Douala', 1234, 698880522, NULL, NULL, NULL, 1),
+(41, 59, 9, 5, 'ChrisME237', 'chrisme237', 'christianmeli81@yahoo.fr', 'christianmeli81@yahoo.fr', 1, NULL, '$2y$13$WNWDhJGIWGmuwWzuSTFPiunq9IS7/qnOFlQXFO2jRyw8JAvrA.WNu', '2019-09-05 14:10:07', NULL, NULL, 'a:1:{i:0;s:8:\"ROLE_PRO\";}', 'MEL', 'Chris', '0', 'AF', 'test', 'Logbessou', 'Douala', 1234, 689880522, 698880522, '4WE53PA \n', NULL, 1000, 'ChrisME237', 'ergsq f sdw f', 'AF', 'Douala', NULL, 'Douala', 1234, 698880522, NULL, NULL, NULL, 1),
 (42, 60, NULL, NULL, 'Roux', 'roux', '3muvj4e6y03x@opayq.com', '3muvj4e6y03x@opayq.com', 1, NULL, '$2y$13$x07PGfERyQnnJq1jBjb42eaHv/1j9UEs6L0M7eVW7xga2/MqAXFuO', '2019-04-11 15:56:49', NULL, NULL, 'a:1:{i:0;s:8:\"ROLE_PRO\";}', 'Roux', 'Roux', '0', 'FR', 'Roux', NULL, 'Les Ulis', 91940, 659261956, NULL, 'MHTMMYH \n', 'Roux', 1000, 'Roux', 'Roux', 'FR', 'Les Ulis', NULL, 'Roux', 91940, 659261956, NULL, NULL, NULL, NULL),
 (43, 61, NULL, NULL, 'donclaros', 'donclaros', 'donclaros@free.fr', 'donclaros@free.fr', 0, NULL, '$2y$13$SwN.NrX9TVj/rrGHaHaHOuLrzM6/XGt2mXuSh8.N/TqgE.GvwLA5O', NULL, 'dHVNjy2y1RvwyHNqEMyI4oJzUki3RvMqnWX-8IBV0v0', NULL, 'a:0:{}', 'Don', 'Claros', '1', 'FR', '66 rue du couvent', NULL, 'Limours', 91470, 781857285, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (44, 62, NULL, NULL, 'DIDIROUX', 'didiroux', 'didi.roux@free.fr', 'didi.roux@free.fr', 0, NULL, '$2y$13$nXuzfNp1P3xDF3e3XXA./.NonKZBMe8CAzZzPJLGesjBLXh2P4WVq', NULL, 'Dx4ekBNiI_s9_-7zWO9n59lQM_ZQPRsop8NybspDsUM', NULL, 'a:1:{i:0;s:8:\"ROLE_PRO\";}', 'Roux', 'Elisabeth', '1', 'FR', '66 rue du couvent', NULL, 'Limours', 91470, 781857285, NULL, '4S8PRJM \n', NULL, 1000, 'DIDIROUX', 'DIDIDIDIDIDIDIDIDIDIDI', 'FR', 'Limours', NULL, '66 rue du couvent', 91470, 781857285, NULL, NULL, NULL, NULL),
@@ -1899,30 +1885,30 @@ INSERT INTO `utilisateurs` (`id`, `image_id`, `service_livraison_id`, `service_p
 (53, 72, NULL, NULL, 'ChrisME007', 'chrisme007', 'chris@gmail.com', 'chris@gmail.com', 1, NULL, '$2y$13$0.8YzLei/tbV2q6g1.ygxeruoacqj/jSQYJpFcfs8GLNIAYiCMDIu', '2019-07-15 01:45:13', NULL, NULL, 'a:1:{i:0;s:8:\"ROLE_PRO\";}', 'MELI', 'Christian', '0', 'AF', 'Odza', 'deuxieme entree du lycee', 'Yaoundé', 1980, 650504902, NULL, 'UF0ZZH5 \n', NULL, 1000, 'ChrisME007', 'test', 'AF', 'Yaoundé', NULL, 'Odza', 12797, 650504902, NULL, NULL, NULL, 1);
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- Constraints for table `achats`
+-- Contraintes pour la table `achats`
 --
 ALTER TABLE `achats`
   ADD CONSTRAINT `FK_9920924EFB88E14F` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateurs` (`id`);
 
 --
--- Constraints for table `categories`
+-- Contraintes pour la table `categories`
 --
 ALTER TABLE `categories`
   ADD CONSTRAINT `FK_3AF34668727ACA70` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `chatmessage`
+-- Contraintes pour la table `chatmessage`
 --
 ALTER TABLE `chatmessage`
   ADD CONSTRAINT `FK_617356963B49782D` FOREIGN KEY (`recepteur_id`) REFERENCES `utilisateurs` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_61735696F675F31B` FOREIGN KEY (`author_id`) REFERENCES `utilisateurs` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `commandes`
+-- Contraintes pour la table `commandes`
 --
 ALTER TABLE `commandes`
   ADD CONSTRAINT `FK_35D4282C3DA5256D` FOREIGN KEY (`image_id`) REFERENCES `media_motif` (`id`),
@@ -1932,32 +1918,32 @@ ALTER TABLE `commandes`
   ADD CONSTRAINT `FK_35D4282CFB88E14F` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateurs` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `commentaires`
+-- Contraintes pour la table `commentaires`
 --
 ALTER TABLE `commentaires`
   ADD CONSTRAINT `FK_D9BEC0C4F347EFB` FOREIGN KEY (`produit_id`) REFERENCES `produits_2` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `mannequin`
+-- Contraintes pour la table `mannequin`
 --
 ALTER TABLE `mannequin`
   ADD CONSTRAINT `FK_F2BC00874827B9B2` FOREIGN KEY (`marque_id`) REFERENCES `utilisateurs` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `media_motif`
+-- Contraintes pour la table `media_motif`
 --
 ALTER TABLE `media_motif`
   ADD CONSTRAINT `FK_98CAB30A58DDEC98` FOREIGN KEY (`mannequin_id`) REFERENCES `mannequin` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_98CAB30ACBFE8EFB` FOREIGN KEY (`produit_2_id`) REFERENCES `produits_2` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `mesures`
+-- Contraintes pour la table `mesures`
 --
 ALTER TABLE `mesures`
   ADD CONSTRAINT `FK_4B54A559FB88E14F` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateurs` (`id`);
 
 --
--- Constraints for table `produits_1`
+-- Contraintes pour la table `produits_1`
 --
 ALTER TABLE `produits_1`
   ADD CONSTRAINT `FK_AC7EF5714827B9B2` FOREIGN KEY (`marque_id`) REFERENCES `utilisateurs` (`id`) ON DELETE CASCADE,
@@ -1966,20 +1952,20 @@ ALTER TABLE `produits_1`
   ADD CONSTRAINT `FK_AC7EF571BCF5E72D` FOREIGN KEY (`categorie_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `produits_2`
+-- Contraintes pour la table `produits_2`
 --
 ALTER TABLE `produits_2`
   ADD CONSTRAINT `FK_3577A4CB25DD318D` FOREIGN KEY (`libelle_id`) REFERENCES `libelles_motif` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_3577A4CBD94B2115` FOREIGN KEY (`produit_1_id`) REFERENCES `produits_1` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `produits_3`
+-- Contraintes pour la table `produits_3`
 --
 ALTER TABLE `produits_3`
   ADD CONSTRAINT `FK_4270945DCBFE8EFB` FOREIGN KEY (`produit_2_id`) REFERENCES `produits_2` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `reservations`
+-- Contraintes pour la table `reservations`
 --
 ALTER TABLE `reservations`
   ADD CONSTRAINT `FK_4DA2394827B9B2` FOREIGN KEY (`marque_id`) REFERENCES `utilisateurs` (`id`) ON DELETE CASCADE,
@@ -1987,7 +1973,7 @@ ALTER TABLE `reservations`
   ADD CONSTRAINT `FK_4DA239FB88E14F` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateurs` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `utilisateurs`
+-- Contraintes pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
   ADD CONSTRAINT `FK_497B315E3DA5256D` FOREIGN KEY (`image_id`) REFERENCES `media` (`id`) ON DELETE CASCADE,
