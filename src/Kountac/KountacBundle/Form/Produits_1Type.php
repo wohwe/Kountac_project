@@ -16,7 +16,7 @@ class Produits_1Type extends AbstractType
         $builder
                 ->add('nom','text', array('attr' => array('class' => 'input form-control'),'required' => true, 'label' => 'Nom*'))
                 ->add('matiere','choice', array('choices' => array('Coton' => 'Coton',
-                                                        'Synthétique' => 'Synthétique',
+                                                                'Synthétique' => 'Synthétique',
                                                                'Soie' => 'Soie',
                                                                'Laine' => 'Laine',
                                                                'Kapok' => 'Kapok',

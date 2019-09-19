@@ -56,8 +56,67 @@ class RegistrationController extends Controller
      */
     public function registerAction(Request $request)
     {
+
+        $path = __DIR__."/../../../../web/fichier.txt";
+        $chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $code = '';
+        for($i=0; $i<7; $i++){
+            $code .= $chars[rand(0, strlen($chars)-1)];
+        }
+        
+        $codebd = "";
+        $lignes = file($path);
+        $fin = false;
+        
+        foreach($lignes as $ligne){
+            if(strstr($ligne,$code)){ //Tu peux utiliser strpos aussi
+                $fin = true;
+                break;
+            }
+        }
+        
+        if($fin === true){
+            while ($fin === true) {
+        
+                $chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $code = '';
+                for($i=0; $i<7; $i++){
+                    $code .= $chars[rand(0, strlen($chars)-1)];
+                }
+                $lignes = file($path);
+                $fin = false;
+        
+                foreach($lignes as $ligne){
+                    if(strstr($ligne,$code)){ //Tu peux utiliser strpos aussi
+                        $fin = true;
+                        break;
+                    }
+                }
+                $code = $code." \n";
+                $codebd = $code;
+                array_unshift($lignes,$code);
+                $new_content = join('',$lignes);
+                $fichier = fopen($path, 'w+');
+                fwrite($fichier, $new_content);
+                //echo file_get_contents('fichier.txt');
+                fclose($fichier);
+            }
+        }else{
+            $code = $code." \n";
+            $codebd = $code;
+            array_unshift($lignes,$code);
+            $new_content = join('',$lignes);
+            $fichier = fopen($path, 'w+');
+            fwrite($fichier, $new_content);
+            //echo file_get_contents('fichier.txt');
+            fclose($fichier);
+        }
+
+
         $user = $this->userManager->createUser();
         $user->setEnabled(true);
+        $user->setCode($codebd);
+        $user->setPoints(1000);
 
         $event = new GetResponseUserEvent($user, $request);
         $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
