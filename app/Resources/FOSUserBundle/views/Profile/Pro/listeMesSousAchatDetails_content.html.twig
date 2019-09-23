@@ -276,5 +276,22 @@
                 }
             });
         }
+
+
+        setInterval(compteRebours($('.mytab').data('achat')), 1000);
+        function compteRebours(id){
+            getData({
+                url:"compteRebours/"+id,
+                method: "GET",
+                async:true,
+                onBegin:function(){
+                    console.log("begin compte");
+                },
+                onSuccess: function(e){
+                    var data = JSON.parse(e);
+                    console.log(data);
+                }
+            });
+        }
     })();
 </script>

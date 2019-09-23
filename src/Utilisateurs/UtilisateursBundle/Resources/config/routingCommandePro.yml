@@ -17,13 +17,19 @@ accepter_sous_achat:
     path:     /achat-en-instance/accepter/{id}
     defaults: { _controller: "UtilisateursBundle:CommandePro:accepterSousAchat" }
     methods:  GET
-    
-    
+
+
 livraison_sous_achat:
-    path:     /achat-en-instance/livraison/{id}
-    defaults: { _controller: "UtilisateursBundle:CommandePro:livraisonSousAchat" }
+        path:     /achat-en-instance/livraison/{id}
+        defaults: { _controller: "UtilisateursBundle:CommandePro:livraisonSousAchat" }
+        methods:  GET
+
+
+compteRebours:
+    path:     /achat-en-instance/compteRebours/{id}
+    defaults: { _controller: "UtilisateursBundle:CommandePro:echeanceSousAchat" }
     methods:  GET
-    
+
 disable_livraison_sous_achat:
     path:     /achat-en-instance/disable_livraison/{id}
     defaults: { _controller: "UtilisateursBundle:CommandePro:disableLivraisonSousAchat" }
