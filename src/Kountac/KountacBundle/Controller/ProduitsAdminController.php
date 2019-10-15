@@ -331,10 +331,7 @@ class ProduitsAdminController extends Controller
      */
     public function showAction(Request $request, Produits_1 $produit)
     {
-        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
-        $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $form = $this->createForm('Kountac\KountacBundle\Form\ProduitsAddPriceCommandeType');
         $form_stock = $this->createForm('Kountac\KountacBundle\Form\ProduitsAddStockType');
         if ($request->getMethod() == 'POST') {
@@ -354,8 +351,6 @@ class ProduitsAdminController extends Controller
         return $this->render('produits/show.html.twig', array(
             'produit' => $produit,
             'user' => $user,
-            'images' => $images,
-            'mannequins' => $mannequins,
             'form' => $form->createView(),
             'form_stock' => $form_stock->createView(),
         ));

@@ -1,5 +1,4 @@
 /web/bundles/
-/web/fichier.txt
 /web/uploadProduits
 /web/Motifs
 /web/media
@@ -14,4 +13,3 @@
 /build/
 /bin/
 /composer.phar
-/web/fichier.txt

@@ -38,15 +38,6 @@ class CategoriesRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
-    public function getCategoriesParentId($parent) 
-    {
-        $qb = $this->createQueryBuilder('c')
-                ->select('c')
-                ->where('c.parent = :parent')
-                ->setParameter('parent', $parent);
-        return $qb->getQuery()->getResult();
-    }
-    
     public function getFemmesBasChildren() 
     {
         $qb = $this->createQueryBuilder('c')

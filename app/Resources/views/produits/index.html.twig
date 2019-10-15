@@ -319,9 +319,9 @@
                                                 {% endif %}
                                                 
                                                 <td class="action">
-                                                    <a title="Regarder produit {{ produit.nom|capitalize }} " href="{{ path('adminProduits_show', {'id' : produit.id}) }}"><i class="fa fa-search"></i></a><br>
-                                                    <a title="Modifier produit {{ produit.nom|capitalize }} " href="{{ path('adminProduits_edit_1', {'id' : produit.id}) }}"><i class="fa fa-pencil"></i></a><br>
-                                                    <br><br><a title="Retirer {{ produit.nom|capitalize }} de vos produits" href="{{ path('adminProduits_delete', {'id' : produit.id}) }}"><i class="fa fa-trash"></i></a>
+                                                    <a title="Regarder produit {{ produit.nom|capitalize }} " href="{{ path('produit_pro_show', {'id' : produit.id}) }}"><i class="fa fa-search"></i></a><br>
+                                                    <a title="Modifier produit {{ produit.nom|capitalize }} " href="{{ path('produit_pro_edit_1', {'id' : produit.id}) }}"><i class="fa fa-pencil"></i></a><br>
+                                                    <br><br><a title="Retirer {{ produit.nom|capitalize }} de vos produits" href="{{ path('produit_pro_delete', {'id' : produit.id}) }}"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
