@@ -660,7 +660,29 @@ class ProduitController extends Controller
                                                                                             'cfa' => $this->getRequest()->getSession()->get('cfa'),
                                                                                          'categorie' => $session->get('categorie')));
     }
-    
+
+    private $results = [];
+
+    function getProducts($category_id){
+
+        $em = $this->getDoctrine()->getManager();
+        
+        $data = $em->getRepository('KountacBundle:Produits_1')->byCategorie($category_id);
+        for($i=0; $i<count($data); $i++){
+            array_push($this->results, $data[$i]->getId());
+        }
+        
+        $subCategories = $em->getRepository('KountacBundle:Categories')->getCategoriesParentId($category_id);
+
+        for($i=0; $i<count($subCategories); $i++){
+            $this->getProducts($subCategories[$i]->getId());
+        }
+
+        sort($this->results);
+        
+        return $this->results;
+    }
+        
     public function categorie_1Action($categorie)
     {
         $session = $this->getRequest()->getSession();
@@ -670,8 +692,21 @@ class ProduitController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         
-        $categories_enfants = $em->getRepository('KountacBundle:Categories')->find($categorie)->getChildren();
-        $produitsCategorie = $em->getRepository('KountacBundle:Produits_2')->byCategorie_1($categorie, $categories_enfants);
+        //$categories_enfants = $em->getRepository('KountacBundle:Categories')->find($categorie)->getChildren();
+
+        $productByCat = [];
+        $allProducts = $this->getProducts($categorie);
+        $produitsCategorie = $em->getRepository('KountacBundle:Produits_2')->byCategorie_1();
+
+        for ($i=0; $i < count($allProducts) ; $i++) { 
+            for ($j=0; $j < count($produitsCategorie) ; $j++) { 
+                if( $produitsCategorie[$j]->getProduit1()->getId() == $allProducts[$i] ){
+                    array_push($productByCat, $produitsCategorie[$j]);
+                    break;
+                }
+            }
+        }
+
         $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
         $cfaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixCFA();
@@ -686,16 +721,17 @@ class ProduitController extends Controller
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
         $form_taillePoids = $this->createForm(new Taille_PoidsType());                       
         
-        $produits  = $this->get('knp_paginator')->paginate($produitsCategorie,$this->get('request')->query->get('page', 1),20);
+        $produits  = $this->get('knp_paginator')->paginate($productByCat,$this->get('request')->query->get('page', 1),20);
+        
 
         return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
                                                                                             'nom' => $nomCategorie,
-            'cfaprix' => $cfaprix,
-            'europrix' => $europrix,
-            'usaprix' => $usaprix,
-            'livreprix' => $livreprix,
-            'nairaprix' => $nairaprix,
-            'allprix' => $allprix,
+                                                                                            'cfaprix' => $cfaprix,
+                                                                                            'europrix' => $europrix,
+                                                                                            'usaprix' => $usaprix,
+                                                                                            'livreprix' => $livreprix,
+                                                                                            'nairaprix' => $nairaprix,
+                                                                                            'allprix' => $allprix,
                                                                                             'marques' => $marques, 
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,

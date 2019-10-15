@@ -719,21 +719,23 @@ class Produits_2Repository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
-    public function byCategorie_1($categorie, $categories_enfants) 
+    public function byCategorie_1() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function byProdByCat($categorie) 
     {
         $qb = $this->createQueryBuilder('p2')
                 ->select('p2')
                 ->leftJoin('p2.produit_1', 'p1')
                 ->addSelect('p1')
-                ->leftJoin('p1.categorie', 'cat')
-                ->addSelect('cat')
                 ->where('p1.categorie = :categorie')
-                ->orWhere('cat.id IN (:categories_enfants)')
-                ->andWhere('p1.stock >= :seuil')
-                ->orderBy('p2.libelle')
-                ->setParameter('categorie', $categorie)
-                ->setParameter('categories_enfants', $categories_enfants)
-                ->setParameter('seuil', '1');
+                ->setParameter('categorie', $categorie);
         return $qb->getQuery()->getResult();
     }
     

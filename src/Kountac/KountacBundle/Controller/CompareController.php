@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class CompareController extends Controller
 {
+    
     public function compareAction()
     {
         $session = $this->getRequest()->getSession();

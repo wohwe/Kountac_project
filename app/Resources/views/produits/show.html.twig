@@ -74,53 +74,60 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td class="compare-label"></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="compare-label"><img src="{{ produit2.libelle.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; {{ produit2.libelle.libelle|upper }}<br><br>
-                                                <a title="Modifier le motif {{ produit2.libelle.libelle|capitalize }} " href="{{ path('adminProduits_edit_21', { 'id' : produit2.id }) }}"><i class="fa fa-pencil"></i> <small>Modifier motif</small></a><br>
-                                                <br><a title="Effacer le motif '{{ produit2.libelle.libelle|capitalize }}' de vos produits" href="{{ path('adminProduits_deleteMotif', { 'id' : produit2.id }) }}"><i class="fa fa-trash"></i> <small>Effacer motif</small></a>
-                                            </td>
+                                            <td class="compare-label"><img src="{{ produit2.libelle.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp;-- {{ produit2.libelle.libelle|upper }} --</td>
                                             <td>
-                                                <div class="col-sm-4">
-                                                    <img src="{{ produit2.picture.AssetPath|imagine_filter('commandeThumb') }}" alt="">
-                                                </div>
-                                                {% if produit2.picture.path2 %}
-                                                <div class="col-sm-4">
-                                                    <img src="{{ produit2.picture.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
-                                                </div>
-                                                {% endif %}
-                                                {% if produit2.picture.path3 %}
-                                                <div class="col-sm-4">
-                                                    <img src="{{ produit2.picture.AssetPath3|imagine_filter('commandeThumb') }}" alt="">
-                                                </div>
-                                                {% endif %}
+                                                <a title="Modifier le motif {{ produit2.libelle|capitalize }}" href="{{ path('produit_pro_edit_21', { 'id' : produit2.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp; <strong>Modifier</strong></a><br>
+                                                <br><a title="Retirer le motif {{ produit2.libelle|capitalize }}" href="{{ path('produit_pro_delete_motif', { 'id' : produit2.id }) }}"><button class="button button-sm"><i class="fa fa-trash"></i></button>&nbsp;&nbsp; <strong>Effacer</strong></a>
                                             </td>
                                         </tr>
+                                        
+                                        {% for image in images %}
+                                            {% if image.produit2 == produit2 %}
                                         <tr>
                                             <td class="compare-label"></td>
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td class="compare-label"><img src="{{ produit2.mannequin.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; {{ produit2.mannequin.nomMannequin|upper }}</td>
+                                            <td class="compare-label">
+                                                <img src="{{ image.mannequin.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; {{ image.mannequin.nomMannequin|upper }}&nbsp;&nbsp;&nbsp; {% if image.top == 0 %}<i class="glyphicon  glyphicon-check"></i>{% else %}<br><br><small> Choisir comme mannequin top<br><a href="{{ path('produit_pro_set_images_top', { 'id' : image.id }) }}"> <u>Cliquer ici</u></a></small>{% endif %}
+                                                 <br><br><br><br><a title="Retirer ce mannequin" href="{{ path('produit_pro_delete_images', { 'id' : image.id }) }}"><i class="fa fa-trash"></i>&nbsp;<small>Effacer</small></a>
+                                            
+                                            </td>
                                             <td>
-                                                <div class="col-sm-4">
-                                                    <img src="{{ produit2.mannequin.AssetPath|imagine_filter('commandeThumb') }}" alt="">
+                                                <div class="col-sm-3">
+                                                    <img src="{{ image.AssetPath|imagine_filter('commandeThumb') }}" alt="">
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <label><u>Nom</u> :</label> {{ produit2.mannequin.nomMannequin|upper }}<br>
-                                                    <label><u>Taille standard</u> :</label> {{ produit2.mannequin.tailleStandardMannequin }}<br>
-                                                    <label><u>Poids</u> :</label> {{ produit2.mannequin.poidsMannequin }} Kg<br>
-                                                    <label><u>Taille </u> :</label> {{ produit2.mannequin.tailleMannequin }} m<br>
-                                                    <label><u>Numéro teint</u> :</label> {{ produit2.mannequin.numeroTeintMannequin }}<br>
-                                                    <label><u>Tour de taille</u> :</label> {{ produit2.mannequin.tourTailleMannequin }} cm<br>
-                                                    <label><u>Tour de poitrine</u> :</label> {{ produit2.mannequin.tourPoitrineMannequin }} cm<br>
-                                                    <label><u>Tour grandes hanches</u> :</label> {{ produit2.mannequin.tourGrandesHanchesMannequin }} cm<br>
-                                                    <label><u>Statut</u> :</label> {% if produit2.mannequin.statutMannequin == 'disponible' %} Disponible pour avatar {% elseif produit2.mannequin.statutMannequin == 'reserve' %}Réservé pour la marque {% elseif produit2.mannequin.statutMannequin == 'indisponible' %} Indisponible{% endif %}
+                                                {% if image.path2 %}
+                                                <div class="col-sm-3">
+                                                    <img src="{{ image.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
+                                                </div>
+                                                {% endif %}
+                                                {% if image.path3 %}
+                                                <div class="col-sm-2">
+                                                    <img src="{{ image.AssetPath3|imagine_filter('commandeThumb') }}" alt="">
+                                                </div>
+                                                {% endif %}
+                                                <div class="col-sm-4">
+                                                    <small>
+                                                    <label><u>Nom</u> :</label> {{ image.mannequin.nomMannequin|upper }}<br>
+                                                    <label><u>Taille standard</u> :</label> {{ image.mannequin.tailleStandardMannequin }}<br>
+                                                    <label><u>Poids</u> :</label> {{ image.mannequin.poidsMannequin }} Kg<br>
+                                                    <label><u>Taille </u> :</label> {{ image.mannequin.tailleMannequin }} m<br>
+                                                    <label><u>Numéro teint</u> :</label> {{ image.mannequin.numeroTeintMannequin }}<br>
+                                                    <label><u>Tour de taille</u> :</label> {{ image.mannequin.tourTailleMannequin }} cm<br>
+                                                    <label><u>Tour de poitrine</u> :</label> {{ image.mannequin.tourPoitrineMannequin }} cm<br>
+                                                    <label><u>Tour grandes hanches</u> :</label> {{ image.mannequin.tourGrandesHanchesMannequin }} cm<br>
+                                                    <label><u>Statut</u> :</label> {% if image.mannequin.statutMannequin == 'disponible' %} Disponible {% elseif image.mannequin.statutMannequin == 'reserve' %}Réservé à la marque {% elseif image.mannequin.statutMannequin == 'indisponible' %} Indisponible{% endif %}
+                                                    </small>
                                                 </div>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td></td>
+                                        </tr>
+                                            {% endif %}
+                                        {% endfor %}
                                         <tr>
                                             <td class="compare-label"></td>
                                             <td></td>
@@ -383,11 +390,9 @@
                                         <tr>
                                             <td class="compare-label"></td>
                                             <td class="action">
-                                                <a title="Voir la liste de tous vos produits" href="{{ path('adminProduits_index') }}"><button class="add-cart button button-sm"><i class="fa fa-backward"></i></button>&nbsp;&nbsp; <strong>Tous les produits</strong></a><br>
-                                                {% if user == produit.marque %}
-                                                <a title="Modifiez le produit {{ produit.nom|capitalize }}" href="{{ path('adminProduits_edit_1', { 'id' : produit.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp; <strong>Modifiez</strong></a><br>
-                                                <br><br><a title="Retirez le produit {{ produit.nom|capitalize }}" href="{{ path('adminProduits_delete', { 'id' : produit.id }) }}"><button class="button button-sm"><i class="fa fa-trash"></i></button>&nbsp;&nbsp; <strong>Effacez</strong></a></td>
-                                                {% endif %}
+                                                <a title="Voir la liste de tous vos produits" href="{{ path('produit_pro_index') }}"><button class="add-cart button button-sm"><i class="fa fa-backward"></i></button>&nbsp;&nbsp; <strong>Vos produits</strong></a><br>
+                                                <a title="Modifier le produit {{ produit.nom|capitalize }}" href="{{ path('produit_pro_edit_1', { 'id' : produit.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp; <strong>Modifier</strong></a><br>
+                                                <br><br><a title="Retirer le produit {{ produit.nom|capitalize }}" href="{{ path('produit_pro_delete', { 'id' : produit.id }) }}"><button class="button button-sm"><i class="fa fa-trash"></i></button>&nbsp;&nbsp; <strong>Effacer</strong></a></td>
                                         </tr>
                                     </table>
                                 </div>
