@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  *
  */
 class AchatsAdminController extends Controller
-{
+{  
     /**
      * Lists all achat entities.
      *

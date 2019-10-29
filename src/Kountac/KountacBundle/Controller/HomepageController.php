@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use DOMDocument;
 
 class HomepageController extends Controller
-{
+{  
 
     public function localisationAction()
     {
