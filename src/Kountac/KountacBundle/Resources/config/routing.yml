@@ -1,6 +1,11 @@
 kountac_homepage:
     path:     /homepage
     defaults: { _controller: KountacBundle:Homepage:index }
+
+localisation:
+    path:     /localisation
+    defaults: { _controller: KountacBundle:Homepage:localisation }
+    methods:  GET
     
 kountac_homepage_index:
     path:     /

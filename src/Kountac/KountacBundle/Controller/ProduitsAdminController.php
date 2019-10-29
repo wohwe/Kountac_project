@@ -26,11 +26,17 @@ class ProduitsAdminController extends Controller
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $listesProduits = $em->getRepository('KountacBundle:Produits_1')->findAll();
+
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();      
+        $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();  
         
         $produits  = $this->get('knp_paginator')->paginate($listesProduits,$this->get('request')->query->get('page', 1),10);
+        //var_dump($produits[0]->getProduit2());
         return $this->render('produits/index.html.twig', array(
             'produits' => $produits,
-            'user' => $user,
+            'images' => $images,
+            'mannequins' => $mannequins,
+            'user' => $user
         ));
     }
     
