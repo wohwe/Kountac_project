@@ -10,6 +10,7 @@ class DestockageCategorieController extends Controller
     public function femmesAction()
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');
@@ -46,6 +47,7 @@ class DestockageCategorieController extends Controller
     public function femmesHautsAction()
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');
@@ -80,6 +82,7 @@ class DestockageCategorieController extends Controller
     public function femmesBasAction()
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');
@@ -114,6 +117,7 @@ class DestockageCategorieController extends Controller
     public function femmesEnsemblesAction()
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');
@@ -148,6 +152,7 @@ class DestockageCategorieController extends Controller
     public function hommesAction()
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');
@@ -184,6 +189,7 @@ class DestockageCategorieController extends Controller
     public function hommesHautsAction()
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');
@@ -218,6 +224,7 @@ class DestockageCategorieController extends Controller
     public function hommesBasAction()
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');
@@ -252,6 +259,7 @@ class DestockageCategorieController extends Controller
     public function hommesEnsemblesAction()
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');
@@ -286,6 +294,7 @@ class DestockageCategorieController extends Controller
     public function enfantsAction()
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');
@@ -322,6 +331,7 @@ class DestockageCategorieController extends Controller
     public function enfantsHautsAction()
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');
@@ -356,6 +366,7 @@ class DestockageCategorieController extends Controller
     public function enfantsBasAction()
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');
@@ -390,6 +401,7 @@ class DestockageCategorieController extends Controller
     public function enfantsEnsemblesAction()
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');

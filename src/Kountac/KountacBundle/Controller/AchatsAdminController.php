@@ -16,6 +16,8 @@ class AchatsAdminController extends Controller
      */
     public function indexAction()
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
@@ -41,6 +43,8 @@ class AchatsAdminController extends Controller
      */
     public function deleteAction($id)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $achat = $em->getRepository('KountacBundle:Achats')->find($id);
         

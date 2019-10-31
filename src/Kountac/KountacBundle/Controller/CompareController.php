@@ -8,7 +8,9 @@ class CompareController extends Controller
 {
     public function compareAction()
     {
+
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         
         if (!$session->has('compare'))
             $session->set('compare', array());
@@ -30,7 +32,9 @@ class CompareController extends Controller
     
     public function compareAsideAction()
     {
+
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         
         if (!$session->has('compare'))
             $session->set('compare', array());
@@ -50,7 +54,9 @@ class CompareController extends Controller
     
     public function ajoutcompareAction($id) 
     {
+
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
 
         if (!$session->has('compare'))
             $session->set('compare', array());
@@ -74,7 +80,9 @@ class CompareController extends Controller
     
     public function supprimercompareAction($id) 
     {
+
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $compare = $session->get('compare');
         
         if (array_key_exists($id, $compare))
@@ -89,7 +97,9 @@ class CompareController extends Controller
     
     public function supprimercompareAsideAction($id) 
     {
+
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $compare = $session->get('compare');
         
         if (array_key_exists($id, $compare))
@@ -104,7 +114,9 @@ class CompareController extends Controller
     
     public function supprimercompareAside_allAction() 
     {
+
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->remove('compare'); 
         
         $this->get('session')->getFlashBag()->add('success','Tous vos produits ont été retiré avec succès de votre comparaison ');

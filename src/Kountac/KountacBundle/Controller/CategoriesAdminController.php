@@ -18,6 +18,8 @@ class CategoriesAdminController extends Controller
      */
     public function indexAction()
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
@@ -42,6 +44,8 @@ class CategoriesAdminController extends Controller
      */
     public function newAction(Request $request)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $user = $this->getUser();
         $category = new Categories();
         $form = $this->createForm('Kountac\KountacBundle\Form\CategoriesType', $category);
@@ -68,6 +72,8 @@ class CategoriesAdminController extends Controller
      */
     public function editAction(Request $request, Categories $category)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $user = $this->getUser();
         $editForm = $this->createForm('Kountac\KountacBundle\Form\CategoriesType', $category);
         $editForm->handleRequest($request);

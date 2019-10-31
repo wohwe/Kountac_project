@@ -14,6 +14,7 @@ class ProduitController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         
         $TousProduits = $em->getRepository('KountacBundle:Produits_2')->getAll();
         $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
@@ -257,6 +258,7 @@ class ProduitController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $produit_2 = $em->getRepository('KountacBundle:Produits_2')->find($id);
         if (!$produit_2) {
             return $this->redirectToRoute('homepage');
@@ -426,6 +428,8 @@ class ProduitController extends Controller
     public function productAction(Request $request, $id)
     {
         $session = $this->getRequest()->getSession();
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
         if (!$produit) {
@@ -518,6 +522,7 @@ class ProduitController extends Controller
     public function productMannequinAction(Request $request, $id, $id_image)
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
         $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
@@ -610,6 +615,7 @@ class ProduitController extends Controller
     public function categorie_2Action($categorie)
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');
@@ -664,6 +670,7 @@ class ProduitController extends Controller
     public function categorie_1Action($categorie)
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('categorie', '1');
         $session->remove('collection');
         $session->remove('recherche');
@@ -714,6 +721,7 @@ class ProduitController extends Controller
     public function collectionAction($collection)
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('collection', '1');
         $session->remove('categorie');
         $session->remove('recherche');
@@ -760,6 +768,7 @@ class ProduitController extends Controller
 	public function lookAction($look)
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $session->set('collection', '1');
         $session->remove('categorie');
         $session->remove('recherche');
@@ -807,6 +816,8 @@ class ProduitController extends Controller
     
     public function rechercheAction()
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $form = $this->createForm(new RechercheType());
         
         return $this->render('KountacBundle:Menu:recherche.html.twig', array('form' => $form->createView()));
@@ -814,6 +825,8 @@ class ProduitController extends Controller
     
     public function rechercheMobileAction()
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $form = $this->createForm(new RechercheType());
         
         return $this->render('KountacBundle:Menu:rechercheMobile.html.twig', array('form' => $form->createView()));
@@ -822,6 +835,8 @@ class ProduitController extends Controller
 
     public function rechercheTraitementAction() 
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         if ($this->get('request')->getMethod() == 'POST')
         {
             $form = $this->createForm(new RechercheType());
@@ -878,6 +893,9 @@ class ProduitController extends Controller
     
     public function quickVueAction($id)
     {    
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
+
         $em = $this->getDoctrine()->getManager();
         $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
@@ -906,6 +924,8 @@ class ProduitController extends Controller
     
     public function quickViewAllProductsAction($id)
     {    
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
@@ -934,6 +954,8 @@ class ProduitController extends Controller
     
     public function quickViewEspaceMarqueAction($id)
     {    
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
@@ -962,6 +984,8 @@ class ProduitController extends Controller
     
     public function recherche_avatarAction()
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         
         if ($this->get('request')->getMethod() == 'POST')
@@ -1020,6 +1044,8 @@ class ProduitController extends Controller
     
     public function recherche_avatarMarqueAction($id)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $produit_2 = $em->getRepository('KountacBundle:Produits_2')->find($id);
         $marque_id = $produit_2->getProduit1()->getMarque();
@@ -1078,6 +1104,8 @@ class ProduitController extends Controller
     
     public function recherche_taillePoidsAction()
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         
         if ($this->get('request')->getMethod() == 'POST')
@@ -1130,6 +1158,8 @@ class ProduitController extends Controller
     
     public function recherche_taillePoidsMarqueAction($id)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $produit_2 = $em->getRepository('KountacBundle:Produits_2')->find($id);
         $marque_id = $produit_2->getProduit1()->getMarque();
