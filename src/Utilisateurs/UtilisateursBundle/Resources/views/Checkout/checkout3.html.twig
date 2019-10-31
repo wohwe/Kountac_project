@@ -28,7 +28,7 @@
 
 
                     <div class="page-content checkout-page"><div class="page-title">
-                            <h2>Finalisation de la commande (3/3)</h2>
+                            <h2>Finalisation de la commande (2/2)</h2>
                         </div>
                         <h4 class="checkout-sep"></h4>
                         <!--h4 class="checkout-sep">1. Information de livraison (adresse de livraison)</h4>
@@ -106,10 +106,10 @@
                         </div>
                         <br>
                         <h4 class="checkout-sep"></h4-->
-                        <h4 class="checkout-sep">3. Méthode de paiement</h4>
+                        <h4 class="checkout-sep">2. Méthode de paiement</h4>
                         <div class="box-border">
                                 <ul>
-                                    <form class="col" action="{{ path('Checkout_index3') }}" method="POST" {{ form_enctype(form) }} class="form">
+                                    <form class="col" action="{{ path('Checkout_index2') }}" method="POST" {{ form_enctype(form) }} class="form">
                                         {{ form_start(form) }}
                                         {{ form_errors(form) }}
 
@@ -140,7 +140,7 @@
                                     <button class="button pull-right" type="submit"><i class="fa fa-angle-double-right"></i>&nbsp; <span>Continuer</span></button>
                                         {{ form_end(form) }}
                                     </form>
-                                    <a href="{{ path('Checkout_index2') }}"><button class="button pull-left" type="submit"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
+                                    <a href="{{ path('Checkout_index1') }}"><button class="button pull-left" type="submit"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
                                 </ul>
                         </div>                
                                         

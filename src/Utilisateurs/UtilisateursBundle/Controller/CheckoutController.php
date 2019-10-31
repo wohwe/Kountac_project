@@ -49,48 +49,6 @@ class CheckoutController extends Controller
     public function index2Action(Request $request)
     {
         $user = $this->getUser();   
-        $session = $this->getRequest()->getSession();
-        $em = $this->getDoctrine()->getManager();
-        $commandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByUser_produit($user);
-        $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('panier')));
-        $serviceLivraison = $user->getServiceLivraison();
-        
-        if (!$session->has('panier'))
-            $session->set('panier', array());
-
-        if (!$serviceLivraison)
-            $serviceLivraison = new ServiceLivraison();
-        
-        $form = $this->createForm('Utilisateurs\UtilisateursBundle\Form\LivraisonCheckoutType', $serviceLivraison);
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setServiceLivraison($serviceLivraison);        
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($serviceLivraison);
-            $em->persist($user);
-            $em->flush();
-
-            return $this->redirectToRoute('Checkout_index3');
-        }
-
-        return $this->render('UtilisateursBundle:Checkout:checkout2.html.twig',array(   'euro' => $this->getRequest()->getSession()->get('euro'),
-                                                                                        'livre' => $this->getRequest()->getSession()->get('livre'),
-                                                                                        'all' => $this->getRequest()->getSession()->get('all'),
-                                                                                        'usa' => $this->getRequest()->getSession()->get('usa'),
-                                                                                        'naira' => $this->getRequest()->getSession()->get('naira'),
-                                                                                        'cfa' => $this->getRequest()->getSession()->get('cfa'),
-                                                                                        'user' => $user,
-                                                                                        'produits' => $produits,
-                                                                                        'commandes' => $commandes,
-                                                                                        'form' => $form->createView(),
-                                                                                        'panier' => $session->get('panier'),
-        ));    
-    }
-    
-    public function index3Action(Request $request)
-    {
-        $user = $this->getUser();   
         $servicePaiement = $user->getServicePaiement();
         $em = $this->getDoctrine()->getManager();
         $images = $em->getRepository('KountacBundle:Media_motif')->findAll();

@@ -1,12 +1,8 @@
 Checkout_index1:
     path:     /1
     defaults: { _controller: UtilisateursBundle:Checkout:index }
-
+    
 Checkout_index2:
     path:     /2
     defaults: { _controller: UtilisateursBundle:Checkout:index2 }
-    
-Checkout_index3:
-    path:     /3
-    defaults: { _controller: UtilisateursBundle:Checkout:index3 }
     
