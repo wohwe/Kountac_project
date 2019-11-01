@@ -193,8 +193,8 @@
             
                 
                         </div>
-                            <a style="display: inline;" id="quick_view_popup-close" href="{{ path('kountac_homepage') }}"><i class="fa fa-times-circle"></i></a> 
-                        <!--product-view--> 
+                            <span style="display: inline;" id="quick_view_popup-close"><i class="fa fa-times-circle close"></i></span> 
+                            <!--product-view--> 
 
                     </div>
                 </div>
@@ -230,6 +230,12 @@
                         onHoverStop: "on",
                         spinner: "spinner4"
                     });
+        });
+        $('.close').click(function() {
+            history.go(-1);
+        });
+        $('.close').click(function() {
+            history.go(-1);
         });
     </script> 
     <!--cloud-zoom js --> 
