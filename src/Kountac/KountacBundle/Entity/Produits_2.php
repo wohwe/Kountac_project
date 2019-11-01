@@ -190,6 +190,14 @@ class Produits_2
      */
     private $nairaprecommande;
     
+    
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="randValue", type="string", nullable=true)
+     */
+    private $randValue;
+    
     /**
      * Get id
      *
@@ -835,5 +843,29 @@ class Produits_2
     public function getNairaprecommande()
     {
         return $this->nairaprecommande;
+    }
+
+    /**
+     * Set randValue
+     *
+     * @param string $randValue
+     *
+     * @return Produits_2
+     */
+    public function setRandValue($randValue)
+    {
+        $this->randValue = $randValue;
+
+        return $this;
+    }
+
+    /**
+     * Get randValue
+     *
+     * @return string
+     */
+    public function getRandValue()
+    {
+        return $this->randValue;
     }
 }

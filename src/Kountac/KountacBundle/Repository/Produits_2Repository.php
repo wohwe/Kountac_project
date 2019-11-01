@@ -16,15 +16,10 @@ class Produits_2Repository extends EntityRepository
     public function findByRand() 
     {
         return  $this->createQueryBuilder('u')
-            ->addSelect('RAND() as HIDDEN rand')
-            ->addOrderBy('rand')
+            ->select('u')
+            ->addOrderBy('u.randValue')
             ->getQuery()
             ->getResult();
-
-        /*$qb = $this->createQueryBuilder('u')
-                ->select('u')
-                ->orderBy('rand');
-        return $qb->getQuery()->getResult();*/
     }
     
     public function getProduitByMarque($marque_id) 
@@ -43,7 +38,7 @@ class Produits_2Repository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('p2')
                 ->select('p2')
-                ->orderBy('p2.id', 'DESC');
+                ->orderBy('p2.randValue', 'DESC');
         return $qb->getQuery()->getResult();
     }
     
