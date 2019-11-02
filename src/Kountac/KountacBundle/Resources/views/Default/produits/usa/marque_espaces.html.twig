@@ -92,15 +92,17 @@
                                                         <center> 
                                                             {% for image in images %}
                                                                 {% if image.produit2 == produit and image.top == 0 %}
-                                                                <a href="{{ path('product', {'id' : produit.id}) }}"><img src="{{ image.AssetPath|imagine_filter('produitAllThumb') }}" alt=""></a>
+                                                                <a href="{{ path('product', {'id' : produit.id}) }}">
+                                                                    <img src="../../../{{ image.AssetPath }}" alt="">
+                                                                </a>
                                                                 {% if image.path2 %}
                                                                 <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
-                                                                    <img src="{{ image.AssetPath2|imagine_filter('produitAllThumb') }}" alt="">
+                                                                    <img src="../../../{{ image.AssetPath2 }}" alt="">
                                                                 </a>
                                                                 {% endif %}
                                                                 {% if image.path3 %}
                                                                 <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
-                                                                    <img src="{{ image.AssetPath3|imagine_filter('produitAllThumb') }}" alt="">
+                                                                    <img src="../../../{{ image.AssetPath3 }}" alt="">
                                                                 </a>
                                                                 {% endif %} 
                                                                 {% endif %} 
@@ -133,7 +135,7 @@
                                                             </div>
                                                             <div class="pro-action">
                                                                 <a href="{{ path('quickViewEspaceMarque', {'id' : produit.id}) }}">
-                                                                    <button type="button" class="add-to-cart-mt"> <img src="{{ 'css/cart.jpg'|imagine_filter('rechercheThumbItem') }}" alt=""><span> Ajouter au panier</span> </button>
+                                                                    <button type="button" class="add-to-cart-mt"> <img src="../../../{{ 'css/cart.jpg' }}" alt=""><span> Ajouter au panier</span> </button>
                                                                 </a>                                                                        </div>
                                                         </div>
                                                     </div>
