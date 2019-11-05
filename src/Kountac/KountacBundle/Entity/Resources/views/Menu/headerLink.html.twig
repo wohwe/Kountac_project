@@ -3,7 +3,7 @@
     <div class="links">
         <div class="language-currency-wrapper">
             <div class="wishlist"><a title="Ma liste de souhaits [ {{ souhaitProduits|length }} produit(s) ]" href="{{ path('wishlist') }}"><i class="fa fa-heart"></i><span class="hidden-xs">Souhaits</span></a></div>
-            <div class="blog"><a title="Ornoir Magazine" target = "_blank"  href="http://www.ornoir-mag.kountac.fr/"><i class="fa fa-rss"></i><span class="hidden-xs">Blog</span></a></div>
+            <div class="blog"><a title="Blog Kountac" target = "_blank"  href="http://www.blog.kountac.fr/"><i class="fa fa-rss"></i><span class="hidden-xs">Blog</span></a></div>
         </div>
         {% render(controller('KountacBundle:Menu:usersHeaders')) %}
     </div>
@@ -11,7 +11,7 @@
     <div class="language-currency-wrapper">
         <div class="inner-cl">
             {% render(controller('KountacBundle:Devise:countryFlag')) %}
-                
+
             {% render(controller('KountacBundle:Devise:deviseMain')) %}
         </div>
     </div>
