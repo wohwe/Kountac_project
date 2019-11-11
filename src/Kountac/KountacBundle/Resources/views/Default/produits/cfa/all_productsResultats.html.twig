@@ -191,9 +191,9 @@
                                         <ul class="check-box-list">
                                             <li>
                                                 <fieldset>
-                                                    <!--output name="result4">{{ cfaprix[0].mincfa }}</output>
-                                                    <input type="range" multiple name="prix" min="{{ cfaprix[0].mincfa }}" max="{{ cfaprix[0].maxcfa }}" value="0" step="1" oninput="result4.value=parseInt(prix.value)" autocomplete="off" /-->
-                                                    <input type="text" name="result4" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold; margin: 10px;">
+                                                    <!--output name="prix">{{ cfaprix[0].mincfa }}</output>
+                                                    <input type="range" multiple name="prix" min="{{ cfaprix[0].mincfa }}" max="{{ cfaprix[0].maxcfa }}" value="0" step="1" oninput="prix.value=parseInt(prix.value)" autocomplete="off" /-->
+                                                    <input type="text" name="prix" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold; margin: 10px;">
                                                     <div id="slider-range" style=" margin-left: 10px; margin-right: 10px;"></div>
                                                 </fieldset>
                                             </li>

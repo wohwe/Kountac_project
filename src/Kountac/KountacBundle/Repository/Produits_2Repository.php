@@ -30,7 +30,7 @@ class Produits_2Repository extends EntityRepository
                 ->addSelect('p1')
                 ->where('p1.marque = :marque')
                 ->setParameter('marque', $marque_id)
-                ->orderBy('p2.id', 'ASC');
+                ->orderBy('p2.randValue', 'ASC');
         return $qb->getQuery()->getResult();
     }
     
@@ -114,18 +114,78 @@ class Produits_2Repository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
-    public function getProductByTri_T1($prix) 
+    public function getProductByTri_T1($minPrix, $maxPrix, $devise) 
     {
-        $qb = $this->createQueryBuilder('p2')
+        if($devise == "cfa"){
+            $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->Where('p2.cfaprix >= :minPrix')
+                ->andWhere('p2.cfaprix <= :maxPrix')
+                ->setParameter('maxPrix', $maxPrix)
+                ->setParameter('minPrix', $minPrix)
+                ->orderBy('p2.cfaprix', 'ASC');
+            return $qb->getQuery()->getResult();
+        }else if($devise == "usa"){
+            $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->Where('p2.usaprix >= :minPrix')
+                ->andWhere('p2.usaprix <= :maxPrix')
+                ->setParameter('maxPrix', $maxPrix)
+                ->setParameter('minPrix', $minPrix)
+                ->orderBy('p2.usaprix', 'ASC');
+            return $qb->getQuery()->getResult();
+            
+        }else if($devise == "livre"){
+            $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->Where('p2.livreprix >= :minPrix')
+                ->andWhere('p2.livreprix <= :maxPrix')
+                ->setParameter('maxPrix', $maxPrix)
+                ->setParameter('minPrix', $minPrix)
+                ->orderBy('p2.livreprix', 'ASC');
+            return $qb->getQuery()->getResult();
+            
+        }else if($devise == "naira"){
+            $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->Where('p2.nairaprix >= :minPrix')
+                ->andWhere('p2.nairaprix <= :maxPrix')
+                ->setParameter('maxPrix', $maxPrix)
+                ->setParameter('minPrix', $minPrix)
+                ->orderBy('p2.nairaprix', 'ASC');
+            return $qb->getQuery()->getResult();
+            
+        }else if($devise == "all"){
+            $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->Where('p2.allprix >= :minPrix')
+                ->andWhere('p2.allprix <= :maxPrix')
+                ->setParameter('maxPrix', $maxPrix)
+                ->setParameter('minPrix', $minPrix)
+                ->orderBy('p2.allprix', 'ASC');
+            return $qb->getQuery()->getResult();
+            
+        }else if($devise == "euro"){
+            $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->Where('p2.europrix >= :minPrix')
+                ->andWhere('p2.europrix <= :maxPrix')
+                ->setParameter('maxPrix', $maxPrix)
+                ->setParameter('minPrix', $minPrix)
+                ->orderBy('p2.europrix', 'ASC');
+            return $qb->getQuery()->getResult();
+            
+        }
+        /*$qb = $this->createQueryBuilder('p2')
                 ->select('p2')
                 ->where('p2.europrix <= :prix')
                 ->orWhere('p2.cfaprix <= :prix')
                 ->orWhere('p2.usaprix <= :prix')
                 ->orWhere('p2.livreprix <= :prix')
                 ->orWhere('p2.nairaprix <= :prix')
-                ->setParameter('prix', $prix)
+                ->setParameter('prix', $maxPrix)
                 ->orderBy('p2.id', 'ASC');
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getResult();*/
     }
     
     public function getProductByTri_T2($motif) 
@@ -716,20 +776,105 @@ class Produits_2Repository extends EntityRepository
     
     public function byCategorie_1($categorie, $categories_enfants) 
     {
-        $qb = $this->createQueryBuilder('p2')
-                ->select('p2')
-                ->leftJoin('p2.produit_1', 'p1')
-                ->addSelect('p1')
-                ->leftJoin('p1.categorie', 'cat')
-                ->addSelect('cat')
-                ->where('p1.categorie = :categorie')
-                ->orWhere('cat.id IN (:categories_enfants)')
-                ->andWhere('p1.stock >= :seuil')
-                ->orderBy('p2.libelle')
-                ->setParameter('categorie', $categorie)
-                ->setParameter('categories_enfants', $categories_enfants)
-                ->setParameter('seuil', '1');
-        return $qb->getQuery()->getResult();
+        if($categorie==1){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '6')
+                    ->setParameter('max', '30');
+            return $qb->getQuery()->getResult();
+
+        }else if($categorie==2){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '41')
+                    ->setParameter('max', '108');
+            return $qb->getQuery()->getResult();
+
+        }else if($categorie==3){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '34')
+                    ->setParameter('max', '36');
+            return $qb->getQuery()->getResult();
+
+        }else if($categorie==4){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '156')
+                    ->setParameter('max', '165');
+            return $qb->getQuery()->getResult();
+
+        }else if($categorie==231){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '231')
+                    ->setParameter('max', '263');
+            return $qb->getQuery()->getResult();
+
+        }else if($categorie==264){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '266')
+                    ->setParameter('max', '269');
+            return $qb->getQuery()->getResult();
+
+        }else if($categorie==265){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '271')
+                    ->setParameter('max', '272');
+            return $qb->getQuery()->getResult();
+
+        }
     }
     
     public function byNewCategorie($categorie, $categories_enfants) 

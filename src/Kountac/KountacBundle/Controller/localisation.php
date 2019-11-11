@@ -2,6 +2,7 @@
 
 /* Code for Geolocalisation by ChrisME */
 $pays = "";
+$devise = "";
 $ip = $_SERVER['REMOTE_ADDR']; // Recuperation de l'IP du visiteur
 $query = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip)); //connection au serveur de ip-api.com et recuperation des données
 //var_dump($query);
@@ -14,6 +15,7 @@ if($query && $query['status'] == 'success')
 
 if($pays == "France")
 {
+    $devise = "euro";
     $session->set('euro', '1');
 
     if ($session->has('cfa'))
@@ -33,6 +35,7 @@ if($pays == "France")
 
 } else if($pays == "Germany")
 {
+    $devise = "all";
     $session->set('all', '1');
 
     if ($session->has('cfa'))
@@ -52,6 +55,7 @@ if($pays == "France")
 
 } else if($pays == "United Kingdom")
 {
+    $devise = "livre";
     $session->set('livre', '1');
 
     if ($session->has('euro'))
@@ -71,6 +75,7 @@ if($pays == "France")
         
 } else if($pays == "Cameroon")
 {
+    $devise = "cfa";
     $session->set('cfa', '1');
 
     if ($session->has('euro'))
@@ -90,6 +95,7 @@ if($pays == "France")
         
 } else if($pays == "United states")
 {
+    $devise = "usa";
     $session->set('usa', '1');
 
     if ($session->has('euro'))
@@ -109,6 +115,7 @@ if($pays == "France")
 
 } else if($pays == "Nigeria")
 {
+    $devise = "naira";
     $session->set('naira', '1');
 
     if ($session->has('euro'))
@@ -128,6 +135,7 @@ if($pays == "France")
 
 } else if($pays == "")
 {
+    $devise = "cfa";
     $session->set('cfa', '1');
 
     if ($session->has('euro'))
@@ -164,6 +172,7 @@ if($pays == "France")
 
 }else
 {
+    $devise = "euro";
     $session->set('euro', '1');
 
     if ($session->has('cfa'))

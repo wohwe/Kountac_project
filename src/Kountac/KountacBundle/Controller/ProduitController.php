@@ -289,7 +289,12 @@ class ProduitController extends Controller
             else {
                 $prix = null;
             }
-            
+
+            $prix = explode(" - ",$prix);
+
+            $minPrix = str_replace(",", "", $prix[0]);
+            $maxPrix = str_replace(",", "", $prix[1]);;
+
             if ($this->getRequest()->request->get('categorie') != "toutes_les_categories" ){
                 $categorieNom = $this->getRequest()->request->get('categorie');
                 $categorie = $em->getRepository('KountacBundle:Categories')->findBy(array('id' => $categorieNom));
@@ -313,14 +318,14 @@ class ProduitController extends Controller
             else {
                 $taille = null;
             }
-                        
+            
             if ($categorie == null){
                     if ($taille == null){
                         if ($motif == null){
                             if ($prix == null){
                                 $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->findAll();
                             }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T1($prix); 
+                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T1($minPrix, $maxPrix, $devise); 
                             }
                         }else{
                             if ($prix == null){
