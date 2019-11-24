@@ -3,7 +3,6 @@
 /web/Motifs
 /web/media
 /web/Mannequins
-/app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml
 /app/logs/*
