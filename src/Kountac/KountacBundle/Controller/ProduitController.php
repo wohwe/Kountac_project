@@ -742,6 +742,7 @@ class ProduitController extends Controller
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $form_taillePoids = $this->createForm(new Taille_PoidsType());
         $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
         $cfaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixCFA();
@@ -764,6 +765,7 @@ class ProduitController extends Controller
             'allprix' => $allprix,
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'motifs' => $motifs,
+                                                                                            'images' => $images,
                                                                                             'categories' => $categories,
                                                                                             'mannequins' => $mannequins,
                                                                                             'euro' => $this->getRequest()->getSession()->get('euro'),

@@ -192,4 +192,4 @@ best_sur_mesures_categories:
     
 rechercheProduits:
     pattern: /find
-    defaults: { _controller: KountacBundle:Produit:rechercheTraitement } 
+    defaults: { _controller: KountacBundle:Produit:rechercheTraitement }
