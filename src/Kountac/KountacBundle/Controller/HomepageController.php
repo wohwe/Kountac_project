@@ -201,16 +201,6 @@ class HomepageController extends Controller
         return new Response("ok");
     }
 
-    public function updatePoints(){
-        $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('UtilisateursBundle:Utilisateurs')->getUserByParrain();
-        //var_dump($users);
-        for($i = 0; $i<count($users); $i++){
-            var_dump($users[$i]->getCodeparrain());
-        }
-
-    }
-
     public function indexAction()
     {
 
@@ -218,8 +208,6 @@ class HomepageController extends Controller
         $session = $this->getRequest()->getSession();
 
         include 'localisation.php';
-
-        $this->updatePoints();
         
         //$produits = $em->getRepository('KountacBundle:Produits_1')->findAll(); 
         $produits = $em->getRepository('KountacBundle:Produits_1')->findBy([], ['id' => 'DESC']);  
