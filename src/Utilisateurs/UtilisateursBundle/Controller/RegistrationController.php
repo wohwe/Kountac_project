@@ -25,6 +25,19 @@ class RegistrationController extends BaseController
 /**
  * @Route("/pro/register", name="pro_user_register")
  */
+
+    public function updatePoints($code){
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('UtilisateursBundle:Utilisateurs')->getUserByCode($code);
+        //var_dump($users);
+        if(!$users) return;
+        $user = $users[0];
+        $oldPoint = $user->getPoints();
+        $newPoint = $oldPoint + 1000;
+        $user->setPoints($newPoint);
+        $em->flush();
+
+    }
 	
     public function registerProAction(Request $request)
     {
@@ -94,7 +107,7 @@ class RegistrationController extends BaseController
         $user = $userManager->createUser();
         $user->setEnabled(true);
         $user->addRole("ROLE_PRO");
-        $user->setCode($codebd);
+        $user->setCode(trim($codebd));
         $user->setPoints(1000);
         $user->setVerifier(0);
         
@@ -113,7 +126,10 @@ class RegistrationController extends BaseController
         if ($form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-
+            $codeParrain = $user->getCodeparrain();
+            if($codeParrain != "" & strlen($codeParrain) == 7){
+                $this->updatePoints($codeParrain);
+            }
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {

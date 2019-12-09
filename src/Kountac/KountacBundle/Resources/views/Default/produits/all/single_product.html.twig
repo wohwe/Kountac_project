@@ -404,7 +404,7 @@
                                                                         <div class="item-content">
                                                                             <div class="item-price">
                                                                                 {% if produit_autre.reduction == 0 %}
-                                                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} €</span> </span> </div>
+                                                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ produit_autre.allprix|number_format(2) }} €</span> </span> </div>
                                                                                 {% else %}
                                                                                     <div class="price-box">
                                                                                         <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} €</span> </p>
