@@ -10,7 +10,7 @@ use DOMDocument;
 
 class HomepageController extends Controller
 {  
-
+     
     public function localisationAction()
     {
 
@@ -30,21 +30,21 @@ class HomepageController extends Controller
         if($pays == "France")
         {
             $session->set('euro', '1');
+            
+            if ($session->has('livre'))
+                $session->remove('livre');
         
             if ($session->has('cfa'))
                 $session->remove('cfa');
             
-            if ($session->has('livre'))
-                $session->remove('livre');
-            
             if ($session->has('all'))
                 $session->remove('all');
             
-            if ($session->has('usa'))
-                $session->remove('usa');
-            
             if ($session->has('naira'))
                 $session->remove('naira');
+            
+            if ($session->has('usa'))
+                $session->remove('usa');
 
         } else if($pays == "Germany")
         {
