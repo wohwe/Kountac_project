@@ -22,14 +22,38 @@ class UtilisateursRepository extends EntityRepository
         ;
         return $qb->getQuery()->getResult();
     }
-    
-    public function getUserById($id) 
+
+    public function getUserById($id)
     {
         $qb = $this->createQueryBuilder('u')
-                ->select('u')
-                ->where('u.id = :id')
-                ->setParameter('id', $id)
+            ->select('u')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
         ;
         return $qb->getQuery()->getResult();
     }
+
+    public function getUserByParrain()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.codeparrain != :code')
+            ->andWhere('LENGTH(u.codeparrain) = :value')
+            ->setParameter('code', "")
+            ->setParameter('value', 7)
+        ;
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getUserByCode($code)
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.code = :code')
+            ->setParameter('code', $code)
+        ;
+        return $qb->getQuery()->getResult();
+    }
+
+
 }

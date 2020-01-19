@@ -27,6 +27,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Utilisateurs\UtilisateursBundle\Repository\UtilisateursRepository;
 
 /**
  * Controller managing the registration.
@@ -54,6 +55,20 @@ class RegistrationController extends Controller
      *
      * @return Response
      */
+
+    public function updatePoints($code){
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('UtilisateursBundle:Utilisateurs')->getUserByCode($code);
+        //var_dump($users);
+        if(!$users) return;
+        $user = $users[0];
+        $oldPoint = $user->getPoints();
+        $newPoint = $oldPoint + 1000;
+        $user->setPoints($newPoint);
+        $em->flush();
+
+    }
+
     public function registerAction(Request $request)
     {
 
@@ -115,7 +130,7 @@ class RegistrationController extends Controller
 
         $user = $this->userManager->createUser();
         $user->setEnabled(true);
-        $user->setCode($codebd);
+        $user->setCode(trim($codebd));
         $user->setPoints(1000);
 
         $event = new GetResponseUserEvent($user, $request);
@@ -134,8 +149,12 @@ class RegistrationController extends Controller
             if ($form->isValid()) {
                 $event = new FormEvent($form, $request);
                 $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-
+                $codeParrain = $user->getCodeparrain();
+                if($codeParrain != "" & strlen($codeParrain) == 7){
+                    $this->updatePoints($codeParrain);
+                }
                 $this->userManager->updateUser($user);
+
 
                 if (null === $response = $event->getResponse()) {
                     $url = $this->generateUrl('fos_user_registration_confirmed');
@@ -160,10 +179,10 @@ class RegistrationController extends Controller
                 $this->get('mailer')->send($message);
 
 
-                //var_dump($user); die();
+
 
                 $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
+                //var_dump($user); die();
                 return $response;
             }
 
