@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  */
 class CommandesAdminController extends Controller
-{
+{   
     /**
      * Lists all commande entities.
      *
@@ -31,7 +31,7 @@ class CommandesAdminController extends Controller
             'user' => $user
         ));
     }
-    
+         
     
     /**
      * Creates a new commande entity.
@@ -59,7 +59,7 @@ class CommandesAdminController extends Controller
             'form' => $form->createView(),
         ));
     }
-
+     
     /**
      * Finds and displays a Commandes entity.
      */

@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  *
  */
 class AchatsAdminController extends Controller
-{  
+{      
     /**
      * Lists all achat entities.
      *
@@ -35,7 +35,7 @@ class AchatsAdminController extends Controller
             'naira' => $this->getRequest()->getSession()->get('naira'),
             'cfa' => $this->getRequest()->getSession()->get('cfa')
         ));
-    }
+    }   
     
     /**
      * Deletes an achat entity.
