@@ -30,7 +30,9 @@ class ProduitController extends Controller
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
         $form_taillePoids = $this->createForm(new Taille_PoidsType());
         $produits  = $this->get('knp_paginator')->paginate($TousProduits,$this->get('request')->query->get('pages', 1),21);
-       
+        $minPrix = "";
+        $maxPrix = "";
+
         if ($session->has('tri'))
             $session->remove('tri');
         
@@ -38,16 +40,15 @@ class ProduitController extends Controller
         {
             if ($this->getRequest()->request->get('prix') != null ){
                 $prix = $this->getRequest()->request->get('prix') ;
+                $prix = explode(" - ",$prix);
+
+                $minPrix = str_replace(",", "", $prix[0]);
+                $maxPrix = str_replace(",", "", $prix[1]);;
             }
             else {
                 $prix = null;
             }
 
-            $prix = explode(" - ",$prix);
-
-            $minPrix = str_replace(",", "", $prix[0]);
-            $maxPrix = str_replace(",", "", $prix[1]);;
-            
             if ($this->getRequest()->request->get('categorie') != "toutes_les_categories" ){
                 $categorieNom = $this->getRequest()->request->get('categorie');
                 $categorie = $em->getRepository('KountacBundle:Categories')->findBy(array('id' => $categorieNom));
@@ -221,6 +222,8 @@ class ProduitController extends Controller
                 'livreprix' => $livreprix,
                 'nairaprix' => $nairaprix,
                 'allprix' => $allprix,
+                'minPrix' => $minPrix,
+                'maxPrix' => $maxPrix,
                                                                                             'categories' => $categories,
                                                                                             'marques' => $marques,
                                                                                             'mannequins' => $mannequins,

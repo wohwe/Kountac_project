@@ -878,4 +878,59 @@ class ProduitProController extends Controller
         ));
     }
 
+    public function imageAction()
+    {
+        function resizeImage($resourceType, $image_width, $image_heigth){
+            $resizeWidth = 1000;
+            $resizeHeigth = 1500;
+            $imageLayer = imagecreatetruecolor($resizeWidth, $resizeHeigth);
+            imagecopyresampled($imageLayer, $resourceType, 0, 0, 0, 0, $resizeWidth, $resizeHeigth, $image_width, $image_heigth);
+            return $imageLayer;
+
+        }
+
+        if (isset($_POST["form_submit"])) {
+            $imageProcess = 0;
+            $file = "";
+            if (is_array($_FILES)) {
+                $fileName = $_FILES['upload_image']['tmp_name'];
+                $sourceProperties = getimagesize($fileName);
+                $resizeFileName = time();
+                $uploadPath = "./uploads/";
+                $fileExt = pathinfo($_FILES['upload_image']['name'], PATHINFO_EXTENSION);
+                $uploadImageType = $sourceProperties[2];
+                $sourceImageWidth = $sourceProperties[0];
+                $sourceImageHeigth = $sourceProperties[1];
+                switch ($uploadImageType) {
+                    case IMAGETYPE_JPEG:
+                        $resourceType = imagecreatefromjpeg($fileName);
+                        $imageLayer = resizeImage($resourceType,$sourceImageWidth,$sourceImageHeigth);
+                        imagejpeg($imageLayer,$uploadPath."thump_".$resizeFileName.'.'.$fileExt);
+                        break;
+
+                    case IMAGETYPE_GIF:
+                        $resourceType = imagecreatefromgif($fileName);
+                        $imageLayer = resizeImage($resourceType,$sourceImageWidth,$sourceImageHeigth);
+                        imagegif($imageLayer, $uploadPath."thump_".$resizeFileName.'.'.$fileExt);
+                        break;
+
+
+                    case IMAGETYPE_PNG:
+                        $resourceType = imagecreatefrompng($fileName);
+                        $imageLayer = resizeImage($resourceType,$sourceImageWidth,$sourceImageHeigth);
+                        imagepng($imageLayer, $uploadPath."thump_".$resizeFileName.'.'.$fileExt);
+                        break;
+
+                    default:
+                        $imageProcess = 0;
+                        break;
+                }
+
+                move_uploaded_file($file, $uploadPath.$resizeFileName.".".$fileExt);
+                $imageProcess = 1;
+            }
+
+        }
+    }
+
 }

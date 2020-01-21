@@ -134,4 +134,10 @@ produit_pro_sale:
     path:     /product_sales
     defaults: { _controller: "UtilisateursBundle:ProduitPro:sale" }
     methods:  GET
+
+
+produit_pro_image:
+    path:     /product_images
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:image" }
+    methods:  GET
     
