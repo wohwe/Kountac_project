@@ -114,6 +114,13 @@ liip_imagine:
     filter_sets:
         cache: ~
                 
+        resizeThumb:
+            quality: 100
+            filters:
+                thumbnail: { size: [1000, 1500], mode: outbound }
+                background: {size: [1000, 1500], position : center, color : '#000000'}
+
+
         produitThumb:
             quality: 100
             filters:
