@@ -437,99 +437,181 @@ class ProduitController extends Controller
                                                                                             'cfa' => $this->getRequest()->getSession()->get('cfa'),
                                                                                             ));
     }
-    
-    public function productAction(Request $request, $id)
+
+    public function espace_marque_allAction($id)
     {
-        $session = $this->getRequest()->getSession();
+        $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         include 'localisation.php';
-        $em = $this->getDoctrine()->getManager();
-        $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
-        if (!$produit) {
+        $produit_2 = $em->getRepository('KountacBundle:Produits_2')->find($id);
+        if (!$produit_2) {
             return $this->redirectToRoute('homepage');
         }
-        $images = $em->getRepository('KountacBundle:Media_motif')->findImagesTops($produit);
+        $marque_id = $produit_2->getProduit1()->getMarque();
+        $TousProduits = $em->getRepository('KountacBundle:Produits_2')->getProduitByMarque($marque_id);
         $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
         $cfaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixCFA();
         $usaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixUSA();
         $livreprix = $em->getRepository('KountacBundle:Produits_2')->getPrixLivre();
         $nairaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixNaira();
         $allprix = $em->getRepository('KountacBundle:Produits_2')->getPrixAll();
-        $images_all = $em->getRepository('KountacBundle:Media_motif')->findAll();
-        $images_autres = $em->getRepository('KountacBundle:Media_motif')->findImagesAutres($produit);
-        $marque = $produit->getProduit1()->getMarque();
-	    $categorie = $produit->getProduit1()->getCategorie();
-        $categorieProduits = $em->getRepository('KountacBundle:Produits_1')->getProduitsByCategorie($categorie, $id);
+        $categories = $em->getRepository('KountacBundle:Categories')->getCategoriesByName();
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
-        $commentaires = $em->getRepository('CommentairesBundle:Commentaires')->commentairesProduit($id);
-        $commentaire = new Commentaires();
-        $commentaire->setDate(new \DateTime('now'));
-        $commentaire->setProduit($produit);
-        $commentaire->setPseudo($this->getUser());
-        
-        $form = $this->createForm('Kountac\CommentairesBundle\Form\CommentaireType', $commentaire);
-        $form->handleRequest($request);
-        if ($request->getMethod() == 'POST') 
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $form_taillePoids = $this->createForm(new Taille_PoidsType());
+        $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
+        $produits  = $this->get('knp_paginator')->paginate($TousProduits,$this->get('request')->query->get('page', 1),20);
+
+        if ($session->has('tri'))
+            $session->remove('tri');
+
+        if ($this->get('request')->getMethod() == 'POST')
         {
-            if ($form->isSubmitted() && $form->isValid()) 
-            {
-                $em = $this->getDoctrine()->getManager();
-                if ($this->getRequest()->request->get('note') != null)
-                {
-                    $note = $this->getRequest()->request->get('note');
-                    $commentaire->setTitre($note);
-                }
-                $em->persist($commentaire);
-                $em->flush();
-                $this->get('session')->getFlashBag()->add('success','Votre commentaire a été ajouté avec succès');
-                
-                return $this->redirectToRoute('product', array('id' => $produit->getId()));
+            if ($this->getRequest()->request->get('prix') != null ){
+                $prix = $this->getRequest()->request->get('prix') ;
             }
+            else {
+                $prix = null;
+            }
+
+            $prix = explode(" - ",$prix);
+
+            $minPrix = str_replace(",", "", $prix[0]);
+            $maxPrix = str_replace(",", "", $prix[1]);;
+
+            if ($this->getRequest()->request->get('categorie') != "toutes_les_categories" ){
+                $categorieNom = $this->getRequest()->request->get('categorie');
+                $categorie = $em->getRepository('KountacBundle:Categories')->findBy(array('id' => $categorieNom));
+            }
+            else {
+                $categorie = null;
+            }
+
+            if ($this->getRequest()->request->get('motif') != "toutes_les_motifs" ){
+                $motifLibelle = $this->getRequest()->request->get('motif');
+                $motif = $em->getRepository('KountacBundle:Libelles_motif')->findBy(array('libelle' => $motifLibelle));
+                // var_dump($motif); die();
+            }
+            else {
+                $motif = null;
+            }
+
+            if ($this->getRequest()->request->get('taille') != "toutes_les_tailles" ){
+                $taille = $this->getRequest()->request->get('taille') ;
+            }
+            else {
+                $taille = null;
+            }
+
+            if ($categorie == null){
+                if ($taille == null){
+                    if ($motif == null){
+                        if ($prix == null){
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->findAll();
+                        }else{
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T1($minPrix, $maxPrix, $devise);
+                        }
+                    }else{
+                        if ($prix == null){
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T2($motif);
+                        }else{
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T3($prix, $motif);
+                        }
+                    }
+                } else{
+                    if ($motif == null){
+                        if ($prix == null){
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T4($taille);
+                        }else{
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T5($prix, $taille);
+                        }
+                    }else{
+                        if ($prix == null){
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T6($motif, $taille);
+                        }else{
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T7($prix, $motif, $taille);
+                        }
+                    }
+                }
+            }
+            else {
+                if ($taille == null){
+                    if ($motif == null){
+                        if ($prix == null){
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T16($categorie);
+                        }else{
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T17($prix, $categorie);
+                        }
+                    }else{
+                        if ($prix == null){
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T18($motif, $categorie);
+                        }else{
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T19($prix, $motif, $categorie);
+                        }
+                    }
+                } else{
+                    if ($motif == null){
+                        if ($prix == null){
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T20($taille, $categorie);
+                        }else{
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T21($prix, $taille, $categorie);
+                        }
+                    }else{
+                        if ($prix == null){
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T22($motif, $taille, $categorie);
+                        }else{
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T23($prix, $motif, $taille, $categorie);
+                        }
+                    }
+                }
+            }
+
+            $produits_resultat  = $this->get('knp_paginator')->paginate($ProduitsTries,$this->get('request')->query->get('page', 1),24);
+
+            if (!$session->has('tri'))
+                $session->set('tri', '1');
+
+            return $this->render('KountacBundle:Default:produits/marque_espaces.html.twig', array('produits' => $produits_resultat,
+                'categories' => $categories,'produit2' => $produit_2,
+                'motifs' => $motifs,
+                'cfaprix' => $cfaprix,
+                'europrix' => $europrix,
+                'usaprix' => $usaprix,
+                'livreprix' => $livreprix,
+                'nairaprix' => $nairaprix,
+                'allprix' => $allprix,
+                'images' => $images,
+                'form' => $form_taillePoids->createView(),
+                'mannequins' => $mannequins,
+                'tri' => $session->get('tri'),
+                'euro' => $this->getRequest()->getSession()->get('euro'),
+                'all' => $this->getRequest()->getSession()->get('all'),
+                'livre' => $this->getRequest()->getSession()->get('livre'),
+                'usa' => $this->getRequest()->getSession()->get('usa'),
+                'naira' => $this->getRequest()->getSession()->get('naira'),
+                'cfa' => $this->getRequest()->getSession()->get('cfa'),
+            ));
         }
-             if (!$produit) 
-            throw $this->createNotFoundException ('Aucun produit dans cette page');
-            
-        if ($session->has('panier'))
-            $panier = $session->get('panier');
-        else
-            $panier = false;
-        
-        if ($session->has('souhait'))
-            $souhait = $session->get('souhait');
-        else
-            $souhait = false;
-        
-        if ($session->has('compare'))
-            $compare = $session->get('compare');
-        else
-            $compare = false;
-        
-        return $this->render('KountacBundle:Default:produits/single_product.html.twig', array(  'produit' => $produit,
-                                                                                                'commentaires' => $commentaires,
-                                                                                                'mannequins' => $mannequins,
-                                                                                                'images' => $images,
+
+        return $this->render('KountacBundle:Default:produits/marque_espaces.html.twig', array('produits' => $produits,'produit2' => $produit_2,
+            'motifs' => $motifs,
             'cfaprix' => $cfaprix,
             'europrix' => $europrix,
             'usaprix' => $usaprix,
             'livreprix' => $livreprix,
             'nairaprix' => $nairaprix,
             'allprix' => $allprix,
-                                                                                                'images_all' => $images_all,
-                                                                                                'images_autres' => $images_autres,
-                                                                                                'commentaire' => $commentaire,
-                                                                                                'form' => $form->createView(),
-                                                                                                'categorieProduits' => $categorieProduits,
-                                                                                                'panier '=> $panier,
-                                                                                                'souhait' => $souhait,
-                                                                                                'compare' => $compare,
-                                                                                                'marque' => $marque,
-                                                                                                'euro' => $this->getRequest()->getSession()->get('euro'),
-                                                                                                'all' => $this->getRequest()->getSession()->get('all'),                                                                                    
-                                                                                                'livre' => $this->getRequest()->getSession()->get('livre'),
-                                                                                                'usa' => $this->getRequest()->getSession()->get('usa'),
-                                                                                                'naira' => $this->getRequest()->getSession()->get('naira'),
-                                                                                                'cfa' => $this->getRequest()->getSession()->get('cfa')
-                                                                                              ));
+            'form' => $form_taillePoids->createView(),
+            'mannequins' => $mannequins,
+            'images' => $images,
+            'categories' => $categories,
+            'euro' => $this->getRequest()->getSession()->get('euro'),
+            'all' => $this->getRequest()->getSession()->get('all'),
+            'livre' => $this->getRequest()->getSession()->get('livre'),
+            'usa' => $this->getRequest()->getSession()->get('usa'),
+            'naira' => $this->getRequest()->getSession()->get('naira'),
+            'cfa' => $this->getRequest()->getSession()->get('cfa'),
+        ));
     }
     
     public function productMannequinAction(Request $request, $id, $id_image)

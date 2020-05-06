@@ -169,6 +169,18 @@
                                         <tr>
                                             <td class="compare-label"></td>
                                             <td class="action">
+                                                {% set break = false %}
+                                                {% set found = false %}
+                                                {% for produit in produits if not break %}
+                                                    {% if produit.produit1.marque.id == utilisateur.id %}
+                                                        <a title="Voir les produits de cette marque" href="{{ path('espace_marque_all', {'id' : produit.id}) }}"><button class="add-cart button button-sm"><i class="fa fa-product-hunt"></i></button>&nbsp; <strong>Voir les produits de cette marque</strong></a><br>
+                                                        {% set break = true %}
+                                                        {% set found = true %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if not found %}
+                                                    <a title="aucun produit pour cette marque" href="#"><button class="add-cart button button-sm"><i class="fa fa-empty-set"></i></button>&nbsp; <strong>aucun produit pour cette marque</strong></a><br>
+                                                {% endif %}
                                                 <a title="Voir la liste de tous les utilisateurs" href="{{ path('adminUtilisateurs_index') }}"><button class="add-cart button button-sm"><i class="fa fa-backward"></i></button>&nbsp;&nbsp; <strong>Tous les utilisateurs</strong></a><br>
                                                 {% if utilisateur.enabled %}
                                                     <a title="Bloquez ce compte utilisateur" href="{{ path('adminUtilisateurs_disabled', { 'id' : utilisateur.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-lock"></i></button>&nbsp;&nbsp; <strong>Bloquez</strong></a><br>

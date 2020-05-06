@@ -49,11 +49,15 @@ class UtilisateursAdminController extends Controller
      */
     public function showAction(Utilisateurs $utilisateur)
     {
+        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        
+
+        $produits = $em->getRepository('KountacBundle:Produits_2')->getAllByGroup();
+
         return $this->render('utilisateurs/show.html.twig', array(
             'utilisateur' => $utilisateur,
             'user' => $user,
+            'produits' => $produits,
         ));
     }
 

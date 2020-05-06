@@ -21,27 +21,47 @@ class Produits_2Repository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
-    
-    public function getProduitByMarque($marque_id) 
+
+    public function getProduitByMarque($marque_id)
     {
         $qb = $this->createQueryBuilder('p2')
-                ->select('p2')
-                ->leftJoin('p2.produit_1', 'p1')
-                ->addSelect('p1')
-                ->where('p1.marque = :marque')
-                ->setParameter('marque', $marque_id)
-                ->orderBy('p2.randValue', 'ASC');
+            ->select('p2')
+            ->leftJoin('p2.produit_1', 'p1')
+            ->addSelect('p1')
+            ->where('p1.marque = :marque')
+            ->setParameter('marque', $marque_id)
+            ->orderBy('p2.randValue', 'ASC');
         return $qb->getQuery()->getResult();
     }
-    
-    public function getAll() 
+
+    public function getProduitByMarqueId($marque_id)
     {
         $qb = $this->createQueryBuilder('p2')
-                ->select('p2')
-                ->orderBy('p2.randValue', 'DESC');
+            ->select('p2')
+            ->leftJoin('p2.produit_1', 'p1')
+            ->addSelect('p1')
+            ->where('p1.marque.id = :id')
+            ->setParameter('id', $marque_id);
         return $qb->getQuery()->getResult();
     }
-    
+
+    public function getAll()
+    {
+        $qb = $this->createQueryBuilder('p2')
+            ->select('p2')
+            ->orderBy('p2.randValue', 'DESC');
+        return $qb->getQuery()->getResult();
+    }
+
+
+    public function getAllByGroup()
+    {
+        $qb = $this->createQueryBuilder('p2')
+            ->select('p2')
+            ->groupBy('p2.produit_1');
+        return $qb->getQuery()->getResult();
+    }
+
     public function getPrixEuro() 
     {
         $qb = $this->createQueryBuilder('p2')

@@ -21,10 +21,14 @@ quickView:
 quickViewEspaceMarque:
     path:     /quickView_marque/{id}/
     defaults: { _controller: KountacBundle:Produit:quickViewEspaceMarque }
-    
+
 espace_marque:
     path:     /mark_space/{id}
     defaults: { _controller: KountacBundle:Produit:espace_marque }
+
+espace_marque_all:
+    path:     /mark_space_all/{id}
+    defaults: { _controller: KountacBundle:Produit:espace_marque_all }
     
 recherche_avatar_marque:
     path:     /mark_space_avatar/find_{id}
