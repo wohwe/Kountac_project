@@ -613,6 +613,102 @@ class ProduitController extends Controller
             'cfa' => $this->getRequest()->getSession()->get('cfa'),
         ));
     }
+	
+    
+    public function productAction(Request $request, $id)
+    {
+        $session = $this->getRequest()->getSession();
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
+        $em = $this->getDoctrine()->getManager();
+        $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
+        if (!$produit) {
+            return $this->redirectToRoute('homepage');
+        }
+        $images = $em->getRepository('KountacBundle:Media_motif')->findImagesTops($produit);
+        $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
+        $cfaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixCFA();
+        $usaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixUSA();
+        $livreprix = $em->getRepository('KountacBundle:Produits_2')->getPrixLivre();
+        $nairaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixNaira();
+        $allprix = $em->getRepository('KountacBundle:Produits_2')->getPrixAll();
+        $images_all = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images_autres = $em->getRepository('KountacBundle:Media_motif')->findImagesAutres($produit);
+        $marque = $produit->getProduit1()->getMarque();
+	    $categorie = $produit->getProduit1()->getCategorie();
+        $categorieProduits = $em->getRepository('KountacBundle:Produits_1')->getProduitsByCategorie($categorie, $id);
+        $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
+        $commentaires = $em->getRepository('CommentairesBundle:Commentaires')->commentairesProduit($id);
+        $commentaire = new Commentaires();
+        $commentaire->setDate(new \DateTime('now'));
+        $commentaire->setProduit($produit);
+        $commentaire->setPseudo($this->getUser());
+        
+        $form = $this->createForm('Kountac\CommentairesBundle\Form\CommentaireType', $commentaire);
+        $form->handleRequest($request);
+        if ($request->getMethod() == 'POST') 
+        {
+            if ($form->isSubmitted() && $form->isValid()) 
+            {
+                $em = $this->getDoctrine()->getManager();
+                if ($this->getRequest()->request->get('note') != null)
+                {
+                    $note = $this->getRequest()->request->get('note');
+                    $commentaire->setTitre($note);
+                }
+                $em->persist($commentaire);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('success','Votre commentaire a été ajouté avec succès');
+                
+                return $this->redirectToRoute('product', array('id' => $produit->getId()));
+            }
+        }
+             if (!$produit) 
+            throw $this->createNotFoundException ('Aucun produit dans cette page');
+            
+        if ($session->has('panier'))
+            $panier = $session->get('panier');
+        else
+            $panier = false;
+        
+        if ($session->has('souhait'))
+            $souhait = $session->get('souhait');
+        else
+            $souhait = false;
+        
+        if ($session->has('compare'))
+            $compare = $session->get('compare');
+        else
+            $compare = false;
+        
+        return $this->render('KountacBundle:Default:produits/single_product.html.twig', array(  'produit' => $produit,
+                                                                                                'commentaires' => $commentaires,
+                                                                                                'mannequins' => $mannequins,
+                                                                                                'images' => $images,
+            'cfaprix' => $cfaprix,
+            'europrix' => $europrix,
+            'usaprix' => $usaprix,
+            'livreprix' => $livreprix,
+            'nairaprix' => $nairaprix,
+            'allprix' => $allprix,
+                                                                                                'images_all' => $images_all,
+                                                                                                'images_autres' => $images_autres,
+                                                                                                'commentaire' => $commentaire,
+                                                                                                'form' => $form->createView(),
+                                                                                                'categorieProduits' => $categorieProduits,
+                                                                                                'panier '=> $panier,
+                                                                                                'souhait' => $souhait,
+                                                                                                'compare' => $compare,
+                                                                                                'marque' => $marque,
+                                                                                                'euro' => $this->getRequest()->getSession()->get('euro'),
+                                                                                                'all' => $this->getRequest()->getSession()->get('all'),                                                                                    
+                                                                                                'livre' => $this->getRequest()->getSession()->get('livre'),
+                                                                                                'usa' => $this->getRequest()->getSession()->get('usa'),
+                                                                                                'naira' => $this->getRequest()->getSession()->get('naira'),
+                                                                                                'cfa' => $this->getRequest()->getSession()->get('cfa')
+                                                                                              ));
+    }
+	
     
     public function productMannequinAction(Request $request, $id, $id_image)
     {
