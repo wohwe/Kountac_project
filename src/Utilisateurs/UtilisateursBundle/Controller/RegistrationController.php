@@ -110,7 +110,6 @@ class RegistrationController extends BaseController
         $user->setCode(trim($codebd));
         $user->setPoints(1000);
         $user->setVerifier(0);
-        $user->setDateajout("2020-07-03");
         
         $event = new GetResponseUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
