@@ -110,6 +110,7 @@ class RegistrationController extends BaseController
         $user->setCode(trim($codebd));
         $user->setPoints(1000);
         $user->setVerifier(0);
+        $user->setDateajout(new \DateTime('now'));
         
         $event = new GetResponseUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
