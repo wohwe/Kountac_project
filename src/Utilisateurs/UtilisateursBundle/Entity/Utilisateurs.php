@@ -1178,4 +1178,29 @@ class Utilisateurs extends BaseUser
     {
         return $this->digicode;
     }
+    
+    /**
+     * Set dateajout
+     *
+     * @param \DateTime $dateajout
+     *
+     * @return Produits_1
+     */
+    public function setDateajout($dateajout)
+    {
+        $this->dateajout = $dateajout;
+
+        return $this;
+    }
+
+    /**
+     * Get dateajout
+     *
+     * @return \DateTime
+     */
+    public function getDateajout()
+    {
+        return $this->dateajout;
+    }
+    
 }
