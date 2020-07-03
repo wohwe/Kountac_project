@@ -213,7 +213,7 @@ class Utilisateurs extends BaseUser
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateajout", type="date", nullable=true)
+     * @ORM\Column(name="dateajout", type="datetime", nullable=true)
      */
     private $dateajout;
 
