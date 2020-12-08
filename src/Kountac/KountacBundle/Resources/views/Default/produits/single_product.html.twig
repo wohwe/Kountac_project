@@ -464,16 +464,17 @@
                     </div>
                 </div>
             {% endif %}
-        {% endif %}
-        {% elseif cfa|length != 0 %}
-            {% include 'KountacBundle:Default:produits/cfa/single_product.html.twig' %}
-        {% elseif livre|length != 0 %}
-            {% include 'KountacBundle:Default:produits/livre/single_product.html.twig' %}
-        {% elseif usa|length != 0 %}
-            {% include 'KountacBundle:Default:produits/usa/single_product.html.twig' %}
-        {% elseif naira|length != 0 %}
-            {% include 'KountacBundle:Default:produits/naira/single_product.html.twig' %}
-        {% elseif all|length != 0 %}
-            {% include 'KountacBundle:Default:produits/all/single_product.html.twig' %}
-        {% endif %}
-    {% endblock %}
+        </div>
+    {% endif %}
+    {% elseif cfa|length != 0 %}
+        {% include 'KountacBundle:Default:produits/cfa/single_product.html.twig' %}
+    {% elseif livre|length != 0 %}
+        {% include 'KountacBundle:Default:produits/livre/single_product.html.twig' %}
+    {% elseif usa|length != 0 %}
+        {% include 'KountacBundle:Default:produits/usa/single_product.html.twig' %}
+    {% elseif naira|length != 0 %}
+        {% include 'KountacBundle:Default:produits/naira/single_product.html.twig' %}
+    {% elseif all|length != 0 %}
+        {% include 'KountacBundle:Default:produits/all/single_product.html.twig' %}
+    {% endif %}
+{% endblock %}

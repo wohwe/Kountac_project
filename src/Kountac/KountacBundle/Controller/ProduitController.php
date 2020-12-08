@@ -633,6 +633,7 @@ class ProduitController extends Controller
         $nairaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixNaira();
         $allprix = $em->getRepository('KountacBundle:Produits_2')->getPrixAll();
         $images_all = $em->getRepository('KountacBundle:Media_motif')->findAll();
+
         $images_autres = $em->getRepository('KountacBundle:Media_motif')->findImagesAutres($produit);
         $marque = $produit->getProduit1()->getMarque();
 	    $categorie = $produit->getProduit1()->getCategorie();
@@ -685,12 +686,12 @@ class ProduitController extends Controller
                                                                                                 'commentaires' => $commentaires,
                                                                                                 'mannequins' => $mannequins,
                                                                                                 'images' => $images,
-            'cfaprix' => $cfaprix,
-            'europrix' => $europrix,
-            'usaprix' => $usaprix,
-            'livreprix' => $livreprix,
-            'nairaprix' => $nairaprix,
-            'allprix' => $allprix,
+                                                                                                'cfaprix' => $cfaprix,
+                                                                                                'europrix' => $europrix,
+                                                                                                'usaprix' => $usaprix,
+                                                                                                'livreprix' => $livreprix,
+                                                                                                'nairaprix' => $nairaprix,
+                                                                                                'allprix' => $allprix,
                                                                                                 'images_all' => $images_all,
                                                                                                 'images_autres' => $images_autres,
                                                                                                 'commentaire' => $commentaire,
@@ -707,6 +708,7 @@ class ProduitController extends Controller
                                                                                                 'naira' => $this->getRequest()->getSession()->get('naira'),
                                                                                                 'cfa' => $this->getRequest()->getSession()->get('cfa')
                                                                                               ));
+                                                                                              
     }
 	
     
