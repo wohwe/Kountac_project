@@ -153,22 +153,22 @@ if($pays == "France")
     if ($session->has('naira'))
         $session->remove('naira');
         
-    /*$session->set('euro', '1');
+    // $session->set('euro', '1');
 
-    if ($session->has('cfa'))
-        $session->remove('cfa');
+    // if ($session->has('cfa'))
+    //     $session->remove('cfa');
     
-    if ($session->has('livre'))
-        $session->remove('livre');
+    // if ($session->has('livre'))
+    //     $session->remove('livre');
     
-    if ($session->has('all'))
-        $session->remove('all');
+    // if ($session->has('all'))
+    //     $session->remove('all');
     
-    if ($session->has('usa'))
-        $session->remove('usa');
+    // if ($session->has('usa'))
+    //     $session->remove('usa');
     
-    if ($session->has('naira'))
-        $session->remove('naira');*/
+    // if ($session->has('naira'))
+    //     $session->remove('naira');
 
 }else
 {
