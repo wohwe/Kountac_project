@@ -1053,8 +1053,25 @@ class ProduitController extends Controller
             $produitsRecherche = $em->getRepository('KountacBundle:Produits_2')->recherche($form['recherche']->getData());
             $produits  = $this->get('knp_paginator')->paginate($produitsRecherche,$this->get('request')->query->get('page', 1),20);
             $mot = $form['recherche']->getData();
+            $session->set('motRecherche', $mot);
         } else {
-            throw $this->createNotFoundException('La page n\'exixte pas');
+            $em = $this->getDoctrine()->getManager();
+            $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+            $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+            $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
+            $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
+            $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
+            $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
+            $cfaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixCFA();
+            $usaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixUSA();
+            $livreprix = $em->getRepository('KountacBundle:Produits_2')->getPrixLivre();
+            $nairaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixNaira();
+            $allprix = $em->getRepository('KountacBundle:Produits_2')->getPrixAll();  
+            $form_taillePoids = $this->createForm(new Taille_PoidsType());  
+
+            $mot = $session->get('motRecherche');
+            $produitsRecherche = $em->getRepository('KountacBundle:Produits_2')->recherche($mot);
+            $produits  = $this->get('knp_paginator')->paginate($produitsRecherche,$this->get('request')->query->get('page', 1),20);
         }
         
         $session = $this->getRequest()->getSession();
