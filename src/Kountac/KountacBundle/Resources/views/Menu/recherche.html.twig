@@ -4,14 +4,13 @@
             {{ form_start(form) }}
             {{ form_errors(form) }}
             <div class="input-group">
-                {{ form_widget(form.recherche) }}
-                <select class="cate-dropdown hidden-xs hidden-sm" size="1"  onChange="location = this.options[this.selectedIndex].value;">
-                    <option value="0" selected disabled>Opt. avancée</option>
-                    <option value="{{ path('all_products') }}">Rech. avancée</option>
-                  </select>
+                {{ form_widget(form.recherche) }}&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{{ path('all_products') }}" class="btn btn-warning btn-group-sm">
+                    <i class="fa fa-cogs"></i> Filtres 
+                </a>
                 <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>
             </div>
             {{ form_end(form) }}
         </form>
     </div>
-</div>
+</div>   

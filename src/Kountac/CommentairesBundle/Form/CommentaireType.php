@@ -16,14 +16,6 @@ class CommentaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre', 'choice', array('choices' => array('excellent' => 'Excellent',
-                                                              'tres_bien' => 'Très bien',
-                                                              'bien' => 'Bien',
-                                                              'moyen' => 'Moyen',
-                                                              'mauvais' => 'Mauvais',
-                                                              'tres_mauvais' => 'Très mauvais'),
-                                            'label' => 'Votre avis général*',
-                                            'attr' => array('class' => 'select form-control')))
             ->add('pseudo','text', array('attr' => array('class' => 'input form-control'),'label' => 'Pseudo*'))
             ->add('contenu', 'textarea', array('label' => 'Votre commentaire*','attr' => array('rows' => 5, 'class' => 'form-control')))
         ;

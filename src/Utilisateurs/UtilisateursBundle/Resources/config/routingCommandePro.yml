@@ -3,6 +3,48 @@ commande_pro_index:
     defaults: { _controller: "UtilisateursBundle:CommandePro:index" }
     methods:  GET
     
+sous_achat_pro_index:
+    path:     /achat-en-instance
+    defaults: { _controller: "UtilisateursBundle:CommandePro:sousAchat" }
+    methods:  GET
+    
+details_sous_achat:
+    path:     /achat-en-instance/{id}
+    defaults: { _controller: "UtilisateursBundle:CommandePro:sousAchatById" }
+    methods:  GET
+    
+accepter_sous_achat:
+    path:     /achat-en-instance/accepter/{id}
+    defaults: { _controller: "UtilisateursBundle:CommandePro:accepterSousAchat" }
+    methods:  GET
+
+
+livraison_sous_achat:
+        path:     /achat-en-instance/livraison/{id}
+        defaults: { _controller: "UtilisateursBundle:CommandePro:livraisonSousAchat" }
+        methods:  GET
+
+
+compteRebours:
+    path:     /achat-en-instance/compteRebours/{id}
+    defaults: { _controller: "UtilisateursBundle:CommandePro:echeanceSousAchat" }
+    methods:  GET
+
+disable_livraison_sous_achat:
+    path:     /achat-en-instance/disable_livraison/{id}
+    defaults: { _controller: "UtilisateursBundle:CommandePro:disableLivraisonSousAchat" }
+    methods:  GET
+    
+delai_sous_achat:
+    path:     /achat-en-instance/delai_livraison/{nbr}
+    defaults: { _controller: "UtilisateursBundle:CommandePro:delaiLivraisonSousAchat" }
+    methods:  GET
+    
+expedier_sous_achat:
+    path:     /achat-en-instance/expedier_livraison/{id}
+    defaults: { _controller: "UtilisateursBundle:CommandePro:expedierLivraisonSousAchat" }
+    methods:  GET
+    
 commande_pro_show:
     path:     /{id}_show
     defaults: { _controller: "UtilisateursBundle:CommandePro:show" }

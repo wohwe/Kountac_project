@@ -2,7 +2,7 @@
 {% set totalPanier = 0 %}
 {% set totalPanier2 = 0 %}
 {% block fos_user_content %}
-    {% if cfa|length == 0 %}
+    
     <!-- Breadcrumbs -->
 
     <div class="breadcrumbs">
@@ -10,9 +10,12 @@
             <div class="row">
                 <div class="col-xs-12">
                     <ul>
-                        <li class="home"> <a title="Go to Home Page" href="index.html">Home</a><span>&raquo;</span></li>
-
-                        <li><strong>Checkout</strong></li>
+                        <li class="home"> <a title="Aller à l'accueil" href="{{ path ('kountac_homepage')}}">Accueil</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon panier" href="{{ path ('panier')}}">Mon panier</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Paramètres adresse de facturation" href="{{ path ('Checkout_index1')}}">Adresse de facturation</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Service de livraison" href="{{ path ('Checkout_index2')}}">Service de livraison</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Service de paiement" href="{{ path ('Checkout_index2')}}">Service de paiement</a><span>&raquo;</span></li>
+                        <li><strong>Résumé panier</strong></li>
                     </ul>
                 </div>
             </div>
@@ -95,18 +98,10 @@
                                     <li class="row">
                                         <div class="col-sm-8">
                                             <label><u>Service de livraison</u> :</label>
-                                            {{ user.servicelivraison.nom|upper }}
+                                            {% if user.servicelivraison.nom == "Null" %} Aucun service de livraison {% else %}{{ user.servicelivraison.nom|upper }} {% endif %}
                                         </div>
                                     </li>
                                     <br>
-                                    <li class="row">
-                                        {% if user.servicelivraison.description %}
-                                        <div class="col-sm-8">
-                                             <label><u>A propos du service</u> :</label>
-                                                {{ user.servicelivraison.description|capitalize }}
-                                        </div>
-                                        {% endif %}
-                                    </li>
                                 </ul>
                         </div>
                         <br>
@@ -117,35 +112,29 @@
                                    <li class="row">
                                         <div class="col-sm-6">
                                             <label><u>Mode de paiement</u> :</label>
-                                                {{ user.servicepaiement.nom|upper }}
+                                                {{ paiement.nom|upper }}
                                         </div>
-                                        {% if user.servicepaiement.titulaire %}
                                         <div class="col-sm-6">
                                             <label><u>Nom du titulaire</u> :</label>
-                                            {{ user.servicepaiement.titulaire|upper }}
+                                            {{ paiement.titulaire|upper }}
                                         </div>
-                                        {% endif %}
                                     </li>
                                     <br>
                                     <li class="row">
-                                        {% if user.servicepaiement.numero %}
                                         <div class="col-sm-6">
                                             <label><u>Numéro de la carte</u> :</label>
-                                            {{ user.servicepaiement.numero }}
+                                            {{ paiement.numero }}
                                         </div>
-                                        {% endif %}
-                                        {% if user.servicepaiement.numeroverification %}
                                         <div class="col-sm-6">
                                             <label><u>Code de vérification</u> :</label>
-                                            {{ user.servicepaiement.numeroverification }}
+                                            {{ paiement.numeroVerification }}
                                         </div>
-                                        {% endif %}
                                     </li>
                                     <br>
                                     <li class="row">
                                         <div class="col-sm-6">
                                             <label><u>Date d'expiration de la carte</u> :</label>
-                                            {{ user.servicepaiement.moisexp }}/{{ user.servicepaiement.anneeexp }}
+                                            {{ paiement.moisExpiration }}/{{ paiement.anneeExpiration }}
                                         </div>
                                        
                                     </li>
@@ -155,8 +144,8 @@
                         <h4 class="checkout-sep">4. Résumé panier</h4>
                         <br>
                         <div class="box-border">
+                            {% if euro|length != 0 %}
                             <form action="{{ path('resume_achat') }}" method="POST"  class="form">
-                            
                                 <div class="table-responsive">
                                 <table class="table table-bordered cart_summary">
                                     <thead>
@@ -174,7 +163,15 @@
                                             {% set prixReduction = produit.produit2.europrix - (produit.produit2.europrix * produit.produit2.reduction/100) %}
                                             
                                             <tr>
-                                                <td class="cart_product"><a href="{{ path('product', {'id' : produit.produit2.id}) }}"><img src="{{ produit.produit2.picture.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></a></td>
+                                                <td class="cart_product">
+                                                    <a href="{{ path('product', {'id' : produit.produit2.id}) }}">
+                                                        {% for image in images %}
+                                                            {% if image.produit2 == produit.produit2 and image.top == 0 %}
+                                                                <img src="{{ image.AssetPath|imagine_filter('cartThumbItem') }}" alt="">
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </a>
+                                                </td>
                                                 <td class="cart_description"><p class="product-name"><a href="{{ path('product', {'id' : produit.produit2.id}) }}">{{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }}</a></p><br>
                                                     <small><a><u>Description</u> : {{ produit.produit2.produit1.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
                                                     <small><a><u>Matière</u> : {{ produit.produit2.produit1.matiere|capitalize }}</a></small><br>
@@ -229,10 +226,442 @@
                                         </tr>
                                     </tfoot>    
                                 </table>
+                                
                             </div>
-                            <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Terminer</span></button>
+                            <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider</span></button>
                             </form>
-                            <a href="{{ path('Checkout_index3') }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
+                            {% elseif all|length != 0%}
+                                <form action="{{ path('resume_achat') }}" method="POST"  class="form">
+                                <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart_product">Produit</th>
+                                            <th>Description</th>
+                                            <th>Prix unitaire</th>
+                                            <th>Quantité</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for produit in produits %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit.produit2.allprix - (produit.produit2.allprix * produit.produit2.reduction/100) %}
+                                            
+                                            <tr>
+                                                <td class="cart_product">
+                                                    <a href="{{ path('product', {'id' : produit.produit2.id}) }}">
+                                                        {% for image in images %}
+                                                            {% if image.produit2 == produit.produit2 and image.top == 0 %}
+                                                                <img src="{{ image.AssetPath|imagine_filter('cartThumbItem') }}" alt="">
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </a>
+                                                </td>
+                                                <td class="cart_description"><p class="product-name"><a href="{{ path('product', {'id' : produit.produit2.id}) }}">{{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }}</a></p><br>
+                                                    <small><a><u>Description</u> : {{ produit.produit2.produit1.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
+                                                    <small><a><u>Matière</u> : {{ produit.produit2.produit1.matiere|capitalize }}</a></small><br>
+                                                </td>
+                                                <td class="price">
+                                                    {% if produit.produit2.reduction == 0 %}
+                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} €</span> </span> </div>
+                                                    {% else %}
+                                                        <div class="price-box">
+                                                            <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} €</span> </p><br><br>
+                                                            <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.produit2.allprix|number_format(2) }} €</span> </p>
+                                                        </div>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="qty">
+                                                    {{ panier[produit.id] }}
+                                                </td>
+                                                <td class="price"><span>{{ (prixReduction * panier[produit.id])|number_format(2) }} €</span></td>
+                                            </tr>
+                                        {% set totalPanier = totalPanier + (prixReduction * panier[produit.id]) %}
+                                        {% endfor %}
+                                        
+                                        {% for commande in commandes %}
+                                            {% if commande.produit.allprix %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = commande.produit.allprixCommande %}
+                                            
+                                            <tr>
+                                                <td class="cart_product"><a href="{{ path('product', {'id' : commande.produit.id}) }}"><img src="{{ commande.produit.picture.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></a></td>
+                                                <td class="cart_description"><p class="product-name"><a href="{{ path('product', {'id' : commande.produit.id}) }}">{{ commande.produit.produit1.nom|capitalize }} - {{ commande.produit.libelle.libelle|capitalize }}(Commande)</a></p><br>
+                                                    <small><a><u>Description</u> : {{ commande.produit.produit1.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
+                                                    <small><a><u>Matière</u> : {{ commande.produit.produit1.matiere|capitalize }}</a></small><br>
+                                                    <small><a><u>Date d'ajout</u> : Ajouté le {{ commande.date|date('d M Y')}}</a></small>
+                                                </td>
+                                                <td class="price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} €</span> </span> </div>
+                                                </td>
+                                                <td class="qty">
+                                                    1
+                                                </td>
+                                                <td class="price"><span>{{ prixReduction|number_format(2) }} €</span></td>
+                                            </tr>
+                                        {% set totalPanier2 = totalPanier2 + prixReduction %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2" rowspan="2"></td>
+                                            <td colspan="2">TOTAL </td>
+                                            <td colspan="2">{{ (totalPanier + totalPanier2)|number_format(2) }} €</td>
+                                        </tr>
+                                    </tfoot>    
+                                </table>
+                                
+                            </div>
+                            <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider</span></button>
+                            </form>
+                            {% elseif livre|length != 0%}
+                                    <form action="{{ path('resume_achat') }}" method="POST"  class="form">
+                                <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart_product">Produit</th>
+                                            <th>Description</th>
+                                            <th>Prix unitaire</th>
+                                            <th>Quantité</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for produit in produits %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit.produit2.livreprix - (produit.produit2.livreprix * produit.produit2.reduction/100) %}
+                                            
+                                            <tr>
+                                                <td class="cart_product">
+                                                    <a href="{{ path('product', {'id' : produit.produit2.id}) }}">
+                                                        {% for image in images %}
+                                                            {% if image.produit2 == produit.produit2 and image.top == 0 %}
+                                                                <img src="{{ image.AssetPath|imagine_filter('cartThumbItem') }}" alt="">
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </a>
+                                                </td>
+                                                <td class="cart_description"><p class="product-name"><a href="{{ path('product', {'id' : produit.produit2.id}) }}">{{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }}</a></p><br>
+                                                    <small><a><u>Description</u> : {{ produit.produit2.produit1.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
+                                                    <small><a><u>Matière</u> : {{ produit.produit2.produit1.matiere|capitalize }}</a></small><br>
+                                                </td>
+                                                <td class="price">
+                                                    {% if produit.produit2.reduction == 0 %}
+                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} £</span> </span> </div>
+                                                    {% else %}
+                                                        <div class="price-box">
+                                                            <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} £</span> </p><br><br>
+                                                            <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.produit2.livreprix|number_format(2) }} £</span> </p>
+                                                        </div>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="qty">
+                                                    {{ panier[produit.id] }}
+                                                </td>
+                                                <td class="price"><span>{{ (prixReduction * panier[produit.id])|number_format(2) }} £</span></td>
+                                            </tr>
+                                        {% set totalPanier = totalPanier + (prixReduction * panier[produit.id]) %}
+                                        {% endfor %}
+                                        
+                                        {% for commande in commandes %}
+                                            {% if commande.produit.livreprix %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = commande.produit.livreprixCommande %}
+                                            
+                                            <tr>
+                                                <td class="cart_product"><a href="{{ path('product', {'id' : commande.produit.id}) }}"><img src="{{ commande.produit.picture.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></a></td>
+                                                <td class="cart_description"><p class="product-name"><a href="{{ path('product', {'id' : commande.produit.id}) }}">{{ commande.produit.produit1.nom|capitalize }} - {{ commande.produit.libelle.libelle|capitalize }}(Commande)</a></p><br>
+                                                    <small><a><u>Description</u> : {{ commande.produit.produit1.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
+                                                    <small><a><u>Matière</u> : {{ commande.produit.produit1.matiere|capitalize }}</a></small><br>
+                                                    <small><a><u>Date d'ajout</u> : Ajouté le {{ commande.date|date('d M Y')}}</a></small>
+                                                </td>
+                                                <td class="price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} £</span> </span> </div>
+                                                </td>
+                                                <td class="qty">
+                                                    1
+                                                </td>
+                                                <td class="price"><span>{{ prixReduction|number_format(2) }} £</span></td>
+                                            </tr>
+                                        {% set totalPanier2 = totalPanier2 + prixReduction %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2" rowspan="2"></td>
+                                            <td colspan="2">TOTAL </td>
+                                            <td colspan="2">{{ (totalPanier + totalPanier2)|number_format(2) }} £</td>
+                                        </tr>
+                                    </tfoot>    
+                                </table>
+                                
+                            </div>
+                            <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider</span></button>
+                            </form>
+                            {% elseif cfa|length != 0%}
+                                    <form action="{{ path('resume_achat') }}" method="POST"  class="form">
+                                <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart_product">Produit</th>
+                                            <th>Description</th>
+                                            <th>Prix unitaire</th>
+                                            <th>Quantité</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for produit in produits %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit.produit2.cfaprix - (produit.produit2.cfaprix * produit.produit2.reduction/100) %}
+                                            
+                                            <tr>
+                                                <td class="cart_product">
+                                                    <a href="{{ path('product', {'id' : produit.produit2.id}) }}">
+                                                        {% for image in images %}
+                                                            {% if image.produit2 == produit.produit2 and image.top == 0 %}
+                                                                <img src="{{ image.AssetPath|imagine_filter('cartThumbItem') }}" alt="">
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </a>
+                                                </td>
+                                                <td class="cart_description"><p class="product-name"><a href="{{ path('product', {'id' : produit.produit2.id}) }}">{{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }}</a></p><br>
+                                                    <small><a><u>Description</u> : {{ produit.produit2.produit1.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
+                                                    <small><a><u>Matière</u> : {{ produit.produit2.produit1.matiere|capitalize }}</a></small><br>
+                                                </td>
+                                                <td class="price">
+                                                    {% if produit.produit2.reduction == 0 %}
+                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </span> </div>
+                                                    {% else %}
+                                                        <div class="price-box">
+                                                            <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </p><br><br>
+                                                            <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.produit2.cfaprix|number_format(2) }} F CFA</span> </p>
+                                                        </div>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="qty">
+                                                    {{ panier[produit.id] }}
+                                                </td>
+                                                <td class="price"><span>{{ (prixReduction * panier[produit.id])|number_format(2) }} F CFA</span></td>
+                                            </tr>
+                                        {% set totalPanier = totalPanier + (prixReduction * panier[produit.id]) %}
+                                        {% endfor %}
+                                        
+                                        {% for commande in commandes %}
+                                            {% if commande.produit.cfaprix %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = commande.produit.cfaprixCommande %}
+                                            
+                                            <tr>
+                                                <td class="cart_product"><a href="{{ path('product', {'id' : commande.produit.id}) }}"><img src="{{ commande.produit.picture.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></a></td>
+                                                <td class="cart_description"><p class="product-name"><a href="{{ path('product', {'id' : commande.produit.id}) }}">{{ commande.produit.produit1.nom|capitalize }} - {{ commande.produit.libelle.libelle|capitalize }}(Commande)</a></p><br>
+                                                    <small><a><u>Description</u> : {{ commande.produit.produit1.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
+                                                    <small><a><u>Matière</u> : {{ commande.produit.produit1.matiere|capitalize }}</a></small><br>
+                                                    <small><a><u>Date d'ajout</u> : Ajouté le {{ commande.date|date('d M Y')}}</a></small>
+                                                </td>
+                                                <td class="price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </span> </div>
+                                                </td>
+                                                <td class="qty">
+                                                    1
+                                                </td>
+                                                <td class="price"><span>{{ prixReduction|number_format(2) }} F CFA</span></td>
+                                            </tr>
+                                        {% set totalPanier2 = totalPanier2 + prixReduction %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2" rowspan="2"></td>
+                                            <td colspan="2">TOTAL </td>
+                                            <td colspan="2">{{ (totalPanier + totalPanier2)|number_format(2) }} F CFA</td>
+                                        </tr>
+                                    </tfoot>    
+                                </table>
+                                
+                            </div>
+                            <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider</span></button>
+                            </form>
+                            {% elseif naira|length != 0%}
+                                    <form action="{{ path('resume_achat') }}" method="POST"  class="form">
+                                <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart_product">Produit</th>
+                                            <th>Description</th>
+                                            <th>Prix unitaire</th>
+                                            <th>Quantité</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for produit in produits %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit.produit2.nairaprix - (produit.produit2.nairaprix * produit.produit2.reduction/100) %}
+                                            
+                                            <tr>
+                                                <td class="cart_product">
+                                                    <a href="{{ path('product', {'id' : produit.produit2.id}) }}">
+                                                        {% for image in images %}
+                                                            {% if image.produit2 == produit.produit2 and image.top == 0 %}
+                                                                <img src="{{ image.AssetPath|imagine_filter('cartThumbItem') }}" alt="">
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </a>
+                                                </td>
+                                                <td class="cart_description"><p class="product-name"><a href="{{ path('product', {'id' : produit.produit2.id}) }}">{{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }}</a></p><br>
+                                                    <small><a><u>Description</u> : {{ produit.produit2.produit1.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
+                                                    <small><a><u>Matière</u> : {{ produit.produit2.produit1.matiere|capitalize }}</a></small><br>
+                                                </td>
+                                                <td class="price">
+                                                    {% if produit.produit2.reduction == 0 %}
+                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} ₦</span> </span> </div>
+                                                    {% else %}
+                                                        <div class="price-box">
+                                                            <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} ₦</span> </p><br><br>
+                                                            <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.produit2.nairaprix|number_format(2) }} ₦</span> </p>
+                                                        </div>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="qty">
+                                                    {{ panier[produit.id] }}
+                                                </td>
+                                                <td class="price"><span>{{ (prixReduction * panier[produit.id])|number_format(2) }} ₦</span></td>
+                                            </tr>
+                                        {% set totalPanier = totalPanier + (prixReduction * panier[produit.id]) %}
+                                        {% endfor %}
+                                        
+                                        {% for commande in commandes %}
+                                            {% if commande.produit.nairaprix %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = commande.produit.nairaprixCommande %}
+                                            
+                                            <tr>
+                                                <td class="cart_product"><a href="{{ path('product', {'id' : commande.produit.id}) }}"><img src="{{ commande.produit.picture.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></a></td>
+                                                <td class="cart_description"><p class="product-name"><a href="{{ path('product', {'id' : commande.produit.id}) }}">{{ commande.produit.produit1.nom|capitalize }} - {{ commande.produit.libelle.libelle|capitalize }}(Commande)</a></p><br>
+                                                    <small><a><u>Description</u> : {{ commande.produit.produit1.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
+                                                    <small><a><u>Matière</u> : {{ commande.produit.produit1.matiere|capitalize }}</a></small><br>
+                                                    <small><a><u>Date d'ajout</u> : Ajouté le {{ commande.date|date('d M Y')}}</a></small>
+                                                </td>
+                                                <td class="price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} ₦</span> </span> </div>
+                                                </td>
+                                                <td class="qty">
+                                                    1
+                                                </td>
+                                                <td class="price"><span>{{ prixReduction|number_format(2) }} ₦</span></td>
+                                            </tr>
+                                        {% set totalPanier2 = totalPanier2 + prixReduction %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2" rowspan="2"></td>
+                                            <td colspan="2">TOTAL </td>
+                                            <td colspan="2">{{ (totalPanier + totalPanier2)|number_format(2) }} ₦</td>
+                                        </tr>
+                                    </tfoot>    
+                                </table>
+                                
+                            </div>
+                            <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider</span></button>
+                            </form>
+                            {% elseif usa|length != 0%}
+                                    <form action="{{ path('resume_achat') }}" method="POST"  class="form">
+                                <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart_product">Produit</th>
+                                            <th>Description</th>
+                                            <th>Prix unitaire</th>
+                                            <th>Quantité</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for produit in produits %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit.produit2.usaprix - (produit.produit2.usaprix * produit.produit2.reduction/100) %}
+                                            
+                                            <tr>
+                                                <td class="cart_product">
+                                                    <a href="{{ path('product', {'id' : produit.produit2.id}) }}">
+                                                        {% for image in images %}
+                                                            {% if image.produit2 == produit.produit2 and image.top == 0 %}
+                                                                <img src="{{ image.AssetPath|imagine_filter('cartThumbItem') }}" alt="">
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </a>
+                                                </td>
+                                                <td class="cart_description"><p class="product-name"><a href="{{ path('product', {'id' : produit.produit2.id}) }}">{{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }}</a></p><br>
+                                                    <small><a><u>Description</u> : {{ produit.produit2.produit1.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
+                                                    <small><a><u>Matière</u> : {{ produit.produit2.produit1.matiere|capitalize }}</a></small><br>
+                                                </td>
+                                                <td class="price">
+                                                    {% if produit.produit2.reduction == 0 %}
+                                                        <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} $</span> </span> </div>
+                                                    {% else %}
+                                                        <div class="price-box">
+                                                            <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} $</span> </p><br><br>
+                                                            <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit.produit2.usaprix|number_format(2) }} $</span> </p>
+                                                        </div>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="qty">
+                                                    {{ panier[produit.id] }}
+                                                </td>
+                                                <td class="price"><span>{{ (prixReduction * panier[produit.id])|number_format(2) }} $</span></td>
+                                            </tr>
+                                        {% set totalPanier = totalPanier + (prixReduction * panier[produit.id]) %}
+                                        {% endfor %}
+                                        
+                                        {% for commande in commandes %}
+                                            {% if commande.produit.usaprix %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = commande.produit.usaprixCommande %}
+                                            
+                                            <tr>
+                                                <td class="cart_product"><a href="{{ path('product', {'id' : commande.produit.id}) }}"><img src="{{ commande.produit.picture.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></a></td>
+                                                <td class="cart_description"><p class="product-name"><a href="{{ path('product', {'id' : commande.produit.id}) }}">{{ commande.produit.produit1.nom|capitalize }} - {{ commande.produit.libelle.libelle|capitalize }}(Commande)</a></p><br>
+                                                    <small><a><u>Description</u> : {{ commande.produit.produit1.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
+                                                    <small><a><u>Matière</u> : {{ commande.produit.produit1.matiere|capitalize }}</a></small><br>
+                                                    <small><a><u>Date d'ajout</u> : Ajouté le {{ commande.date|date('d M Y')}}</a></small>
+                                                </td>
+                                                <td class="price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} $</span> </span> </div>
+                                                </td>
+                                                <td class="qty">
+                                                    1
+                                                </td>
+                                                <td class="price"><span>{{ prixReduction|number_format(2) }} $</span></td>
+                                            </tr>
+                                        {% set totalPanier2 = totalPanier2 + prixReduction %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2" rowspan="2"></td>
+                                            <td colspan="2">TOTAL </td>
+                                            <td colspan="2">{{ (totalPanier + totalPanier2)|number_format(2) }} $</td>
+                                        </tr>
+                                    </tfoot>    
+                                </table>
+                                
+                            </div>
+                            <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider</span></button>
+                            </form>                                        
+                            {% endif %}
+                            <a href="{{ path('Checkout_index2') }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
                         </div>
                     </div>
                 </div>
@@ -243,8 +672,5 @@
         </div>
     </section>
     <!-- Main Container End -->
-{% else %}
-  {% include 'UtilisateursBundle:Checkout:checkout4_cfa.html.twig' %}
-{% endif %}
 
 {% endblock fos_user_content %}

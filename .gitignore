@@ -1,5 +1,8 @@
 /web/bundles/
-/app/bootstrap.php.cache
+/web/uploadProduits
+/web/Motifs
+/web/media
+/web/Mannequins
 /app/cache/*
 /app/config/parameters.yml
 /app/logs/*
@@ -7,6 +10,5 @@
 !app/logs/.gitkeep
 /app/phpunit.xml
 /build/
-/vendor/
 /bin/
 /composer.phar

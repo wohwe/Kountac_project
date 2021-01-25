@@ -13,7 +13,7 @@
                                 <a href="{{ path('fos_user_security_logout') }}">
                                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                                 </a>
-                            {% endif %} 
+                            {% endif %}
                         </ul>
                         <ul>
                             {% if app.request.hasPreviousSession %}
@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-    <!-- Breadcrumbs End --> 
+    <!-- Breadcrumbs End -->
     <!-- Main Container -->
     <section class="main-container col2-right-layout">
         <div class="main container">
@@ -77,12 +77,12 @@
                             <div>
                                 <table>
                                     <tr>
-                                        <td><center><h1>Liste de souhaits vide !! Aucun produits</h1></center></td>
+                                        <td><center><h1>Liste de souhaits vide. Aucun produit</h1></center></td>
                                     </tr>
                                 </table>
                                 <br>
                                 <button class="button"> <a class="continue-btn" href="{{ path('kountac_homepage') }}"><i class="fa fa-arrow-left"> </i>&nbsp; Voir les produits</a> </button>
-                            </div>  
+                            </div>
                         {% else %}
                         <div class="wishlist-item table-responsive">
                             <table class="col-md-12">
@@ -103,14 +103,16 @@
                                     <tr>
                                         <td class="th-delate"><a href="{{ path('supprimerwishlist', { 'id' : produit.id }) }}"><i class="fa fa-trash-o"></i></a></td>
                                         <td class="th-product">
-                                            <a href="{{ path('product', {'id' : produit.id}) }}" title="{{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }}" class="product-image">
-                                                <img src="{{ produit.produit2.picture.AssetPath|imagine_filter('wishlistThumbItem') }}" alt="">
-                                            </a>
+                                            {% for image in images %}
+                                                {% if image.produit2 == produit.produit2 and image.top == 0 %}
+                                                    <img src="{{ image.AssetPath|imagine_filter('cartThumbItem') }}" alt="">
+                                                {% endif %}
+                                            {% endfor %}
                                         </td>
                                         <td class="th-details"><h2><a href="{{ path('product', {'id' : produit.produit2.id}) }}">{{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }}</a></h2>
                                             <small><a><u>Description</u> : {{ produit.produit2.produit1.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
                                             <small><a><u>Matière</u> : {{ produit.produit2.produit1.matiere|capitalize }}</a></small><br>
-                                            
+
                                         </td>
                                         <td class="th-price">
                                         {% if produit.produit2.reduction == 0 %}
@@ -153,5 +155,7 @@
     {% include 'KountacBundle:Default:pages/naira/wishlist.html.twig' %}
 {% elseif usa|length != 0 %}
     {% include 'KountacBundle:Default:pages/usa/wishlist.html.twig' %}
+{% elseif all|length != 0 %}
+    {% include 'KountacBundle:Default:pages/all/wishlist.html.twig' %}
 {% endif %}
 {% endblock %}

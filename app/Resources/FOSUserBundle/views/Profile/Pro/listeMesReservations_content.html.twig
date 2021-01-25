@@ -40,7 +40,7 @@
                             <div>
                                 <table>
                                     <tr>
-                                        <td><center><h1>Liste de mes produits réservés vide !! Aucune réservation à afficher</h1></center></td>
+                                        <td><center><h1>Liste de mes produits réservés vide. Aucune réservation à afficher</h1></center></td>
                                     </tr>
                                 </table>
                             </div>  
@@ -131,4 +131,6 @@
     {% include 'FOSUserBundle:Profile:Pro/naira/listeMesReservations_content.html.twig' %}
 {% elseif livre|length != 0 %}
     {% include 'FOSUserBundle:Profile:Pro/livre/listeMesReservations_content.html.twig' %}
+{% elseif all|length != 0 %}
+    {% include 'FOSUserBundle:Profile:Pro/all/listeMesReservations_content.html.twig' %}
 {% endif %}

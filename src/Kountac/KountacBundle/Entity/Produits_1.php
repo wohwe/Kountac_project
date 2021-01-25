@@ -40,6 +40,12 @@ class Produits_1
     private $categorie;
     
     /**
+     * @ORM\ManyToOne(targetEntity="Kountac\KountacBundle\Entity\Idees_looks", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    private $looks;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Utilisateurs\UtilisateursBundle\Entity\Utilisateurs", inversedBy="produit_1_marque", cascade={"persist"})
      * @ORM\JoinColumn(name="marque_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
@@ -65,6 +71,13 @@ class Produits_1
      * @ORM\Column(name="description", type="text")
      */
     private $description;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conditions_utilisation", type="text")
+     */
+    private $conditions_utilisation;
     
     /**
      * @var integer
@@ -112,7 +125,7 @@ class Produits_1
 
     /**
      * Get id
-     *
+     *--
      * @return integer
      */
     public function getId()
@@ -417,5 +430,53 @@ class Produits_1
     public function getStock()
     {
         return $this->stock;
+    }
+
+    /**
+     * Set conditionsUtilisation
+     *
+     * @param string $conditionsUtilisation
+     *
+     * @return Produits_1
+     */
+    public function setConditionsUtilisation($conditionsUtilisation)
+    {
+        $this->conditions_utilisation = $conditionsUtilisation;
+
+        return $this;
+    }
+
+    /**
+     * Get conditionsUtilisation
+     *
+     * @return string
+     */
+    public function getConditionsUtilisation()
+    {
+        return $this->conditions_utilisation;
+    }
+
+    /**
+     * Set looks
+     *
+     * @param \Kountac\KountacBundle\Entity\Idees_looks $looks
+     *
+     * @return Produits_1
+     */
+    public function setLooks(\Kountac\KountacBundle\Entity\Idees_looks $looks = null)
+    {
+        $this->looks = $looks;
+
+        return $this;
+    }
+
+    /**
+     * Get looks
+     *
+     * @return \Kountac\KountacBundle\Entity\Idees_looks
+     */
+    public function getLooks()
+    {
+        return $this->looks;
     }
 }

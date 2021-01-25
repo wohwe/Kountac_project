@@ -1,0 +1,108 @@
+<div class="breadcrumbs">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <ul>
+            <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+            <li class="home"> <a title="Aller à mon profil professionnel" href="{{ path('pro_user_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+            <li><strong>Mes achats client acceptées</strong></li>
+          </ul>
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert-box">
+                <br><br>
+                {{ flashMessage }}
+                <br><br>
+            </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+  <div class="main container">
+    <div class="row">
+      <div class="col-main col-sm-9 col-xs-12">
+        <div class="col-main">
+                <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                            {% if commandes|length != 0 %}
+                                <h2>Liste d'achats client en instance &nbsp;&nbsp;{% if user.sexe %}Mme.{% else %}M.{% endif %} {{ user.prenom|capitalize }} {{ user.nom|capitalize }}</h2>
+                            {% endif %}
+                        </div>
+
+                        <div class="order-detail-content">
+                        {% if commandes|length == 0 %}
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td><center><h1>Liste d'achats client en instance vide. Aucun achat en instance à afficher</h1></center></td>
+                                    </tr>
+                                </table>
+                            </div>  
+                        {% else %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart_product">Aperçu</th>
+                                            <th>N° Commande</th>
+                                            <th>Description</th>
+                                            <th>Quantité</th>
+                                            <th>Taille</th>
+                                            <th>Prix commande</th>
+                                            <th>Date d'ajout</th>
+                                            <th>Nom du client</th>
+                                            <th>Adresse/Contact de livraison</th>
+                                            <th>Statut</th>
+                                            <th  class="action">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for commande in commandes %}
+                                            {% set color = "" %}
+                                            {% if commande.statut != "Expedier" %}
+                                                {% set color = "#f2dede" %}
+                                            {% endif %}
+                                            <tr  style="background-color: {{ color }}">
+                                                <td class="cart_product"><img src="../../../uploadProduits/{{ commande.achat.image.path }}" alt=""></td>
+                                                <td class="cart_product">{{ commande.reference }}</td>
+                                                <td class="cart_product">{{ commande.achat.reference }}</td>
+                                                <td class="cart_product">{{ commande.achat.quantite }}</td>
+                                                <td class="cart_product">{{ commande.achat.taille }}</td>
+                                                <td class="cart_product">{{ commande.achat.prix }}</td>
+                                                <td class="cart_product">{{ commande.date.date }}</td>
+                                                <td class="cart_product">{{ commandes[0].utilisateur.prenom ~ " " ~ commandes[0].utilisateur.nom }}</td>
+                                                <td class="cart_product">{{ commandes[0].utilisateur.adresse ~ ", " ~ commandes[0].utilisateur.rue ~ ", " ~ commandes[0].utilisateur.ville ~ ", CP : " ~ commandes[0].utilisateur.cp ~ ", Tel : " ~ commandes[0].utilisateur.telephone}}</td>
+                                                <td class="cart_product"><b>{{ commande.statut }}</b></td>
+                                                <td class="cart_product"><a href="{{ path('details_sous_achat', {'id' : commande.id}) }}">Visualiser</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="pagination-area ">
+                        </div>
+                            <center>
+                                {{ knp_pagination_render(commandes) }}
+                            </center>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <aside class="right sidebar col-sm-3 col-xs-12">
+        {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
+        <br><br>
+        {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+      </aside>
+    </div>
+  </div>
+  </section>
+
+
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>

@@ -14,12 +14,15 @@ class Produits_3Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('taille','choice',array('choices' => array('XS' => 'XS',
-                                                              'S' => 'S',
-                                                              'L' => 'L',
-                                                              'M' => 'M',
-                                                             'XL' => 'XL',
-                                                            'XXL' => 'XXL'),
+                ->add('taille','choice',array('choices' => array('34' => '34',
+                                                              '36' => '36',
+                                                              '38' => '38',
+                                                              '40' => '40',
+                                                             '42' => '42',
+                                                             '44' => '44',
+                                                             '46' => '46',
+                                                             '48' => '48',
+                                                            '50' => '50'),
                                             'label' => 'Taille du produit*',
                                             'required' => true,
                                             'attr' => array('class' => 'select form-control')))

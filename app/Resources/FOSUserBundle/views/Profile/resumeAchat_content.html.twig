@@ -1,3 +1,20 @@
+<!-- Facebook Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '574955836574843');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=574955836574843&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
 {% if euro|length != 0 %}
 {% set total = 0 %}
 {% set total2 = 0 %}
@@ -62,7 +79,7 @@
                                         {% for produit in achat.achat.produit %}
                                             {% if produit.prix %}
                                             <tr>
-                                                <td class="cart_product"><img src="{{ produit.image.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></td>
+                                                <td class="cart_product"><img src="../../../{{ produit.image.AssetPath }}" alt=""></td>
                                                 <td class="cart_description">
                                                     <p class="product-name"><a>{{ produit.reference|capitalize }} - {{ produit.motif|capitalize }} </a></p><br>
                                                 </td>
@@ -135,13 +152,44 @@
                                 </table>
                             </div>
                             <br>
-                            <form action="{{ path('validation_achat_final', { 'id' : achat.id }) }}" method="POST">
+
+                            <form action="{{ serveurOK }}" method="POST">
+<input type="hidden" name="PBX_SITE" value="{{ pbx_site }}">
+<input type="hidden" name="PBX_RANG" value="{{ pbx_rang }}">
+<input type="hidden" name="PBX_IDENTIFIANT" value="{{ pbx_identifiant }}">
+<input type="hidden" name="PBX_TOTAL" value="{{ pbx_total }}">
+<input type="hidden" name="PBX_DEVISE" value="978">
+<input type="hidden" name="PBX_CMD" value="{{ pbx_cmd }}">
+<input type="hidden" name="PBX_PORTEUR" value="{{ pbx_porteur }}">
+<input type="hidden" name="PBX_REPONDRE_A" value="{{ pbx_repondre_a }}">
+<input type="hidden" name="PBX_RETOUR" value="{{ pbx_retour }}">
+<input type="hidden" name="PBX_EFFECTUE" value="{{ pbx_effectue }}">
+<input type="hidden" name="PBX_ANNULE" value="{{ pbx_annule }}">
+<input type="hidden" name="PBX_REFUSE" value="{{ pbx_refuse }}">
+<input type="hidden" name="PBX_HASH" value="SHA512">
+<input type="hidden" name="PBX_TIME" value="{{ dateTime }}">
+<input type="hidden" name="PBX_HMAC" value="{{ hmac }}">
+
+                                <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider achat</span></button>
+
+                            </form>
+
+
+
+                            <!--form action="{{ path('validation_achat_final', { 'id' : achat.id }) }}" method="POST">
                                 <input name="token" type="hidden" value="{{ achat.achat.token }}" />
                                 <input name="prix" type="hidden" value="{{ achat.achat.prix }}" />    
                                 <input name="date" type="hidden" value="{{ achat.date|date('d/m/Y (H-m-s)') }}" />
                                 <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider achat</span></button>
-                            </form>
-                            <a href="{{ path('Checkout_index4') }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
+                            </form-->
+
+
+
+
+
+
+
+                            <a href="{{ path('Checkout_index2') }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
                         {% endif %}
                         </div>
                     </div>
@@ -164,4 +212,6 @@
     {% include 'FOSUserBundle:Profile:naira/resumeAchat_content.html.twig' %}
 {% elseif livre|length != 0 %}
     {% include 'FOSUserBundle:Profile:livre/resumeAchat_content.html.twig' %}
+{% elseif all|length != 0 %}
+    {% include 'FOSUserBundle:Profile:all/resumeAchat_content.html.twig' %}
 {% endif %}

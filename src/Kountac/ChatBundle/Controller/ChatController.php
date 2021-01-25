@@ -3,6 +3,7 @@
 namespace Kountac\ChatBundle\Controller;
 
 use Kountac\ChatBundle\Entity\Message;
+use Kountac\ChatBundle\Entity\MessageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -65,14 +66,35 @@ class ChatController extends Controller
 		$id_recept=$request->get('marque_id');
 		$userManager = $this->get('fos_user.user_manager');
 		
-		$usere = $userManager->findUserBy(array('id' =>$id_recept));
-        $messages = $this->getDoctrine()->getRepository('ChatBundle:Message')->findBy(
-            array('author' => $this->getUser(), 'recepteur' => $usere)
-        );
-
+		$recepteur = $userManager->findUserBy(array('id' =>$id_recept));
+        /*$messages = $this->getDoctrine()->getRepository('ChatBundle:Message')->findBy(
+            array('author' => $this->getUser(), 'recepteur' => $recepteur)
+        );*/
+		$author=$this->getUser();
+		$repository = $this->getDoctrine()->getRepository('ChatBundle:Message');
+		$query = $repository->createQueryBuilder('m')
+			->select('m')
+			->where('m.author = :author OR m.author = :recepteur')
+            ->andWhere('m.recepteur = :recepteur OR m.recepteur = :author')
+            //->orWhere('m.recepteur = :author AND m.author = :recepteur')
+            ->setParameter('author', $author)
+            ->setParameter('recepteur', $recepteur);
+		$messages=$query->getQuery()->getResult();
+		
+		$queri = $repository->createQueryBuilder('m');
+			$queri->update(Message::class, 'm')
+			->set('m.channel' , '?1')
+			->setParameter(1, $channel)
+			->where('m.author = :author')
+            ->andWhere('m.recepteur = :recepteur')
+            ->setParameter('author', $recepteur)
+            ->setParameter('recepteur', $author);
+			$queri->getQuery()->execute();
+		
         return array(
             'messages' => $messages,
         );
+		
     }
 	
 	/**
@@ -81,12 +103,42 @@ class ChatController extends Controller
      */
     public function list_autorAction($channel)
     {
-        $messages = $this->getDoctrine()->getRepository('ChatBundle:Message')->findBy(
+        /*$messages = $this->getDoctrine()->getRepository('ChatBundle:Message')->findBy(
             array('recepteur' => $this->getUser())
-        );
-
+        );*/
+		$recepteur=$this->getUser();
+		$repository = $this->getDoctrine()->getRepository('ChatBundle:Message');
+		$query = $repository->createQueryBuilder('m')
+			->select('m')
+			->where('m.recepteur = :recepteur')
+            ->setParameter('recepteur', $recepteur)
+			->groupBy('m.author')
+			->orderBy('m.id', 'DESC');
+		$messages=$query->getQuery()->getResult();
         return array(
             'messages' => $messages,
         );
+    }
+	
+	/**
+     * @Route("/list_msg/{channel}", name="cunningsoft_chat_list", defaults={"channel" = "default"})
+     * @Template
+     */
+	public function list_msgAction($channel)
+    {
+        $author=$this->getUser();
+		$repository = $this->getDoctrine()->getRepository('ChatBundle:Message');
+		$query = $repository->createQueryBuilder('m')
+			->select('COUNT(m)')
+			->where('m.recepteur = :recepteur')
+            ->andWhere('m.channel = :channel')
+            ->setParameter('recepteur', $author)
+            ->setParameter('channel', $channel);
+		$nb_msg=$query->getQuery()->getSingleScalarResult();
+		
+		return array(
+            'nb_msg' => $nb_msg,
+        );
+		
     }
 }

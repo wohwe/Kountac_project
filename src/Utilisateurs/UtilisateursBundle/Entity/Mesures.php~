@@ -252,6 +252,341 @@ class Mesures
      */
     private $hauteur_taille_cote_terre;
     
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_poitrine_homme", type="float", nullable=true)
+     */
+    private $tour_poitrine_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_ceinture_homme", type="float", nullable=true)
+     */
+    private $tour_ceinture_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_bassin_homme", type="float", nullable=true)
+     */
+    private $tour_bassin_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="$longueur_taille_dos_homme", type="float", nullable=true)
+     */
+    private $longueur_taille_dos_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longueur_taille_devant_homme", type="float", nullable=true)
+     */
+    private $longueur_taille_devant_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longueur_taille_devant7_homme", type="float", nullable=true)
+     */
+    private $longueur_taille_devant7_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_encolure_homme", type="float", nullable=true)
+     */
+    private $tour_encolure_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_tete_homme", type="float", nullable=true)
+     */
+    private $tour_tete_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_tete_homme", type="float", nullable=true)
+     */
+    private $hauteur_tete_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="carrure_dos_homme", type="float", nullable=true)
+     */
+    private $carrure_dos_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="carrure_devant_homme", type="float", nullable=true)
+     */
+    private $carrure_devant_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longueur_epaule_homme", type="float", nullable=true)
+     */
+    private $longueur_epaule_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longueur_bras_homme", type="float", nullable=true)
+     */
+    private $longueur_bras_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_poignet_homme", type="float", nullable=true)
+     */
+    private $tour_poignet_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_corps_homme", type="float", nullable=true)
+     */
+    private $hauteur_corps_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_taille_terre_homme", type="float", nullable=true)
+     */
+    private $hauteur_taille_terre_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_taille_bassin_homme", type="float", nullable=true)
+     */
+    private $hauteur_taille_bassin_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_montant_homme", type="float", nullable=true)
+     */
+    private $hauteur_montant_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="enfourchure_homme", type="float", nullable=true)
+     */
+    private $enfourchure_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_taille_genou_homme", type="float", nullable=true)
+     */
+    private $hauteur_taille_genou_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longueur_entrejambe_homme", type="float", nullable=true)
+     */
+    private $longueur_entrejambe_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_cuisse_homme", type="float", nullable=true)
+     */
+    private $tour_cuisse_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_mollet_homme", type="float", nullable=true)
+     */
+    private $tour_mollet_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_jarret_homme", type="float", nullable=true)
+     */
+    private $tour_jarret_homme;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longueur_taille_dos_enfant", type="float", nullable=true)
+     */
+    private $longueur_taille_dos_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longueur_taille_devant_enfant", type="float", nullable=true)
+     */
+    private $longueur_taille_devant_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_poitrine_enfant", type="float", nullable=true)
+     */
+    private $tour_poitrine_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_taille_enfant", type="float", nullable=true)
+     */
+    private $tour_taille_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_hanches_enfant", type="float", nullable=true)
+     */
+    private $tour_hanches_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_encolure_enfant", type="float", nullable=true)
+     */
+    private $tour_encolure_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longueur_epaule_enfant", type="float", nullable=true)
+     */
+    private $longueur_epaule_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="carrure_dos_enfant", type="float", nullable=true)
+     */
+    private $carrure_dos_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="carrure_devant_enfant", type="float", nullable=true)
+     */
+    private $carrure_devant_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longueur_bras_enfant", type="float", nullable=true)
+     */
+    private $longueur_bras_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="grosseur_bras_enfant", type="float", nullable=true)
+     */
+    private $grosseur_bras_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longueur_coude_enfant", type="float", nullable=true)
+     */
+    private $longueur_coude_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_poignet_enfant", type="float", nullable=true)
+     */
+    private $tour_poignet_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_taille_hanches_enfant", type="float", nullable=true)
+     */
+    private $hauteur_taille_hanches_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_montant_enfant", type="float", nullable=true)
+     */
+    private $hauteur_montant_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_taille_genou_enfant", type="float", nullable=true)
+     */
+    private $hauteur_taille_genou_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_genou_enfant", type="float", nullable=true)
+     */
+    private $tour_genou_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_entrejambe_enfant", type="float", nullable=true)
+     */
+    private $hauteur_entrejambe_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_taille_cote_terre_enfant", type="float", nullable=true)
+     */
+    private $hauteur_taille_cote_terre_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="largeur_bas_pantalon_enfant", type="float", nullable=true)
+     */
+    private $largeur_bas_pantalon_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="hauteur_tete7_enfant", type="float", nullable=true)
+     */
+    private $hauteur_tete7_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="perimetre_cranien_enfant", type="float", nullable=true)
+     */
+    private $perimetre_cranien_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tour_visage_enfant", type="float", nullable=true)
+     */
+    private $tour_visage_enfant;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="ecart_poitrine_enfant", type="float", nullable=true)
+     */
+    private $ecart_poitrine_enfant;
     
     /**
      * Get id
@@ -467,5 +802,534 @@ class Mesures
     public function getTitulaire()
     {
         return $this->titulaire;
+    }
+
+    /**
+     * Set genre
+     *
+     * @param string $genre
+     * @return Mesures
+     */
+    public function setGenre($genre)
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+    /**
+     * Get genre
+     *
+     * @return string 
+     */
+    public function getGenre()
+    {
+        return $this->genre;
+    }
+
+    /**
+     * Set taille_dos
+     *
+     * @param float $tailleDos
+     * @return Mesures
+     */
+    public function setTailleDos($tailleDos)
+    {
+        $this->taille_dos = $tailleDos;
+
+        return $this;
+    }
+
+    /**
+     * Get taille_dos
+     *
+     * @return float 
+     */
+    public function getTailleDos()
+    {
+        return $this->taille_dos;
+    }
+
+    /**
+     * Set taille_devant
+     *
+     * @param float $tailleDevant
+     * @return Mesures
+     */
+    public function setTailleDevant($tailleDevant)
+    {
+        $this->taille_devant = $tailleDevant;
+
+        return $this;
+    }
+
+    /**
+     * Get taille_devant
+     *
+     * @return float 
+     */
+    public function getTailleDevant()
+    {
+        return $this->taille_devant;
+    }
+
+    /**
+     * Set hauteur_poitrine
+     *
+     * @param float $hauteurPoitrine
+     * @return Mesures
+     */
+    public function setHauteurPoitrine($hauteurPoitrine)
+    {
+        $this->hauteur_poitrine = $hauteurPoitrine;
+
+        return $this;
+    }
+
+    /**
+     * Get hauteur_poitrine
+     *
+     * @return float 
+     */
+    public function getHauteurPoitrine()
+    {
+        return $this->hauteur_poitrine;
+    }
+
+    /**
+     * Set demi_ecart_poitrine
+     *
+     * @param float $demiEcartPoitrine
+     * @return Mesures
+     */
+    public function setDemiEcartPoitrine($demiEcartPoitrine)
+    {
+        $this->demi_ecart_poitrine = $demiEcartPoitrine;
+
+        return $this;
+    }
+
+    /**
+     * Get demi_ecart_poitrine
+     *
+     * @return float 
+     */
+    public function getDemiEcartPoitrine()
+    {
+        return $this->demi_ecart_poitrine;
+    }
+
+    /**
+     * Set tour_petites_hanches
+     *
+     * @param float $tourPetitesHanches
+     * @return Mesures
+     */
+    public function setTourPetitesHanches($tourPetitesHanches)
+    {
+        $this->tour_petites_hanches = $tourPetitesHanches;
+
+        return $this;
+    }
+
+    /**
+     * Get tour_petites_hanches
+     *
+     * @return float 
+     */
+    public function getTourPetitesHanches()
+    {
+        return $this->tour_petites_hanches;
+    }
+
+    /**
+     * Set tour_grandes_hanches
+     *
+     * @param float $tourGrandesHanches
+     * @return Mesures
+     */
+    public function setTourGrandesHanches($tourGrandesHanches)
+    {
+        $this->tour_grandes_hanches = $tourGrandesHanches;
+
+        return $this;
+    }
+
+    /**
+     * Get tour_grandes_hanches
+     *
+     * @return float 
+     */
+    public function getTourGrandesHanches()
+    {
+        return $this->tour_grandes_hanches;
+    }
+
+    /**
+     * Set demi_tour_encolure
+     *
+     * @param float $demiTourEncolure
+     * @return Mesures
+     */
+    public function setDemiTourEncolure($demiTourEncolure)
+    {
+        $this->demi_tour_encolure = $demiTourEncolure;
+
+        return $this;
+    }
+
+    /**
+     * Get demi_tour_encolure
+     *
+     * @return float 
+     */
+    public function getDemiTourEncolure()
+    {
+        return $this->demi_tour_encolure;
+    }
+
+    /**
+     * Set demi_carrure_dos
+     *
+     * @param float $demiCarrureDos
+     * @return Mesures
+     */
+    public function setDemiCarrureDos($demiCarrureDos)
+    {
+        $this->demi_carrure_dos = $demiCarrureDos;
+
+        return $this;
+    }
+
+    /**
+     * Get demi_carrure_dos
+     *
+     * @return float 
+     */
+    public function getDemiCarrureDos()
+    {
+        return $this->demi_carrure_dos;
+    }
+
+    /**
+     * Set demi_carrure_devant
+     *
+     * @param float $demiCarrureDevant
+     * @return Mesures
+     */
+    public function setDemiCarrureDevant($demiCarrureDevant)
+    {
+        $this->demi_carrure_devant = $demiCarrureDevant;
+
+        return $this;
+    }
+
+    /**
+     * Get demi_carrure_devant
+     *
+     * @return float 
+     */
+    public function getDemiCarrureDevant()
+    {
+        return $this->demi_carrure_devant;
+    }
+
+    /**
+     * Set longueur_epaule
+     *
+     * @param float $longueurEpaule
+     * @return Mesures
+     */
+    public function setLongueurEpaule($longueurEpaule)
+    {
+        $this->longueur_epaule = $longueurEpaule;
+
+        return $this;
+    }
+
+    /**
+     * Get longueur_epaule
+     *
+     * @return float 
+     */
+    public function getLongueurEpaule()
+    {
+        return $this->longueur_epaule;
+    }
+
+    /**
+     * Set tour_emmanchure
+     *
+     * @param float $tourEmmanchure
+     * @return Mesures
+     */
+    public function setTourEmmanchure($tourEmmanchure)
+    {
+        $this->tour_emmanchure = $tourEmmanchure;
+
+        return $this;
+    }
+
+    /**
+     * Get tour_emmanchure
+     *
+     * @return float 
+     */
+    public function getTourEmmanchure()
+    {
+        return $this->tour_emmanchure;
+    }
+
+    /**
+     * Set hauteur_dessous_bras
+     *
+     * @param float $hauteurDessousBras
+     * @return Mesures
+     */
+    public function setHauteurDessousBras($hauteurDessousBras)
+    {
+        $this->hauteur_dessous_bras = $hauteurDessousBras;
+
+        return $this;
+    }
+
+    /**
+     * Get hauteur_dessous_bras
+     *
+     * @return float 
+     */
+    public function getHauteurDessousBras()
+    {
+        return $this->hauteur_dessous_bras;
+    }
+
+    /**
+     * Set longueur_bras
+     *
+     * @param float $longueurBras
+     * @return Mesures
+     */
+    public function setLongueurBras($longueurBras)
+    {
+        $this->longueur_bras = $longueurBras;
+
+        return $this;
+    }
+
+    /**
+     * Get longueur_bras
+     *
+     * @return float 
+     */
+    public function getLongueurBras()
+    {
+        return $this->longueur_bras;
+    }
+
+    /**
+     * Set grosseur_bras
+     *
+     * @param float $grosseurBras
+     * @return Mesures
+     */
+    public function setGrosseurBras($grosseurBras)
+    {
+        $this->grosseur_bras = $grosseurBras;
+
+        return $this;
+    }
+
+    /**
+     * Get grosseur_bras
+     *
+     * @return float 
+     */
+    public function getGrosseurBras()
+    {
+        return $this->grosseur_bras;
+    }
+
+    /**
+     * Set hauteur_coude
+     *
+     * @param float $hauteurCoude
+     * @return Mesures
+     */
+    public function setHauteurCoude($hauteurCoude)
+    {
+        $this->hauteur_coude = $hauteurCoude;
+
+        return $this;
+    }
+
+    /**
+     * Get hauteur_coude
+     *
+     * @return float 
+     */
+    public function getHauteurCoude()
+    {
+        return $this->hauteur_coude;
+    }
+
+    /**
+     * Set tour_poignet
+     *
+     * @param float $tourPoignet
+     * @return Mesures
+     */
+    public function setTourPoignet($tourPoignet)
+    {
+        $this->tour_poignet = $tourPoignet;
+
+        return $this;
+    }
+
+    /**
+     * Get tour_poignet
+     *
+     * @return float 
+     */
+    public function getTourPoignet()
+    {
+        return $this->tour_poignet;
+    }
+
+    /**
+     * Set hauteur_taille_hanche
+     *
+     * @param float $hauteurTailleHanche
+     * @return Mesures
+     */
+    public function setHauteurTailleHanche($hauteurTailleHanche)
+    {
+        $this->hauteur_taille_hanche = $hauteurTailleHanche;
+
+        return $this;
+    }
+
+    /**
+     * Get hauteur_taille_hanche
+     *
+     * @return float 
+     */
+    public function getHauteurTailleHanche()
+    {
+        return $this->hauteur_taille_hanche;
+    }
+
+    /**
+     * Set hauteur_montant
+     *
+     * @param float $hauteurMontant
+     * @return Mesures
+     */
+    public function setHauteurMontant($hauteurMontant)
+    {
+        $this->hauteur_montant = $hauteurMontant;
+
+        return $this;
+    }
+
+    /**
+     * Get hauteur_montant
+     *
+     * @return float 
+     */
+    public function getHauteurMontant()
+    {
+        return $this->hauteur_montant;
+    }
+
+    /**
+     * Set enfourchure
+     *
+     * @param float $enfourchure
+     * @return Mesures
+     */
+    public function setEnfourchure($enfourchure)
+    {
+        $this->enfourchure = $enfourchure;
+
+        return $this;
+    }
+
+    /**
+     * Get enfourchure
+     *
+     * @return float 
+     */
+    public function getEnfourchure()
+    {
+        return $this->enfourchure;
+    }
+
+    /**
+     * Set hauteur_taille_genou
+     *
+     * @param float $hauteurTailleGenou
+     * @return Mesures
+     */
+    public function setHauteurTailleGenou($hauteurTailleGenou)
+    {
+        $this->hauteur_taille_genou = $hauteurTailleGenou;
+
+        return $this;
+    }
+
+    /**
+     * Get hauteur_taille_genou
+     *
+     * @return float 
+     */
+    public function getHauteurTailleGenou()
+    {
+        return $this->hauteur_taille_genou;
+    }
+
+    /**
+     * Set hauteur_taille_terre
+     *
+     * @param float $hauteurTailleTerre
+     * @return Mesures
+     */
+    public function setHauteurTailleTerre($hauteurTailleTerre)
+    {
+        $this->hauteur_taille_terre = $hauteurTailleTerre;
+
+        return $this;
+    }
+
+    /**
+     * Get hauteur_taille_terre
+     *
+     * @return float 
+     */
+    public function getHauteurTailleTerre()
+    {
+        return $this->hauteur_taille_terre;
+    }
+
+    /**
+     * Set hauteur_taille_cote_terre
+     *
+     * @param float $hauteurTailleCoteTerre
+     * @return Mesures
+     */
+    public function setHauteurTailleCoteTerre($hauteurTailleCoteTerre)
+    {
+        $this->hauteur_taille_cote_terre = $hauteurTailleCoteTerre;
+
+        return $this;
+    }
+
+    /**
+     * Get hauteur_taille_cote_terre
+     *
+     * @return float 
+     */
+    public function getHauteurTailleCoteTerre()
+    {
+        return $this->hauteur_taille_cote_terre;
     }
 }

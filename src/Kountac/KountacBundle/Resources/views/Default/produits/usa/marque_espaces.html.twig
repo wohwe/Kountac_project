@@ -1,4 +1,4 @@
-<!-- Breadcrumbs -->
+   <!-- Breadcrumbs -->
 
     <div class="breadcrumbs">
         <div class="container">
@@ -48,7 +48,7 @@
 
                                                             <!-- Wrapper for slides -->
                                                             <div class="carousel-inner" role="listbox">
-                                                                <div class="item active"> <img src="{{ asset(produit2.produit1.marque.image.AssetPath) }}" alt="slide1"> </div>
+                                                                <div class="item active"> <img src="{{ produit2.produit1.marque.image.AssetPath|imagine_filter('marquePhotoProfil') }}" > </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -67,7 +67,7 @@
                         {% if produits|length == 0 %}
                             <div class="page-title">
                                 <h2>Aucun produit à afficher</h2>
-                                <div class="cart_navigation"> <a class="continue-btn" href="{{ path('espace_marque', {'id' : produit2.id}) }}"><i class="fa fa-arrow-left"> </i>&nbsp; Voir d'autres produits</a></div>
+                                <div class="cart_navigation"> <a class="continue-btn" href="{{ path('espace_marque', {'id' : produit2.id}) }}"><i class="fa fa-arrow-left"> </i>&nbsp; Voir d'autres produits de la marque <span class="text_color">{{ produit2.produit1.marque.marque|upper}} </span></a> </div>
                             </div>
                         {% else %}
                             <div class="page-title">
@@ -90,8 +90,23 @@
                                                 <div class="product-thumb has-hover-img">
                                                     <figure> 
                                                         <center> 
-                                                            <a href="{{ path('product', {'id' : produit.id}) }}"><img src="{{ produit.picture.AssetPath|imagine_filter('produitAllThumb') }}" alt=""></a>
-                                                            <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}"><img src="{{ produit.picture.AssetPath2|imagine_filter('produitAllThumb') }}" alt=""></a> 
+                                                            {% for image in images %}
+                                                                {% if image.produit2 == produit and image.top == 0 %}
+                                                                <a href="{{ path('product', {'id' : produit.id}) }}">
+                                                                    <img src="../../../{{ image.AssetPath }}" alt="">
+                                                                </a>
+                                                                {% if image.path2 %}
+                                                                <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                                                    <img src="../../../{{ image.AssetPath2 }}" alt="">
+                                                                </a>
+                                                                {% endif %}
+                                                                {% if image.path3 %}
+                                                                <a class="hover-img" href="{{ path('product', {'id' : produit.id}) }}">
+                                                                    <img src="../../../{{ image.AssetPath3 }}" alt="">
+                                                                </a>
+                                                                {% endif %} 
+                                                                {% endif %} 
+                                                            {% endfor %} 
                                                         </center>
                                                     </figure>
 
@@ -120,7 +135,7 @@
                                                             </div>
                                                             <div class="pro-action">
                                                                 <a href="{{ path('quickViewEspaceMarque', {'id' : produit.id}) }}">
-                                                                    <button type="button" class="add-to-cart-mt"> <i class="fa fa-shopping-cart"></i><span> Ajouter au panier</span> </button>
+                                                                    <button type="button" class="add-to-cart-mt"> <img src="../../../{{ 'css/cart.jpg' }}" alt=""><span> Ajouter au panier</span> </button>
                                                                 </a>                                                                        </div>
                                                         </div>
                                                     </div>
@@ -152,21 +167,35 @@
                                         <ul class="check-box-list">
                                             <li>
                                                 <fieldset>
-                                                    <output name="result4">100</output> 
-                                                    <input type="range" name="prix" min="0" max="1000" step="10" value="100" oninput="result4.value=parseInt(prix.value)"/>
+                                                    <!--output name="prix">{{ usaprix[0].minusa }}</output>
+                                                    <input type="range" multiple name="prix" min="{{ usaprix[0].minusa }}" max="{{ usaprix[0].maxusa }}" value="0" step="1" oninput="prix.value=parseInt(prix.value)" autocomplete="off" /-->
+                                                    <input type="text" name="prix" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold; margin: 10px;">
+                                                    <div id="slider-range" style=" margin-left: 10px; margin-right: 10px;"></div>
                                                 </fieldset>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="layered-Category">
-                                    <h2 class="saider-bar-title">Catégorie(s)</h2>
-                                    <div class="layered-content">
+                                    <h2 class="saider-bar-title" data-toggle="collapse" data-target="#categorie"><a>Catégorie(s)</a></h2>
+                                    <div id="categorie" class="collapse layered-content">
                                         <ul class="check-box-list">
                                             {% for categorie in categories %}
                                                 <li>
-                                                    <input type="radio" id="{{ categorie.nom }}" name="categorie" value="{{ categorie.nom }}">
-                                                    <label for="{{ categorie.nom }}"> <span class="button"></span> {{ categorie.nom|capitalize }}</label>
+                                                    <input type="radio" id="{{ categorie.id }}" name="categorie" value="{{ categorie.id }}">
+                                                    <label for="{{ categorie.id }}"> <span class="button"></span> {{ categorie.nom|capitalize }}</label><br>
+                                                    {% for categorie2 in categorie.children %}
+                                                    <tiny>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="{{ categorie2.id }}" name="categorie" value="{{ categorie2.id }}">
+                                                        <label for="{{ categorie2.id }}"> <span class="button"></span> {{ categorie2.nom|capitalize }}</label><br>
+                                                    </tiny>
+                                                        {% for categorie3 in categorie2.children %}
+                                                            <small>
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="{{ categorie3.id }}" name="categorie" value="{{ categorie3.id }}">
+                                                                <label for="{{ categorie3.id }}"> <span class="button"></span> {{ categorie3.nom|capitalize }}</label><br>
+                                                            </small>
+                                                        {% endfor %}
+                                                    {% endfor %}
                                                 </li>
                                             {% endfor %}
                                             <li>
@@ -177,52 +206,65 @@
                                     </div>
                                 </div>
                                 <div class="layered-Category">
-                                    <h2 class="saider-bar-title">Motif(s)</h2>
-                                    <div class="layered-content">
+                                    <h2 class="saider-bar-title" data-toggle="collapse" data-target="#motif"><a>Motif(s)</a></h2>
+                                    <div id="motif" class="collapse layered-content">
                                         <ul class="check-box-list">
                                             {% for motif in motifs %}
-                                                <li>
-                                                    <input type="radio" id="{{ motif.libelle }}" name="motif" value="{{ motif.libelle }}">
-                                                    <label for="{{ motif.libelle }}"> 
-                                                        <img src="{{ motif.AssetPath|imagine_filter('rechercheThumbItem') }}" alt="">
-                                                        <span class="button"></span> {{ motif.libelle|capitalize }} <br>
-                                                    </label>
-                                                </li>
-                                            {% endfor %}
                                             <li>
-                                                <input type="radio" id="toutes_les_motifs" name="motif" value="toutes_les_motifs" checked="checked">
-                                                <label for="toutes_les_motifs"> <span class="button"></span> Tous les motifs</label>
+                                                <input type="checkbox" id="{{ motif.libelle }}" name="motif[]" value="{{ motif.id }}">
+                                                <label for="{{ motif.libelle }}"> <span class="button"></span> 
+                                                    <img src="{{ motif.AssetPath|imagine_filter('rechercheThumbItem') }}" alt="">
+                                                    {{ motif.libelle|capitalize }}
+                                                </label>
+                                            </li>
+                                            {% endfor %}
+                                            <br>
+                                            <li>
+                                                <input type="checkbox" id="tous_les_motifs" name="motif" value="tous_les_motifs">
+                                                <label for="tous_les_motifs"> <span class="button"></span> Toutes les motifs</label>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="size-area">
-                                    <h2 class="saider-bar-title">Taille(s)</h2>
-                                    <div class="layered-content">
+                                    <h2 class="saider-bar-title" data-toggle="collapse" data-target="#taille"><a>Taille(s)</a></h2>
+                                    <div id="taille" class="collapse layered-content">
                                         <ul class="check-box-list">
                                             <li>
-                                                <input type="radio" id="xs_taille" name="taille" value="xs">
-                                                <label for="xs_taille"> <span class="button"></span> {{ ('xs')|upper }} </label>
+                                                <input type="radio" id="xs_taille" name="taille" value="34">
+                                                <label for="xs_taille"> <span class="button"></span> {{ ('34')|upper }} </label>
                                             </li>
                                             <li>
-                                                <input type="radio" id="s_taille" name="taille" value="s">
-                                                <label for="s_taille"> <span class="button"></span> {{ ('s')|upper }} </label>
+                                                <input type="radio" id="s_taille" name="taille" value="36">
+                                                <label for="s_taille"> <span class="button"></span> {{ ('36')|upper }} </label>
                                             </li>
                                             <li>
-                                                <input type="radio" id="m_taille" name="taille" value="m">
-                                                <label for="m_taille"> <span class="button"></span> {{ ('m')|upper }} </label>
+                                                <input type="radio" id="m_taille" name="taille" value="38">
+                                                <label for="m_taille"> <span class="button"></span> {{ ('38')|upper }} </label>
                                             </li>
                                             <li>
-                                                <input type="radio" id="l_taille" name="taille" value="l">
-                                                <label for="l_taille"> <span class="button"></span> {{ ('l')|upper }} </label>
+                                                <input type="radio" id="l_taille" name="taille" value="40">
+                                                <label for="l_taille"> <span class="button"></span> {{ ('40')|upper }} </label>
                                             </li>
                                             <li>
-                                                <input type="radio" id="xl_taille" name="taille" value="xl">
-                                                <label for="xl_taille"> <span class="button"></span> {{ ('xl')|upper }} </label>
+                                                <input type="radio" id="xl_taille" name="taille" value="42">
+                                                <label for="xl_taille"> <span class="button"></span> {{ ('42')|upper }} </label>
                                             </li>
                                             <li>
-                                                <input type="radio" id="xxl_taille" name="taille" value="xxl">
-                                                <label for="xxl_taille"> <span class="button"></span> {{ ('xxl')|upper }} </label>
+                                                <input type="radio" id="2xl_taille" name="taille" value="44">
+                                                <label for="2xl_taille"> <span class="button"></span> {{ ('44')|upper }} </label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="3xl_taille" name="taille" value="46">
+                                                <label for="3xl_taille"> <span class="button"></span> {{ ('46')|upper }} </label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="4xl_taille" name="taille" value="48">
+                                                <label for="4xl_taille"> <span class="button"></span> {{ ('48')|upper }} </label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="5xl_taille" name="taille" value="50">
+                                                <label for="5xl_taille"> <span class="button"></span> {{ ('50')|upper }} </label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="toutes_les_tailles" name="taille" value="toutes_les_tailles" checked="checked">
@@ -238,17 +280,112 @@
                         </div>
                     </form>
                     <br>
+                    
+                    <form method="POST" action="{{ path('recherche_avatar_marque', {'id' : produit2.id}) }}"> 
+                        <div class="block shop-by-side">
+                            <div class="sidebar-bar-title">
+                                <h3 data-toggle="collapse" data-target="#avatar"><a>Par avatar</a></h3>
+                            </div>
+
+                            <div id="avatar" class="collapse block-content">
+                                
+                                <div class="layered-Category">
+                                    <h2 class="saider-bar-title">Mannequin(s) disponible(s)</h2>
+                                    <div class="layered-content">
+                                        <ul class="check-box-list">
+                                            {% for mannequin in mannequins %}
+                                            <li>
+                                                <input type="checkbox" id="{{ mannequin.id }}" name="mannequin[]" value="{{ mannequin.id }}">
+                                                <label for="{{ mannequin.id }}"> <span class="button"></span> 
+                                                    <img src="{{ mannequin.AssetPath|imagine_filter('rechercheThumbItem') }}" alt="">
+                                                    {{ mannequin.nomMannequin|capitalize }}
+                                                    <span class="count"><br> (taille std.:{{ mannequin.tailleStandardMannequin }}, poids: {{ mannequin.poidsMannequin }}Kg, Taille:{{ mannequin.tailleMannequin }}m)</span> 
+                                                </label>
+                                            </li>
+                                            <br>
+                                            {% endfor %}
+                                            <br>
+                                            <li>
+                                                <input type="checkbox" id="tous_les_mannequins" name="mannequin" value="tous_les_mannequins" checked="checked">
+                                                <label for="tous_les_mannequins"> <span class="button"></span> Toutes les mannequins</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="cart-checkout">
+                                    <button class="button" type="submit"><i class="fa fa-check"></i> <span>Trouver</span></button> 
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                                            
+                    <form method="POST" action="{{ path('recherche_taille_poids_marque', {'id' : produit2.id}) }}">
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        <div class="block shop-by-side">
+                            <div class="sidebar-bar-title">
+                                <h3 data-toggle="collapse" data-target="#taille_poids"><a>Par taille - poids</a></h3>
+                            </div>
+
+                            <div id="taille_poids" class="collapse block-content">
+                                <div class="layered-Category">
+                                    <h2 class="saider-bar-title">Taille/Poids</h2>
+                                    <div class="layered-content">
+                                        <ul class="check-box-list">
+                                            <li class="row">
+                                                <div class="col-sm-12">
+                                                    {{ form_row(form.taille) }}
+                                                </div><!--/ [col] -->
+                                           </li>
+                                           <li class="row">
+                                                <div class="col-sm-12">
+                                                    {{ form_row(form.poids) }}
+                                                </div><!--/ [col] -->
+                                           </li>
+                                            <br>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="cart-checkout">
+                                    <button class="button" type="submit"><i class="fa fa-check"></i> <span>Trouver</span></button> 
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </form>
+                    <br>
+                    
                     {% render(controller('KountacBundle:Panier:panierMenuAllProducts')) %}
                 </aside>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(function () {
-            $('.range').next().text('--'); // Valeur par défaut
-            $('.range').on('input', function () {
-                var $set = $(this).val();
-                $(this).next().text($set);
-            });
-        });
-    </script>
+   <!--script type="text/javascript">
+       $(function () {
+           $('.range').next().text('--'); // Valeur par défaut
+           $('.range').on('input', function () {
+               var $set = $(this).val();
+               $(this).next().text($set);
+           });
+       });
+   </script-->
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <link rel="stylesheet" href="/resources/demos/style.css">
+   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <script>
+       $( function() {
+           $( "#slider-range" ).slider({
+               range: true,
+               min: {{ usaprix[0].minusa }},
+               max: {{ usaprix[0].maxusa }},
+               values: [ {{ usaprix[0].minusa }}, {{ usaprix[0].maxusa }} ],
+               slide: function( event, ui ) {
+                   $( "#amount" ).val(ui.values[ 0 ].toLocaleString('en') + " - " + ui.values[ 1 ].toLocaleString('en')  );
+               }
+           });
+           $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ).toLocaleString('en') + " - " +
+               $( "#slider-range" ).slider( "values", 1 ).toLocaleString('en') );
+       } );
+   </script>

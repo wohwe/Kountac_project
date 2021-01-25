@@ -36,36 +36,51 @@
                         <ul>
                             <li class="row">
                                 <div class="col-sm-12">
-                                     Nom : {{ produit.nom|capitalize }}
+                                     <label>Nom :</label> {{ produit.nom|capitalize }}
                                 </div>
                             </li>
+                            <br>
                             <li class="row">
-                                <div class="col-sm-6">
-                                    Catégorie : {{ produit.nom|capitalize }}
+                                <div class="col-sm-4">
+                                    <label>Catégorie :</label> {% if produit.categorie.parent %}{% endif %}{{ produit.categorie|capitalize }}
                                 </div><!--/ [col] -->
-                                <div class="col-sm-6">
-                                     Collection : {{ produit.collection.nom|capitalize }}
+                                <div class="col-sm-4">
+                                     <label>Collection :</label> {{ produit.collection.nom|capitalize }}
+                                </div><!--/ [col] -->
+                                <div class="col-sm-4">
+                                     <label>Idées look :</label> {{ produit.looks.nom|capitalize }}
                                 </div><!--/ [col] -->
                             </li>
+                            <br>
                             <li class="row"> 
                                 <div class="col-xs-12">
-                                    Description : {{ produit.description|capitalize }}
+                                    <label>Description :</label> {{ produit.description|capitalize }}
                                 </div><!--/ [col] -->
                             </li><!-- / .row -->
+                            {% if produit.conditionsUtilisation %}
+                            <br>
+                            <li class="row"> 
+                                <div class="col-xs-12">
+                                    <label>Conditions d'utilisation :</label> {{ produit.conditionsUtilisation|capitalize }}
+                                </div><!--/ [col] -->
+                            </li><!-- / .row -->
+                            {% endif %}
+                            <br>
                             <li class="row">
                                 <div class="col-sm-6">
-                                    Matière : {{ produit.matiere|capitalize }}
+                                    <label>Matière :</label> {{ produit.matiere|capitalize }}
                                 </div><!--/ [col] -->
                             </li>
                             {% for produit2 in produit.produit2 %}
                             <br>
                             *****************************************************************************************************
                             <br>
-                            <label><img src="{{ produit2.libelle.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; &nbsp;&nbsp; &nbsp;{{ produit2.libelle.libelle|upper }}</label> {% if produit2.reduction ==  0 %} (Pas de réduction) {% else %} (Réduction - {{ produit2.reduction }}%) {% endif %}
+                            <label>Motif : <img src="{{ produit2.libelle.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; &nbsp;&nbsp; &nbsp;{{ produit2.libelle.libelle|upper }}</label> {% if produit2.reduction ==  0 %} (Pas de réduction) {% else %} (Réduction - {{ produit2.reduction }}%) {% endif %}
+                            <br>
                             <br><br>
                             <li class="row">
                                 <div class="col-sm-3">
-                                    Disponible en Europe? : {% if produit2.europrix %}OUI {% else %}NON {% endif %}
+                                    Disponible en France ? : {% if produit2.europrix %}OUI {% else %}NON {% endif %}
                                 </div>
                                 {% if produit2.europrix %}
                                 <div class="col-sm-2">
@@ -79,16 +94,14 @@
                                 {% else %}
                                     Pas de commande sur mesure pour ce produit
                                 {% endif %}
-                                {% if produit2.europrix %}
-                                <div class="col-sm-4">
-                                    Pays : {{ produit2.europays|join(', ') }}
-                                </div>
-                                {% endif %}
+                                    <div class="col-sm-3">
+                                        Précommande : {% if produit2.europrecommande %} NON {% else %} OUI {% endif %}
+                                    </div>
                             </li>
                             <br><br>
                             <li class="row">
                                 <div class="col-sm-3">
-                                    Disponible au Royaume uni? : {% if produit2.livreprix %}OUI {% else %}NON {% endif %}
+                                    Disponible en Angleterre ? : {% if produit2.livreprix %}OUI {% else %}NON {% endif %}
                                 </div>
                                 {% if produit2.livreprix %}
                                 <div class="col-sm-2">
@@ -102,16 +115,35 @@
                                 {% else %}
                                     Pas de commande sur mesure pour ce produit
                                 {% endif %}
-                                {% if produit2.livreprix %}
-                                <div class="col-sm-4">
-                                    Pays : {{ produit2.livrepays|join(', ') }}
-                                </div>
-                                {% endif %}
+                                    <div class="col-sm-3">
+                                        Précommande : {% if produit2.livreprecommande %} NON {% else %} OUI {% endif %}
+                                    </div>
                             </li>
                             <br><br>
                             <li class="row">
                                 <div class="col-sm-3">
-                                    Disponible aux Amériques? : {% if produit2.usaprix %}OUI {% else %}NON {% endif %}
+                                    Disponible en Allemagne? : {% if produit2.europrix %}OUI {% else %}NON {% endif %}
+                                </div>
+                                {% if produit2.allprix %}
+                                <div class="col-sm-2">
+                                    Prix : {{ produit2.allprix }} €
+                                </div>
+                                {% endif %}
+                                {% if produit2.allprixCommande %}
+                                    <div class="col-sm-3">
+                                        Prix commande : {{ produit2.allprixCommande }} €
+                                    </div>
+                                {% else %}
+                                    Pas de commande sur mesure pour ce produit
+                                {% endif %}
+                                    <div class="col-sm-3">
+                                        Précommande : {% if produit2.allprecommande %} NON {% else %} OUI {% endif %}
+                                    </div>
+                            </li>
+                            <br><br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    Disponible aux Etats-unis d'Amérique ? : {% if produit2.usaprix %}OUI {% else %}NON {% endif %}
                                 </div>
                                 {% if produit2.usaprix %}
                                 <div class="col-sm-2">
@@ -125,16 +157,14 @@
                                 {% else %}
                                     Pas de commande sur mesure pour ce produit
                                 {% endif %}
-                                {% if produit2.usaprix %}
-                                <div class="col-sm-4">
-                                    Pays : {{ produit2.usapays|join(', ') }}
-                                </div>
-                                {% endif %}
+                                    <div class="col-sm-3">
+                                        Précommande : {% if produit2.usaprecommande %} NON {% else %} OUI {% endif %}
+                                    </div>
                             </li>
                             <br><br>
                             <li class="row">
                                 <div class="col-sm-3">
-                                    Disponible en Afrique? : {% if produit2.cfaprix %}OUI {% else %}NON {% endif %}
+                                    Disponible au Cameroun ? : {% if produit2.cfaprix %}OUI {% else %}NON {% endif %}
                                 </div>
                                 {% if produit2.cfaprix %}
                                 <div class="col-sm-2">
@@ -148,16 +178,14 @@
                                 {% else %}
                                     Pas de commande sur mesure pour ce produit
                                 {% endif %}
-                                {% if produit2.cfaprix %}
-                                <div class="col-sm-4">
-                                    Pays : {{ produit2.cfapays|join(', ') }}
-                                </div>
-                                {% endif %}
+                                    <div class="col-sm-3">
+                                        Précommande : {% if produit2.cfaprecommande %} NON {% else %} OUI {% endif %}
+                                    </div>
                             </li>
                             <br><br>
                             <li class="row">
                                 <div class="col-sm-3">
-                                    Disponible au Nigéria? : {% if produit2.nairaprix %}OUI {% else %}NON {% endif %}
+                                    Disponible au Nigéria ? : {% if produit2.nairaprix %}OUI {% else %}NON {% endif %}
                                 </div>
                                 {% if produit2.nairaprix %}
                                 <div class="col-sm-2">
@@ -171,6 +199,9 @@
                                 {% else %}
                                     Pas de commande sur mesure pour ce produit
                                 {% endif %}
+                                    <div class="col-sm-3">
+                                        Précommande : {% if produit2.nairaprecommande %} NON {% else %} OUI {% endif %}
+                                    </div>
                             </li>
                             {% for produit3 in produit2.produit3 %}
                               <li class="row">
@@ -182,21 +213,35 @@
                                 </div>
                             </li>
                             {% endfor %}
-                            
-                            <li class="row">
-                                <div class="col-sm-2">
-                                    <label class="required">Première image*</label>
-                                    <br><img src="{{ produit2.picture.AssetPath|imagine_filter('commandeThumb') }}" alt="">
-                                </div>
-                                <div class="col-sm-2">
-                                    <label class="required">Seconde image</label>
-                                    <br><img src="{{ produit2.picture.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
-                                </div>
-                                <div class="col-sm-2">
-                                    <label class="required">Troisième image</label>
-                                    <br><img src="{{ produit2.picture.AssetPath3|imagine_filter('commandeThumb') }}" alt="">
-                                </div>
-                            </li>
+                            <br>
+                            {% for mannequin in mannequins %}
+                                {% for image in mannequin.picture %}
+                                    {% if image.produit2 == produit2 %}
+                                    <label>Mannequin : {{ image.mannequin.nomMannequin|upper }} <img src="{{ image.mannequin.AssetPath|imagine_filter('MotifThumb') }}" alt=""></label> (taille standard: {{ image.mannequin.tailleStandardMannequin }}, poids: {{ image.mannequin.poidsMannequin }}Kg, Taille: {{ image.mannequin.tailleMannequin }}m) 
+                                        <li class="row">
+                                            <div class="col-sm-2">
+                                                <label class="required">Première image*</label>
+                                                <br><img src="{{ image.AssetPath|imagine_filter('commandeThumb') }}" alt="">
+                                            </div>
+                                            {% if image.path2 %}
+                                            <div class="col-sm-2">
+                                                <label class="required">Seconde image</label>
+                                                <br><img src="{{ image.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
+                                            </div>
+                                            {% endif %}
+                                            {% if image.path3 %}
+                                            <div class="col-sm-2">
+                                                <label class="required">Troisième image</label>
+                                                <br><img src="{{ image.AssetPath3|imagine_filter('commandeThumb') }}" alt="">
+                                            </div>
+                                            {% endif %}
+                                            <div class="col-sm-2">
+                                                <label class="required">Image top:</label>{% if image.top %} <span class="glyphicon glyphicon-remove"></span> {% else %} <span class="glyphicon glyphicon-ok"></span> {% endif %}
+                                            </div>
+                                        </li><br><br>
+                                    {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
                             {% endfor %}
                         </ul>
                     </div>

@@ -21,6 +21,11 @@ class Libelles_motif
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+     /**
+     * @ORM\OneToMany(targetEntity="Kountac\KountacBundle\Entity\Mannequin", mappedBy="motif", cascade={"persist"})
+     */
+    private $mannequin;
 
     /**
     * @ORM\PostLoad()
@@ -36,7 +41,7 @@ class Libelles_motif
      * @ORM\Column(name="libelle", type="string", length=100)
      */
     private $libelle;
-    
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -46,7 +51,7 @@ class Libelles_motif
     
     public function getUploadRootDir()
     {
-        return __DIR__.'/../../../../web/uploadProduits';
+        return __DIR__.'/../../../../web/Motifs';
     }
     
     public function getAbsolutePath()
@@ -56,7 +61,7 @@ class Libelles_motif
     
     public function getAssetPath()
     {
-        return 'uploadProduits/'.$this->path;
+        return 'Motifs/'.$this->path;
     }
     
     /**
@@ -163,5 +168,46 @@ class Libelles_motif
     public function __toString()
     {
         return $this->getLibelle();
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->mannequin = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add mannequin
+     *
+     * @param \Kountac\KountacBundle\Entity\Mannequin $mannequin
+     *
+     * @return Libelles_motif
+     */
+    public function addMannequin(\Kountac\KountacBundle\Entity\Mannequin $mannequin)
+    {
+        $this->mannequin[] = $mannequin;
+
+        return $this;
+    }
+
+    /**
+     * Remove mannequin
+     *
+     * @param \Kountac\KountacBundle\Entity\Mannequin $mannequin
+     */
+    public function removeMannequin(\Kountac\KountacBundle\Entity\Mannequin $mannequin)
+    {
+        $this->mannequin->removeElement($mannequin);
+    }
+
+    /**
+     * Get mannequin
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMannequin()
+    {
+        return $this->mannequin;
     }
 }

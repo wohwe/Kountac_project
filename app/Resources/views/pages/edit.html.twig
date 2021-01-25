@@ -1,0 +1,130 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon profil" href="{{ path('admin_profile_show')}}">Mon profil (admin)</a><span>&raquo;</span></li>
+                        <li><strong>Modification d'une page d'en queue</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End -->
+
+    {{ tinymce_init() }}
+
+    <section class="main-container col2-right-layout">
+        <div class="main container">
+            <div class="row">
+                <div class="col-main col-sm-9 col-xs-12">
+                    <div class="page-content checkout-page">
+                    <div class="page-title">
+                        <h2 class="checkout-step">Modifier cette page {{ pages.titre }}</h2>
+                    </div>
+                    
+                    {{ form_start(form) }}
+
+                    <div class="box-border">
+                        <ul>
+                            <li class="row">
+                                <div class="col-sm-12">
+                                    {{ form_row(form.titre) }}
+                                </div> 
+                            </li> <br>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    {{ form_row(form.type) }}
+                                </div><!--/ [col] -->
+                                <div class="col-sm-6">
+                                    {{ form_row(form.categorie) }}
+                                </div><!--/ [col] -->
+                            </li> <br>
+                            <li class="row"> 
+                                <div class="col-xs-12">
+                                    {{ form_row(form.contenu) }}
+                                </div><!--/ [col] -->
+                            </li><!-- / .row -->
+                            
+                            <li class="row">
+                                <div class="col-sm-6">
+                                </div>
+                                <div class="col-sm-6">
+                                    <button class="button pull-right" type="submit"></i>&nbsp; &nbsp;<span>Modifier</span></button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+
+
+
+                <div class="order-detail-content">
+                    {% if images|length == 0 %}
+                        <div>
+                            <table>
+                                <tr>
+                                    <td><center><h1>Liste des images vide</h1></center></td>
+                                </tr>
+                            </table>
+                        </div>  
+                    {% else %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered cart_summary">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>image</th>
+                                        <th>lien</th>
+                                        <th  class="action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for image in images %}
+                                        <tr>
+                                            <td class="action"><a href=""> {{ image.id }} </a></td>
+                                            <td class="cart_description">
+                                                <img src="{{ asset('uploadProduits/' ~ image.lien) }}">
+                                            </td>
+                                            <td class="cart_description"><p class="product-name"><a> {{ asset('uploadProduits/' ~ image.lien) }} </a></p></td>
+                                            <td class="action">
+                                                <a title="Retirer la image" href=""><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    <div class="pagination-area ">
+                    </div>
+                        <center>
+                            {{ knp_pagination_render(images) }}
+                        </center>
+                    {% endif %}
+                </div>
+
+
+
+                </div>
+                <aside class="right sidebar col-sm-3 col-xs-12">
+                    {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+                    <br><br>
+                    {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

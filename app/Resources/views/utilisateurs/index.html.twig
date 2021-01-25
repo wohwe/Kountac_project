@@ -39,7 +39,7 @@
                             <div>
                                 <table>
                                     <tr>
-                                        <td><center><h1>Liste d'utilisateurs vide !! Aucun utilisateur à afficher</h1></center></td>
+                                        <td><center><h1>Liste d'utilisateurs vide. Aucun utilisateur à afficher</h1></center></td>
                                     </tr>
                                 </table>
                             </div>  
@@ -52,6 +52,7 @@
                                             <th>A propos</th>
                                             <th>Type compte</th>
                                             <th>Etat</th>
+                                            <th>Vérifier</th>
                                             <th>Dernière connexion</th>
                                             <th>Informations marque</th>
                                             <th  class="action">Action</th>
@@ -65,7 +66,7 @@
                                                     <strong>{% if utilisateur.prenom %} {{ utilisateur.prenom|capitalize }} {% endif %} {{ utilisateur.nom|capitalize }}</strong><br>
                                                     <small><u>Email:</u> {{ utilisateur.email }}<br>
                                                            <u>Adresse:</u> {{ utilisateur.adresse|capitalize }}<br>
-                                                           <u>Code postale:</u> {{ utilisateur.cp }}<br>
+                                                           <u>Code postal:</u> {{ utilisateur.cp }}<br>
                                                            <u>Rue:</u> {{ utilisateur.rue }}<br>
                                                            <u>Ville:</u> {{ utilisateur.ville|capitalize }}<br>
                                                            <u>Pays:</u> {{ utilisateur.pays|capitalize }}<br>
@@ -89,12 +90,20 @@
                                                 </td>
                                                 {% endif %}
                                                 <td class="action">
+                                                    
+                                                    {% if utilisateur.verifier != 1 %}
+                                                    <a title="Valider la vérification" href="{{ path('adminUtilisateurs_verify', {'id' : utilisateur.id}) }}"><input type="checkbox" data-toggle="toggle"></a><br>
+                                                    {% else %}
+                                                    <a title="Annuler la vérification" href="{{ path('adminUtilisateurs_unverify', {'id' : utilisateur.id}) }}"><input type="checkbox" checked data-toggle="toggle"></i></a><br>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="action">
                                                     {{ utilisateur.lastlogin|date('d M Y') }}
                                                 </td>
                                                 {% if utilisateur.marque %}
                                                 <td class="cart_description"><p class="product-name"><a><u>Nom</u>: {{ utilisateur.marque|capitalize }} </a></p><br><br>
                                                     <small><u>Adresse:</u> {{ utilisateur.adresseentreprise }}<br>
-                                                           <u>Code postale:</u> {{ utilisateur.cpentreprise }}<br>
+                                                           <u>Code postal:</u> {{ utilisateur.cpentreprise }}<br>
                                                            <u>Rue:</u> {{ utilisateur.rueentreprise }}<br>
                                                            <u>Ville:</u> {{ utilisateur.villeentreprise|capitalize }}<br>
                                                            <u>Pays:</u> {{ utilisateur.paysentreprise|capitalize }}<br>
@@ -111,13 +120,14 @@
                                                 </td>
                                                 {% endif %}
                                                 <td class="action">
-                                                    <a title="Regardez utilisateur" href="{{ path('adminUtilisateurs_show', {'id' : utilisateur.id}) }}"><i class="fa fa-search"></i></a><br>
+                                                    <a title="Regardez utilisateur" href="{{ path('adminUtilisateurs_show', {'id' : utilisateur.id}) }}"><i class="fa fa-search"></i></a><br><br>
                                                     {% if utilisateur.enabled %}
                                                     <a title="Bloquez compte utilisateur" href="{{ path('adminUtilisateurs_disabled', {'id' : utilisateur.id}) }}"><i class="fa fa-lock"></i></a><br>
                                                     {% else %}
                                                     <a title="Débloquez compte utilisateur" href="{{ path('adminUtilisateurs_enabled', {'id' : utilisateur.id}) }}"><i class="fa fa-unlock"></i></a><br>
                                                     {% endif %}
-                                                    <br><br><a title="Effacez compte utilisateur" href="{{ path('adminUtilisateurs_delete', {'id' : utilisateur.id}) }}"><i class="fa fa-trash"></i></a>
+                                                    <br><a title="Effacez compte utilisateur" href="{{ path('adminUtilisateurs_delete', {'id' : utilisateur.id}) }}"><i class="fa fa-trash"></i></a> <br> <br>
+                                                    
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -143,4 +153,5 @@
     </div>
   </div>
   </section>
+
 {% endblock %}

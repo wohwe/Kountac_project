@@ -24,7 +24,7 @@ class Utilisateurs extends BaseUser
     private $image;
     
     /**
-     * @ORM\OneToMany(targetEntity="Kountac\KountacBundle\Entity\Achats", mappedBy="utilisateur", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Kountac\KountacBundle\Entity\Achats", mappedBy="utilisateur", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $achats;
@@ -43,6 +43,11 @@ class Utilisateurs extends BaseUser
      * @ORM\OneToMany(targetEntity="Kountac\KountacBundle\Entity\Produits_1", mappedBy="marque", cascade={"persist"})
      */
     private $produit_1_marque;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Kountac\KountacBundle\Entity\Mannequin", mappedBy="marque", cascade={"persist"})
+     */
+    private $mannequin;
     
     /**
      * @ORM\OneToMany(targetEntity="Utilisateurs\UtilisateursBundle\Entity\Utilisateurs", mappedBy="utilisateur", cascade={"persist"})
@@ -106,6 +111,12 @@ class Utilisateurs extends BaseUser
     /**
      * @ORM\Column(type="string", length=200)
      */
+    private $departement;
+    
+    
+    /**
+     * @ORM\Column(type="string", length=200)
+     */
     private $ville;
     
         
@@ -113,6 +124,11 @@ class Utilisateurs extends BaseUser
      * @ORM\Column(type="float", nullable=true)
      */
     private $cp;
+    
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $digicode;
     
         
     /**
@@ -173,12 +189,50 @@ class Utilisateurs extends BaseUser
      * @ORM\Column(type="float", nullable=true)
      */
     private $telephonefix_entreprise;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $code;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $codeparrain;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $points;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $verifier;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateajout", type="datetime", nullable=true)
+     */
+    private $dateajout;
 
     
     
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -419,6 +473,102 @@ class Utilisateurs extends BaseUser
     public function getTelephonefix()
     {
         return $this->telephonefix;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     *
+     * @return Utilisateurs
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set codeparrain
+     *
+     * @param string $codeparrain
+     *
+     * @return Utilisateurs
+     */
+    public function setCodeparrain($codeparrain)
+    {
+        $this->codeparrain = $codeparrain;
+
+        return $this;
+    }
+
+    /**
+     * Get codeparrain
+     *
+     * @return string
+     */
+    public function getCodeparrain()
+    {
+        return $this->codeparrain;
+    }
+
+    /**
+     * Set points
+     *
+     * @param string $points
+     *
+     * @return Utilisateurs
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return string
+     */
+    public function getPoints()
+    {
+        return $this->points;
+    }
+
+    /**
+     * Set verifier
+     *
+     * @param string $verifier
+     *
+     * @return Utilisateurs
+     */
+    public function setVerifier($verifier)
+    {
+        $this->verifier = $verifier;
+
+        return $this;
+    }
+
+    /**
+     * Get verifier
+     *
+     * @return string
+     */
+    public function getVerifier()
+    {
+        return $this->verifier;
     }
 
     /**
@@ -946,4 +1096,111 @@ class Utilisateurs extends BaseUser
     {
         return $this->description_entreprise;
     }
+
+    /**
+     * Add mannequin
+     *
+     * @param \Kountac\KountacBundle\Entity\Mannequin $mannequin
+     *
+     * @return Utilisateurs
+     */
+    public function addMannequin(\Kountac\KountacBundle\Entity\Mannequin $mannequin)
+    {
+        $this->mannequin[] = $mannequin;
+
+        return $this;
+    }
+
+    /**
+     * Remove mannequin
+     *
+     * @param \Kountac\KountacBundle\Entity\Mannequin $mannequin
+     */
+    public function removeMannequin(\Kountac\KountacBundle\Entity\Mannequin $mannequin)
+    {
+        $this->mannequin->removeElement($mannequin);
+    }
+
+    /**
+     * Get mannequin
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMannequin()
+    {
+        return $this->mannequin;
+    }
+
+    /**
+     * Set departement
+     *
+     * @param string $departement
+     *
+     * @return Utilisateurs
+     */
+    public function setDepartement($departement)
+    {
+        $this->departement = $departement;
+
+        return $this;
+    }
+
+    /**
+     * Get departement
+     *
+     * @return string
+     */
+    public function getDepartement()
+    {
+        return $this->departement;
+    }
+
+    /**
+     * Set digicode
+     *
+     * @param float $digicode
+     *
+     * @return Utilisateurs
+     */
+    public function setDigicode($digicode)
+    {
+        $this->digicode = $digicode;
+
+        return $this;
+    }
+
+    /**
+     * Get digicode
+     *
+     * @return float
+     */
+    public function getDigicode()
+    {
+        return $this->digicode;
+    }
+    
+    /**
+     * Set dateajout
+     *
+     * @param \DateTime $dateajout
+     *
+     * @return Produits_1
+     */
+    public function setDateajout($dateajout)
+    {
+        $this->dateajout = $dateajout;
+
+        return $this;
+    }
+
+    /**
+     * Get dateajout
+     *
+     * @return \DateTime
+     */
+    public function getDateajout()
+    {
+        return $this->dateajout;
+    }
+    
 }

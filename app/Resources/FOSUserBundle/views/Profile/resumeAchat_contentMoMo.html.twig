@@ -1,0 +1,200 @@
+{% if euro|length != 0 %}
+{% set total = 0 %}
+{% set total2 = 0 %}
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Aller à mon profil" href="{{ path('fos_user_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+                    <li><strong>Achat en attente</strong></li>
+                </ul>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert-box">
+                        <br><br>
+                        {{ flashMessage }}
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% trans_default_domain 'FOSUserBundle' %}
+
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+  <div class="main container">
+    <div class="row">
+      <div class="col-main col-sm-9 col-xs-12">
+        <div class="col-main">
+                <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                            {% if achat|length != 0 %}
+                                <h2>Résumé de votre achat {% if user.sexe %}Mme.{% else %}M.{% endif %} {{ user.prenom|capitalize }} {{ user.nom|capitalize }}</h2>
+                            {% endif %}
+                        </div>
+
+                        <div class="order-detail-content">
+                        {% if achat|length == 0 %}
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td><center><h1>Aucun Achat {% if user.sexe %}Mme.{% else %}M.{% endif %} {{ user.prenom|capitalize }} {{ user.nom|capitalize }}</h1></center></td>
+                                    </tr>
+                                </table>
+                            </div>  
+                        {% else %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart_product">Aperçu</th>
+                                            <th>Produit(s)</th>
+                                            <th>Quantité</th>
+                                            <th>Prix unitaire</th>
+                                            <th>Prix</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if achat.achat.produit is defined %}
+                                        {% for produit in achat.achat.produit %}
+                                            {% if produit.prix %}
+                                            <tr>
+                                                <td class="cart_product"><img src="../../../{{ produit.image.AssetPath }}" alt=""></td>
+                                                <td class="cart_description">
+                                                    <p class="product-name"><a>{{ produit.reference|capitalize }} - {{ produit.motif|capitalize }} </a></p><br>
+                                                </td>
+                                                <td class="action">
+                                                    {{ produit.quantite }}
+                                                </td>
+                                                <td class="price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ produit.prix|number_format(2) }} €</span> </span></div>
+                                                </td>
+                                                <td class="price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ (produit.prix * produit.quantite)|number_format(2) }} €</span> </span></div>
+                                                </td>
+                                            </tr>
+                                        {% set total = total + (produit.prix * produit.quantite) %}
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endif %}
+                                        {% for commande in commandes %}
+                                            {% if commande.produit.europrixCommande %}
+                                            <tr>
+                                                <td class="cart_product"><img src="{{ commande.produit.picture.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></td>
+                                                <td class="cart_description">
+                                                    <p class="product-name"><a>{{ commande.produit.produit1.nom|capitalize }} - {{ commande.produit.libelle.libelle|capitalize }}(Commande)</a></p><br>
+                                                </td>
+                                                <td class="action">
+                                                    1
+                                                </td>
+                                                <td class="price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ commande.produit.europrixCommande|number_format(2) }} €</span> </span></div>
+                                                </td>
+                                                <td class="price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ commande.produit.europrixCommande|number_format(2) }} €</span> </span></div>
+                                                </td>
+                                            </tr>
+                                            {% set total2 = total2 + commande.produit.europrixCommande %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2" rowspan="2">
+                                                <h4>&nbsp;&nbsp;<u>Adresse de livraison</u></h4>
+                                                <dd> 
+                                                    &nbsp;&nbsp;{% if user.sexe %}Mme. {% else %}M. {% endif %}{{ achat.achat.livraison.prenom|capitalize }} {{ achat.achat.livraison.nom|capitalize }}                
+                                                    <br>&nbsp;&nbsp;{{ achat.achat.livraison.adresse }}                
+                                                    <br>&nbsp;&nbsp;{{ achat.achat.livraison.cp }} {{ achat.achat.livraison.ville|capitalize }} - {{ achat.achat.livraison.pays }}                
+                                                    <br><br>&nbsp;&nbsp;Tel(s) : {{ achat.achat.livraison.telephone }} {% if achat.achat.livraison.telephonefix %} | {{ achat.achat.livraison.telephonefix }} {% endif %}
+                                                    <br>&nbsp;&nbsp;E-mail : {{ achat.achat.livraison.email }}
+                                                </dd>
+                                            </td>
+                                            <td colspan="3" rowspan="2">
+                                                <h4>&nbsp;&nbsp;<u>Adresse de facturation</u></h4>
+                                                <dd> 
+                                                    &nbsp;&nbsp;{% if user.sexe %}Mme. {% else %}M. {% endif %}{{ achat.achat.facturation.prenom|capitalize }} {{ achat.achat.facturation.nom|capitalize }}                
+                                                    <br>&nbsp;&nbsp;{{ achat.achat.facturation.adresse }}                
+                                                    <br>&nbsp;&nbsp;{{ achat.achat.facturation.cp }} {{ achat.achat.facturation.ville|capitalize }} - {{ achat.achat.facturation.pays }}                
+                                                    <br><br>&nbsp;&nbsp;Tel(s) : {{ achat.achat.livraison.telephone }} {% if achat.achat.facturation.telephonefix %} | {{ achat.achat.facturation.telephonefix }} {% endif %}
+                                                    <br>&nbsp;&nbsp;E-mail : {{ achat.achat.facturation.email }}
+                                                </dd>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2" rowspan="2"></td>
+                                            <td colspan="2"><h4><strong>TOTAL </strong></h4></td>
+                                            <td colspan="2"><h4><strong>{{ (total + total2)|number_format(2) }} €</strong></h4></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <br>
+
+                            <form action="{{ serveurOK }}" method="POST">
+<input type="hidden" name="PBX_SITE" value="{{ pbx_site }}">
+<input type="hidden" name="PBX_RANG" value="{{ pbx_rang }}">
+<input type="hidden" name="PBX_IDENTIFIANT" value="{{ pbx_identifiant }}">
+<input type="hidden" name="PBX_TOTAL" value="{{ pbx_total }}">
+<input type="hidden" name="PBX_DEVISE" value="978">
+<input type="hidden" name="PBX_CMD" value="{{ pbx_cmd }}">
+<input type="hidden" name="PBX_PORTEUR" value="{{ pbx_porteur }}">
+<input type="hidden" name="PBX_REPONDRE_A" value="{{ pbx_repondre_a }}">
+<input type="hidden" name="PBX_RETOUR" value="{{ pbx_retour }}">
+<input type="hidden" name="PBX_EFFECTUE" value="{{ pbx_effectue }}">
+<input type="hidden" name="PBX_ANNULE" value="{{ pbx_annule }}">
+<input type="hidden" name="PBX_REFUSE" value="{{ pbx_refuse }}">
+<input type="hidden" name="PBX_HASH" value="SHA512">
+<input type="hidden" name="PBX_TIME" value="{{ dateTime }}">
+<input type="hidden" name="PBX_HMAC" value="{{ hmac }}">
+
+                                <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider achat</span></button>
+
+                            </form>
+
+
+
+                            <!--form action="{{ path('validation_achat_final', { 'id' : achat.id }) }}" method="POST">
+                                <input name="token" type="hidden" value="{{ achat.achat.token }}" />
+                                <input name="prix" type="hidden" value="{{ achat.achat.prix }}" />    
+                                <input name="date" type="hidden" value="{{ achat.date|date('d/m/Y (H-m-s)') }}" />
+                                <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider achat</span></button>
+                            </form-->
+
+
+
+
+
+
+
+                            <a href="{{ path('Checkout_index2') }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <aside class="right sidebar col-sm-3 col-xs-12">
+        {% include 'FOSUserBundle:Profile:Navigation/menu.html.twig' %}
+        <br><br>
+        {% include 'FOSUserBundle:Profile:Navigation/informations.html.twig' %}
+      </aside>
+    </div>
+  </div>
+  </section>
+{% elseif cfa|length != 0 %}
+    {% include 'FOSUserBundle:Profile:cfa/resumeAchat_content.html.twig' %}
+{% elseif usa|length != 0 %}
+    {% include 'FOSUserBundle:Profile:usa/resumeAchat_content.html.twig' %}
+{% elseif naira|length != 0 %}
+    {% include 'FOSUserBundle:Profile:naira/resumeAchat_content.html.twig' %}
+{% elseif livre|length != 0 %}
+    {% include 'FOSUserBundle:Profile:livre/resumeAchat_content.html.twig' %}
+{% elseif all|length != 0 %}
+    {% include 'FOSUserBundle:Profile:all/resumeAchat_content.html.twig' %}
+{% endif %}

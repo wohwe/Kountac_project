@@ -8,19 +8,69 @@ produit_pro_new_1:
     defaults: { _controller: "UtilisateursBundle:ProduitPro:new1" }
     methods:  [GET, POST]
     
+produit_pro_new_edit1:
+    path:     /new_edit_1{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:new_edit1" }
+    methods:  [GET, POST]
+    
 produit_pro_new_2:
     path:     /new_2_{id}
     defaults: { _controller: "UtilisateursBundle:ProduitPro:new2" }
     methods:  [GET, POST]
     
-produit_pro_new_motif:
-    path:     /new_motif_{id}
-    defaults: { _controller: "UtilisateursBundle:ProduitPro:addMotif" }
+produit_pro_new_edit2:
+    path:     /new_edit_2{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:new_edit2" }
     methods:  [GET, POST]
     
+produit_pro_new_mannequin:
+    path:     /new_mannequin_{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:addMannequin" }
+    methods:  [GET, POST]
+    
+produit_pro_new_images_mannequin:
+    path:     /new_images_mannequin_{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:addImagesMannequin" }
+    methods:  [GET, POST]
+    
+produit_pro_edit_images_mannequin:
+    path:     /edit_images_mannequin_{id}
+    defaults: { _controller: "UtilisateursBundle:Formulaires:addImagesMannequin" }
+    methods:  [GET, POST]
+    
+produit_pro_set_images_top_new:
+    path:     /set_images_mannequin_Newtop{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:setTopMannequinNewProduit" }
+    methods:  [GET, POST]
+
+produit_pro_set_images_top:
+    path:     /set_images_mannequin_top{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:setTopMannequin" }
+    methods:  [GET, POST]
+    
+produit_pro_new_motif:
+    path:     /new_pro_motif
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:addNewMotif" }
+    methods:  [GET, POST]
+
 produit_pro_new_3:
     path:     /new_3_{id}
     defaults: { _controller: "UtilisateursBundle:ProduitPro:new3" }
+    methods:  [GET, POST]
+    
+produit_pro_new_edit3:
+    path:     /new_edit_3{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:new_edit3" }
+    methods:  [GET, POST]
+    
+produit_pro_new_delete_image:
+    path:     /newDelete_image{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:deleteNewImages" }
+    methods:  [GET, POST]
+    
+produit_pro_new_4:
+    path:     /new_4_{id}
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:new4" }
     methods:  [GET, POST]
 
 produit_pro_new_resume:
@@ -67,6 +117,14 @@ produit_pro_delete:
     path:     /{id}/delete
     defaults: { _controller: "UtilisateursBundle:ProduitPro:delete" }
     
+produit_pro_delete_motif:
+    path:     /{id}/delete_motif
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:deleteMotif" }
+    
+produit_pro_delete_images:
+    path:     /{id}/delete_images
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:deleteImages" }
+    
 produit_pro_stock_epuise:
     path:     /stock_épuisé
     defaults: { _controller: "UtilisateursBundle:ProduitPro:stock" }
@@ -76,13 +134,10 @@ produit_pro_sale:
     path:     /product_sales
     defaults: { _controller: "UtilisateursBundle:ProduitPro:sale" }
     methods:  GET
+
+
+produit_pro_image:
+    path:     /product_images
+    defaults: { _controller: "UtilisateursBundle:ProduitPro:image" }
+    methods:  GET
     
-produit_pro_add_stock:
-    path:     /{id}/add_stock
-    defaults: { _controller: "UtilisateursBundle:ProduitPro:addStock" }
-    methods:  [GET, POST]
-    
-produit_pro_add_prix_commande_cfa:
-    path:     /{id}/add_prix_commande_cfa
-    defaults: { _controller: "UtilisateursBundle:ProduitPro:addprixCommandeCfa" }
-    methods:  [GET, POST]

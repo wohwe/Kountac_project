@@ -8,9 +8,10 @@
             <div class="row">
                 <div class="col-xs-12">
                     <ul>
-                    <li class="home"> <a title="Go to Home Page" href="index.html">Accueil</a><span>&raquo;</span></li>
-
-                        <li><strong>Checkout</strong></li>
+                        <li class="home"> <a title="Aller à l'accueil" href="{{ path ('kountac_homepage')}}">Accueil</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon panier" href="{{ path ('panier')}}">Mon panier</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Paramètres adresse de facturation" href="{{ path ('Checkout_index1')}}">Adresse de facturation</a><span>&raquo;</span></li>
+                        <li><strong>Service de paiement</strong></li>
                     </ul>
                 </div>
             </div>
@@ -26,10 +27,10 @@
 
 
                     <div class="page-content checkout-page"><div class="page-title">
-                            <h2>Finalisation de la commande (3/4)</h2>
+                            <h2>Finalisation de la commande (2/2)</h2>
                         </div>
                         <h4 class="checkout-sep"></h4>
-                        <h4 class="checkout-sep">1. Information de livraison (adresse de livraison)</h4>
+                        <!--h4 class="checkout-sep">1. Information de livraison (adresse de livraison)</h4>
                         <div class="box-border">
                             <ul>
                                 <li class="row">
@@ -66,7 +67,7 @@
                                     <div class="col-sm-6">
                                         <label><u>Code postal</u> :</label>
                                                 {{ user.cp|upper }}
-                                    </div><!--/ [col] -->
+                                    </div>
                                     <div  class="col-sm-6">
                                         <label><u>Pays</u> :</label>
                                                 {{ user.pays|upper }}
@@ -76,12 +77,12 @@
                                     <div class="col-sm-6">
                                         <label><u>Téléphone mobile</u> :</label>
                                                 {{ user.telephone|capitalize }}
-                                    </div><!--/ [col] -->
+                                    </div>
                                     <div class="col-sm-6">
                                         <label><u>Téléphone fix</u> :</label>
                                                 {{ user.telephonefix|capitalize }}
-                                    </div><!--/ [col] -->
-                                </li><!--/ .row -->
+                                    </div>
+                                </li>
                             </ul>
                             </form>
                         </div>
@@ -93,30 +94,17 @@
                                     <li class="row">
                                         <div class="col-sm-8">
                                             <label><u>Service de livraison</u> :</label>
-                                            {% if not user.servicelivraison.nom %}
-                                                Aucun service de livraison
-                                            {% else %}
-                                                {{ user.servicelivraison.nom|upper }}
-                                            {% endif %}
+                                            Aucun service de livraison
                                         </div>
-                                    </li>
-                                    <br>
-                                    <li class="row">
-                                        {% if user.servicelivraison.description %}
-                                        <div class="col-sm-8">
-                                             <label><u>A propos du service</u> :</label>
-                                                {{ user.servicelivraison.description|capitalize }}
-                                        </div>
-                                        {% endif %}
                                     </li>
                                 </ul>
                         </div>
                         <br>
-                        <h4 class="checkout-sep"></h4>
-                        <h4 class="checkout-sep">3. Méthode de paiement</h4>
+                        <h4 class="checkout-sep"></h4-->
+                        <h4 class="checkout-sep">2. Méthode de paiement</h4>
                         <div class="box-border">
                                 <ul>
-                                    <form class="col" action="{{ path('Checkout_index3') }}" method="POST" {{ form_enctype(form) }} class="form">
+                                    <form class="col" action="{{ path('Checkout_index2') }}" method="POST" {{ form_enctype(form) }} class="form">
                                         {{ form_start(form) }}
                                         {{ form_errors(form) }}
 
@@ -124,12 +112,12 @@
                                         <div class="col-sm-6">
                                             {{ form_row(form.nom) }}
                                         </div>
-                                        <div class="col-sm-6">
+                                        <!--div class="col-sm-6">
                                             {{ form_row(form.titulaire) }}
-                                        </div>
+                                        </div-->
                                     </li>
                                     <br>
-                                    <li class="row">
+                                    <!--li class="row">
                                         <div class="col-sm-5">
                                             {{ form_row(form.numero) }}
                                         </div>
@@ -143,11 +131,11 @@
                                         <div class="col-sm-2">
                                             {{ form_row(form.anneeexp) }}
                                         </div>
-                                    </li>
+                                    </li-->
                                     <button class="button pull-right" type="submit"><i class="fa fa-angle-double-right"></i>&nbsp; <span>Continuer</span></button>
                                         {{ form_end(form) }}
                                     </form>
-                                    <a href="{{ path('Checkout_index2') }}"><button class="button pull-left" type="submit"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
+                                    <a href="{{ path('Checkout_index1') }}"><button class="button pull-left" type="submit"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
                                 </ul>
                         </div>                
                                         

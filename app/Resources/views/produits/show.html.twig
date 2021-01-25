@@ -38,19 +38,6 @@
 
                                     <table class="table table-bordered table-compare">
                                         <tr>
-                                            <td class="compare-label">Aperçu</td>
-                                            <td>
-                                                <div class="col-sm-6">
-                                                    <img src="{{ produit.picture.AssetPath|imagine_filter('commandeThumb') }}" alt="">
-                                                </div>
-                                                {% if produit.picture.path2 %}
-                                                    <div class="col-sm-6">
-                                                        <img src="{{ produit.picture.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
-                                                    </div>
-                                                {% endif %}
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td class="compare-label">Nom</td>
                                             <td><a>{{ produit.nom|capitalize }}</a></td>
 
@@ -61,177 +48,12 @@
 
                                         </tr>
                                         <tr>
-                                            <td class="compare-label">Propriétaire</td>
-                                            <td><strong><a href="">{{ produit.marque }}</a></strong></td>
-
-                                        </tr>
-                                        <tr>
                                             <td class="compare-label">Description</td>
                                             <td>{{ produit.description|capitalize }}.</td>
                                         </tr>
                                         <tr>
-                                            <td class="compare-label">Disponible en Europe ?</td>
-                                            <td><strong>{% if produit.euro %}Oui{% else %}Non{% endif %}</strong></td>
-                                        </tr>
-                                        {% if produit.euro %}
-                                        <tr>
-                                            <td class="compare-label">Pays d'Europe:</td>
-                                            <td>{{ produit.euro.pays|join(', ') }}</td>
-                                        </tr>
-                                        {% set prixReduction = 0 %}
-                                        {% set prixReduction = produit.euro.prix - (produit.euro.prix * produit.reduction/100) %}
-                                        <tr>
-                                            <td class="compare-label">Prix (€)</td>
-                                            <td class="price">
-                                                {% if produit.reduction == 0 %}
-                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} €</span> </span> </div>
-                                                {% else %}
-                                                    <div class="price-box">
-                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} €</span> </p>
-                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"><br><br>{{ produit.euro.prix|number_format(2) }} €</span> </p>
-                                                    </div>
-                                                {% endif %}
-                                            </td>
-                                        </tr>
-                                        {% if produit.euro.prixCommande %}
-                                            <tr>
-                                                <td class="compare-label">Prix commande (€)</td>
-                                                <td class="price">{{ produit.euro.prixCommande|number_format(2) }} €</td>
-                                            </tr>
-                                        {% else %}
-                                            <tr>
-                                                <td class="compare-label">Commande sur mesure</td>
-                                                <td class="availability out-of-stock">
-                                                    <form action="{{ path('adminProduits_show', { 'id' : produit.id }) }}" method="POST">
-                                                        {{ form_start(form) }}
-                                                        {{ form_errors(form) }}
-                                                        <div class="col-sm-4">
-                                                           <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
-                                                        </div>
-                                                        {% if produit.marque == user %}
-                                                        <div class="col-sm-4">
-                                                            {{ form_widget(form) }}                                                   
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <br>
-                                                            <a href ="" title='Pour accepter cette commande, entrez le prix pour cette commande en €'> 
-                                                                <button type="submit"><i class="fa fa-check"> </i>&nbsp; Ajoutez prix commande &nbsp;</button>
-                                                            </a>
-                                                        </div>
-                                                        {% endif %}
-                                                        {{ form_end(form) }}
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        {% endif %}
-                                        {% endif %}
-                                        <tr>
-                                            <td class="compare-label">Disponible en Afrique ?</td>
-                                            <td><strong>{% if produit.cfa %}Oui{% else %}Non{% endif %}</strong></td>
-                                        </tr>
-                                        {% if produit.cfa %}
-                                        <tr>
-                                            <td class="compare-label">Pays d'Afrique:</td>
-                                            <td>{{ produit.cfa.pays|join(', ') }}.</td>
-                                        </tr>
-                                            {% set prixReduction = 0 %}
-                                            {% set prixReduction = produit.cfa.prix - (produit.cfa.prix * produit.reduction/100) %}
-                                        <tr>
-                                            <td class="compare-label">Prix (F CFA)</td>
-                                            <td class="price">
-                                                {% if produit.reduction == 0 %}
-                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </span> </div>
-                                                {% else %}
-                                                    <div class="price-box">
-                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} F CFA</span> </p>
-                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"><br><br>{{ produit.cfa.prix|number_format(2) }} F CFA</span> </p>
-                                                    </div>
-                                                {% endif %}
-                                            </td>
-                                        </tr>
-                                        {% if produit.cfa.prixCommande %}
-                                            <tr>
-                                                <td class="compare-label">Prix commande (F CFA)</td>
-                                                <td class="price">{{ produit.cfa.prixCommande|number_format(2) }} F CFA</td>
-                                            </tr>
-                                        {% else %}
-                                            <tr>
-                                                <td class="compare-label">Commande sur mesure</td>
-                                                <td class="availability out-of-stock">
-                                                    <form action="{{ path('adminProduits_add_prix_commande_cfa', { 'id' : produit.id }) }}" method="POST">
-                                                        {{ form_start(form) }}
-                                                        {{ form_errors(form) }}
-                                                        <div class="col-sm-4">
-                                                           <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
-                                                        </div>
-                                                        {% if produit.marque == user %}
-                                                        <div class="col-sm-4">
-                                                            {{ form_widget(form) }}                                                   
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <br>
-                                                            <a href ="" title='Pour accepter cette commande, entrez le prix pour cette commande en F CFA'> 
-                                                                <button type="submit"><i class="fa fa-check"> </i>&nbsp; Ajoutez prix commande &nbsp;</button>
-                                                            </a>
-                                                        </div>
-                                                        {% endif %}
-                                                        {{ form_end(form) }}
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        {% endif %}
-                                        {% endif %}
-                                        {% if produit.stock <= 2 %}
-                                        <tr>
-                                            <td class="compare-label">Stock</td>
-                                            <td class="availability out-of-stock">
-                                                
-                                                {% if produit.marque == user %}
-                                                     <form action="{{ path('adminProduits_add_stock', { 'id' : produit.id }) }}" method="POST">
-                                                        {{ form_start(form_stock) }}
-                                                        {{ form_errors(form_stock) }}
-                                                    <div class="col-sm-4">
-                                                        <br><span class="label">{{ produit.stock }}</span>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        {{ form_widget(form_stock) }}                                                   
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <br>
-                                                        <a href ="" title='Pour accepter cette commande, entrez le prix pour cette commande'> 
-                                                            <button type="submit"><i class="fa fa-check"> </i>&nbsp; Changez votre stock &nbsp;</button>
-                                                        </a>
-                                                    </div>
-                                                        {{ form_end(form_stock) }}
-                                                    </form>
-                                                {% else %}
-                                                    <div class="col-sm-4">
-                                                        <span class="label">{{ produit.stock }}</span>
-                                                    </div>
-                                                {% endif %}
-                                            </td>
-                                        </tr>
-                                        {% else %}
-                                        <tr>
-                                            <td class="compare-label">Stock</td>
-                                            <td class="availability in-stock">
-                                                <div class="col-sm-4">
-                                                    <span class="label">{{ produit.stock }}</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        {% endif %}
-                                        <tr>
                                             <td class="compare-label">Matière</td>
                                             <td>{{ produit.matiere|capitalize }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="compare-label">Taille</td>
-                                            <td>{{ produit.taille|upper }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="compare-label">Etat</td>
-                                            <td>{% if produit.etat %} Neuf {% else %} Occasion{% endif %}</td>
                                         </tr>
                                         {% if produit.dateupdate %}
                                         <tr>
@@ -245,12 +67,325 @@
                                             <td>{{ produit.dateachat|date('d-m-Y') }}</td>
                                         </tr>
                                         {% endif %}
+                                        
+                                        {% for produit2 in produit.produit2 %}
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label"><img src="{{ produit2.libelle.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; {{ produit2.libelle.libelle|upper }}<br><br>
+                                                <a title="Modifier le motif {{ produit2.libelle.libelle|capitalize }} " href="{{ path('adminProduits_edit_21', { 'id' : produit2.id }) }}"><i class="fa fa-pencil"></i> <small>Modifier motif</small></a><br>
+                                                <br><a title="Effacer le motif '{{ produit2.libelle.libelle|capitalize }}' de vos produits" href="{{ path('adminProduits_deleteMotif', { 'id' : produit2.id }) }}"><i class="fa fa-trash"></i> <small>Effacer motif</small></a>
+                                            </td>
+                                            <td>
+                                                <div class="col-sm-4">
+                                                    <img src="{{ produit2.picture.AssetPath|imagine_filter('commandeThumb') }}" alt="">
+                                                </div>
+                                                {% if produit2.picture.path2 %}
+                                                <div class="col-sm-4">
+                                                    <img src="{{ produit2.picture.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
+                                                </div>
+                                                {% endif %}
+                                                {% if produit2.picture.path3 %}
+                                                <div class="col-sm-4">
+                                                    <img src="{{ produit2.picture.AssetPath3|imagine_filter('commandeThumb') }}" alt="">
+                                                </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label"><img src="{{ produit2.mannequin.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; {{ produit2.mannequin.nomMannequin|upper }}</td>
+                                            <td>
+                                                <div class="col-sm-4">
+                                                    <img src="{{ produit2.mannequin.AssetPath|imagine_filter('commandeThumb') }}" alt="">
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label><u>Nom</u> :</label> {{ produit2.mannequin.nomMannequin|upper }}<br>
+                                                    <label><u>Taille standard</u> :</label> {{ produit2.mannequin.tailleStandardMannequin }}<br>
+                                                    <label><u>Poids</u> :</label> {{ produit2.mannequin.poidsMannequin }} Kg<br>
+                                                    <label><u>Taille </u> :</label> {{ produit2.mannequin.tailleMannequin }} m<br>
+                                                    <label><u>Numéro teint</u> :</label> {{ produit2.mannequin.numeroTeintMannequin }}<br>
+                                                    <label><u>Tour de taille</u> :</label> {{ produit2.mannequin.tourTailleMannequin }} cm<br>
+                                                    <label><u>Tour de poitrine</u> :</label> {{ produit2.mannequin.tourPoitrineMannequin }} cm<br>
+                                                    <label><u>Tour grandes hanches</u> :</label> {{ produit2.mannequin.tourGrandesHanchesMannequin }} cm<br>
+                                                    <label><u>Statut</u> :</label> {% if produit2.mannequin.statutMannequin == 'disponible' %} Disponible pour avatar {% elseif produit2.mannequin.statutMannequin == 'reserve' %}Réservé pour la marque {% elseif produit2.mannequin.statutMannequin == 'indisponible' %} Indisponible{% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Etat</td>
+                                            <td>{% if produit2.etat %} Neuf {% else %} Occasion{% endif %}</td>
+                                        </tr>
+                                            
+                                        <tr>
+                                            <td class="compare-label">Taille(s)</td>
+                                            <td>{% for produit3 in produit2.produit3 %}
+                                                    {{ produit3.stock }} produit(s) en {{ produit3.taille|upper }}<br>
+                                                {% endfor %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Disponible en France ?</td>
+                                            <td><strong>{% if produit2.europrix %}Oui{% else %}Non{% endif %}</strong></td>
+                                        </tr>
+                                        {% if produit2.europrix %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit2.europrix - (produit2.europrix * produit2.reduction/100) %}
+                                        <tr>
+                                            <td class="compare-label">Prix (€)</td>
+                                            <td class="price">
+                                                {% if produit2.reduction == 0 %}
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} €</span> </span> </div>
+                                                {% else %}
+                                                    <div class="price-box">
+                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} €</span> </p>
+                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"><br><br>{{ produit2.europrix|number_format(2) }} €</span> </p>
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% if produit2.europrixCommande %}
+                                            <tr>
+                                                <td class="compare-label">Prix commande (€)</td>
+                                                <td class="price">{{ produit2.europrixCommande|number_format(2) }} €</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td class="compare-label">Commande sur mesure</td>
+                                                <td class="availability out-of-stock">
+                                                    <div class="col-sm-6">
+                                                        <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                     </div>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                        {% endif %}
+                                        
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Disponible en Angleterre ?</td>
+                                            <td><strong>{% if produit2.livreprix %}Oui{% else %}Non{% endif %}</strong></td>
+                                        </tr>
+                                        {% if produit2.livreprix %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit2.livreprix - (produit2.livreprix * produit2.reduction/100) %}
+                                        <tr>
+                                            <td class="compare-label">Prix (£)</td>
+                                            <td class="price">
+                                                {% if produit2.reduction == 0 %}
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} £</span> </span> </div>
+                                                {% else %}
+                                                    <div class="price-box">
+                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} £</span> </p>
+                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"><br><br>{{ produit2.livreprix|number_format(2) }} £</span> </p>
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% if produit2.livreprixCommande %}
+                                            <tr>
+                                                <td class="compare-label">Prix commande (£)</td>
+                                                <td class="price">{{ produit2.livreprixCommande|number_format(2) }} £</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td class="compare-label">Commande sur mesure</td>
+                                                <td class="availability out-of-stock">
+                                                    <div class="col-sm-6">
+                                                        <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                     </div>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                        {% endif %}
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Disponible en Allemagne ?</td>
+                                            <td><strong>{% if produit2.allprix %}Oui{% else %}Non{% endif %}</strong></td>
+                                        </tr>
+                                        {% if produit2.allprix %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit2.allprix - (produit2.allprix * produit2.reduction/100) %}
+                                        <tr>
+                                            <td class="compare-label">Prix (€)</td>
+                                            <td class="price">
+                                                {% if produit2.reduction == 0 %}
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} €</span> </span> </div>
+                                                {% else %}
+                                                    <div class="price-box">
+                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} €</span> </p>
+                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"><br><br>{{ produit2.allprix|number_format(2) }} €</span> </p>
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% if produit2.allprixCommande %}
+                                            <tr>
+                                                <td class="compare-label">Prix commande (€)</td>
+                                                <td class="price">{{ produit2.allprixCommande|number_format(2) }} €</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td class="compare-label">Commande sur mesure</td>
+                                                <td class="availability out-of-stock">
+                                                    <div class="col-sm-6">
+                                                        <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                     </div>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                        {% endif %}
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Disponible aux Etats-unis d'Amérique ?</td>
+                                            <td><strong>{% if produit2.usaprix %}Oui{% else %}Non{% endif %}</strong></td>
+                                        </tr>
+                                        {% if produit2.usaprix %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit2.usaprix - (produit2.usaprix * produit2.reduction/100) %}
+                                        <tr>
+                                            <td class="compare-label">Prix ($)</td>
+                                            <td class="price">
+                                                {% if produit2.reduction == 0 %}
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} $</span> </span> </div>
+                                                {% else %}
+                                                    <div class="price-box">
+                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} $</span> </p>
+                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"><br><br>{{ produit2.usaprix|number_format(2) }} $</span> </p>
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% if produit2.usaprixCommande %}
+                                            <tr>
+                                                <td class="compare-label">Prix commande ($)</td>
+                                                <td class="price">{{ produit2.usaprixCommande|number_format(2) }} $</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td class="compare-label">Commande sur mesure</td>
+                                                <td class="availability out-of-stock">
+                                                    <div class="col-sm-6">
+                                                        <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                        {% endif %}
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Disponible au Cameroun ?</td>
+                                            <td><strong>{% if produit2.cfaprix %}Oui{% else %}Non{% endif %}</strong></td>
+                                        </tr>
+                                        {% if produit2.cfaprix %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit2.cfaprix - (produit2.cfaprix * produit2.reduction/100) %}
+                                        <tr>
+                                            <td class="compare-label">Prix (F CFA)</td>
+                                            <td class="price">
+                                                {% if produit2.reduction == 0 %}
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction }} F CFA</span> </span> </div>
+                                                {% else %}
+                                                    <div class="price-box">
+                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction }} F CFA</span> </p>
+                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"><br><br>{{ produit2.cfaprix }} F CFA</span> </p>
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% if produit2.cfaprixCommande %}
+                                            <tr>
+                                                <td class="compare-label">Prix commande (F CFA)</td>
+                                                <td class="price">{{ produit2.cfaprixCommande }} F CFA</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td class="compare-label">Commande sur mesure</td>
+                                                <td class="availability out-of-stock">
+                                                    <div class="col-sm-6">
+                                                        <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                     </div>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                        {% endif %}
+                                        <tr>
+                                            <td class="compare-label"></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="compare-label">Disponible au Nigéria ?</td>
+                                            <td><strong>{% if produit2.nairaprix %}Oui{% else %}Non{% endif %}</strong></td>
+                                        </tr>
+                                        {% if produit2.nairaprix %}
+                                            {% set prixReduction = 0 %}
+                                            {% set prixReduction = produit2.nairaprix - (produit2.nairaprix * produit2.reduction/100) %}
+                                        <tr>
+                                            <td class="compare-label">Prix (£)</td>
+                                            <td class="price">
+                                                {% if produit2.reduction == 0 %}
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction }} ₦</span> </span> </div>
+                                                {% else %}
+                                                    <div class="price-box">
+                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction }} ₦</span> </p>
+                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"><br><br>{{ produit2.nairaprix }} ₦</span> </p>
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% if produit2.nairaprixCommande %}
+                                            <tr>
+                                                <td class="compare-label">Prix commande (₦)</td>
+                                                <td class="price">{{ produit2.nairaprixCommande }} ₦</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td class="compare-label">Commande sur mesure</td>
+                                                <td class="availability out-of-stock">
+                                                    <div class="col-sm-6">
+                                                        <br> <span class="label">{{ ('non activée')|upper }}</span>                                                   
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                        {% endif %}
+                                        
+                                        {% endfor %}
                                         <tr>
                                             <td class="compare-label"></td>
                                             <td class="action">
                                                 <a title="Voir la liste de tous vos produits" href="{{ path('adminProduits_index') }}"><button class="add-cart button button-sm"><i class="fa fa-backward"></i></button>&nbsp;&nbsp; <strong>Tous les produits</strong></a><br>
                                                 {% if user == produit.marque %}
-                                                <a title="Modifiez le produit {{ produit.nom|capitalize }}" href="{{ path('adminProduits_edit', { 'id' : produit.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp; <strong>Modifiez</strong></a><br>
+                                                <a title="Modifiez le produit {{ produit.nom|capitalize }}" href="{{ path('adminProduits_edit_1', { 'id' : produit.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp; <strong>Modifiez</strong></a><br>
                                                 <br><br><a title="Retirez le produit {{ produit.nom|capitalize }}" href="{{ path('adminProduits_delete', { 'id' : produit.id }) }}"><button class="button button-sm"><i class="fa fa-trash"></i></button>&nbsp;&nbsp; <strong>Effacez</strong></a></td>
                                                 {% endif %}
                                         </tr>

@@ -8,9 +8,10 @@
             <div class="row">
                 <div class="col-xs-12">
                     <ul>
-                        <li class="home"> <a title="Go to Home Page" href="index.html">Home</a><span>&raquo;</span></li>
-
-                        <li><strong>Checkout</strong></li>
+                        <li class="home"> <a title="Aller à l'accueil" href="{{ path ('kountac_homepage')}}">Accueil</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon panier" href="{{ path ('panier')}}">Mon panier</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Paramètres adresse de facturation" href="{{ path ('Checkout_index1')}}">Adresse de facturation</a><span>&raquo;</span></li>
+                        <li><strong>Service de livraison</strong></li>
                     </ul>
                 </div>
             </div>
@@ -26,9 +27,9 @@
 
 
                     <div class="page-content checkout-page"><div class="page-title">
-                            <h2>Finalisation de la commande (2/4)</h2>
+                            <h2>Finalisation de la commande (2/3)</h2>
                         </div>
-                        <h4 class="checkout-sep"></h4>
+                        <!--h4 class="checkout-sep"></h4>
                         <h4 class="checkout-sep">1. Information de livraison (adresse de livraison)</h4>
                         <div class="box-border">
                             <ul>
@@ -66,7 +67,7 @@
                                     <div class="col-sm-6">
                                         <label><u>Code postal</u> :</label>
                                                 {{ user.cp|upper }}
-                                    </div><!--/ [col] -->
+                                    </div>
                                     <div  class="col-sm-6">
                                         <label><u>Pays</u> :</label>
                                                 {{ user.pays|upper }}
@@ -76,15 +77,15 @@
                                     <div class="col-sm-6">
                                         <label><u>Téléphone mobile</u> :</label>
                                                 {{ user.telephone|capitalize }}
-                                    </div><!--/ [col] -->
+                                    </div>
                                     <div class="col-sm-6">
                                         <label><u>Téléphone fix</u> :</label>
                                                 {{ user.telephonefix|capitalize }}
-                                    </div><!--/ [col] -->
-                                </li><!--/ .row -->
+                                    </div>
+                                </li>
                             </ul>
                             </form>
-                        </div>
+                        </div-->
                         <br>
                         <h4 class="checkout-sep"></h4>
                         <h4 class="checkout-sep">2. Service de livraison</h4>
@@ -108,6 +109,7 @@
                                         
                                 </ul>
                         </div>
+                        
                     </div>
                 </div>
                 <aside class="right sidebar col-sm-3 col-xs-12">

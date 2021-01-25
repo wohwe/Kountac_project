@@ -1,4 +1,4 @@
-    <div>
+<div>
         <div class="breadcrumbs">
             <div class="container">
                 <div class="row">
@@ -9,7 +9,7 @@
                                 <a href="{{ path('fos_user_security_logout') }}">
                                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                                 </a>
-                            {% endif %} 
+                            {% endif %}
                         </ul>
                         <ul>
                             {% if app.request.hasPreviousSession %}
@@ -54,13 +54,13 @@
                             <br>
                             {{ flashMessage }}
                         </div>
-                    {% endfor %} 
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-    <!-- Breadcrumbs End --> 
-    <!-- Main Container --> 
+    <!-- Breadcrumbs End -->
+    <!-- Main Container -->
 
     <section class="main-container col1-layout">
         <div class="main container">
@@ -76,12 +76,12 @@
                             <div>
                                 <table>
                                     <tr>
-                                        <td><center><h1>Aucun produits à comparer</h1></center></td>
+                                        <td><center><h1>Aucun produit à comparer</h1></center></td>
                                     </tr>
                                 </table>
                                 <br>
                                 <button class="button"> <a class="continue-btn" href="{{ path('kountac_homepage') }}"><i class="fa fa-arrow-left"> </i>&nbsp; Voir les produits</a> </button>
-                            </div>  
+                            </div>
                     {% else %}
                     <div class="table-responsive">
 
@@ -103,7 +103,15 @@
                                     {% set prixReduction = 0 %}
                                     {% set prixReduction = produit.produit2.nairaprix - (produit.produit2.nairaprix * produit.produit2.reduction/100) %}
                             <tr>
-                                <td class="small compare-label"><a href="{{ path('product', {'id' : produit.produit2.id}) }}"><img src="{{ produit.produit2.picture.AssetPath|imagine_filter('compareThumbItem') }}" alt="" height="120"></a></td>
+                                <td class="small compare-label">
+                                    <a href="{{ path('product', {'id' : produit.produit2.id}) }}">
+                                        {% for image in images %}
+                                            {% if image.produit2 == produit.produit2 and image.top == 0 %}
+                                                <img src="{{ image.AssetPath|imagine_filter('compareThumbItem') }}" alt="" height="120">
+                                            {% endif %}
+                                        {% endfor %}
+                                    </a>
+                                </td>
                                 <td class="small compare-label"><a href="{{ path('product', {'id' : produit.produit2.id}) }}">{{ produit.produit2.produit1.nom|capitalize }}</a></td>
                                 <td class="small th-price compare-label">
                                 {% if produit.produit2.reduction == 0 %}
@@ -119,13 +127,13 @@
                                 <td class="small compare-label">{{ produit.taille|upper }}</td>
                                 <td class="small compare-label">{{ produit.produit2.produit1.matiere|capitalize }}</td>
                                 <td class="small compare-label action" style="width:210px;">
-                                    <a title="Ajoutez au panier" href="{{ path('ajoutpanier', {'id' : produit.id}) }}">
+                                    <a title="Ajouter au panier" href="{{ path('ajoutpanier', {'id' : produit.id}) }}">
                                         <button class="add-cart button button-sm"><i class="fa fa-shopping-cart"></i></button>
                                     </a>
-                                    <a title="Ajoutez à vos souhaits" href="{{ path('ajoutwishlist', {'id' : produit.id}) }}">
+                                    <a title="Ajouter aux souhaits" href="{{ path('ajoutwishlist', {'id' : produit.id}) }}">
                                         <button class="button button-sm"><i class="fa fa-heart"></i></button>
                                     </a>
-                                    <a title="Commandez sur mesure, prix commande: {{ produit.produit2.nairaprixCommande|number_format(2) }} ₦" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}">
+                                    <a title="Commander sur mesure, prix commande: {{ produit.produit2.nairaprixCommande|number_format(2) }} ₦" href="{{ path('commande_mesures_new_item', {'id' : produit.id}) }}">
                                         <button class="button button-sm"><i class="fa fa-pencil"></i></button>
                                     </a>
                                     <a title="Retirez {{ produit.produit2.produit1.nom|capitalize }} parmi les comparaisons" href="{{ path('supprimercompare', { 'id' : produit.id }) }}">
@@ -135,7 +143,7 @@
                             </tr>
                             {% endif %}
                             {% endfor %}
-                                
+
                             </tbody>
                         </table>
 

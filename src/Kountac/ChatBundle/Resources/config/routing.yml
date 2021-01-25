@@ -13,4 +13,8 @@ chat_list:
 chat_list_autor:
     path:   /list_autor/{channel}
     defaults: { _controller: ChatBundle:Chat:list_autor }
+   
+chat_list_msg:
+    path:   /list_msg/{channel}
+    defaults: { _controller: ChatBundle:Chat:list_msg }
     

@@ -51,6 +51,13 @@ class Achats
     /**
      * @var bool
      * 
+     * @ORM\Column(name="all_a", type="boolean", nullable=true)
+     */
+    private $all;
+    
+    /**
+     * @var bool
+     * 
      * @ORM\Column(name="livre", type="boolean", nullable=true)
      */
     private $livre;
@@ -79,7 +86,7 @@ class Achats
     /**
      * @var \DateTime
      * 
-     * @ORM\Column(name="date", type="date")
+     * @ORM\Column(name="date_a", type="date")
      */
     private $date;
 
@@ -206,7 +213,7 @@ class Achats
      * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $utilisateur
      * @return Achats
      */
-    public function setUtilisateur(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $utilisateur = null)
+    public function setUtilisateur($utilisateur)
     {
         $this->utilisateur = $utilisateur;
 
@@ -366,5 +373,29 @@ class Achats
     public function getNaira()
     {
         return $this->naira;
+    }
+
+    /**
+     * Set all
+     *
+     * @param boolean $all
+     *
+     * @return Achats
+     */
+    public function setAll($all)
+    {
+        $this->all = $all;
+
+        return $this;
+    }
+
+    /**
+     * Get all
+     *
+     * @return boolean
+     */
+    public function getAll()
+    {
+        return $this->all;
     }
 }

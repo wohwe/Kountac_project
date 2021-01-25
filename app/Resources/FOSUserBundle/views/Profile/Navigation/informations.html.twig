@@ -9,7 +9,7 @@
           <ul>
             <li><u>Nom(s):</u> {{ user.prenom }} {{ user.nom }}</li>
             <li><u>Adresse:</u> {{ user.adresse }}</li>
-            <li><u>Code postale:</u> {{ user.cp }}</li>
+            <li><u>Code postal:</u> {{ user.cp }}</li>
             <li><u>Rue:</u> {{ user.rue }}</li>
             <li><u>Ville:</u> {{ user.ville }}</li>
             <li><u>Pays:</u> {{ user.pays }}</li>
@@ -17,6 +17,8 @@
             {% if user.telephonefix %}
                 <li><u>Fixe:</u> {{ user.telephonefix }}</li>
             {% endif %}
+            <li><u>Code de parrainage:</u> {{ user.code }}</li>
+            <li><u>Points:</u> {{ user.points }}</li>
            </ul>
         </div>
       </div>
@@ -26,7 +28,7 @@
         <h2 class="saider-bar-title">Service de livraison</h2>
         <div class="saide-bar-menu">
           <ul>
-            <li><a title="{{ user.servicelivraison.description|capitalize }}"><i class="fa fa-angle-right"></i> {{ user.servicelivraison.nom }}</a></li>
+            <li><a title="{{ user.servicelivraison.nom|capitalize }}"><i class="fa fa-angle-right"></i> {{ user.servicelivraison.nom }}</a></li>
           </ul>
         </div>
       </div>
@@ -37,7 +39,7 @@
         <h2 class="saider-bar-title">Mode de paiement</h2>
         <div class="saide-bar-menu">
           <ul>
-            <li><a title="Titulaire de la carte : {{ user.servicepaiement.titulaire|capitalize }}"><i class="fa fa-angle-right"></i> {{ user.servicepaiement.nom }}</a></li>
+            <li><a title="Carte : {{ user.servicepaiement.nom|capitalize }}"><i class="fa fa-angle-right"></i> {{ user.servicepaiement.nom }}</a></li>
           </ul>
         </div>
       </div>

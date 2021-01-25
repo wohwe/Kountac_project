@@ -18,6 +18,8 @@ class CollectionsAdminController extends Controller
      */
     public function indexAction()
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         
@@ -36,6 +38,8 @@ class CollectionsAdminController extends Controller
      */
     public function newAction(Request $request)
     {
+
+        include 'localisation.php';
         $user = $this->getUser();
         $collection = new Collections();
         $form = $this->createForm('Kountac\KountacBundle\Form\CollectionsType', $collection);
@@ -63,6 +67,8 @@ class CollectionsAdminController extends Controller
      */
     public function editAction(Request $request, Collections $collection)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $user = $this->getUser();
         $editForm = $this->createForm('Kountac\KountacBundle\Form\CollectionsType', $collection);
         $editForm->handleRequest($request);
@@ -87,6 +93,8 @@ class CollectionsAdminController extends Controller
      */
     public function deleteAction($id)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $collection = $em->getRepository('KountacBundle:Collections')->find($id);
         

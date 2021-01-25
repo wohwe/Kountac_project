@@ -1,41 +1,70 @@
+
 <div class="sidebar-checkout block">
+    
     <div class="sidebar-bar-title">
         &nbsp;&nbsp;<h3>MENU</h3>
     </div><br>
+    {% if user.verifier!=0 %}
     <div class="manufacturer-area">
         <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Produits</h2>
         <div class="saide-bar-menu">
-          <ul>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_stock_epuise') }}" class="alert-danger"><i class="icon-info"></i> Stock épuisé </a></li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_index') }}"><i class="fa fa-angle-right"></i> Tous mes produits</a></li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_sale') }}"><i class="fa fa-angle-right"></i> Produits achetés</a></li>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_new_1') }}"><i class="fa fa-angle-right"></i> Ajouter </a></li>
-          </ul>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_stock_epuise') }}" class="alert-danger"><i class="icon-info"></i> Stock épuisé </a></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_index') }}"><i class="fa fa-angle-right"></i> Tous mes produits</a></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_sale') }}"><i class="fa fa-angle-right"></i> Produits achetés</a></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_new_1') }}"><i class="fa fa-angle-right"></i> Ajouter </a></li>
+            </ul>
         </div>
-      </div>
+    </div>
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Motifs</h2>
+        <div class="saide-bar-menu">
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('produit_pro_new_motif') }}"><i class="fa fa-angle-right"></i> Ajouter / Voir tous les motifs </a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="manufacturer-area">
+        <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Mannequins</h2>
+        <div class="saide-bar-menu">
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('mannequin_pro_index') }}"><i class="fa fa-angle-right"></i> Tous les mannequins </a></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('mannequin_pro_new') }}"><i class="fa fa-angle-right"></i> Ajouter </a></li>
+            </ul>
+        </div>
+    </div>
     <div class="manufacturer-area">
         <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Commandes</h2>
         <div class="saide-bar-menu">
-          <ul>
-            <li><a href="{{ path('commande_pro_index')}}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Toutes mes commandes </a></li>
-          </ul>
+            <ul>
+                <li><a href="{{ path('sous_achat_pro_index')}}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Achats en instance ({{ app.session.get('nbrSousAchat') }}) </a></li>
+            </ul>
+            <ul>
+                <li><a href="{{ path('commande_pro_index')}}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Toutes mes commandes </a></li>
+            </ul>
         </div>
-      </div>
+    </div>
     <div class="manufacturer-area">
         <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Réservations</h2>
         <div class="saide-bar-menu">
-          <ul>
-            <li><a href="{{ path('reservation_pro_all')}}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Toutes les reservations</a></li>
-            <li><a href="{{ path('reservation_pro_index')}}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Mes produits réservés</a></li>
-          </ul>
+            <ul>
+                <li><a href="{{ path('reservation_pro_all')}}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Toutes les reservations</a></li>
+                <li><a href="{{ path('reservation_pro_index')}}">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Mes produits réservés</a></li>
+            </ul>
         </div>
-      </div>
-      <div class="manufacturer-area">
+    </div>
+    <div class="manufacturer-area">
         <h2 class="saider-bar-title">&nbsp;&nbsp;&nbsp;&nbsp;Messages</h2>
         <div class="saide-bar-menu">
-          <ul>
-            <li><a title="lisez vos messages">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-envelope"></i><span class="user1"> Tous mes messages (2)<div class="msg"></div></span></a></li>
+            <ul>
+            <li><a title="liser tous vos messages ici !"><i class="fa fa-envelope"></i><span class="user1"> Tous mes messages <div class="msg"></div></span></a></li>
           </ul>
         </div>
-      </div>
+    </div>
+    {% else %}
+    <div class="manufacturer-area">
+        Hello <b>{{ user.prenom }}</b> une fois votre compte vérifié vous aurez accès à l'intégralité des fonctionnaliées de votre espace !!!
+    </div>
+    {% endif %}
 </div>

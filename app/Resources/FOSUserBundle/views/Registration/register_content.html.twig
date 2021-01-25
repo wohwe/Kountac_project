@@ -28,12 +28,12 @@
                 <ul>
                     <li class="row">
                         <div class="col-sm-6">
-                           {{ form_label(form.sexe) }}*
-                           {{ form_row(form.sexe.0) }}
-                           {{ form_row(form.sexe.1) }}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.sexe.0) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.sexe.1) }}</div>
+                            </div>
                         </div>
                     </li>
-                    <br>
                     <li class="row">
                         <div class="col-sm-6">
                             {{ form_row(form.nom) }}
@@ -42,10 +42,9 @@
                             {{ form_row(form.prenom) }}
                         </div><!--/ [col] -->
                     </li>
-                    <br>
                     <li class="row">
                         <div class="col-sm-6">
-                            <label class="required">Image de profil</label>
+                            <label class="required">Image de profil (facultatif)</label>
                             {{ form_widget(form.image.file) }}
                         </div>
                         <div class="col-sm-6">
@@ -53,35 +52,45 @@
                             {{ form_widget(form.image.file2) }}
                         </div><!--/ [col] -->
                     </li>
-                    <br>
-                    <br>
-                    <li class="row"> 
-                        <div class="col-xs-12">
-                            {{ form_row(form.adresse) }}
-                        </div><!--/ [col] -->
-
-                    </li><!-- / .row -->
-
                     <li class="row">
 
-                        <div class="col-sm-6">
-                           {{ form_row(form.rue) }}
+                        <div  class="col-sm-6">
+                            {{ form_row(form.pays) }}
                         </div><!--/ [col] -->
 
                         <div class="col-sm-6">
                             {{ form_row(form.ville) }}
                         </div>
                     </li>
+                    
+                    <!--li class="row">
+
+                        <div class="col-sm-6">
+                            {{ form_row(form.digicode) }}
+                        </div>
+                    </li-->
 
                     <li class="row">
                         <div class="col-sm-6">
                             {{ form_row(form.cp) }}
                         </div><!--/ [col] -->
-
-                        <div  class="col-sm-6">
-                            {{ form_row(form.pays) }}
+                        
+                        <div class="col-sm-6">
+                            {{ form_row(form.codeparrain) }}
                         </div><!--/ [col] -->
+
                     </li>
+
+                    <li class="row"> 
+                        <div class="col-xs-6">
+                            {{ form_row(form.adresse) }}
+                        </div><!--/ [col] -->
+
+                        <div class="col-sm-6">
+                           {{ form_row(form.rue) }}
+                        </div><!--/ [col] -->
+
+                    </li><!-- / .row -->
                     
                     <li class="row">
                         <div class="col-sm-6">
@@ -92,7 +101,12 @@
                             {{ form_row(form.telephonefix) }}
                         </div><!--/ [col] -->
                     </li>
+
                     <br><br>
+                    <div class="page-title">
+                      <h2 class="checkout-step">Espace Utilisateur *</h2>
+                    </div>
+                    
                     <li class="row">
                         <div class="col-sm-6">
                             {{ form_row(form.username) }}
@@ -112,7 +126,13 @@
                             {{ form_row(form.plainPassword.second) }}
                         </div><!--/ [col] -->
                     </li><!--/ .row -->
-                    <br><br><br>
+                    <br>
+                    <li class="row">
+                        <div class="col-sm-12">
+                            <input type="checkbox" id="condition" required name="">
+                            <label for="condition"> En continuant vous acceptez les politiques et <a href="#">conditions d'utilisations</a>.</label>
+                        </div>
+                    </li>
                     <li>
                         <button class="button" type="submit"><i class="icon-login"></i>&nbsp; <span>{{ 'registration.submit'|trans }}</span></button>
                     </li>
@@ -129,7 +149,7 @@
             </div>
                  <div class="block-content">
             <dl>
-              <h5> Créez votre compte perso en quelques minutes !<br><br> <a href="{{ path('pro_user_register') }}"><u>Cliquez ici</u></a> </h5>
+              <h5> Créez votre compte pro en quelques minutes !<br><br> <a href="{{ path('pro_user_register') }}"><u>Cliquez ici</u></a> </h5>
               
         </div>
             </div>

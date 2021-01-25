@@ -1,13 +1,10 @@
 <div class="footer-links">
-    <h3 class="links-title">Insider<a class="expander visible-xs" href="#TabBlock-3">+</a></h3>
+    <h3 class="links-title">Aide<a class="expander visible-xs" href="#TabBlock-3">+</a></h3>
     <div class="tabBlock" id="TabBlock-3">
         <ul class="list-links list-unstyled">
-            <li> <a href="sitemap.html">Sites Map </a> </li>
-            <li> <a href="#">News</a> </li>
-            <li> <a href="#">Trends</a> </li>
-            <li> <a href="about_us.html">About Us</a> </li>
-            <li> <a href="contact_us.html">Contact Us</a> </li>
-            <li> <a href="#">My Orders</a> </li>
+            {% for page in pages %}
+                <li> <a href="{{ path('pages', { 'valeur' : page.lien}) }}">{{ page.titre }}</a> </li>
+            {% endfor %}
         </ul>
     </div>
 </div>

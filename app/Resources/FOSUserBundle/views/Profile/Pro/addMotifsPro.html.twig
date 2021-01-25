@@ -1,0 +1,76 @@
+{% extends "@FOSUser/layoutPro.html.twig" %}
+
+{% block fos_user_content %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon profil professionnel" href="{{ path('pro_user_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Voir tous les mannequins" href="{{ path('mannequin_pro_index')}}">Tous les mannequins</a><span>&raquo;</span></li>
+                        <li><strong>Nouveau mannequin</strong></li>
+                    </ul>
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert-box">
+                            <br><br>
+                            {{ flashMessage }}
+                            <br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs End --> 
+    {% trans_default_domain 'FOSUserBundle' %}
+    <!-- Main Container -->
+    <section class="main-container col2-right-layout">
+        <div class="main container">
+            <div class="row">
+                <div class="col-main col-sm-5 col-xs-12">
+                    <div class="page-content checkout-page">
+                        <div class="page-title">
+                            <h2 class="checkout-step">Ajout d'un nouveau mannequin</h2>
+                        </div>
+                        <form action="{{ path('produit_pro_new_motif') }}" {{ form_enctype(form_motif) }}  method="POST">
+                            {{ form_start(form_motif) }}
+                            {{ form_errors(form_motif) }}
+                            <div class="col-sm-7">
+                                {{ form_row(form_motif.libelle) }}<br>
+                            </div>
+                            <div class="col-sm-12">
+                                {{ form_row(form_motif.file) }}<br><br>
+                            </div>
+                            <div class="col-sm-12">
+                                <button class="button" type="submit"><i class="fa fa-check"></i>&nbsp; &nbsp;<span>Ajouter</span></button><br>
+                            </div>
+                            {{ form_end(form_motif) }}
+                        </form >
+                    </div>
+                </div>
+                <div class="col-main col-sm-4 col-xs-12">
+                    <div class="page-content checkout-page">
+                       <div class="page-title">
+                            <h4 class="checkout-step">Tous les motifs</h4>
+                        </div>
+                        {% for motif in motifs %}
+                            <a title="Motif {{ motif.libelle|capitalize }}" href="">
+                                <img src="{{ motif.AssetPath|imagine_filter('cartThumbMenuItem') }}" alt=""> &nbsp; &nbsp; <label>{{ motif.libelle|capitalize }}</label> <br>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <aside class="right sidebar col-sm-3 col-xs-12">
+                    {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
+                    <br><br>
+                    {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+                </aside>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock fos_user_content %}
+

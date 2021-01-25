@@ -21,7 +21,20 @@ class Media_motif
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
- 
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Kountac\KountacBundle\Entity\Mannequin", inversedBy="picture", cascade={"persist"})
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE", nullable=true)
+     */
+    private $mannequin;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Kountac\KountacBundle\Entity\Produits_2", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    private $produit_2;
+    
+    
     /**
     * @ORM\PostLoad()
     */
@@ -30,7 +43,6 @@ class Media_motif
         $this->modifieLe = new \DateTime();
     }
            
-   
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -45,6 +57,13 @@ class Media_motif
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     public $path3;
+    
+    /**
+     * @var bool
+     * 
+     * @ORM\Column(name="top", type="boolean", nullable=true)
+     */
+    private $top;
     
     public $file;
     
@@ -238,5 +257,108 @@ class Media_motif
     public function __toString()
     {
        
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->mannequin = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set top
+     *
+     * @param boolean $top
+     *
+     * @return Media_motif
+     */
+    public function setTop($top)
+    {
+        $this->top = $top;
+
+        return $this;
+    }
+
+    /**
+     * Get top
+     *
+     * @return boolean
+     */
+    public function getTop()
+    {
+        return $this->top;
+    }
+
+    /**
+     * Add mannequin
+     *
+     * @param \Kountac\KountacBundle\Entity\Mannequin $mannequin
+     *
+     * @return Media_motif
+     */
+    public function addMannequin(\Kountac\KountacBundle\Entity\Mannequin $mannequin)
+    {
+        $this->mannequin[] = $mannequin;
+
+        return $this;
+    }
+
+    /**
+     * Remove mannequin
+     *
+     * @param \Kountac\KountacBundle\Entity\Mannequin $mannequin
+     */
+    public function removeMannequin(\Kountac\KountacBundle\Entity\Mannequin $mannequin)
+    {
+        $this->mannequin->removeElement($mannequin);
+    }
+
+    /**
+     * Get mannequin
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMannequin()
+    {
+        return $this->mannequin;
+    }
+
+    /**
+     * Set mannequin
+     *
+     * @param \Kountac\KountacBundle\Entity\Mannequin $mannequin
+     *
+     * @return Media_motif
+     */
+    public function setMannequin(\Kountac\KountacBundle\Entity\Mannequin $mannequin = null)
+    {
+        $this->mannequin = $mannequin;
+
+        return $this;
+    }
+
+    /**
+     * Set produit2
+     *
+     * @param \Kountac\KountacBundle\Entity\Produits_2 $produit2
+     *
+     * @return Media_motif
+     */
+    public function setProduit2(\Kountac\KountacBundle\Entity\Produits_2 $produit2 = null)
+    {
+        $this->produit_2 = $produit2;
+
+        return $this;
+    }
+
+    /**
+     * Get produit2
+     *
+     * @return \Kountac\KountacBundle\Entity\Produits_2
+     */
+    public function getProduit2()
+    {
+        return $this->produit_2;
     }
 }

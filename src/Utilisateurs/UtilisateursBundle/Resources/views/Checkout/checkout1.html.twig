@@ -8,9 +8,9 @@
             <div class="row">
                 <div class="col-xs-12">
                     <ul>
-                        <li class="home"> <a title="Go to Home Page" href="index.html">Home</a><span>&raquo;</span></li>
-
-                        <li><strong>Checkout</strong></li>
+                        <li class="home"> <a title="Aller à l'accueil" href="{{ path ('kountac_homepage')}}">Accueil</a><span>&raquo;</span></li>
+                        <li class="home"> <a title="Aller à mon panier" href="{{ path ('panier')}}">Mon panier</a><span>&raquo;</span></li>
+                        <li><strong>Adresse de facturation</strong></li>
                     </ul>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-main col-sm-9 col-xs-12">
                     <div class="page-content checkout-page"><div class="page-title">
-                        <h2>Finalisation de la commande (1/4)</h2>
+                        <h2>Finalisation de la commande (1/2)</h2>
                         </div>
                         <h4 class="checkout-sep"></h4>
                         <h4 class="checkout-sep">1. Information de livraison (adresse de livraison)</h4>
@@ -77,10 +77,10 @@
                                 <li class="row">
                                     <div class="col-sm-6">
                                         {{ form_row(form.username) }}
-                                    </div><!--/ [col] -->
+                                    </div>
                                     <div class="col-sm-6">
                                         {{ form_row(form.current_password) }}
-                                    </div><!--/ [col] -->
+                                    </div>
                                 </li>
                                 <br>
                                 <li>

@@ -18,6 +18,14 @@ class Media_motifType extends AbstractType
             ->add('file','file', array('required' => true))
             ->add('file2','file', array('required' => false))
             ->add('file3','file', array('required' => false))
+            ->add('mannequin','entity', array('class' => 'KountacBundle:Mannequin',
+                                             'label'=> 'Choisir un mannequin', 
+                                             'attr' => array('class' => 'select form-control'),
+                                             ))
+            ->add('top','choice', array('choices' => array('0' => 'Oui',
+                                                           '1' => 'Non'),'expanded'=>true,'label' => 'Définir comme mannequin par défaut','required' => true))
+                
+                
             ;
     }
     

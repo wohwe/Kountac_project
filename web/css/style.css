@@ -334,7 +334,7 @@ input:focus {
 .modal-dialog.newsletter-popup {
 	background: rgba(0, 0, 0, 0) url("../images/newsletter.jpg") repeat scroll 0 0;
 	width: 450px;
-	height: 350px;
+	height: 470px;
 	margin-top: 12%;
 	border-radius: 10px;
 	background-color: #f8f8f8;
@@ -417,6 +417,35 @@ input:focus {
 	background: #334141;
 	color: #fff;
 }
+
+.rating {
+	font-size: 11px;
+	line-height: 36px;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: #000;
+}
+.rating input {
+	position: absolute;
+	left: -9999px;
+}
+.rating label {
+	display: block;
+	float: right;
+	height: 18px;
+	margin-top: 8px;
+	padding: 0 1px;
+	font-size: 18px;
+	line-height: 18px;
+	color: #939393;
+	cursor: pointer;
+}
+.rating input + label:hover,
+.rating input + label:hover ~ label,
+.rating input:checked ~ label {
+	color: #c40303;
+}
+
 .subscribe-bottom {
 	color: #eee;
 	display: block;
@@ -709,6 +738,7 @@ input:focus {
 .headerlinkmenu {
 	padding-left: 0px
 }
+
 }
 .headerlinkmenu {
 	line-height: normal;
@@ -899,16 +929,16 @@ select.cate-dropdown {
 /*4.5 Logo */
 .logo {
 	vertical-align: middle;
-	margin-top: 30px;
+	margin-top: 15px;
 	text-align: left;
 	display: inline-block;
-	margin-bottom: 30px
+	margin-bottom: 10px
 }
 @media (max-width:640px) {
 .logo {
-	margin-top: 15px;
+	margin-top: 0px;
 	text-align: center;
-	padding-bottom: 12px;
+	padding-bottom: 0px;
 	margin-bottom: 0px;
 }
 }
@@ -1709,8 +1739,12 @@ a.link {
 /******************************************
 9. product hover
 ******************************************/
+.product-thumb img{
+	width: 95%;
+}
 .product-item {
 	list-style: none;
+	height: 550px; 
 }
 .product-item .product-thumb {
 	position: relative;
@@ -3123,7 +3157,7 @@ footer .social ul {
 	transition: background 400ms ease-in-out;
 	-webkit-transition: background 400ms ease-in-out;
 	-moz-transition: background 400ms ease-in-out;
-	-o-transition: background 400ms ease-in-out
+	-o-transition: background 400ms ease-in-out;
 }
 @media (min-width:1024px) and (max-width:1080px) {
 .footer-newsletter .newsletter-email {
@@ -3206,7 +3240,7 @@ margin-bottom:10px display: inline-block;
 ******************************************/
 nav {
 	height: 60px;
-	position: relative;
+        position: relative;
 	margin: auto;
 	width: 100%;
 	background: #222222;
@@ -3220,6 +3254,7 @@ nav a:hover {
 @media (max-width:767px) {
 nav .mtmegamenu {
 	display: none;
+        
 }
 }
 .mtmegamenu .menu-items {
@@ -3244,7 +3279,7 @@ nav .mtmegamenu {
 .mtmegamenu {
 	width: 100%;
 	position: relative;
-	margin: 48px 15px 15px;
+	margin: 0px 0px 0px 0px;
 	font-family: 'Poppins', Arial, Helvetica, sans-serif
 }
 .mtmegamenu a:focus {
@@ -3256,14 +3291,14 @@ nav .mtmegamenu {
 	margin: 0
 }
 .mtmegamenu>ul {
-	padding: 0;
-	text-align: left
+	padding-top: 10px;
+        text-align: left;
 }
 .mtmegamenu>ul>li {
 	display: inline-block;
 	font-size: 15px;
 	text-transform: uppercase;
-	margin-left: 15px;
+	margin-left: 10px;
 	background: none !important;
 	margin-right: 15px;
 }
@@ -3298,7 +3333,7 @@ nav .mtmegamenu {
 .mtmegamenu .mt-root-item {
 	float: left;
 	cursor: pointer;
-	overflow: hidden;
+	overflow: auto;
 	white-space: nowrap;
 	line-height: 55px;
 	letter-spacing: 0.5px;
@@ -3316,7 +3351,7 @@ nav .mtmegamenu {
 .mtmegamenu .mt-root-item .title .icon-has-sub {
 	font-size: 14px;
 	margin-left: 10px;
-	margin-top: 16px;
+	margin-top: 14px;
 	vertical-align: top
 }
 .mtmegamenu .menu-items .icon {
@@ -4892,7 +4927,28 @@ h2.saider-bar-title {
 	font-weight: 600;
 	border-bottom: 1px #ddd solid;
 	margin-bottom: 14px;
-	padding-bottom: 5px
+	padding-bottom: 5px;
+}
+
+h2.saider-bar-title2 {
+	color: #333333;
+	display: block;
+	font-size: 13px;
+	font-weight: 600;
+	border-bottom: 1px #ddd solid;
+	margin-bottom: 14px;
+	padding-bottom: 5px;
+	margin-left: 20px;
+}
+h2.saider-bar-title3 {
+	color: #333333;
+	display: block;
+	font-size: 13px;
+	font-weight: 600;
+	border-bottom: 1px #ddd solid;
+	margin-bottom: 14px;
+	padding-bottom: 5px;
+	margin-left: 40px;
 }
 /*24.5 shop by*/
 .shop-by-side {
@@ -6671,6 +6727,9 @@ p.note {
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 }
+.box-border ul li{
+	margin-top: 10px;
+}
 .checkout-page .box-border {
 	margin-bottom: 15px;
 }
@@ -8362,7 +8421,7 @@ footer .social h3 {
 .logo {
 	display: inherit;
 	margin-bottom: 0px;
-	margin-top: 15px;
+	margin-top: 0px;
 	text-align: center;
 }
 #search {
@@ -8926,8 +8985,17 @@ footer .social h3 {
 	width: 100%;
 }
 }
+
+.block-content h2{
+	cursor: pointer;
+}
+
 @media only screen and (min-width: 1201px) and (max-width: 1600px) {
 #newsletter-pop-up {
 	top: 22%;
 }
+}
+
+.meli{
+	background-color: red;
 }
