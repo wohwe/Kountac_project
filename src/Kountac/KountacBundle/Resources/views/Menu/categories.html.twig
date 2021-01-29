@@ -1,3 +1,18 @@
+<li class="mt-root">
+    <div class="mt-root-item">
+        <a href="#"><div class="title title_font"><span class="title-text">Idées look</span></div></a>
+    </div>
+    <ul class="menu-items col-xs-12">
+        {% for look in looks %}
+        <li class="menu-item depth-1 menucol-1-3 ">
+            <div class="title title_font"><a href="{{ path('idees_look', { 'look' : look.id}) }}">{{ look.nom }}</a></div>
+            <ul class="submenu">
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</li>
+   
 {% for categorie in categories %}
     <li class="mt-root">
         <div class="mt-root-item">
@@ -10,12 +25,24 @@
                 <ul class="submenu">
                     {% for souscategorie2 in souscategorie.children %}
                         <li class="menu-item">
-                            <div class="title"> <a href="{{ path('categorie_3', { 'categorie' : souscategorie2.id}) }}"> {{ souscategorie2.nom }} </a></div>
+                            <div class="title"> <a href="{{ path('categorie_2', { 'categorie' : souscategorie2.id}) }}"> {{ souscategorie2.nom }} </a></div>
                         </li>
                     {% endfor %}
+                    <li class="menu-item">
+                        <div class="title"> <a href="{{ path('new_categorie', { 'categorie' : souscategorie.id}) }}"> Nouveautés </a></div>
+                    </li>
+                    {% if categorie.nom == "Femmes" or categorie.nom == "Hommes"  %}
+                        {% set lien = categorie.nom|lower ~"_surmesure"~souscategorie.nom %}
+                        <li class="menu-item">
+                            <div class="title"> <a href="{{ path(lien) }}"> Sur mésure </a></div>
+                        </li>
+                    {% endif %}
+                    <li class="menu-item">
+                        <div class="title"> <a href="{{ path('best_categorie', { 'categorie' : souscategorie.id}) }}"> Déstockages </a></div>
+                    </li>
                 </ul>
             </li>
             {% endfor %}
-        </ul>
+          </ul>
     </li>
 {% endfor %}

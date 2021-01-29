@@ -49,11 +49,15 @@ class UtilisateursAdminController extends Controller
      */
     public function showAction(Utilisateurs $utilisateur)
     {
+        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        
+
+        $produits = $em->getRepository('KountacBundle:Produits_2')->getAllByGroup();
+
         return $this->render('utilisateurs/show.html.twig', array(
             'utilisateur' => $utilisateur,
             'user' => $user,
+            'produits' => $produits,
         ));
     }
 
@@ -71,6 +75,21 @@ class UtilisateursAdminController extends Controller
         
         return $this->redirectToRoute('adminUtilisateurs_index');
     }
+
+    /**
+     * Unverify an utilisateur account.
+     *
+     */
+    public function unverifyAction(Utilisateurs $utilisateur)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur->setVerifier(0);
+        $em->persist($utilisateur);
+        $em->flush();
+        $this->get('session')->getFlashBag()->add('success','Compte utilisateur bloqué avec succès');
+        
+        return $this->redirectToRoute('adminUtilisateurs_index');
+    }
     
     /**
      * Enabled an utilisateur account.
@@ -80,6 +99,21 @@ class UtilisateursAdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $utilisateur->setEnabled(1);
+        $em->persist($utilisateur);
+        $em->flush();
+        $this->get('session')->getFlashBag()->add('success','Compte utilisateur activé avec succès');
+        
+        return $this->redirectToRoute('adminUtilisateurs_index');
+    }
+    
+    /**
+     * Verify an utilisateur account.
+     *
+     */
+    public function verifyAction(Utilisateurs $utilisateur)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur->setVerifier(1);
         $em->persist($utilisateur);
         $em->flush();
         $this->get('session')->getFlashBag()->add('success','Compte utilisateur activé avec succès');

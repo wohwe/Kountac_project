@@ -2,10 +2,14 @@
 
 namespace Utilisateurs\UtilisateursBundle\Controller;
 
+use Kountac\KountacBundle\Entity\SousAchats;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 use Kountac\KountacBundle\Entity\Commandes;
+
+use \DateTime;
 
 class CommandeProController extends Controller
 {
@@ -19,7 +23,7 @@ class CommandeProController extends Controller
         $listesCommandes = $em->getRepository('KountacBundle:Commandes')->getCommandesByPro($user);
         
         $commandes  = $this->get('knp_paginator')->paginate($listesCommandes,$this->get('request')->query->get('page', 1),10);
-        return $this->render('FOSUserBundle:Profile:Pro/ListeMesCommande.html.twig', array(
+        return $this->render('FOSUserBundle:Profile:Pro/listeMesCommande.html.twig', array(
             'commandes' => $commandes,
             'user' => $user,
             'euro' => $this->getRequest()->getSession()->get('euro'),
@@ -29,19 +33,24 @@ class CommandeProController extends Controller
             'cfa' => $this->getRequest()->getSession()->get('cfa')
         ));
     }
-    
+
     /**
-     * List of all commands.
+     * List of sous achat.
      */
-    /*
-    public function allAction()
+    public function sousAchatAction()
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        $listesCommandes = $em->getRepository('KountacBundle:Commandes')->getAllCommandesByPro($user);
-        
+        $listesCommandes = $em->getRepository('KountacBundle:SousAchats')->getAchatsByIdUser($user->getId());
+
+        //var_dump($listesCommandes);
+
+        $currentDate = date("d/m/Y");
+
+        $this->get('session')->set('currentDate',$currentDate);
+
         $commandes  = $this->get('knp_paginator')->paginate($listesCommandes,$this->get('request')->query->get('page', 1),10);
-        return $this->render('FOSUserBundle:Profile:Pro/ListeCommande.html.twig', array(
+        return $this->render('FOSUserBundle:Profile:Pro/listeMesSousAchat.html.twig', array(
             'commandes' => $commandes,
             'user' => $user,
             'euro' => $this->getRequest()->getSession()->get('euro'),
@@ -51,11 +60,149 @@ class CommandeProController extends Controller
             'cfa' => $this->getRequest()->getSession()->get('cfa')
         ));
     }
-    */
-    
+
     /**
-     * Finds and displays a Commandes entity.
+     * List of sous achat.
      */
+    public function sousAchatByIdAction($id)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $listesCommandes = $em->getRepository('KountacBundle:SousAchats')->getAchatsById($id);
+
+        //var_dump($listesCommandes);
+        $currentDate = date("d/m/Y");
+
+        $probaDate = new DateTime();
+        $probaDate->setDate(date('Y'), date('m'), date('d'));
+
+        $newDate = $probaDate->modify('+1 days');
+
+        $this->get('session')->set('currentDate',$currentDate);
+        $this->get('session')->set('deliveryDate',$newDate);
+        
+        $commandes  = $this->get('knp_paginator')->paginate($listesCommandes,$this->get('request')->query->get('page', 1),10);
+        return $this->render('FOSUserBundle:Profile:Pro/listeMesSousAchatDetails.html.twig', array(
+            'commandes' => $commandes,
+            'user' => $user,
+            'euro' => $this->getRequest()->getSession()->get('euro'),
+            'livre' => $this->getRequest()->getSession()->get('livre'),
+            'usa' => $this->getRequest()->getSession()->get('usa'),
+            'naira' => $this->getRequest()->getSession()->get('naira'),
+            'cfa' => $this->getRequest()->getSession()->get('cfa')
+        ));
+    }
+
+    /**
+     * Accept of sous achat.
+     */
+    public function accepterSousAchatAction(SousAchats $sousAchat)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $sousAchat->setAccepter(1);
+        $sousAchat->setStatut("Accepter");
+        $em->persist($sousAchat);
+        $em->flush();
+
+        //Ici le mail de validation
+        $message = \Swift_Message::newInstance()
+                ->setSubject('Commandes acceptées')
+                ->setFrom(array('contact@kountac.fr' => "Kountac"))
+                ->setTo($sousAchat->getUtilisateur()->getEmailCanonical())
+                ->setCharset('utf-8')
+                ->setContentType('text/html')
+                ->setBody($this->renderView('UtilisateursBundle:Default:SwiftLayout/validationSousAchat.html.twig',array('utilisateur' => $sousAchat->getUtilisateur())));
+        
+        $this->get('mailer')->send($message);
+
+        $currentDate = date("d/m/Y");
+
+        $this->get('session')->set('currentDate',$currentDate);
+
+        $this->get('session')->getFlashBag()->add('success','Vous avez accepté la commande');
+        
+        return $this->redirectToRoute('details_sous_achat', array('id' => $sousAchat->getId()));
+    }
+
+    public function livraisonSousAchatAction(SousAchats $sousAchat)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $sousAchat->setLivraison(1);
+        $em->persist($sousAchat);
+        $em->flush();
+
+
+        $currentDate = date("d/m/Y");
+
+        $this->get('session')->set('currentDate',$currentDate);
+
+        return new Response('ok');
+        
+    }
+
+    
+    public function disableLivraisonSousAchatAction(SousAchats $sousAchat)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $sousAchat->setLivraison(0);
+        $em->persist($sousAchat);
+        $em->flush();
+
+
+        $currentDate = date("d/m/Y");
+
+        $this->get('session')->set('currentDate',$currentDate);
+
+        return new Response('ok');
+        
+    }
+
+    public function delaiLivraisonSousAchatAction($nbr)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $currentDate = date("d/m/Y");
+
+        $probaDate = new DateTime();
+        $probaDate->setDate(date('Y'), date('m'), date('d'));
+
+        $newDate = $probaDate->modify('+'.$nbr.' days');
+
+        $this->get('session')->set('currentDate',$currentDate);
+        $this->get('session')->set('deliveryDate',$newDate);
+
+        return new Response($newDate->format("d/m/Y"));
+        
+    }
+
+
+    public function expedierLivraisonSousAchatAction(SousAchats $sousAchat)
+    {
+        $currentDate = date("Y-m-d");
+
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $sousAchat->setExpedier(1);
+        $sousAchat->setStatut("Expedier");
+        $sousAchat->setDate_expedition($currentDate);
+        $sousAchat->setDate_reception($this->get('session')->get('deliveryDate')->format("Y-m-d"));
+        $em->persist($sousAchat);
+        $em->flush();
+
+        $countSousAchat = $em->getRepository('KountacBundle:SousAchats')->getSousAchatsCount($user->getId());
+        $this->get('session')->set('nbrSousAchat', count($countSousAchat));
+
+
+        $this->get('session')->set('currentDate',$currentDate);
+
+        return $this->redirectToRoute('sous_achat_pro_index');
+    }
+    
+    
     public function showAction(Request $request, Commandes $commande)
     {
         $user = $this->getUser();
@@ -146,4 +293,40 @@ class CommandeProController extends Controller
         
         return $this->redirectToRoute('commande_pro_index');
     }
+
+    public function echeanceSousAchatAction(SousAchats $sousAchat){
+
+        $currentDate = date("Y-m-d");
+        $dateReception = $sousAchat->getDate_reception();
+
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $diff = abs($dateReception - $currentDate); // abs pour avoir la valeur absolute, ainsi éviter d'avoir une différence négative
+        $retour = array();
+
+        $tmp = $diff;
+        $retour['second'] = $tmp % 60;
+
+        $tmp = floor( ($tmp - $retour['second']) /60 );
+        $retour['minute'] = $tmp % 60;
+
+        $tmp = floor( ($tmp - $retour['minute'])/60 );
+        $retour['hour'] = $tmp % 24;
+
+        $tmp = floor( ($tmp - $retour['hour'])  /24 );
+        $retour['day'] = $tmp;
+
+        echo json_encode($retour);
+
+        /*
+        $now = time();
+        $nextM = strtotime('next monday');
+        $tps_restant = dateDiff($nextM,$now) ;
+        echo "<br>";
+        Echo "Il reste : " .$tps_restant['day'] ." jours " .$tps_restant['hour'] ." Heures " .$tps_restant['minute'] ." minutes " .$tps_restant['second'] ." secondes " ;
+        */
+    }
+
+
 }

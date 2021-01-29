@@ -1,0 +1,59 @@
+{% if commande.produit.allprixCommande %}
+    <tr>
+        <td class="compare-label">Prix</td>
+        <td class="price">{{ commande.produit.allprixCommande|number_format(2) }} €</td>
+
+    </tr>
+    <tr>
+        <td class="compare-label">Accepté le</td>
+        <td><a>{% if commande.dateacceptation %}{{ commande.dateacceptation|date('d-m-Y') }}{% endif %}</a></td>
+    </tr>
+
+    {% if not commande.acheter %}
+        <tr>
+            <td class="compare-label">Etat</td>
+            <td class="availability out-of-stock">
+                <div class="col-sm-6">
+                    <span class="label">{{ ('non payé')|upper }}</span>                                                    
+                </div>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td class="compare-label">Etat</td>
+            <td class="availability in-stock">
+                <div class="col-sm-6">
+                    <span class="label">{{ ('acheté')|upper }}</span> 
+                </div>                                                   
+            </td>
+        </tr>
+        <tr>
+            <td class="compare-label">Acheté le</td>
+            <td><a>{% if commande.dateachat %}{{ commande.dateachat|date('d M Y') }}{% endif %}</a></td>
+        </tr>
+    {% endif %}
+
+{% else %}
+    <tr>
+        <td class="compare-label">Etat</td>
+        <td class="price">Pas de prix pour une commande sur mesure</td>
+    </tr>
+    <tr>
+        <td class="compare-label">Ajouter prix</td>
+        <td class="availability out-of-stock">
+            <form action="{{ path('commande_pro_show', { 'id' : commande.id }) }}" method="POST">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form) }}                                                   
+                </div>
+                <div class="col-sm-6">
+                    <a href ="" title='Entrer le prix pour cette commande'> 
+                        <button type="submit"><i class="fa fa-check"> </i>&nbsp; Ajouter prix &nbsp;</button>
+                    </a>
+                </div>
+                {{ form_end(form) }}
+            </form>
+        </td>
+    </tr>
+{% endif %}

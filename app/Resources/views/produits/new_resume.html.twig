@@ -66,10 +66,12 @@
                             *****************************************************************************************************
                             <br>
                             <label><img src="{{ produit2.libelle.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; &nbsp;&nbsp; &nbsp;{{ produit2.libelle.libelle|upper }}</label> {% if produit2.reduction ==  0 %} (Pas de réduction) {% else %} (Réduction - {{ produit2.reduction }}%) {% endif %}
+                            <br>
+                            <label><img src="{{ produit2.mannequin.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; &nbsp;&nbsp; &nbsp;{{ produit2.mannequin.nomMannequin|upper }}</label> (taille standard: {{ produit2.mannequin.tailleStandardMannequin }}, poids: {{ produit2.mannequin.poidsMannequin }}Kg, Taille: {{ produit2.mannequin.tailleMannequin }}m) 
                             <br><br>
                             <li class="row">
                                 <div class="col-sm-3">
-                                    Disponible en Europe? : {% if produit2.europrix %}OUI {% else %}NON {% endif %}
+                                    Disponible en France? : {% if produit2.europrix %}OUI {% else %}NON {% endif %}
                                 </div>
                                 {% if produit2.europrix %}
                                 <div class="col-sm-2">
@@ -83,16 +85,29 @@
                                 {% else %}
                                     Pas de commande sur mesure pour ce produit
                                 {% endif %}
-                                {% if produit2.europrix %}
-                                <div class="col-sm-4">
-                                    Pays : {{ produit2.europays|join(', ') }}
+                            </li>
+                            <br><br>
+                            <li class="row">
+                                <div class="col-sm-3">
+                                    Disponible en Allemagne? : {% if produit2.allprix %}OUI {% else %}NON {% endif %}
                                 </div>
+                                {% if produit2.allprix %}
+                                <div class="col-sm-2">
+                                    Prix : {{ produit2.allprix }} €
+                                </div>
+                                {% endif %}
+                                {% if produit2.allprixCommande %}
+                                    <div class="col-sm-3">
+                                        Prix commande : {{ produit2.allprixCommande }} €
+                                    </div>
+                                {% else %}
+                                    Pas de commande sur mesure pour ce produit
                                 {% endif %}
                             </li>
                             <br><br>
                             <li class="row">
                                 <div class="col-sm-3">
-                                    Disponible au Royaume uni? : {% if produit2.livreprix %}OUI {% else %}NON {% endif %}
+                                    Disponible en Angleterre? : {% if produit2.livreprix %}OUI {% else %}NON {% endif %}
                                 </div>
                                 {% if produit2.livreprix %}
                                 <div class="col-sm-2">
@@ -106,16 +121,11 @@
                                 {% else %}
                                     Pas de commande sur mesure pour ce produit
                                 {% endif %}
-                                {% if produit2.livreprix %}
-                                <div class="col-sm-4">
-                                    Pays : {{ produit2.livrepays|join(', ') }}
-                                </div>
-                                {% endif %}
                             </li>
                             <br><br>
                             <li class="row">
                                 <div class="col-sm-3">
-                                    Disponible aux Amériques? : {% if produit2.usaprix %}OUI {% else %}NON {% endif %}
+                                    Disponible aux Etats-unis d'Amérique? : {% if produit2.usaprix %}OUI {% else %}NON {% endif %}
                                 </div>
                                 {% if produit2.usaprix %}
                                 <div class="col-sm-2">
@@ -129,16 +139,11 @@
                                 {% else %}
                                     Pas de commande sur mesure pour ce produit
                                 {% endif %}
-                                {% if produit2.usaprix %}
-                                <div class="col-sm-4">
-                                    Pays : {{ produit2.usapays|join(', ') }}
-                                </div>
-                                {% endif %}
                             </li>
                             <br><br>
                             <li class="row">
                                 <div class="col-sm-3">
-                                    Disponible en Afrique? : {% if produit2.cfaprix %}OUI {% else %}NON {% endif %}
+                                    Disponible au Cameroun? : {% if produit2.cfaprix %}OUI {% else %}NON {% endif %}
                                 </div>
                                 {% if produit2.cfaprix %}
                                 <div class="col-sm-2">
@@ -151,11 +156,6 @@
                                     </div>
                                 {% else %}
                                     Pas de commande sur mesure pour ce produit
-                                {% endif %}
-                                {% if produit2.cfaprix %}
-                                <div class="col-sm-4">
-                                    Pays : {{ produit2.cfapays|join(', ') }}
-                                </div>
                                 {% endif %}
                             </li>
                             <br><br>

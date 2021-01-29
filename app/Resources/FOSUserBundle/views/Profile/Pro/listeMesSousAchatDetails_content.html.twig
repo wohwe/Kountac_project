@@ -1,0 +1,297 @@
+<div class="breadcrumbs">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <ul>
+            <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Home</a><span>&raquo;</span></li>
+            <li class="home"> <a title="Aller à mon profil professionnel" href="{{ path('pro_user_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+            <li><strong>Mes achats client acceptées</strong></li>
+          </ul>
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert-box">
+                <br><br>
+                {{ flashMessage }}
+                <br><br>
+            </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout" >
+  <div class="main container">
+    <div class="row">
+      <div class="col-main col-sm-9 col-xs-12">
+        <div class="col-main">
+                <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                            {% if commandes|length != 0 %}
+                                <h2>Détails de l'achatss "{{ commandes[0].achat.reference }}" &nbsp;&nbsp;{% if user.sexe %}Mme.{% else %}M.{% endif %} {{ user.prenom|capitalize }} {{ user.nom|capitalize }}</h2>
+                            {% endif %}
+                        </div>
+
+                        <div class="order-detail-content">
+                        {% if commandes|length == 0 %}
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td><center><h1>Liste d'achats client en instance vide. Aucun achat en instance à afficher</h1></center></td>
+                                    </tr>
+                                </table>
+                            </div>  
+                        {% else %}
+                            <div class="table-responsive mytab" data-achat="{{ commandes[0].id }}">
+                                <div class="col-lg-5">
+                                    <img class="cart_product" src="../../../uploadProduits/{{ commandes[0].achat.image.path }}">
+                                </div>
+                                <div class="col-lg-6">
+                                    <table class="table table-bordered cart_summary">
+                                        <tr>
+                                            <td class="cart_product">Reférence</td>
+                                            <td class="cart_product">{{ commandes[0].achat.reference }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Quantité</td>
+                                            <td class="cart_product">{{ commandes[0].achat.quantite }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Taille</td>
+                                            <td class="cart_product">{{ commandes[0].achat.taille }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Prix</td>
+                                            <td class="cart_product">{{ commandes[0].achat.prix }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Date</td>
+                                            <td class="cart_product">{{ commandes[0].date.date|date("d/m/Y") }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Accepter</td>
+                                            <td class="cart_product">
+                                                {% set etat = "" %}
+                                                {% if commandes[0].accepter == 1 %}
+                                                    {% set etat = "checked disabled" %}
+                                                {% else %}
+                                                    {% set etat = "" %}
+                                                {% endif %}
+                                                <input class="form-control accepter" type="checkbox" {{ etat }} data-toggle="toggle">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_product">Adresse/Contact de livraison</td>
+                                            <td class="cart_product">{{ commandes[0].utilisateur.adresse ~ ", " ~ commandes[0].utilisateur.rue ~ ", " ~ commandes[0].utilisateur.ville ~ ", CP : " ~ commandes[0].utilisateur.cp ~ ", Tel : " ~ commandes[0].utilisateur.telephone}}</td>
+                                        </tr>
+                                        {% if commandes[0].accepter == 1 %}
+                                        <tr>
+                                            <td class="cart_product">Livraison gérée par Kountac</td>
+                                            <td class="cart_product">
+                                                {% set check = "" %}
+                                                {% if commandes[0].livraison == 1 %}
+                                                    {% set check = "checked" %}
+                                                {% else %}
+                                                    {% set check = "" %}
+                                                {% endif %}
+                                                {% if commandes[0].expedier == 1 %}
+                                                    {% set statut = "disabled" %}
+                                                {% else %}
+                                                    {% set statut = "" %}
+                                                {% endif %}
+                                                <input class="form-control livraison" type="checkbox" data-check="{{ check }}" {{ check ~ " " ~ statut }} data-toggle="toggle">
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        {% set display = "disabled" %}
+                                        {% if commandes[0].livraison != 1 %}
+                                            {% set display = "" %}
+                                        {% endif %}
+                                        {% if commandes[0].expedier == 1 %}
+                                            {% set statut = "disabled" %}
+                                        {% else %}
+                                            {% set statut = "" %}
+                                        {% endif %}
+
+                                        {% if commandes[0].accepter == 1 %}
+                                            {% if commandes[0].expedier != 1 %}
+                                                <tr class="div">
+                                                    <td class="cart_product">Délai de livraison (Jours)</td>
+                                                    <td class="cart_product">
+                                                        <form data-achat="{{ commandes[0].id }}">
+                                                            <select {{ display ~ " " ~ statut }} class="form-control selectDelai">
+                                                                {% for i in 1..30 %}
+                                                                    <option value="{{i}}">{{i}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                            <tr class="div">
+                                                <td class="cart_product">Date d'expédition en cour</td>
+                                                <td class="cart_product">
+                                                    {% if commandes[0].expedier == 1 %}
+                                                        {{ commandes[0].date_expedition|date("d/m/Y") }}
+                                                    {% else %}
+                                                        {{app.session.get('currentDate')}}
+                                                    {% endif %}
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr class="div">
+                                                <td class="cart_product">Date de reception probable</td>
+                                                <td class="cart_product delai" data-delai="">
+                                                    {% if commandes[0].expedier == 1 %}
+                                                        {{ commandes[0].date_reception|date("d/m/Y") }}
+                                                    {% else %}
+                                                        {{app.session.get('currentDate')}}
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="cart_product">Expédier </td>
+                                                <td class="cart_product">
+                                                    {% set check = "" %}
+                                                    {% if commandes[0].expedier == 1 %}
+                                                        {% set check = "checked disabled" %}
+                                                    {% else %}
+                                                        {% set check = "" %}
+                                                    {% endif %}
+
+                                                    {% set isLivraison = "" %}
+                                                    {% if commandes[0].livraison == 1 %}
+                                                        {% set isLivraison = "" %}
+                                                    {% else %}
+                                                        {% set isLivraison = "disabled" %}
+                                                    {% endif %}
+                                                    <input class="form-control expedier" {{ isLivraison }} type="checkbox"  data-achat="{{ commandes[0].id }}" data-check="{{ check }}" {{ check }} data-toggle="toggle">
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    </table>
+                                </div>
+                            </div>
+                        <div class="pagination-area ">
+                        </div>
+                            <center>
+                                {{ knp_pagination_render(commandes) }}
+                            </center>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <aside class="right sidebar col-sm-3 col-xs-12">
+        {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
+        <br><br>
+        {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+      </aside>
+    </div>
+  </div>
+  </section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="../../../../js/ajax.js"></script>
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<script type="text/javascript">
+    (function(){
+
+        $('select').on('change', function() {
+            delai($('form').data('achat'), this.value);
+        });
+        $('.livraison').on('change', function() {
+            if ($('.livraison').data("check")) {
+                disable_livraison($('.mytab').data('achat'));
+                $('.livraison').data("check", "");
+                $(".selectDelai").removeAttr( "disabled" );
+            }else{
+                enable_livraison($('.mytab').data('achat'));
+                $('.livraison').data("check", "checked");
+            }
+        });
+        $('.expedier').on('change', function() {
+            document.location.href="expedier_livraison/"+$(".mytab").data("achat"); 
+        });
+        $('.accepter').on('change', function() {
+            document.location.href="accepter/"+$(".mytab").data("achat");  
+        });
+        function delai(id, nbr){
+            getData({
+                url:"delai_livraison/"+nbr,
+                method: "GET",
+                async:true,
+                onBegin:function(){
+
+                },
+                onSuccess: function(e){
+                    $(".delai").text(e);
+                    $(".delai").data("delai", e);
+                    $(".expedier").removeAttr("disabled");
+                }
+            });
+        }
+        function expedier(id){
+            getData({
+                url:"expedier_livraison/"+id,
+                method: "GET",
+                async:true,
+                onBegin:function(){
+
+                },
+                onSuccess: function(e){
+
+                }
+            });
+        }
+        function disable_livraison(id){
+            getData({
+                url:"disable_livraison/"+id,
+                method: "GET",
+                async:true,
+                onBegin:function(){
+                    
+                },
+                onSuccess: function(e){
+                    $(".div").fadeIn();
+                    location.reload();
+                }
+            });
+        }
+        function enable_livraison(id){
+            getData({
+                url:"livraison/"+id,
+                method: "GET",
+                async:true,
+                onBegin:function(){
+
+                },
+                onSuccess: function(e){
+                    $(".div").fadeOut();
+                    $(".expedier").removeAttr("disabled");
+                }
+            });
+        }
+
+
+        setInterval(compteRebours($('.mytab').data('achat')), 1000);
+        function compteRebours(id){
+            getData({
+                url:"compteRebours/"+id,
+                method: "GET",
+                async:true,
+                onBegin:function(){
+                    console.log("begin compte");
+                },
+                onSuccess: function(e){
+                    var data = JSON.parse(e);
+                    console.log(data);
+                }
+            });
+        }
+    })();
+</script>

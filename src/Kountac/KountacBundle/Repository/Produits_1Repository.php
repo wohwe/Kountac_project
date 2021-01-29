@@ -12,6 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class Produits_1Repository extends EntityRepository
 {
+    public function findByRand() 
+    {
+        return  $this->createQueryBuilder('u')
+            ->addSelect('RAND() as HIDDEN rand')
+            ->addOrderBy('rand')
+            ->getQuery()
+            ->getResult();
+
+        /*$qb = $this->createQueryBuilder('u')
+                ->select('u')
+                ->orderBy('rand');
+        return $qb->getQuery()->getResult();*/
+    }
+
     public function byCategorie($categorie) 
     {
         $qb = $this->createQueryBuilder('u')
@@ -88,7 +102,8 @@ class Produits_1Repository extends EntityRepository
                 ->select('u')
                 ->where('u.stock >= :seuil')
                 ->orderBy('u.id', 'DESC')
-                ->setParameter('seuil', '1');
+                ->setParameter('seuil', '1')
+                ->setMaxResults(10);
         return $qb->getQuery()->getResult();
     }
     

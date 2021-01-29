@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class Libelles_motifRepository extends EntityRepository
 {
+    public function findByNouveaute() 
+    {
+        $qb = $this->createQueryBuilder('u')
+                ->select('u')
+                ->orderBy('u.id', 'DESC')
+                ;
+        return $qb->getQuery()->getResult();
+    }
 }

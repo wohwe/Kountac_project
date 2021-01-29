@@ -1,6 +1,6 @@
 {% set totalPanier = 0 %}
-{% set totalPanier2 = 0 %}
-<div>
+        {% set totalPanier2 = 0 %}
+    <div>
         <div class="breadcrumbs">
             <div class="container">
                 <div class="row">
@@ -78,7 +78,7 @@
                             <div>
                                 <table>
                                     <tr>
-                                        <td><center><h1>Panier Vide !! Aucun produits</h1></center></td>
+                                        <td><center><h1>Panier vide. Aucun produit</h1></center></td>
                                     </tr>
                                 </table>
                                 <div class="cart_navigation"> <a class="continue-btn" href="{{ path('all_products') }}"><i class="fa fa-arrow-left"> </i>&nbsp; Ajouter d'autres produits</a> </div>
@@ -102,7 +102,15 @@
                                             {% set prixReduction = 0 %}
                                             {% set prixReduction = produit.produit2.usaprix - (produit.produit2.usaprix * produit.produit2.reduction/100) %}
                                             <tr>
-                                                <td class="cart_product"><a href="{{ path('product', {'id' : produit.produit2.id}) }}"><img src="{{ produit.produit2.picture.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></a></td>
+                                                <td class="cart_product">
+                                                    <a href="{{ path('product', {'id' : produit.produit2.id}) }}">
+                                                        {% for image in images %}
+                                                            {% if image.produit2 == produit.produit2 and image.top == 0 %}
+                                                                <img src="../{{ image.AssetPath }}" alt="">
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </a>
+                                                </td>
                                                 <td class="cart_description"><p class="product-name">{{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }}</p><br>
                                                     <small><a><u>Description</u> : {{ produit.produit2.produit1.description|capitalize|truncate(100, false, ' ...') }}</a></small><br>
                                                     <small><a><u>Matière</u> : {{ produit.produit2.produit1.matiere|capitalize }}</a></small><br>
@@ -176,4 +184,3 @@
             </div>
         </div>
     </section>
-    <!-- service section -->

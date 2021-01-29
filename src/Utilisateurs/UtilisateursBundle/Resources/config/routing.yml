@@ -26,6 +26,10 @@ kountac_reservation_pro:
     resource: "@UtilisateursBundle/Resources/config/routingReservationPro.yml"
     prefix:   /profile_pro/Reservations/
     
+kountac_mannequin_pro:
+    resource: "@UtilisateursBundle/Resources/config/routingMannequinsPro.yml"
+    prefix:   /profile_pro/Mannequins/
+    
 kountac_checkout:
     resource: "@UtilisateursBundle/Resources/config/routingCheckout.yml"
     prefix:   /profile/checkout/

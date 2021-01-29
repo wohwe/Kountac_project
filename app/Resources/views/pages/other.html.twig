@@ -1,0 +1,29 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% block title %}
+    {% for page in pages %}
+        {{ page.titre|capitalize }}     
+    {% endfor %}
+  
+{% endblock %}
+ 
+{% block meta %}
+  <meta name="description" content="{% for page in pages %} {{ page.contenu }} {% endfor %}" />
+{% endblock %}
+
+{% block body %}
+    
+    <section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-12 col-xs-12">
+                <div class="col-main">
+                    {% for page in pages %}
+                        {{ page.contenu | raw}}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+{% endblock %}

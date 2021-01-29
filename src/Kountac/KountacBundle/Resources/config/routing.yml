@@ -1,10 +1,19 @@
 kountac_homepage:
     path:     /homepage
     defaults: { _controller: KountacBundle:Homepage:index }
+
+localisation:
+    path:     /localisation
+    defaults: { _controller: KountacBundle:Homepage:localisation }
+    methods:  GET
     
 kountac_homepage_index:
     path:     /
-    defaults: { _controller: KountacBundle:Homepage:index_euro }
+    defaults: { _controller: KountacBundle:Homepage:index }
+    
+pages:
+    path:     /page/{valeur}
+    defaults: { _controller: KountacBundle:PagesAdmin:affiche }
 
 kountac_newsletter:
     path:   /newsletter_subscribe
@@ -30,6 +39,10 @@ kountac_produits:
     resource: "@KountacBundle/Resources/config/routingProduits.yml"
     prefix:   /Product/
     
+kountac_reservations:
+    resource: "@KountacBundle/Resources/config/routingReservations.yml"
+    prefix:   /Reserve/
+    
 kountac_adminCategories:
     resource: "@KountacBundle/Resources/config/routingAdmin/categories.yml"
     prefix:   /admin/adminCategories/
@@ -50,18 +63,10 @@ kountac_adminAchats:
     resource: "@KountacBundle/Resources/config/routingAdmin/achats.yml"
     prefix:   /admin/adminAchats/
     
-kountac_adminPaysCfa:
-    resource: "@KountacBundle/Resources/config/routingAdmin/payscfa.yml"
-    prefix:   /admin/adminPaysCfa/
+kountac_adminNewsletters:
+    resource: "@KountacBundle/Resources/config/routingAdmin/newsletters.yml"
+    prefix:   /admin/Newsletters/
     
-kountac_adminPaysEuro:
-    resource: "@KountacBundle/Resources/config/routingAdmin/payseuro.yml"
-    prefix:   /admin/adminPaysEuro/
-    
-kountac_adminPaysUsa:
-    resource: "@KountacBundle/Resources/config/routingAdmin/paysusa.yml"
-    prefix:   /admin/adminPaysUsa/
-    
-kountac_adminPaysLivre:
-    resource: "@KountacBundle/Resources/config/routingAdmin/payslivre.yml"
-    prefix:   /admin/adminPaysLivre/
+kountac_adminPages:
+    resource: "@KountacBundle/Resources/config/routingAdmin/pages.yml"
+    prefix:   /admin/Pages/

@@ -9,13 +9,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  *
  */
 class AchatsAdminController extends Controller
-{
+{      
     /**
      * Lists all achat entities.
      *
      */
     public function indexAction()
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
@@ -27,12 +29,13 @@ class AchatsAdminController extends Controller
             'achats' => $achats, 
             'user' => $user,
             'euro' => $this->getRequest()->getSession()->get('euro'),
+            'all' => $this->getRequest()->getSession()->get('all'),
             'livre' => $this->getRequest()->getSession()->get('livre'),
             'usa' => $this->getRequest()->getSession()->get('usa'),
             'naira' => $this->getRequest()->getSession()->get('naira'),
             'cfa' => $this->getRequest()->getSession()->get('cfa')
         ));
-    }
+    }   
     
     /**
      * Deletes an achat entity.
@@ -40,6 +43,8 @@ class AchatsAdminController extends Controller
      */
     public function deleteAction($id)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $achat = $em->getRepository('KountacBundle:Achats')->find($id);
         

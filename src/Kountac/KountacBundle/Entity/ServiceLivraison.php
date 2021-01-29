@@ -27,14 +27,6 @@ class ServiceLivraison
      * @ORM\Column(name="nom", type="string", length=250, nullable=true)
      */
     private $nom;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
-
 
     /**
      * Get id
@@ -75,49 +67,4 @@ class ServiceLivraison
         return $this->getNom();
     }
 
-    /**
-     * Set livraison
-     *
-     * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $livraison
-     * @return ServiceLivraison
-     */
-    public function setLivraison(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $livraison = null)
-    {
-        $this->livraison = $livraison;
-
-        return $this;
-    }
-
-    /**
-     * Get livraison
-     *
-     * @return \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs 
-     */
-    public function getLivraison()
-    {
-        return $this->livraison;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return ServiceLivraison
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
 }

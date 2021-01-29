@@ -59,9 +59,12 @@ doctrine:
         charset:  UTF8
         
     orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_generate_proxy_classes: false
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        dql:
+            numeric_functions:
+                Rand: Kountac\KountacBundle\DQL\RandFunction
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -87,6 +90,8 @@ fos_user:
     from_email:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"
+    service:
+        mailer: fos_user.mailer.twig_swift
 
 # knp_paginator Configuration
 knp_paginator:
@@ -109,11 +114,29 @@ liip_imagine:
     filter_sets:
         cache: ~
                 
+        resizeThumb:
+            quality: 100
+            filters:
+                thumbnail: { size: [1000, 1500], mode: outbound }
+                background: {size: [1000, 1500], position : center, color : '#000000'}
+
+
         produitThumb:
-            quality: 80
+            quality: 100
             filters:
                 thumbnail: { size: [350, 350], mode: inset }
-                
+        
+        produitphare:
+            quality: 85
+            filters:
+                thumbnail: { size: [270, 490], mode: inset  }
+        
+              
+        produitpopulaire:
+            quality: 85
+            filters:
+                thumbnail: { size: [370, 370], mode: inset  }
+        
         produitAllThumb:
             quality: 80
             filters:
@@ -148,6 +171,11 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [115, 115], mode: inset }
+        
+        PanierLogo:
+            quality: 100
+            filters:
+                thumbnail: { size: [55, 55], mode: inset }
                 
         cartThumbMenuItem:
             quality: 100
@@ -189,6 +217,16 @@ liip_imagine:
             filters:
                 thumbnail: { size: [25, 25], mode: inset }
                 
+        imagesMarquesThumb:
+            quality: 95
+            filters:
+                thumbnail: { size: [35, 35], mode: inset }
+        
+        marquePhotoProfil:
+            quality: 100
+            filters:
+                thumbnail: { size: [323, 242], mode: inset }
+                
         photoProfilThumb:
             quality: 95
             filters:
@@ -198,3 +236,38 @@ liip_imagine:
             quality: 85
             filters:
                 thumbnail: { size: [200, 200], mode: inset  }
+
+
+stfalcon_tinymce:
+        include_jquery: true
+        tinymce_jquery: true
+        selector: ".tinymce"
+        base_url: "http://yourdomain.com/" # this parameter may be included if you need to override the assets_base_urls for your template engine (to override a CDN base url)
+        # Get current language from the parameters.ini
+        language: %locale%
+        # Custom buttons
+        tinymce_buttons:
+            stfalcon: # Id of the first button
+                title: "Stfalcon"
+                image: "http://stfalcon.com/favicon.ico"
+        theme:
+            # Simple theme: same as default theme
+            simple: ~
+            # Advanced theme with almost all enabled plugins
+            advanced:
+                plugins:
+                    - "advlist autolink lists link image charmap print preview hr anchor pagebreak"
+                    - "searchreplace wordcount visualblocks visualchars code fullscreen"
+                    - "insertdatetime media nonbreaking save table contextmenu directionality"
+                    - "emoticons template paste textcolor"
+                toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+                toolbar2: "print preview media | forecolor backcolor emoticons | stfalcon | example"
+                image_advtab: true
+                templates:
+                    - {title: 'Test template 1', content: 'Test 1'}
+                    - {title: 'Test template 2', content: 'Test 2'}
+            # BBCode tag compatible theme (see http://www.bbcode.org/reference.php)
+            bbcode:
+                plugins: ["bbcode, code, link, preview"]
+                menubar: false
+                toolbar1: "bold,italic,underline,undo,redo,link,unlink,removeformat,cleanup,code,preview"

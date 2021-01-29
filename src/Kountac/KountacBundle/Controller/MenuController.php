@@ -4,7 +4,9 @@ namespace Kountac\KountacBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Kountac\KountacBundle\Form\NewsletterType;
+use Kountac\KountacBundle\Form\NewslettersType;
+use Kountac\KountacBundle\Form\Taille_PoidsType;
+
 
 class MenuController extends Controller
 {
@@ -13,16 +15,19 @@ class MenuController extends Controller
     {
         $em = $this->container->get('doctrine');
         $categories = $em->getRepository('KountacBundle:Categories')->getCategoriesByName();
+        $looks = $em->getRepository('KountacBundle:Idees_looks')->findAll();
         
-        return $this->render('KountacBundle:Menu:categories.html.twig', array('categories' => $categories));
+        return $this->render('KountacBundle:Menu:categories.html.twig', array('categories' => $categories,'looks' => $looks));
     }
     
     public function categorieAdminAction()
     {
         $em = $this->container->get('doctrine');
+        $looks = $em->getRepository('KountacBundle:Idees_looks')->findAll();
         $categories = $em->getRepository('KountacBundle:Categories')->getCategoriesByName();
         
-        return $this->render('KountacBundle:Menu:categoriesAdmin.html.twig', array('categories' => $categories));
+        
+        return $this->render('KountacBundle:Menu:categoriesAdmin.html.twig', array('categories' => $categories,'looks' => $looks,));
     }
     
     public function produitsPopulairesMenuAction()
@@ -32,6 +37,7 @@ class MenuController extends Controller
         
         return $this->render('KountacBundle:Menu:populaires.html.twig', array(  'produitsPopulaires' => $produitsPopulaires,
                                                                                 'euro' => $this->getRequest()->getSession()->get('euro'),
+                                                                                'all' => $this->getRequest()->getSession()->get('all'),                                                                    
                                                                                 'livre' => $this->getRequest()->getSession()->get('livre'),
                                                                                 'usa' => $this->getRequest()->getSession()->get('usa'),
                                                                                 'naira' => $this->getRequest()->getSession()->get('naira'),
@@ -42,8 +48,9 @@ class MenuController extends Controller
     {
         $em = $this->container->get('doctrine');
         $categories = $em->getRepository('KountacBundle:Categories')->getCategoriesByName();
-
-        return $this->render('KountacBundle:Menu:categoriesMobile.html.twig', array('categories' => $categories));
+        $looks = $em->getRepository('KountacBundle:Idees_looks')->findAll();
+        
+        return $this->render('KountacBundle:Menu:categoriesMobile.html.twig', array('categories' => $categories,'looks' => $looks,));
     }
     
     public function headerLinkAction()
@@ -68,7 +75,6 @@ class MenuController extends Controller
     public function menuPendingAchatAction()
     {
         $session = $this->getRequest()->getSession();
-        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();        
         $achat = $session->get('achat');        
            
@@ -78,28 +84,95 @@ class MenuController extends Controller
     
     public function menuPanierAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $session = $this->getRequest()->getSession();
         
         if (!$session->has('panier'))
             $session->set('panier', array());
 
-        $em = $this->getDoctrine()->getManager();
         $produits = $em->getRepository('KountacBundle:Produits_1')->findArray(array_keys($session->get('panier')));
    
-        return $this->render('FOSUserBundle:Profile:Navigation/menuPanier.html.twig', array('produits'=> $produits,));
+        return $this->render('FOSUserBundle:Profile:Navigation/menuPanier.html.twig', array('produits'=> $produits,'images'=> $images));
     }
     
-    public function menuCollectionFooterAction()
+    public function newAction($categorie)
     {
+        $session = $this->getRequest()->getSession();
+        $session->set('categorie', '1');
+        $session->remove('collection');
+        $session->remove('recherche');
         $em = $this->getDoctrine()->getManager();
-        $collections = $em->getRepository('KountacBundle:Collections')->findAll();
+        $categorieNom = $em->getRepository('KountacBundle:Categories')->find($categorie)->getNom(); 
         
-        return $this->render('KountacBundle:Menu:collectionFooter.html.twig', array('collections' => $collections));
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
+        $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
+        $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
+        $form_taillePoids = $this->createForm(new Taille_PoidsType());                       
+        
+        $categories_enfants = $em->getRepository('KountacBundle:Categories')->find($categorie)->getChildren();
+        
+        $produitsNews = $em->getRepository('KountacBundle:Produits_2')->byNewCategorie($categorie, $categories_enfants);
+        $produits  = $this->get('knp_paginator')->paginate($produitsNews,$this->get('request')->query->get('page', 1),20);
+
+        return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
+                                                                                            'nom' => "Nouveautés ".$categorieNom,
+                                                                                            'marques' => $marques, 
+                                                                                            'form' => $form_taillePoids->createView(),
+                                                                                            'motifs' => $motifs,
+                                                                                            'categories' => $categories,
+                                                                                            'mannequins' => $mannequins,
+                                                                                            'euro' => $this->getRequest()->getSession()->get('euro'),
+                                                                                            'all' => $this->getRequest()->getSession()->get('all'),                                                                                
+                                                                                            'livre' => $this->getRequest()->getSession()->get('livre'),
+                                                                                            'usa' => $this->getRequest()->getSession()->get('usa'),
+                                                                                            'naira' => $this->getRequest()->getSession()->get('naira'),
+                                                                                            'cfa' => $this->getRequest()->getSession()->get('cfa'),
+                                                                                            'categorie' => $session->get('categorie')));
+    }
+    
+    public function destockageAction($categorie)
+    {
+        $session = $this->getRequest()->getSession();
+        $session->set('categorie', '1');
+        $session->remove('collection');
+        $session->remove('recherche');
+        $em = $this->getDoctrine()->getManager();
+        $categorieNom = $em->getRepository('KountacBundle:Categories')->find($categorie)->getNom(); 
+        
+        $categories = $em->getRepository('KountacBundle:Categories')->findAll();
+        $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
+        $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
+        $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
+        $form_taillePoids = $this->createForm(new Taille_PoidsType());                       
+        
+        $categories_enfants = $em->getRepository('KountacBundle:Categories')->find($categorie)->getChildren();
+        
+        $produitsNews = $em->getRepository('KountacBundle:Produits_2')->byBestCategorie($categorie, $categories_enfants);
+        $produits  = $this->get('knp_paginator')->paginate($produitsNews,$this->get('request')->query->get('page', 1),20);
+
+        return $this->render('KountacBundle:Default:produits/all_products.html.twig', array('produits' => $produits,
+                                                                                            'nom' => "Meilleurs soldes des produits -".$categorieNom,
+                                                                                            'marques' => $marques, 
+                                                                                            'form' => $form_taillePoids->createView(),
+                                                                                            'motifs' => $motifs,
+                                                                                            'categories' => $categories,
+                                                                                            'mannequins' => $mannequins,
+                                                                                            'euro' => $this->getRequest()->getSession()->get('euro'),
+                                                                                            'all' => $this->getRequest()->getSession()->get('all'),                                                                                
+                                                                                            'livre' => $this->getRequest()->getSession()->get('livre'),
+                                                                                            'usa' => $this->getRequest()->getSession()->get('usa'),
+                                                                                            'naira' => $this->getRequest()->getSession()->get('naira'),
+                                                                                            'cfa' => $this->getRequest()->getSession()->get('cfa'),
+                                                                                            'categorie' => $session->get('categorie')));
     }
     
     public function newsletterFooterAction(Request $request)
     {
-        $form = $this->createForm(new NewsletterType());
+        $newsletter = new \Kountac\KountacBundle\Entity\Newsletters();
+        
+        $form = $this->createForm(new NewslettersType(), $newsletter);
         $form->handleRequest($request);
 
         if ($request->getMethod() == 'POST') 
@@ -108,14 +181,17 @@ class MenuController extends Controller
             $comment = \Swift_Message::newInstance()
                 ->setSubject('Abonnement newsletter') 
                 ->setFrom(array($email))
-                ->setTo('ornoirets@gmail.com')
+                ->setTo('contact@kountac.fr')
                 ->setCharset('utf-8')
                 ->setContentType('text/html')
                 ->setBody($this->renderView('UtilisateursBundle:Default:SwiftLayout/newsletter.html.twig',array(
                     'email' => $email,)));
                 ;
             $this->get('mailer')->send($comment);
-            $this->get('session')->getFlashBag()->add('success','Votre demande d\'abonnement à la newsletter ornoir a envoyé avec succès');
+            $newsletter->setDate(new \DateTime('now'));
+            $this->getDoctrine()->getManager()->persist($newsletter);
+            $this->getDoctrine()->getManager()->flush();
+            $this->get('session')->getFlashBag()->add('success','Votre demande d\'abonnement à la newsletter OrNoir de Kountac a été envoyée avec succès');
            
             return $this->redirect($this->generateUrl('kountac_homepage'));
            
@@ -132,13 +208,38 @@ class MenuController extends Controller
     
     public function insiderFooterAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
         
-        return $this->render('KountacBundle:Menu:insiderFooter.html.twig');
+        $listePages = $em->getRepository('KountacBundle:Pages')->getAide();
+        $pages  = $this->get('knp_paginator')->paginate($listePages,$this->get('request')->query->get('page', 1),10);
+        
+        return $this->render('KountacBundle:Menu:insiderFooter.html.twig', array(
+            'pages' => $pages,
+            'user' => $user,
+        ));
     }
     
     public function informationFooterAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
         
-        return $this->render('KountacBundle:Menu:informationFooter.html.twig');
+        $listePages = $em->getRepository('KountacBundle:Pages')->getInfos();
+        $pages  = $this->get('knp_paginator')->paginate($listePages,$this->get('request')->query->get('page', 1),10);
+        
+        return $this->render('KountacBundle:Menu:informationFooter.html.twig', array(
+            'pages' => $pages,
+            'user' => $user,
+        ));
     }
+    
+    public function menuCollectionFooterAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $collections = $em->getRepository('KountacBundle:Collections')->findAll();
+        
+        return $this->render('KountacBundle:Menu:collectionFooter.html.twig', array('collections' => $collections));
+    }
+    
 }

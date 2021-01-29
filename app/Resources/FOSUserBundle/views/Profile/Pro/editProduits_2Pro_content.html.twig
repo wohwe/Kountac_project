@@ -31,37 +31,49 @@
                         <h2 class="checkout-step">Modification produit (2/3)</h2>
                     </div>
                     {% for produit in produits %}
-                        <h4> <img src="{{ produit.libelle.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; {{ produit.libelle.libelle|capitalize }} ({% if produit.etat %} Neuf {% else %} Occasion{% endif %})</h4>
+                        <h4> <img src="{{ produit.libelle.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp; {{ produit.libelle.libelle|capitalize }} ({% if produit.etat %} Neuf {% else %} Occasion{% endif %})
+                            &nbsp;&nbsp;&nbsp;<a title="Modifier le produit motif {{ produit.libelle.libelle|capitalize }}" href="{{ path('produit_pro_edit_21', { 'id' : produit.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp;</a><br>
+                        </h4><br>
                         <div class="box-border">
-                        <ul>
-                            <li class="row">
-                                <div class="col-sm-3">
-                                    <label class="required">Première image</label>
-                                    <br><img src="{{ produit.picture.AssetPath|imagine_filter('commandeThumb') }}" alt="">
-                                </div>
-                                {% if produit.picture.path2 %}
-                                <div class="col-sm-3">
-                                    <label class="required">Seconde image</label>
-                                    <br><img src="{{ produit.picture.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
-                                </div>
-                                {% endif %}<!--/ [col] -->
-                                {% if produit.picture.path3 %}
-                                <div class="col-sm-3">
-                                    <label class="required">Troisième image</label>
-                                    c<img src="{{ produit.picture.AssetPath3|imagine_filter('commandeThumb') }}" alt="">
-                                </div>
-                                {% endif %}
-                                <div class="col-sm-3">
-                                    <label class="required"></label><br><br>
-                                    <a title="Modifier le produit motif {{ produit.libelle.libelle|capitalize }}" href="{{ path('produit_pro_edit_21', { 'id' : produit.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp;</a><br>
-                                </div>
-                            </li>
-                        </ul>
+                        {% for image in images %}
+                            {% if image.produit2 == produit %}
+                            <ul>
+                                <li class="row">
+                                    <img src="{{ image.mannequin.AssetPath|imagine_filter('MotifThumb') }}" alt="">&nbsp;&nbsp; Mannequin: <label>{{ image.mannequin.nomMannequin|upper }}</label> <small>(taille standard: {{ image.mannequin.tailleStandardMannequin }}, poids: {{ image.mannequin.poidsMannequin }}Kg, Taille: {{ image.mannequin.tailleMannequin }}m)</small>
+                                </li>   
+                                <li class="row">
+                                    <div class="col-sm-3">
+                                        <label class="required">Première image</label>
+                                        <br><img src="{{ image.AssetPath|imagine_filter('commandeThumb') }}" alt="">
+                                    </div>
+                                    {% if image.path2 %}
+                                    <div class="col-sm-3">
+                                        <label class="required">Seconde image</label>
+                                        <br><img src="{{ image.AssetPath2|imagine_filter('commandeThumb') }}" alt="">
+                                    </div>
+                                    {% endif %}<!--/ [col] -->
+                                    {% if image.path3 %}
+                                    <div class="col-sm-3">
+                                        <label class="required">Troisième image</label>
+                                        <img src="{{ image.AssetPath3|imagine_filter('commandeThumb') }}" alt="">
+                                    </div>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                            {% endif %}
+                        {% endfor %}
                     </div><br>
                     {% endfor %}
                     <br>
                     <br>
-                    <a href="{{ path('produit_pro_edit_1', { 'id' : produit1.id }) }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; &nbsp;<span>Retour</span></button></a>
+                    <div class="col-sm-3">
+                        <a href="{{ path('produit_pro_edit_1', { 'id' : produit1.id }) }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; &nbsp;<span>Retour</span></button></a>
+                    </div>
+                    <div class="col-sm-2">
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="{{ path('produit_pro_index') }}"><button class="button pull-right"><i class="fa fa-check"></i>&nbsp; &nbsp;<span>Terminer</span></button></a>
+                    </div>
                 </div>
             </div>
         <aside class="right sidebar col-sm-3 col-xs-12">

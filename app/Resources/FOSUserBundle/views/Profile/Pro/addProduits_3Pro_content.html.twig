@@ -8,9 +8,9 @@
                     <li class="home"> <a title="Voir tous mes produits" href="{{ path('produit_pro_index')}}">Mes produits</a><span>&raquo;</span></li>
                     <li class="home"> <a title="Ajouter un nouveau produit" href="{{ path('produit_pro_new_1')}}">Nouveau produit</a><span>&raquo;</span></li>
                     <li class="home"> <a title="Ajouter un nouveau motif" href="{{ path('produit_pro_new_2', { 'id' : produit_2.produit1.id }) }}">Nouveau motif</a><span>&raquo;</span></li>
-                    <li><strong>Ajouter des tailles au produit {{ produit_2.produit1.nom|capitalize }} - {{ produit_2.libelle.libelle }}</strong></li>
+                    <li><strong>Ajouter des photos aux mannequins pour "{{ produit_2.produit1.nom|capitalize }}"</strong></li>
                 </ul>
-                
+
                 {% for flashMessage in app.session.flashbag.get('success') %}
                     <div class="alert-box">
                         <br><br>
@@ -28,156 +28,207 @@
 <section class="main-container col2-right-layout">
     <div class="main container">
         <div class="row">
-            <div class="col-main col-sm-5 col-xs-12">
+            <div class="col-main col-sm-12 col-xs-12">  
+                <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
+                    <li> <a href="{{ path('produit_pro_new_edit1', { 'id' : produit_2.produit1.id }) }}"> Information générale </a> </li>                
+                    <li><a href="{{ path('produit_pro_new_2', { 'id' : produit_2.produit1.id }) }}">Couleurs</a></li>
+                    <li class="active"><a>Photos mannequin</a></li>
+                    <li><a>Stocks par motif</a> </li>
+                </ul>
+                <br><br>
+            </div>
+            <div class="col-sm-9">
                 <div class="page-content checkout-page">
-                    <div class="page-title">
-                        <h2 class="checkout-step">Taille(s) de "{{ produit_2.produit1.nom|capitalize }} - {{ produit_2.libelle.libelle }}"</h2>
+                    <ul id="product-detail-tab" class="nav nav-tabs product-tabs btn-md">
+                        {% for motif in produit_1.produit2 %}
+                            {% if loop.first %}
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <a class="btn btn-default btn-md active" href="#{{ motif.libelle }}" data-toggle="tab">&nbsp; {{ motif.libelle.libelle|capitalize }} &nbsp;</a> 
+                            {% else %}
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <a class="btn btn-default btn-md" href="#{{ motif.libelle }}" data-toggle="tab">&nbsp; {{ motif.libelle.libelle|capitalize }} &nbsp;</a> 
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <div id="productTabContent" class="tab-content">
+                        {% for motif in produit_1.produit2 %}
+                            {% if loop.first %}
+                                <div class="tab-pane fade in active" id="{{ motif.libelle }}">
+                                    <div class="col-main col-sm-6 col-xs-12">
+                                        <div class="page-title">
+                                            <h3 class="checkout-step">Selectionner les images du mannequin pour le motif {{ produit_2.libelle.libelle }}</h3>
+                                        </div>
+                                        {% render(controller('UtilisateursBundle:Formulaires:imagesForm', { 'id': motif.id })) %}
+                                    </div>
+                                    <div class="col-main col-sm-6 col-xs-12">
+                                        <li class="row">
+                                            <div class="col-sm-12">
+                                                {% set mannequin = 0 %}
+                                                <label>Mannequin disponible pour "{{ motif.libelle|capitalize }}" : 
+                                                    {% for image_motif in images %}
+                                                        {% if image_motif.produit2 == motif %}
+                                                            {% set mannequin = mannequin + 1 %}
+                                                        {% endif %}
+                                                    {% endfor %}{{ mannequin }}
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-12">
+                                                <div class="radio">
+                                                    {% for image_motif in images %}
+                                                        {% if image_motif.produit2 == motif %}
+                                                            <form action="{{ path('produit_pro_set_images_top_new', {'id' : image_motif.id}) }}" method="get">
+                                                                <label>
+                                                                    <input type="radio" name="images_mannequin" onChange="this.form.submit()" {% if image_motif.top == 0 %}checked = "checked" {% endif %}>
+                                                                    <img src="{{ image_motif.mannequin.AssetPath|imagine_filter('imagesMarquesThumb') }}" alt="">&nbsp;
+                                                                    {{ image_motif.mannequin.nomMannequin|capitalize }} <small>(taille std.:{{ image_motif.mannequin.tailleStandardMannequin }}, poids: {{ image_motif.mannequin.poidsMannequin }}Kg, Taille:{{ image_motif.mannequin.tailleMannequin }}m)</small>
+                                                                    &nbsp;&nbsp;<a href="{{ path('produit_pro_new_edit3', {'id' : image_motif.id}) }}" title="Modifier les informations du mannequin {{ image_motif.mannequin.nomMannequin }}"><i class="fa fa-edit"></i></a>
+                                                                </label>
+                                                            </form>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-6">
+                                                <div class="top-cart-contain">
+                                                    <div class="mini-cart">
+                                                        <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"> 
+                                                            <a href>
+                                                                <div class="cart-icon">&nbsp; Voir les mannequins</div>
+                                                            </a>
+                                                        </div>
+                                                        <div>
+                                                            <div class="top-cart-content">
+                                                                <div class="block-subtitle hidden-xs"></div>
+                                                                <ul id="cart-sidebar" class="mini-products-list">
+                                                                    {% for mannequin in mannequins %}
+                                                                        <li class="item last odd"> 
+                                                                            <a title="{{ mannequin.nomMannequin|capitalize }}" class="product-image">
+                                                                                <img src="{{ mannequin.AssetPath|imagine_filter('cartThumbMenuItem') }}" alt="">
+                                                                            </a>
+                                                                            <div class="product-details">
+                                                                                <p class="product-name">
+                                                                                    <a>{{ mannequin.nomMannequin|capitalize }} (taille std.:{{ mannequin.tailleStandardMannequin }}, poids: {{ mannequin.poidsMannequin }}Kg, Taille:{{ mannequin.tailleMannequin }}m)</a> 
+                                                                                </p>
+                                                                            </div>
+                                                                        </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li><br>
+                                        <button type="button" class="button" data-toggle="collapse" data-target="#ajout_mannequin{{ motif.libelle }}" enctype="multipart/form-data"><i class="fa fa-arrow-down"></i> &nbsp; &nbsp;Ajouter un nouveau mannequin</button>
+                                        <div id="ajout_mannequin{{ motif.libelle }}" class="collapse">
+                                            <br>
+                                            {% render(controller('UtilisateursBundle:Formulaires:mannequinForm', { 'id': motif.id })) %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="tab-pane fade" id="{{ motif.libelle }}">
+                                    <div class="col-main col-sm-6 col-xs-12">
+                                        <div class="page-title">
+                                            <h3 class="checkout-step">Selectionner les images du mannequin pour le motif {{ produit_2.libelle.libelle }}</h3>
+                                        </div>
+                                        {% render(controller('UtilisateursBundle:Formulaires:imagesForm', { 'id': motif.id })) %}
+
+                                    </div>
+                                    <div class="col-main col-sm-6 col-xs-12">
+                                        <li class="row">
+                                            <div class="col-sm-12">
+                                                {% set mannequin = 0%}
+                                                <label>Mannequin disponible pour "{{ motif.libelle|capitalize }}" : 
+                                                    {% for image_motif in images %}
+                                                        {% if image_motif.produit2 == motif %}
+                                                            {% set mannequin = mannequin + 1 %}
+                                                        {% endif %}
+                                                    {% endfor %}{{ mannequin }}</label>
+                                            </div>
+                                        </li>
+                                        <li class="row">
+                                            <div class="col-sm-12">
+                                                <div class="radio">
+                                                    {% for image_motif in images %}
+                                                        {% if image_motif.produit2 == motif %}
+                                                            <form action="{{ path('produit_pro_set_images_top_new', {'id' : image_motif.id}) }}" method="get">
+                                                                <label>
+                                                                    <input type="radio" name="images_mannequin" onChange="this.form.submit()" {% if image_motif.top == 0 %}checked = "checked" {% endif %}>
+                                                                    <img src="{{ image_motif.mannequin.AssetPath|imagine_filter('imagesMarquesThumb') }}" alt="">&nbsp;
+                                                                    {{ image_motif.mannequin.nomMannequin|capitalize }} <small>(taille std.:{{ image_motif.mannequin.tailleStandardMannequin }}, poids: {{ image_motif.mannequin.poidsMannequin }}Kg, Taille:{{ image_motif.mannequin.tailleMannequin }}m)</small>
+                                                                    &nbsp;&nbsp;<a href="{{ path('produit_pro_new_edit3', {'id' : image_motif.id}) }}" title="Modifier les informations du mannequin {{ image_motif.mannequin.nomMannequin }}"><i class="fa fa-edit"></i></a>
+                                                                </label>
+                                                            </form>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </li>  
+                                        <li class="row">
+                                            <div class="col-sm-6">
+                                                <div class="top-cart-contain">
+                                                    <div class="mini-cart">
+                                                        <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"> 
+                                                            <a href>
+                                                                <div class="cart-icon">&nbsp; Voir les mannequins</div>
+                                                            </a>
+                                                        </div>
+                                                        <div>
+                                                            <div class="top-cart-content">
+                                                                <div class="block-subtitle hidden-xs"></div>
+                                                                <ul id="cart-sidebar" class="mini-products-list">
+                                                                    {% for mannequin in mannequins %}
+                                                                        <li class="item last odd"> 
+                                                                            <a title="{{ mannequin.nomMannequin|capitalize }}" class="product-image">
+                                                                                <img src="{{ mannequin.AssetPath|imagine_filter('cartThumbMenuItem') }}" alt="">
+                                                                            </a>
+                                                                            <div class="product-details">
+                                                                                <p class="product-name">
+                                                                                    <a>{{ mannequin.nomMannequin|capitalize }} (taille std.:{{ mannequin.tailleStandardMannequin }}, poids: {{ mannequin.poidsMannequin }}Kg, Taille:{{ mannequin.tailleMannequin }}m)</a> 
+                                                                                </p>
+                                                                            </div>
+                                                                        </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <br>
+                                        <button type="button" class="button" data-toggle="collapse" data-target="#ajout_mannequin{{ motif.libelle }}"><i class="fa fa-arrow-down"></i> &nbsp; &nbsp;Ajouter un nouveau mannequin</button>
+                                        <div id="ajout_mannequin{{ motif.libelle }}" class="collapse">
+                                            <br>
+                                            {% render(controller('UtilisateursBundle:Formulaires:mannequinForm', { 'id': motif.id })) %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
-                    <form action="{{ path('produit_pro_new_3', { 'id' : produit_2.id }) }}" method="POST">
-                    <div class="box-border">
-                        <ul>
-                            <li class="row">
-                                <div class="col-sm-12">
-                                    <table>
-                                        <tr>
-                                            <td class="col-sm-3">
-                                                <div class="size">
-                                                    <ul>
-                                                        <li><a>XS</a></li><br><br><br>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="cart-plus-minus">
-                                                    <div class="numbers-row">
-                                                        <select name="stock_xs" class="select form-control">
-                                                            {% for i in 0 .. 15 %}
-                                                                <option value="{{ i }}">{{ i }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-sm-3">
-                                                <div class="size">
-                                                    <ul>
-                                                        <li><a>S</a></li><br><br><br>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="cart-plus-minus">
-                                                    <div class="numbers-row">
-                                                        <select name="stock_s" class="select form-control">
-                                                            {% for i in 0 .. 15 %}
-                                                                <option value="{{ i }}">{{ i }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-sm-3">
-                                                <div class="size">
-                                                    <ul>
-                                                        <li><a>L</a></li><br><br><br>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="cart-plus-minus">
-                                                    <div class="numbers-row">
-                                                        <select name="stock_l" class="select form-control">
-                                                            {% for i in 0 .. 15 %}
-                                                                <option value="{{ i }}">{{ i }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-sm-3">
-                                                <div class="size">
-                                                    <ul>
-                                                        <li><a>M</a></li><br><br><br>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="cart-plus-minus">
-                                                    <div class="numbers-row">
-                                                        <select name="stock_m" class="select form-control">
-                                                            {% for i in 0 .. 15 %}
-                                                                <option value="{{ i }}">{{ i }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-sm-3">
-                                                <div class="size">
-                                                    <ul>
-                                                        <li><a>XL</a></li><br><br><br>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="cart-plus-minus">
-                                                    <div class="numbers-row">
-                                                        <select name="stock_xl" class="select form-control">
-                                                            {% for i in 0 .. 15 %}
-                                                                <option value="{{ i }}">{{ i }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-sm-3">
-                                                <div class="size">
-                                                    <ul>
-                                                        <li><a>XXL</a></li><br><br><br>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="cart-plus-minus">
-                                                    <div class="numbers-row">
-                                                        <select name="stock_xxl" class="select form-control">
-                                                            {% for i in 0 .. 15 %}
-                                                                <option value="{{ i }}">{{ i }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>                                
-                            </li>
-                            <br>
-                            <li>
-                                <button class="button pull-right" type="submit"><i class="fa fa-bookmark"></i>&nbsp; &nbsp;<span>Ajouter </span></button>
-                            </li>
-                        </ul>
-                    </div>
-                   </form>
+                    
+                    {% if images_produit2|length != 0 %}
+                    <a href="{{ path('produit_pro_new_4', { 'id' : produit_2.id }) }}">
+                        <button class="button pull-right">
+                            &nbsp;<span>Continuer</span>&nbsp; &nbsp;<i class="fa fa-angle-double-right"></i>
+                        </button>
+                    </a><br><br>
+                    {% endif %}
                 </div>
             </div>
-        <aside class="right sidebar col-sm-3 col-xs-12">
-            {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
-            <br><br>
-            {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
-        </aside>
-        </div>
-        
+            <aside class="right sidebar col-sm-3 col-xs-12">
+                {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
+                <br><br>
+                {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+            </aside>
+
+        </div> 
     </div>
 </div>
 </section>

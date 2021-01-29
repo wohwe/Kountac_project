@@ -14,6 +14,21 @@ class DeviseController extends Controller
             'euro' => $session->get('euro'),
             'livre' => $session->get('livre'),
             'usa' => $session->get('usa'),
+            'all' => $session->get('all'),
+            'naira' => $session->get('naira'),
+            'cfa' => $session->get('cfa'),
+            ));
+    }
+    
+    public function countryFlagAction()
+    {
+        $session = $this->getRequest()->getSession();
+        
+        return $this->render('KountacBundle:Menu:countryFlag.html.twig', array(
+            'euro' => $session->get('euro'),
+            'livre' => $session->get('livre'),
+            'usa' => $session->get('usa'),
+            'all' => $session->get('all'),
             'naira' => $session->get('naira'),
             'cfa' => $session->get('cfa'),
             ));
@@ -27,6 +42,7 @@ class DeviseController extends Controller
             'euro' => $session->get('euro'),
             'livre' => $session->get('livre'),
             'usa' => $session->get('usa'),
+            'all' => $session->get('all'),
             'naira' => $session->get('naira'),
             'cfa' => $session->get('cfa')));
     }
@@ -42,12 +58,36 @@ class DeviseController extends Controller
         if ($session->has('livre'))
             $session->remove('livre');
         
+        if ($session->has('all'))
+            $session->remove('all');
+        
         if ($session->has('usa'))
             $session->remove('usa');
         
         if ($session->has('naira'))
             $session->remove('naira');
-        $this->get('session')->getFlashBag()->add('success','Vous avez choisi la devise Euro €');       
+        return $this->redirect($this->generateUrl('kountac_homepage'));
+    }
+    
+    public function allDeviseAction()
+    {
+        $session = $this->getRequest()->getSession();
+        $session->set('all', '1');
+        
+        if ($session->has('cfa'))
+            $session->remove('cfa');
+        
+        if ($session->has('livre'))
+            $session->remove('livre');
+        
+        if ($session->has('euro'))
+            $session->remove('euro');
+        
+        if ($session->has('usa'))
+            $session->remove('usa');
+        
+        if ($session->has('naira'))
+            $session->remove('naira');
         return $this->redirect($this->generateUrl('kountac_homepage'));
     }
     
@@ -62,12 +102,14 @@ class DeviseController extends Controller
         if ($session->has('livre'))
             $session->remove('livre');
         
+        if ($session->has('all'))
+            $session->remove('all');
+        
         if ($session->has('usa'))
             $session->remove('usa');
         
         if ($session->has('naira'))
             $session->remove('naira');
-        $this->get('session')->getFlashBag()->add('success','Vous avez choisi la devise F CFA');
         return $this->redirect($this->generateUrl('kountac_homepage'));
     }
         
@@ -82,12 +124,14 @@ class DeviseController extends Controller
         if ($session->has('livre'))
             $session->remove('livre');
         
+        if ($session->has('all'))
+            $session->remove('all');
+        
         if ($session->has('cfa'))
             $session->remove('cfa');
         
         if ($session->has('naira'))
             $session->remove('naira');
-        $this->get('session')->getFlashBag()->add('success','Vous avez choisi la devise USD $');
         return $this->redirect($this->generateUrl('kountac_homepage'));
     }
     
@@ -102,12 +146,14 @@ class DeviseController extends Controller
         if ($session->has('cfa'))
             $session->remove('cfa');
         
+        if ($session->has('all'))
+            $session->remove('all');
+        
         if ($session->has('usa'))
             $session->remove('usa');
         
         if ($session->has('naira'))
             $session->remove('naira');
-        $this->get('session')->getFlashBag()->add('success','Vous avez choisi la devise GBP £');
         return $this->redirect($this->generateUrl('kountac_homepage'));
     }
     
@@ -122,12 +168,14 @@ class DeviseController extends Controller
         if ($session->has('livre'))
             $session->remove('livre');
         
+        if ($session->has('all'))
+            $session->remove('all');
+        
         if ($session->has('usa'))
             $session->remove('usa');
         
         if ($session->has('cfa'))
             $session->remove('cfa');
-        $this->get('session')->getFlashBag()->add('success','Vous avez choisi la devise Naïra ₦');
         return $this->redirect($this->generateUrl('kountac_homepage'));
     }
 }

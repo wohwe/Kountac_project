@@ -8,5 +8,13 @@
         <default key="_controller">UtilisateursBundle:Registration:registerPro</default>
         <requirement key="_method">GET|POST</requirement>
     </route>
+
+    <route id="pro_user_profile_show" path="/pro" methods="GET">
+        <default key="_controller">UtilisateursBundle:Profile:showPro</default>
+    </route>
+
+    <route id="pro_user_profile_edit" path="/pro/edit" methods="GET POST">
+        <default key="_controller">UtilisateursBundle:Profile:editPro</default>
+    </route>
     
 </routes>

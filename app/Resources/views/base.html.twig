@@ -1,61 +1,131 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
-
-<!-- Mirrored from htmlmystore.justthemevalley.com/Version2/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 23 Aug 2017 11:21:53 GMT -->
 <head>
-<!-- Basic page needs -->
-<meta charset="utf-8">
-<!--[if IE]>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <![endif]-->
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Kountac</title>
-<meta name="description" content="">
 
-<!-- Mobile specific metas  -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Favicon  -->
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://kountac.fr/js/ajax.js"></script>
+  <script src="http://kountac.test/js/ajax.js"></script>
 
-<!-- Google Fonts -->
-<link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <script type="text/javascript">
+    (function(){
 
-<!-- CSS Style -->
+        localisation();
+        
+        function localisation(){
+          var url_local = "http://kountac.test/";
+          var url_prod = "https://kountac.fr/"
+            getData({
+                url: url_local+"localisation",
+                method: "GET",
+                async:true,
+                onBegin:function(){
+                    console.log("get localisation from server...")
+                },
+                onSuccess: function(e){
+                  
+                }
+            });
+        }
+    })();
+</script>
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
 
-<!-- font-awesome & simple line icons CSS -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}" media="all">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/simple-line-icons.css') }}" media="all">
+  {% block head %}
 
-<!-- owl.carousel CSS -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/owl.carousel.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/owl.theme.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/owl.transitions.css') }}">
+  <!-- Basic page needs -->
+  <meta charset="utf-8">
+  <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Kountac | The new made in Africa | Mode, Art, Déco d'Afrique | {% block title %}{% endblock %}</title>
+  {% block meta %}
+  <meta name="description" content="Achetez - le nouveau prêt à porter africain -  Les dernières tendances modes Africaine en un clic -  The new made in Africa, la qualité africaine livrée chez vous -  Originalité et authenticité, la mode africaine chez vous. Chemises, Blazers, Pulls et Gillets, vêtements, Bagages, Ballerines, Jeans, Pantalons, Baskets, Chaussures, Boucles, Bracelet, Cartable, sacs..." />
+  {% endblock %}
+  <meta name="keywords" content="Kountac, Afrique, Tendances, Achats, Originalité, prêt à porter, qualité, livraison, Chemises, Blazers, Pulls et Gillets, vêtements, Bagages, Ballerines, Jeans, Pantalons, Baskets, Chaussures, Boucles, Bracelet, Cartable, sacs..." />
+  <meta name="robots" content="index,follow" />
 
-<!-- animate CSS  -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css') }}" media="all">
+  <!-- Mobile specific metas  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- flexslider CSS -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/flexslider.css') }}" >
+  <!-- Favicon  -->
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
-<!-- jquery-ui.min CSS  -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+  <!-- Google Fonts -->
+  <!--link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'-->
 
-<!-- Revolution Slider CSS -->
-<link href="{{ asset('css/revolution-slider.css') }}" rel="stylesheet">
 
-<!-- style CSS -->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" media="all">
+  <!-- CSS Style -->
 
-<!-- quick_view_popup CSS -->
-<link rel="stylesheet" href="{{ asset('css/quick_view_popup.css') }}" type="text/css">
-<!-- chat CSS -->
-<link rel="stylesheet" href="{{ asset('chat/chat.css') }}" type="text/css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
 
+  <!-- font-awesome & simple line icons CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}" media="all">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/simple-line-icons.css') }}" media="all">
+
+  <!-- owl.carousel CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/owl.carousel.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/owl.theme.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/owl.transitions.css') }}">
+
+  <!-- animate CSS  -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css') }}" media="all">
+
+  <!-- flexslider CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/flexslider.css') }}" >
+
+  <!-- jquery-ui.min CSS  -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}">
+
+  <!-- Revolution Slider CSS -->
+  <link href="{{ asset('css/revolution-slider.css') }}" rel="stylesheet">
+
+  <!-- style CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" media="all">
+
+  <!-- quick_view_popup CSS -->
+  <link rel="stylesheet" href="{{ asset('css/quick_view_popup.css') }}" type="text/css">
+  <!-- chat CSS -->
+  <link rel="stylesheet" href="{{ asset('chat/chat.css') }}" type="text/css">
+  {% endblock %}
+  <style type="text/css">
+    #WCUpaymentButton{
+      margin-left: 300px !important;
+    }
+    .close{
+      color: red !important;
+      opacity: 1 !important;
+    }
+  </style>
+
+
+
+<!-- Facebook Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1163117170686264');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1163117170686264&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+  
 </head>
 
 <body class="cms-index-index cms-home-page">
@@ -77,10 +147,6 @@
       <div class="header-top">
         <div class="container">
           <div class="row">
-            <div class="col-lg-4 col-sm-4 hidden-xs"> 
-              <!-- Default Welcome Message -->
-              <div class="welcome-msg ">Bienvenue sur kountac !</div>
-            </div>
             <!-- top links -->
             {% render(controller('KountacBundle:Menu:headerLink')) %}
           </div>
@@ -88,22 +154,17 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="col-sm-4 col-md-3 col-xs-12"> 
-            <!-- Header Logo -->
-            <div class="logo"><a title="Bienvenue sur kountac" href="{{ path('kountac_homepage') }}"><img alt="" src="{{ asset('images/logo.png') }}"></a> </div>
-            <!-- End Header Logo --> 
+          <div class="col-sm-1 col-md-1 col-xs-11"> 
+            <div class="logo"><a title="Bienvenue sur kountac" href="{{ path('kountac_homepage') }}">
+                <img src="{{ asset('images/logo.png') }}" height=50 alt="Kountac"></a>
+            </div>
           </div>
-          <div class="col-md-9 col-sm-8 hidden-xs">
+          <div class="col-md-11 col-sm-11 hidden-xs">
             <div class="mtmegamenu">
               <ul>
-                    {% render(controller('KountacBundle:Menu:categorie')) %}
-                    <li class="mt-root"></li>
-                    <li class="mt-root">
-                    {% render(controller('KountacBundle:Menu:produitsPopulairesMenu')) %}
-              </li>
+                   {% render(controller('KountacBundle:Menu:categorie')) %}
+                    
               </ul>
-              <div class="call-us hidden-sm">
-              </div>
             </div>
           </div>
         </div>
@@ -226,6 +287,8 @@
         </div>
       </div>
     </div>
+
+
   </footer>
   <a href="#" class="totop"><i class="fa fa-arrow-up"></i></a> 
   <!-- End Footer --> 
@@ -255,6 +318,9 @@
 
 <!-- megamenu js --> 
 <script type="text/javascript" src="{{ asset('js/megamenu.js') }}"></script> 
+
+
+
 <script type="text/javascript">
   /* <![CDATA[ */   
   var mega_menu = '0';
@@ -279,8 +345,13 @@
 <!--chat js -->  
 <script type="text/javascript" src="{{ asset('chat/script.js') }}"></script>
 
-
-
+<script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript" src="{{ asset('ckeditor/samples/js/sample.js') }}"></script>
+<script type="text/javascript" src="{{ asset('ckeditor/samples/css/samples.css') }}"></script>
+<script type="text/javascript" src="{{ asset('ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css') }}"></script>
+<script>
+  initSample();
+</script>
 <!-- Revolution slider --> 
 <script type="text/javascript">
 
@@ -355,18 +426,35 @@
 	</script>
         
         <script type="text/javascript">
-            var dthen1 = new Date("12/25/16 11:59:00 PM");
-            start = "08/04/15 03:02:11 AM";
-            start_date = Date.parse(start);
-            var dnow1 = new Date(start_date);
-            if (CountStepper > 0)
-                ddiff = new Date((dnow1) - (dthen1));
-            else
-                ddiff = new Date((dthen1) - (dnow1));
-            gsecs1 = Math.floor(ddiff.valueOf() / 1000);
+        
 
-            var iid1 = "countbox_1";
-            CountBack_slider(gsecs1, "countbox_1", 1);
+          function $_GET(param) {
+            var vars = {};
+            window.location.href.replace( location.hash, '' ).replace( 
+              /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+              function( m, key, value ) { // callback
+                vars[key] = value !== undefined ? value : '';
+              }
+            );
+
+            if ( param ) {
+              return vars[param] ? vars[param] : null;  
+            }
+            return vars;
+          }
+
+          var $_GET = $_GET();
+          var page = $_GET['page'];
+          if (typeof page != "undefined") {
+            $('html, body').animate({scrollTop:2150},500);
+          }
+
+        </script>
+
+        <script>
+          $(function() {
+            $('#toggle-one').bootstrapToggle();
+          });
         </script>
         {% endblock %}
     </body>

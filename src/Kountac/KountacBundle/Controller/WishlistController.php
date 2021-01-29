@@ -14,10 +14,13 @@ class WishlistController extends Controller
             $session->set('souhait', array());
 
         $em = $this->getDoctrine()->getManager();
+        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $produits = $em->getRepository('KountacBundle:Produits_3')->findArray(array_keys($session->get('souhait')));
 
         return $this->render('KountacBundle:Default:pages/wishlist.html.twig', array('produits' => $produits,
                                                                                      'euro' => $this->getRequest()->getSession()->get('euro'),
+                                                                                        'images' => $images,
+                                                                                    'all' => $this->getRequest()->getSession()->get('all'),                                                                            
                                                                                         'livre' => $this->getRequest()->getSession()->get('livre'),
                                                                                         'usa' => $this->getRequest()->getSession()->get('usa'),
                                                                                         'naira' => $this->getRequest()->getSession()->get('naira'),

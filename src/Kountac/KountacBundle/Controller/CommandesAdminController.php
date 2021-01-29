@@ -12,13 +12,15 @@ use Symfony\Component\HttpFoundation\Request;
  *
  */
 class CommandesAdminController extends Controller
-{
+{   
     /**
      * Lists all commande entities.
      *
      */
     public function indexAction()
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $listesCommandes = $em->getRepository('KountacBundle:Commandes')->findAll();
@@ -29,7 +31,7 @@ class CommandesAdminController extends Controller
             'user' => $user
         ));
     }
-    
+         
     
     /**
      * Creates a new commande entity.
@@ -37,6 +39,8 @@ class CommandesAdminController extends Controller
      */
     public function newAction(Request $request)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $commande = new Commande();
         $form = $this->createForm('Kountac\KountacBundle\Form\CommandesType', $commande);
         $form->handleRequest($request);
@@ -55,12 +59,14 @@ class CommandesAdminController extends Controller
             'form' => $form->createView(),
         ));
     }
-
+     
     /**
      * Finds and displays a Commandes entity.
      */
     public function showAction(Request $request, Commandes $commande)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $user = $this->getUser();
         $form = $this->createForm('Kountac\KountacBundle\Form\CommandesAddPriceType', $commande);
         
@@ -90,6 +96,8 @@ class CommandesAdminController extends Controller
      */
     public function envoyerAction($id)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $commande = $em->getRepository('KountacBundle:Commandes')->find($id);
         
@@ -110,6 +118,8 @@ class CommandesAdminController extends Controller
      */
     public function livrerAction($id)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $commande = $em->getRepository('KountacBundle:Commandes')->find($id);
         
@@ -130,6 +140,8 @@ class CommandesAdminController extends Controller
      */
     public function editAction(Request $request, Commandes $commande)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createForm('Kountac\KountacBundle\Form\CommandesType', $commande);
         $editForm->handleRequest($request);
@@ -158,6 +170,8 @@ class CommandesAdminController extends Controller
      */
     public function newMesuresAction(Request $request)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $mesure = new Mesures();        
         $mesure->setUtilisateur($this->getUser());
         
@@ -192,6 +206,8 @@ class CommandesAdminController extends Controller
      */
     public function validationMesureAction()
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         if ($this->get('request')->getMethod() == 'POST')
         {
             $this->setMesureOnSession();           
@@ -224,6 +240,8 @@ class CommandesAdminController extends Controller
      */
     public function deleteAction($id)
     {
+        $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
         $commande = $em->getRepository('KountacBundle:Commandes')->find($id);
         
@@ -238,6 +256,7 @@ class CommandesAdminController extends Controller
     public function setMesureOnSession()
     {
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         
         if (!$session->has('mesure')) 
             $session->set('mesure',array());
@@ -258,8 +277,10 @@ class CommandesAdminController extends Controller
     
     public function mesuresCommande() 
     {
+
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
+        include 'localisation.php';
         $mesures = $session->get('mesures');        
         $mesure = array();
         $mesureSession = $em->getRepository('UtilisateursBundle:Mesures')->find($mesures['mesure']);        

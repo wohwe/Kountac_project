@@ -1,7 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from htmlmystore.justthemevalley.com/Version5/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 23 Aug 2017 11:36:26 GMT -->
 <head>
 <!-- Basic page needs -->
 <meta charset="utf-8">
@@ -16,7 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Favicon  -->
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
 <!-- Google Fonts -->
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700' rel='stylesheet' type='text/css'>
@@ -52,6 +50,12 @@
 
 <!-- style CSS -->
 <link rel="stylesheet" type="text/css" href="{{ asset('admin/css/style.css') }}" media="all">
+
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
 </head>
 
 <body class="cms-index-index cms-home-page">
@@ -71,7 +75,7 @@
             <div class="headerlinkmenu col-lg-6 col-md-6 col-sm-7 col-xs-6 text-right">
               <div class="links">
                 <div class="jtv-user-info">
-                  <div class="dropdown"> <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fa fa-user-md"></i><span> Administeur </span> <i class="fa fa-angle-down"></i></a>
+                  <div class="dropdown"> <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fa fa-user-md"></i><span> Administrateur </span> <i class="fa fa-angle-down"></i></a>
                     <ul class="dropdown-menu" role="menu">
                       <br>
                       <li><a title="Compte administrateur" href="{{ path('admin_profile_show') }}">Mon compte</a></li>
@@ -89,7 +93,7 @@
         <div class="row">
           <div class="col-sm-3 col-md-3 col-xs-12"> 
             <!-- Header Logo -->
-            <div class="logo"><a title="Kountac" href="{{ path('kountac_homepage') }}"><img alt="Kountac" src="{{ asset('images/logo.png') }}"></a> </div>
+            <div class="logo"><a title="Kountac" href="{{ path('kountac_homepage') }}"><img alt="Kountac" src="{{ asset('images/logo.png') }}" height=50></a> </div>
             <!-- End Header Logo --> 
           </div><br>
           <div class="col-xs-12 col-sm-5 col-md-5 col-lg-6"> 
@@ -180,6 +184,8 @@
   <footer>
     <div class="container">
       <div class="row">
+
+
         <div class="col-sm-6 col-md-3 col-xs-12 col-lg-3 collapsed-block">
           {% render(controller('KountacBundle:Menu:informationFooter')) %}
         </div>
@@ -202,6 +208,7 @@
             </ul>
           </div>
         </div>
+        
       </div>
     </div>
     <div class="footer-coppyright">
@@ -264,6 +271,18 @@
 
 <!-- flexslider js --> 
 <script type="text/javascript" src="{{ asset('admin/js/jquery.flexslider.js') }}"></script> 
+
+
+
+<script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript" src="{{ asset('ckeditor/samples/js/sample.js') }}"></script>
+<script type="text/javascript" src="{{ asset('ckeditor/samples/css/samples.css') }}"></script>
+<script type="text/javascript" src="{{ asset('ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css') }}"></script>
+<script>
+  initSample();
+</script>
+
+
 <!-- Hot Deals Timer 1--> 
 <script type="text/javascript">
       var dthen1 = new Date("12/25/16 11:59:00 PM");

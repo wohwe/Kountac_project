@@ -1,0 +1,42 @@
+<form action="{{ path('produit_pro_edit_images_mannequin', {'id' : image.id}) }}" {{ form_enctype(form_images) }}  method="POST">
+    {{ form_start(form_images) }}
+    {{ form_errors(form_images) }}
+    <div class="col-sm-6">
+        {{ form_label(form_images.mannequin) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_widget(form_images.mannequin) }}
+    </div>
+    <div class="col-sm-12">
+        <label class="required">Changer première image*</label>
+        {{ form_widget(form_images.file) }}
+        <br>
+        <img class="img-circle" src="{{ image.AssetPath|imagine_filter('produitLastThumb') }}" alt="">
+    </div>
+    <div class="col-sm-12">
+        <label class="required">Changer deuxième image</label>
+        {{ form_widget(form_images.file2) }}
+        {% if image.path2 %}
+        <br>
+        <img class="img-circle" src="{{ image.AssetPath2|imagine_filter('produitLastThumb') }}" alt="">
+        {% endif %}
+    </div>
+    <div class="col-sm-12">
+        <label class="required">Changer troisième image</label>
+        {{ form_widget(form_images.file3) }}
+        {% if image.path3 %}
+        <br>
+        <img class="img-circle" src="{{ image.AssetPath3|imagine_filter('produitLastThumb') }}" alt="">
+        {% endif %}
+    </div>
+    <div class="col-sm-12">
+        <br>
+        <label>{{ form_label(form_images.top) }}</label><br>
+        {{ form_row(form_images.top.0) }}
+        {{ form_row(form_images.top.1) }}<br>
+    </div>
+    <div class="col-sm-12">
+    <button  class="button pull-left" type="submit"><i class="fa fa-check"></i>&nbsp; &nbsp;<span>Modifier </span></button>
+    </div>
+    {{ form_end(form_images) }}
+</form>

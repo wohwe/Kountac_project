@@ -1,0 +1,70 @@
+{% extends "@FOSUser/layoutAdmin.html.twig" %}
+
+{% block bodyAdmin %}
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Aller à mon profil administrateur" href="{{ path('admin_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Voir tous les produits" href="{{ path('admin_profile_show')}}">Mes produits</a><span>&raquo;</span></li>
+                    <li><strong>Modification "{{ produit2.produit1.nom|capitalize }}" (3/3)</strong></li>
+                </ul>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert-box">
+                        <br><br>
+                        {{ flashMessage }}
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+    <div class="main container">
+        <div class="row">
+            <div class="col-main col-sm-5 col-xs-12">
+                <div class="page-content checkout-page">
+                    <div class="page-title">
+                        <h2 class="checkout-step">Modification produit (3/3)</h2>
+                    </div>
+                    {% for produit in produits %}
+                        <div class="box-border">
+                        <ul>
+                            <li class="row">
+                                <div class="col-sm-4">
+                                    <label class="required">Taille</label>
+                                    <br>{{ produit.taille }}
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="required">Stock</label>
+                                    <br>{{ produit.stock }}
+                                </div>
+                                <div class="col-sm-5">
+                                    <label class="required"></label>
+                                    <a title="Modifier le produit taille" href="{{ path('adminProduits_edit_31', { 'id' : produit.id }) }}"><button class="add-cart button button-sm"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp;</a><br>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <br>
+                    <a href="{{ path('adminProduits_edit_21', { 'id' : produit2.id }) }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; &nbsp;<span>Retour</span></button></a>
+                </div>
+            </div>
+        <aside class="right sidebar col-sm-3 col-xs-12">
+            {% include 'FOSUserBundle:Profile:Navigation/menuAdmin.html.twig' %}
+            <br><br>
+            {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+        </aside>
+        </div>
+        
+    </div>
+</div>
+</section>
+{% endblock %}

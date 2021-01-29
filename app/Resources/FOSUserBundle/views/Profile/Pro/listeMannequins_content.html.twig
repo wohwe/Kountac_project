@@ -1,0 +1,126 @@
+<div class="breadcrumbs">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <ul>
+            <li class="home"> <a title="Aller à la page d'accueil" href="{{ path('kountac_homepage')}}">Accueil</a><span>&raquo;</span></li>
+            <li class="home"> <a title="Aller à mon profil" href="{{ path('pro_user_profile_show')}}">Mon profil</a><span>&raquo;</span></li>
+            <li><strong>Tous les mannequins</strong></li>
+          </ul>
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert-box">
+                <br><br>
+                {{ flashMessage }}
+                <br><br>
+            </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Breadcrumbs End --> 
+{% trans_default_domain 'FOSUserBundle' %}
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+  <div class="main container">
+    <div class="row">
+      <div class="col-main col-sm-9 col-xs-12">
+        <div class="col-main">
+                <div class="cart">
+                        <div class="page-content page-order"><div class="page-title">
+                            {% if mannequins|length != 0 %}
+                                <h2>Liste des Mannequins </h2>
+                            {% endif %}
+                        </div>
+
+                        <div class="order-detail-content">
+                        {% if mannequins|length == 0 %}
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td><center><h1>Liste de mannequin vide. Aucun mannequin à afficher</h1></center></td>
+                                    </tr>
+                                </table>
+                            </div>  
+                        {% else %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart_product">Aperçu</th>
+                                            <th>Détails du mannequin</th>
+                                            <th>Statut mannequin</th>
+                                            <th>Date d'ajout</th>
+                                            <th>Date de modification</th>
+                                            <th class="action">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for mannequin in mannequins %}
+                                            <tr>
+                                                <td class="cart_product"><img src="{{ mannequin.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></td>
+                                                <td class="cart_description"><p class="product-name"><a>{{ mannequin.nomMannequin|capitalize }}</a></p><br>
+                                                    <small><a><u>Taille standard</u> : {{ mannequin.tailleStandardMannequin|capitalize }}</a></small><br>
+                                                    <small><a><u>Poids mannequin</u> : {{ mannequin.poidsMannequin }} Kg</a></small><br>
+                                                    <small><a><u>Taille mannequin</u> : {{ mannequin.tailleMannequin|capitalize }} m</a></small><br>
+                                                    <small><a><u>Tour de taille</u> : {{ mannequin.tourTailleMannequin|capitalize }} cm</a></small><br>
+                                                    <small><a><u>Tour de poitrine</u> : {{ mannequin.tourPoitrineMannequin|capitalize }} cm</a></small><br>
+                                                    <small><a><u>Tour des grandes hanches</u> : {{ mannequin.tourGrandesHanchesMannequin|capitalize }} cm</a></small><br>
+                                                    <small><a><u>Numéro fond teint</u> : {{ mannequin.numeroTeintMannequin|capitalize }}</a></small><br><br>
+                                                    <small><a><u>Marque</u> : {% if mannequin.marque.prenom %} {{ mannequin.marque.prenom }} {% endif %} {{ mannequin.marque.nom }} - {{ mannequin.marque.marque }} {% if user == mannequin.marque %} (Moi) {% endif %}<br>
+                                                             &nbsp;&nbsp;&nbsp;&nbsp;<u>Tél(s)</u>: {{ mannequin.marque.telephoneentreprise }}{% if mannequin.marque.telephonefixentreprise %} | {{ mannequin.marque.telephonefixentreprise }} {% endif %}<br>
+                                                             &nbsp;&nbsp;&nbsp;&nbsp;<u>Email</u>: {{ mannequin.marque.email }}<br>
+                                                             &nbsp;&nbsp;&nbsp;&nbsp;<u>Adresse:</u> {% if mannequin.marque.adresseentreprise %} {{ mannequin.marque.adresseentreprise|capitalize }} {% endif %} {% if mannequin.marque.rueentreprise %}  Rue {{ mannequin.marque.rueentreprise }} {% endif %} {% if mannequin.marque.cpentreprise %} {{ mannequin.marque.cpentreprise }} {% endif %} {% if mannequin.marque.villeentreprise %} {{ mannequin.marque.villeentreprise|capitalize }} {% endif %} {% if mannequin.marque.paysentreprise %} ({{ mannequin.marque.paysentreprise }}){% endif %}<br>
+                                                         </a>
+                                                    </small><br> 
+                                                </td>
+                                                {% if mannequin.statutMannequin == "disponible" %}
+                                                    <td class="availability in-stock">
+                                                        <span class="label">{{ ('Disponible pour avatar')|upper }}</span>
+                                                    </td>
+                                                {% elseif mannequin.statutMannequin == "reserve" %}
+                                                    <td class="availability in-stock">
+                                                        <span class="label">{{ ('Réservé à ')|upper }} {{ mannequin.marque.marque|upper }}</span>
+                                                    </td>
+                                                {% else %}
+                                                    <td class="availability out-of-stock">
+                                                        <span class="label">{{ ('Indisponible')|upper }} </span>
+                                                    </td>
+                                                {% endif %}
+                                                <td class="action">
+                                                    {{ mannequin.dateAjout|date('d M Y') }}
+                                                </td>
+                                                <td class="action">
+                                                    {{ mannequin.dateUpdate|date('d M Y') }}
+                                                </td>
+                                                <td class="action">
+                                                    {% if mannequin.marque == user %}
+                                                    <a title="Modifier produit {{ mannequin.nomMannequin|capitalize }} " href="{{ path('mannequin_pro_edit', {'id' : mannequin.id}) }}"><i class="fa fa-pencil"></i></a><br>
+                                                    <br><br><a title="Retirer {{ mannequin.nomMannequin|capitalize }} de vos produits" href="{{ path('mannequin_pro_delete', {'id' : mannequin.id}) }}"><i class="fa fa-trash"></i></a>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="cart_navigation"> <a class="continue-btn" href="{{ path('mannequin_pro_new') }}"><i class="fa fa-arrow-left"> </i>&nbsp; Ajouter un nouveau mannequin</a> </div>
+                        <div class="pagination-area ">
+                        </div>
+                            <center>
+                                {{ knp_pagination_render(mannequins) }}
+                            </center>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <aside class="right sidebar col-sm-3 col-xs-12">
+        {% include 'FOSUserBundle:Profile:Navigation/menuPro.html.twig' %}
+        <br><br>
+        {% include 'FOSUserBundle:Profile:Navigation/informationsPro.html.twig' %}
+      </aside>
+    </div>
+  </div>
+  </section>

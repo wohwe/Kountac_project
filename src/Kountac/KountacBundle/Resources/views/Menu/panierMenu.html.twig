@@ -5,16 +5,16 @@
     <div class="mini-cart">
         {% if produits|length == 0 and commandes|length == 0 %}
         <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"> <a href>
-                <div class="cart-icon"><i class="fa fa-shopping-cart"></i></div>
+                <div class="cart-icon"><img src="{{ 'css/panier.png'|imagine_filter('PanierLogo') }}" alt=""></div>
                 <div class="shoppingcart-inner hidden-xs hidden-sm">PANIER VIDE</div>
             </a></div>
         <div class="top-cart-content">
-                <div class="block-subtitle hidden-xs"> Aucun produits dans votre panier !</div>
+                <div class="block-subtitle hidden-xs"> Aucun produit dans le panier</div>
                  
             </div>
         {% else %}
             <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"> <a href>
-                <div class="cart-icon"><i class="fa fa-shopping-cart"></i></div>
+                <div class="cart-icon"><img src="{{ 'css/panier.png'|imagine_filter('PanierLogo') }}" alt=""></div>
                 <div class="shoppingcart-inner hidden-xs hidden-sm"><span class="cart-title">Mon panier</span> <span class="cart-total">{{ produits|length }} Produit(s) {% if is_granted('IS_AUTHENTICATED_FULLY') %} <br>{{ commandes|length }} Commande(s){% endif %}</span></div>
             </a></div>
         <div>
@@ -28,7 +28,11 @@
 
                     <li class="item last odd"> 
                         <a href="{{ path('product', {'id' : produit.produit2.id}) }}" title="{{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }}" class="product-image">
-                            <img src="{{ produit.produit2.picture.AssetPath|imagine_filter('cartThumbMenuItem') }}" alt="">
+                            {% for image in images %}
+                                {% if image.produit2 == produit.produit2 and image.top == 0 %}
+                                    <img src="{{ image.AssetPath|imagine_filter('cartThumbMenuItem') }}" alt="">
+                                {% endif %}
+                            {% endfor %}
                         </a>
                         <div class="product-details"> <a title="Retirer {{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }} de votre panier" href="{{ path('supprimerpanier', { 'id' : produit.id }) }}" class="remove-cart"><i class="icon-close"></i></a>
                             <p class="product-name"><a href="{{ path('product', {'id' : produit.id}) }}">{{ produit.produit2.produit1.nom|capitalize }} - {{ produit.produit2.libelle.libelle|capitalize }}</a> </p>
@@ -79,4 +83,6 @@
     {% include 'KountacBundle:Menu:naira/panierMenu.html.twig' %}
 {% elseif cfa|length != 0 %}
     {% include 'KountacBundle:Menu:cfa/panierMenu.html.twig' %}
+{% elseif all|length != 0 %}
+    {% include 'KountacBundle:Menu:all/panierMenu.html.twig' %}
 {% endif %}

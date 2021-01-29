@@ -1,5 +1,23 @@
+<!-- Facebook Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '574955836574843');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=574955836574843&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
 {% set total = 0 %}
 {% set total2 = 0 %}
+{% set totalMoRes = 0 %}
 <div class="breadcrumbs">
     <div class="container">
         <div class="row">
@@ -61,7 +79,7 @@
                                         {% for produit in achat.achat.produit %}
                                             {% if produit.prix %}
                                             <tr>
-                                                <td class="cart_product"><img src="{{ produit.image.AssetPath|imagine_filter('cartThumbItem') }}" alt=""></td>
+                                                <td class="cart_product"><img src="../../../{{ produit.image.AssetPath }}" alt=""></td>
                                                 <td class="cart_description">
                                                     <p class="product-name"><a>{{ produit.reference|capitalize }} - {{ produit.motif|capitalize }} </a></p><br>
                                                 </td>
@@ -127,20 +145,108 @@
                                     <tfoot>
                                         <tr>
                                             <td colspan="2" rowspan="2"></td>
-                                            <td colspan="2"><h4><strong>TOTAL </strong></h4></td>
-                                            <td colspan="2"><h4><strong>{{ (total + total2)|number_format(2) }} F CFA</strong></h4></td>
+                                            <td colspan="2">
+                                                <h4><strong>TOTAL </strong></h4> <br> 
+                                                <h5><strong>TOTAL (Euros) </strong></h5>
+                                            </td>
+                                            <td colspan="2">
+
+    {% set totalMo = (total + total2)|number_format(0) %}
+    {% set totalMoSpli = totalMo|split(',') %}
+    {% set totalMoRes = totalMoSpli[0] ~ totalMoSpli[1] %}
+                                                <h4><strong>{{ (total + total2)|number_format(2) }} F CFA</strong></h4> <br>
+                                                <h5><strong>{{ ((total + total2)/655.81)|round|number_format(2) }} €</strong></h5>
+                                            </td>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
                             <br>
-                            <form action="{{ path('validation_achat_final', { 'id' : achat.id }) }}" method="POST">
-                                <input name="token" type="hidden" value="{{ achat.achat.token }}" />
-                                <input name="prix" type="hidden" value="{{ achat.achat.prix }}" />    
-                                <input name="date" type="hidden" value="{{ achat.date|date('d/m/Y (H-m-s)') }}" />
+
+                            <form action="{{ serveurOK }}" method="POST">
+<input type="hidden" name="PBX_SITE" value="{{ pbx_site }}">
+<input type="hidden" name="PBX_RANG" value="{{ pbx_rang }}">
+<input type="hidden" name="PBX_IDENTIFIANT" value="{{ pbx_identifiant }}">
+<input type="hidden" name="PBX_TOTAL" value="{{ pbx_total }}">
+<input type="hidden" name="PBX_DEVISE" value="978">
+<input type="hidden" name="PBX_CMD" value="{{ pbx_cmd }}">
+<input type="hidden" name="PBX_PORTEUR" value="{{ pbx_porteur }}">
+<input type="hidden" name="PBX_REPONDRE_A" value="{{ pbx_repondre_a }}">
+<input type="hidden" name="PBX_RETOUR" value="{{ pbx_retour }}">
+<input type="hidden" name="PBX_EFFECTUE" value="{{ pbx_effectue }}">
+<input type="hidden" name="PBX_ANNULE" value="{{ pbx_annule }}">
+<input type="hidden" name="PBX_REFUSE" value="{{ pbx_refuse }}">
+<input type="hidden" name="PBX_HASH" value="SHA512">
+<input type="hidden" name="PBX_TIME" value="{{ dateTime }}">
+<input type="hidden" name="PBX_HMAC" value="{{ hmac }}">
+
+                                {% if app.session.get('paiement').nom == "Visa" %}
+
                                 <button type="submit" class="button pull-right"><i class="fa fa-check"></i>&nbsp; <span>Valider achat</span></button>
+
+                                {% endif %}
+
                             </form>
-                            <a href="{{ path('Checkout_index4') }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
+
+
+
+
+
+
+
+
+{% if app.session.get('paiement').nom == "MobileMoney" %}
+
+
+<form action="https://www.kountac.fr/wecashup/Callback.php" method="POST" id="wecashup">
+
+        <script async src="https://www.wecashup.com/library/MobileMoney.js" class="wecashup_button"
+        data-demo
+        data-sender-lang="fr"
+        data-sender-phonenumber=""
+        data-receiver-uid="25BwdYycWOOBrc5r6vdrAp9SpSY2"
+        data-receiver-public-key="pk_test_LrWq1WojznebDJXr"
+        data-transaction-parent-uid=""
+        data-transaction-receiver-total-amount="1000"
+        data-transaction-receiver-reference="XVT2VBF"
+        data-transaction-sender-reference="XVT2VBF"
+        data-sender-firstname="test"
+        data-sender-lastname="test"
+        data-transaction-method="pull"
+        data-image="https://www.kountac.fr/images/logo.png"
+        data-name="kountac bill"
+        data-crypto="true"
+        data-cash="true"
+        data-telecom="true"
+        data-m-wallet="true"
+        data-split="true"
+        configuration-id="3"
+        data-marketplace-mode="false"
+        data-product-1-name="Billet ABJ PRS"
+        data-product-1-quantity="1"
+        data-product-1-unit-price="594426"
+        data-product-1-reference="XVT2VBF"
+        data-product-1-category="Billeterie"
+        data-product-1-description="Votre commande">
+
+        </script>
+
+</form>
+
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+                            <a href="{{ path('Checkout_index2') }}"><button class="button pull-left"><i class="fa fa-angle-double-left"></i>&nbsp; <span>Précédent</span></button></a>
                         {% endif %}
                         </div>
                     </div>

@@ -12,15 +12,95 @@ use Doctrine\ORM\EntityRepository;
  */
 class Produits_2Repository extends EntityRepository
 {
-    public function getProduitByMarque($marque_id) 
+
+    public function findByRand() 
+    {
+        return  $this->createQueryBuilder('u')
+            ->select('u')
+            ->addOrderBy('u.randValue')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getProduitByMarque($marque_id)
     {
         $qb = $this->createQueryBuilder('p2')
-                ->select('p2')
-                ->leftJoin('p2.produit_1', 'p1')
-                ->addSelect('p1')
-                ->where('p1.marque = :marque')
-                ->setParameter('marque', $marque_id)
-                ->orderBy('p2.id', 'ASC');
+            ->select('p2')
+            ->leftJoin('p2.produit_1', 'p1')
+            ->addSelect('p1')
+            ->where('p1.marque = :marque')
+            ->setParameter('marque', $marque_id)
+            ->orderBy('p2.randValue', 'ASC');
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getProduitByMarqueId($marque_id)
+    {
+        $qb = $this->createQueryBuilder('p2')
+            ->select('p2')
+            ->leftJoin('p2.produit_1', 'p1')
+            ->addSelect('p1')
+            ->where('p1.marque.id = :id')
+            ->setParameter('id', $marque_id);
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getAll()
+    {
+        $qb = $this->createQueryBuilder('p2')
+            ->select('p2')
+            ->orderBy('p2.randValue', 'DESC');
+        return $qb->getQuery()->getResult();
+    }
+
+
+    public function getAllByGroup()
+    {
+        $qb = $this->createQueryBuilder('p2')
+            ->select('p2')
+            ->groupBy('p2.produit_1');
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getPrixEuro() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('MIN(p2.europrix) AS mineuro, MAX(p2.europrix) AS maxeuro');
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function getPrixCFA() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('MIN(p2.cfaprix) AS mincfa, MAX(p2.cfaprix) AS maxcfa');
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function getPrixUSA() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('MIN(p2.usaprix) AS minusa, MAX(p2.usaprix) AS maxusa');
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function getPrixLivre() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('MIN(p2.livreprix) AS minlivre, MAX(p2.livreprix) AS maxlivre');
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function getPrixNaira() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('MIN(p2.nairaprix) AS minnaira, MAX(p2.nairaprix) AS maxnaira');
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function getPrixAll() 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('MIN(p2.allprix) AS minall, MAX(p2.allprix) AS maxall');
         return $qb->getQuery()->getResult();
     }
     
@@ -39,36 +119,100 @@ class Produits_2Repository extends EntityRepository
                 ->orWhere('p2.usaprix <= :prix')
                 ->orWhere('p2.livreprix <= :prix')
                 ->orWhere('p2.nairaprix <= :prix')
-                ->andWhere('p2.libelle = :motif')
+                ->andWhere('p2.libelle IN (:motif)')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('categorie', $categorie)
                 ->setParameter('motif', $motif)
                 ->setParameter('marque', $marque)
                 ->setParameter('prix', $prix)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
     
-    public function getProductByTri_T1($prix) 
+    public function getProductByTri_T1($minPrix, $maxPrix, $devise) 
     {
-        $qb = $this->createQueryBuilder('p2')
+        if($devise == "cfa"){
+            $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->Where('p2.cfaprix >= :minPrix')
+                ->andWhere('p2.cfaprix <= :maxPrix')
+                ->setParameter('maxPrix', $maxPrix)
+                ->setParameter('minPrix', $minPrix)
+                ->orderBy('p2.cfaprix', 'ASC');
+            return $qb->getQuery()->getResult();
+        }else if($devise == "usa"){
+            $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->Where('p2.usaprix >= :minPrix')
+                ->andWhere('p2.usaprix <= :maxPrix')
+                ->setParameter('maxPrix', $maxPrix)
+                ->setParameter('minPrix', $minPrix)
+                ->orderBy('p2.usaprix', 'ASC');
+            return $qb->getQuery()->getResult();
+            
+        }else if($devise == "livre"){
+            $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->Where('p2.livreprix >= :minPrix')
+                ->andWhere('p2.livreprix <= :maxPrix')
+                ->setParameter('maxPrix', $maxPrix)
+                ->setParameter('minPrix', $minPrix)
+                ->orderBy('p2.livreprix', 'ASC');
+            return $qb->getQuery()->getResult();
+            
+        }else if($devise == "naira"){
+            $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->Where('p2.nairaprix >= :minPrix')
+                ->andWhere('p2.nairaprix <= :maxPrix')
+                ->setParameter('maxPrix', $maxPrix)
+                ->setParameter('minPrix', $minPrix)
+                ->orderBy('p2.nairaprix', 'ASC');
+            return $qb->getQuery()->getResult();
+            
+        }else if($devise == "all"){
+            $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->Where('p2.allprix >= :minPrix')
+                ->andWhere('p2.allprix <= :maxPrix')
+                ->setParameter('maxPrix', $maxPrix)
+                ->setParameter('minPrix', $minPrix)
+                ->orderBy('p2.allprix', 'ASC');
+            return $qb->getQuery()->getResult();
+            
+        }else if($devise == "euro"){
+            $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->Where('p2.europrix >= :minPrix')
+                ->andWhere('p2.europrix <= :maxPrix')
+                ->setParameter('maxPrix', $maxPrix)
+                ->setParameter('minPrix', $minPrix)
+                ->orderBy('p2.europrix', 'ASC');
+            return $qb->getQuery()->getResult();
+            
+        }
+        /*$qb = $this->createQueryBuilder('p2')
                 ->select('p2')
                 ->where('p2.europrix <= :prix')
                 ->orWhere('p2.cfaprix <= :prix')
                 ->orWhere('p2.usaprix <= :prix')
                 ->orWhere('p2.livreprix <= :prix')
                 ->orWhere('p2.nairaprix <= :prix')
-                ->setParameter('prix', $prix)
+                ->setParameter('prix', $maxPrix)
                 ->orderBy('p2.id', 'ASC');
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getResult();*/
     }
     
     public function getProductByTri_T2($motif) 
     {
         $qb = $this->createQueryBuilder('p2')
                 ->select('p2')
-                ->where('p2.libelle = :motif')
+                ->where('p2.libelle IN (:motif)')
                 ->setParameter('motif', $motif)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
@@ -83,7 +227,7 @@ class Produits_2Repository extends EntityRepository
                 ->orWhere('p2.usaprix <= :prix')
                 ->orWhere('p2.livreprix <= :prix')
                 ->orWhere('p2.nairaprix <= :prix')
-                ->andWhere('p2.libelle = :motif')
+                ->andWhere('p2.libelle IN (:motif)')
                 ->setParameter('motif', $motif)
                 ->setParameter('prix', $prix)
                 ->orderBy('p2.id', 'ASC');
@@ -97,7 +241,11 @@ class Produits_2Repository extends EntityRepository
                 ->leftJoin('p2.produit_3', 'p3')
                 ->addSelect('p3')
                 ->where('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -114,8 +262,12 @@ class Produits_2Repository extends EntityRepository
                 ->orWhere('p2.livreprix <= :prix')
                 ->orWhere('p2.nairaprix <= :prix')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('prix', $prix)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -126,7 +278,7 @@ class Produits_2Repository extends EntityRepository
                 ->select('p2')
                 ->leftJoin('p2.produit_3', 'p3')
                 ->addSelect('p3')
-                ->where('p2.libelle = :motif')
+                ->where('p2.libelle IN (:motif)')
                 ->andWhere('p3.taille = :taille')
                 ->setParameter('motif', $motif)
                 ->setParameter('taille', $taille)
@@ -145,11 +297,15 @@ class Produits_2Repository extends EntityRepository
                 ->orWhere('p2.usaprix <= :prix')
                 ->orWhere('p2.livreprix <= :prix')
                 ->orWhere('p2.nairaprix <= :prix')
-                ->andWhere('p2.libelle = :motif')
+                ->andWhere('p2.libelle IN (:motif)')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('motif', $motif)
                 ->setParameter('prix', $prix)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -191,8 +347,8 @@ class Produits_2Repository extends EntityRepository
                 ->leftJoin('p2.produit_1', 'p1')
                 ->addSelect('p1')
                 ->where('p1.marque = :marque')
-                ->andWhere('p2.libelle = :motif')
-                 ->setParameter('motif', $motif)
+                ->andWhere('p2.libelle IN (:motif)')
+                ->setParameter('motif', $motif)
                 ->setParameter('marque', $marque)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
@@ -206,7 +362,7 @@ class Produits_2Repository extends EntityRepository
                 ->addSelect('p1')
                 ->where('p1.marque = :marque')
                 ->andWhere('p2.europrix <= :prix')
-                ->andWhere('p2.libelle = :motif')
+                ->andWhere('p2.libelle IN (:motif)')
                 ->orWhere('p2.cfaprix <= :prix')
                 ->orWhere('p2.usaprix <= :prix')
                 ->orWhere('p2.livreprix <= :prix')
@@ -228,8 +384,12 @@ class Produits_2Repository extends EntityRepository
                 ->addSelect('p1')
                 ->where('p1.marque = :marque')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('marque', $marque)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -245,6 +405,8 @@ class Produits_2Repository extends EntityRepository
                 ->where('p1.marque = :marque')
                 ->andWhere('p2.europrix <= :prix')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->orWhere('p2.cfaprix <= :prix')
                 ->orWhere('p2.usaprix <= :prix')
                 ->orWhere('p2.livreprix <= :prix')
@@ -252,6 +414,8 @@ class Produits_2Repository extends EntityRepository
                 ->setParameter('marque', $marque)
                 ->setParameter('prix', $prix)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -265,11 +429,15 @@ class Produits_2Repository extends EntityRepository
                 ->addSelect('p3')
                 ->addSelect('p1')
                 ->where('p1.marque = :marque')
-                ->andWhere('p2.libelle = :motif')
+                ->andWhere('p2.libelle IN (:motif)')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('motif', $motif)
                 ->setParameter('marque', $marque)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -284,16 +452,20 @@ class Produits_2Repository extends EntityRepository
                 ->addSelect('p1')
                 ->where('p1.marque = :marque')
                 ->andWhere('p2.europrix <= :prix')
-                ->andWhere('p2.libelle = :motif')
+                ->andWhere('p2.libelle IN (:motif)')
                 ->orWhere('p2.cfaprix <= :prix')
                 ->orWhere('p2.usaprix <= :prix')
                 ->orWhere('p2.livreprix <= :prix')
                 ->orWhere('p2.nairaprix <= :prix')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('motif', $motif)
                 ->setParameter('marque', $marque)
                 ->setParameter('prix', $prix)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -335,7 +507,7 @@ class Produits_2Repository extends EntityRepository
                 ->leftJoin('p2.produit_1', 'p1')
                 ->addSelect('p1')
                 ->where('p1.categorie = :categorie')
-                ->andWhere('p2.libelle = :motif')
+                ->andWhere('p2.libelle IN (:motif)')
                 ->setParameter('categorie', $categorie)
                 ->setParameter('motif', $motif)
                 ->orderBy('p2.id', 'ASC');
@@ -350,7 +522,7 @@ class Produits_2Repository extends EntityRepository
                 ->addSelect('p1')
                 ->where('p1.categorie = :categorie')
                 ->andWhere('p2.europrix <= :prix')
-                ->andWhere('p2.libelle = :motif')
+                ->andWhere('p2.libelle IN (:motif)')
                 ->orWhere('p2.cfaprix <= :prix')
                 ->orWhere('p2.usaprix <= :prix')
                 ->orWhere('p2.livreprix <= :prix')
@@ -372,8 +544,12 @@ class Produits_2Repository extends EntityRepository
                 ->addSelect('p1')
                 ->where('p1.categorie = :categorie')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('categorie', $categorie)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -393,9 +569,13 @@ class Produits_2Repository extends EntityRepository
                 ->orWhere('p2.livreprix <= :prix')
                 ->orWhere('p2.nairaprix <= :prix')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('categorie', $categorie)
                 ->setParameter('prix', $prix)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -409,11 +589,15 @@ class Produits_2Repository extends EntityRepository
                 ->addSelect('p3')
                 ->addSelect('p1')
                 ->where('p1.categorie = :categorie')
-                ->andWhere('p2.libelle = :motif')
+                ->andWhere('p2.libelle IN (:motif)')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('categorie', $categorie)
                 ->setParameter('motif', $motif)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -432,12 +616,16 @@ class Produits_2Repository extends EntityRepository
                 ->orWhere('p2.usaprix <= :prix')
                 ->orWhere('p2.livreprix <= :prix')
                 ->orWhere('p2.nairaprix <= :prix')
-                ->andWhere('p2.libelle = :motif')
+                ->andWhere('p2.libelle IN (:motif)')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('categorie', $categorie)
                 ->setParameter('motif', $motif)
                 ->setParameter('prix', $prix)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -484,7 +672,7 @@ class Produits_2Repository extends EntityRepository
                 ->addSelect('p1')
                 ->where('p1.categorie = :categorie')
                 ->andWhere('p1.marque = :marque')
-                ->andWhere('p2.libelle = :motif')
+                ->andWhere('p2.libelle IN (:motif)')
                 ->setParameter('categorie', $categorie)
                 ->setParameter('motif', $motif)
                 ->setParameter('marque', $marque)
@@ -505,7 +693,7 @@ class Produits_2Repository extends EntityRepository
                 ->orWhere('p2.usaprix <= :prix')
                 ->orWhere('p2.livreprix <= :prix')
                 ->orWhere('p2.nairaprix <= :prix')
-                ->andWhere('p2.libelle = :motif')
+                ->andWhere('p2.libelle IN (:motif)')
                 ->andWhere('p3.taille = :taille')
                 ->setParameter('categorie', $categorie)
                 ->setParameter('motif', $motif)
@@ -526,9 +714,13 @@ class Produits_2Repository extends EntityRepository
                 ->where('p1.categorie = :categorie')
                 ->andWhere('p1.marque = :marque')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('categorie', $categorie)
                 ->setParameter('marque', $marque)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -549,10 +741,14 @@ class Produits_2Repository extends EntityRepository
                 ->orWhere('p2.livreprix <= :prix')
                 ->orWhere('p2.nairaprix <= :prix')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('categorie', $categorie)
                 ->setParameter('marque', $marque)
                 ->setParameter('prix', $prix)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->orderBy('p2.id', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -567,27 +763,17 @@ class Produits_2Repository extends EntityRepository
                 ->addSelect('p1')
                 ->where('p1.categorie = :categorie')
                 ->andWhere('p1.marque = :marque')
-                ->andWhere('p2.libelle = :motif')
+                ->andWhere('p2.libelle IN (:motif)')
                 ->andWhere('p3.taille = :taille')
+                ->orWhere('p3.taille = :taille_min')
+                ->orWhere('p3.taille = :taille_max')
                 ->setParameter('categorie', $categorie)
                 ->setParameter('motif', $motif)
                 ->setParameter('marque', $marque)
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_max', $taille + 2)
+                ->setParameter('taille_min', $taille - 2)
                 ->orderBy('p2.id', 'ASC');
-        return $qb->getQuery()->getResult();
-    }
-    
-    public function byCategorie_3($categorie) 
-    {
-        $qb = $this->createQueryBuilder('p2')
-                ->select('p2')
-                ->leftJoin('p2.produit_1', 'p1')
-                ->addSelect('p1')
-                ->where('p1.categorie = :categorie')
-                ->andWhere('p1.stock >= :seuil')
-                ->orderBy('p2.libelle')
-                ->setParameter('categorie', $categorie)
-                ->setParameter('seuil', '1');
         return $qb->getQuery()->getResult();
     }
     
@@ -608,7 +794,110 @@ class Produits_2Repository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
-    public function byCategorie_1($categorie) 
+    public function byCategorie_1($categorie, $categories_enfants) 
+    {
+        if($categorie==1){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '6')
+                    ->setParameter('max', '30');
+            return $qb->getQuery()->getResult();
+
+        }else if($categorie==2){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '41')
+                    ->setParameter('max', '108');
+            return $qb->getQuery()->getResult();
+
+        }else if($categorie==3){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '34')
+                    ->setParameter('max', '36');
+            return $qb->getQuery()->getResult();
+
+        }else if($categorie==4){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '156')
+                    ->setParameter('max', '165');
+            return $qb->getQuery()->getResult();
+
+        }else if($categorie==231){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '231')
+                    ->setParameter('max', '263');
+            return $qb->getQuery()->getResult();
+
+        }else if($categorie==264){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '266')
+                    ->setParameter('max', '269');
+            return $qb->getQuery()->getResult();
+
+        }else if($categorie==265){
+            $qb = $this->createQueryBuilder('p2')
+                    ->select('p2')
+                    ->leftJoin('p2.produit_1', 'p1')
+                    ->addSelect('p1')
+                    ->leftJoin('p1.categorie', 'cat')
+                    ->addSelect('cat')
+                    ->where('p1.categorie >= :min')
+                    ->andWhere('p1.categorie <= :max')
+                    ->orderBy('p2.randValue')
+                    ->setParameter('min', '271')
+                    ->setParameter('max', '272');
+            return $qb->getQuery()->getResult();
+
+        }
+    }
+    
+    public function byNewCategorie($categorie, $categories_enfants) 
     {
         $qb = $this->createQueryBuilder('p2')
                 ->select('p2')
@@ -617,14 +906,33 @@ class Produits_2Repository extends EntityRepository
                 ->leftJoin('p1.categorie', 'cat')
                 ->addSelect('cat')
                 ->where('p1.categorie = :categorie')
-                ->orWhere('size(cat.children) >= :seuil')
+                ->orWhere('cat.id IN (:categories_enfants)')
                 ->andWhere('p1.stock >= :seuil')
-                ->orderBy('p2.libelle')
+                ->orderBy('p2.id', 'DESC')
                 ->setParameter('categorie', $categorie)
+                ->setParameter('categories_enfants', $categories_enfants)
                 ->setParameter('seuil', '1');
         return $qb->getQuery()->getResult();
     }
-   
+    
+    public function byBestCategorie($categorie, $categories_enfants) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('p1.categorie = :categorie')
+                ->orWhere('cat.id IN (:categories_enfants)')
+                ->andWhere('p1.stock >= :seuil')
+                ->orderBy('p2.reduction', 'DESC')
+                ->setParameter('categorie', $categorie)
+                ->setParameter('categories_enfants', $categories_enfants)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
     public function byCollection($collection) 
     {
         $qb = $this->createQueryBuilder('p2')
@@ -639,6 +947,376 @@ class Produits_2Repository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
+	public function byIdeesLook($look) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->where('p1.looks = :look')
+                ->andWhere('p1.stock >= :seuil')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('seuil', '1')
+                ->setParameter('look', $look);
+        return $qb->getQuery()->getResult();
+    }
+    
+    /* Destockage de tous les ptoduits de la catégorie "femmes"*/
+    public function getCategoriesAllFemmesDestockage($categoriesHautsFemmes, $categoriesBasFemmes, $categoriesEnsemblesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesHautsFemmes)')
+                ->orWhere('cat.id IN (:categoriesBasFemmes)')
+                ->orWhere('cat.id IN (:categoriesEnsemblesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->orderBy('p2.reduction', 'DESC')
+                ->setParameter('categoriesHautsFemmes', $categoriesHautsFemmes)
+                ->setParameter('categoriesBasFemmes', $categoriesBasFemmes)
+                ->setParameter('categoriesEnsemblesFemmes', $categoriesEnsemblesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+            
+    /* Destockage de la catégorie "femmes"*/
+    public function getCategoriesFemmesDestockage($categoriesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->orderBy('p2.reduction', 'DESC')
+                ->setParameter('categoriesFemmes', $categoriesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+   
+    
+    /* Destockage de tous les ptoduits de la catégorie "femmes"*/
+    public function getCategoriesAllHommesDestockage($categoriesHautsHommes, $categoriesBasHommes, $categoriesEnsemblesHommes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesHautsHommes)')
+                ->orWhere('cat.id IN (:categoriesBasHommes)')
+                ->orWhere('cat.id IN (:categoriesEnsemblesHommes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->orderBy('p2.reduction', 'DESC')
+                ->setParameter('categoriesHautsHommes', $categoriesHautsHommes)
+                ->setParameter('categoriesBasHommes', $categoriesBasHommes)
+                ->setParameter('categoriesEnsemblesHommes', $categoriesEnsemblesHommes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+            
+    /* Destockage de la catégorie "femmes"*/
+    public function getCategoriesHommesDestockage($categoriesHommes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesHommes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->orderBy('p2.reduction', 'DESC')
+                ->setParameter('categoriesHommes', $categoriesHommes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    
+    /* Destockage de tous les ptoduits de la catégorie "femmes"*/
+    public function getCategoriesAllEnfantsDestockage($categoriesHautsEnfants, $categoriesBasEnfants, $categoriesEnsemblesEnfants) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesHautsEnfants)')
+                ->orWhere('cat.id IN (:categoriesBasEnfants)')
+                ->orWhere('cat.id IN (:categoriesEnsemblesEnfants)')
+                ->andWhere('p1.stock >= :seuil')
+                ->orderBy('p2.reduction', 'DESC')
+                ->setParameter('categoriesHautsEnfants', $categoriesHautsEnfants)
+                ->setParameter('categoriesBasEnfants', $categoriesBasEnfants)
+                ->setParameter('categoriesEnsemblesEnfants', $categoriesEnsemblesEnfants)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+            
+    /* Destockage de la catégorie "Enfants"*/
+    public function getCategoriesEnfantsDestockage($categoriesEnfants) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesEnfants)')
+                ->andWhere('p1.stock >= :seuil')
+                ->orderBy('p2.reduction', 'DESC')
+                ->setParameter('categoriesEnfants', $categoriesEnfants)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    /* Sur mesure de la catégorie "femmes" en Euro */
+    public function getCategoriesFemmesSurMesureEuro($categoriesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->andWhere('p2.europrixCommande is not Null')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('categoriesFemmes', $categoriesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    /* Sur mesure de tous les produits de la catégorie "femmes" Euro*/
+    public function getCategoriesAllFemmesSurMesureEuro($categoriesHautsFemmes,$categoriesBasFemmes,$categoriesEnsemblesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesHautsFemmes)')
+                ->orWhere('cat.id IN (:categoriesBasFemmes)')
+                ->orWhere('cat.id IN (:categoriesEnsemblesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->andWhere('p2.europrixCommande is not Null')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('categoriesHautsFemmes', $categoriesHautsFemmes)
+                ->setParameter('categoriesBasFemmes', $categoriesBasFemmes)
+                ->setParameter('categoriesEnsemblesFemmes', $categoriesEnsemblesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    /* Sur mesure de la catégorie "femmes" en All */
+    public function getCategoriesFemmesSurMesureAll($categoriesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->andWhere('p2.allprixCommande is not Null')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('categoriesFemmes', $categoriesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    /* Sur mesure de tous les produits de la catégorie "femmes" All*/
+    public function getCategoriesAllFemmesSurMesureAll($categoriesHautsFemmes,$categoriesBasFemmes,$categoriesEnsemblesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesHautsFemmes)')
+                ->orWhere('cat.id IN (:categoriesBasFemmes)')
+                ->orWhere('cat.id IN (:categoriesEnsemblesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->andWhere('p2.allprixCommande is not Null')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('categoriesHautsFemmes', $categoriesHautsFemmes)
+                ->setParameter('categoriesBasFemmes', $categoriesBasFemmes)
+                ->setParameter('categoriesEnsemblesFemmes', $categoriesEnsemblesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    /* Sur mesure de la catégorie "femmes" en Livre */
+    public function getCategoriesFemmesSurMesureLivre($categoriesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->andWhere('p2.livreprixCommande is not Null')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('categoriesFemmes', $categoriesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    /* Sur mesure de tous les produits de la catégorie "femmes" Livre*/
+    public function getCategoriesAllFemmesSurMesureLivre($categoriesHautsFemmes,$categoriesBasFemmes,$categoriesEnsemblesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesHautsFemmes)')
+                ->orWhere('cat.id IN (:categoriesBasFemmes)')
+                ->orWhere('cat.id IN (:categoriesEnsemblesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->andWhere('p2.livreprixCommande is not Null')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('categoriesHautsFemmes', $categoriesHautsFemmes)
+                ->setParameter('categoriesBasFemmes', $categoriesBasFemmes)
+                ->setParameter('categoriesEnsemblesFemmes', $categoriesEnsemblesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    /* Sur mesure de la catégorie "femmes" en Usa */
+    public function getCategoriesFemmesSurMesureUsa($categoriesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->andWhere('p2.usaprixCommande is not Null')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('categoriesFemmes', $categoriesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    /* Sur mesure de tous les produits de la catégorie "femmes" Usa*/
+    public function getCategoriesAllFemmesSurMesureUsa($categoriesHautsFemmes,$categoriesBasFemmes,$categoriesEnsemblesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesHautsFemmes)')
+                ->orWhere('cat.id IN (:categoriesBasFemmes)')
+                ->orWhere('cat.id IN (:categoriesEnsemblesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->andWhere('p2.usaprixCommande is not Null')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('categoriesHautsFemmes', $categoriesHautsFemmes)
+                ->setParameter('categoriesBasFemmes', $categoriesBasFemmes)
+                ->setParameter('categoriesEnsemblesFemmes', $categoriesEnsemblesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    /* Sur mesure de la catégorie "femmes" en Naira */
+    public function getCategoriesFemmesSurMesureNaira($categoriesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->andWhere('p2.nairaprixCommande is not Null')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('categoriesFemmes', $categoriesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    /* Sur mesure de tous les produits de la catégorie "femmes" Naira*/
+    public function getCategoriesAllFemmesSurMesureNaira($categoriesHautsFemmes,$categoriesBasFemmes,$categoriesEnsemblesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesHautsFemmes)')
+                ->orWhere('cat.id IN (:categoriesBasFemmes)')
+                ->orWhere('cat.id IN (:categoriesEnsemblesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->andWhere('p2.nairaprixCommande is not Null')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('categoriesHautsFemmes', $categoriesHautsFemmes)
+                ->setParameter('categoriesBasFemmes', $categoriesBasFemmes)
+                ->setParameter('categoriesEnsemblesFemmes', $categoriesEnsemblesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    /* Sur mesure de la catégorie "femmes" en Cfa */
+    public function getCategoriesFemmesSurMesureCfa($categoriesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->andWhere('p2.cfaprixCommande is not Null')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('categoriesFemmes', $categoriesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
+    /* Sur mesure de tous les produits de la catégorie "femmes" Cfa*/
+    public function getCategoriesAllFemmesSurMesureCfa($categoriesHautsFemmes,$categoriesBasFemmes,$categoriesEnsemblesFemmes) 
+    {
+        $qb = $this->createQueryBuilder('p2')
+                ->select('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->leftJoin('p1.categorie', 'cat')
+                ->addSelect('cat')
+                ->where('cat.id IN (:categoriesHautsFemmes)')
+                ->orWhere('cat.id IN (:categoriesBasFemmes)')
+                ->orWhere('cat.id IN (:categoriesEnsemblesFemmes)')
+                ->andWhere('p1.stock >= :seuil')
+                ->andWhere('p2.cfaprixCommande is not Null')
+                ->orderBy('p2.id', 'DESC')
+                ->setParameter('categoriesHautsFemmes', $categoriesHautsFemmes)
+                ->setParameter('categoriesBasFemmes', $categoriesBasFemmes)
+                ->setParameter('categoriesEnsemblesFemmes', $categoriesEnsemblesFemmes)
+                ->setParameter('seuil', '1');
+        return $qb->getQuery()->getResult();
+    }
+    
     public function findArray($array)
     {
         $qb = $this->createQueryBuilder('u')
@@ -648,6 +1326,24 @@ class Produits_2Repository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
+    public function findAvatarByMarque($mannequins,$marque_id)
+    {
+        $qb = $this->createQueryBuilder('u')
+                ->Select('u')
+                ->leftJoin('u.mannequin', 'p2')
+                ->leftJoin('u.produit_1', 'p1')
+                ->addSelect('p1')
+                ->addSelect('p2')
+                ->where('p1.marque = :marque')
+                ->andWhere('p2.id IN (:mannequins)')
+                ->orderBy('p2.id')
+                ->setParameter('mannequins', $mannequins)
+                ->setParameter('marque', $marque_id)
+                
+                ;
+        return $qb->getQuery()->getResult();
+    }
+
     public function recherche($chaine) 
     {
         $qb = $this->createQueryBuilder('p2')
@@ -733,9 +1429,13 @@ class Produits_2Repository extends EntityRepository
         $qb = $this->createQueryBuilder('u')
                 ->select('u')
                 ->where('u.taille = :taille')
+                ->orWhere('u.taille = :taille_min')
+                ->orWhere('u.taille = :taille_max')
                 ->andWhere('u.id != :id')
                 ->andWhere('u.stock >= :seuil')
                 ->setParameter('taille', $taille)
+                ->setParameter('taille_min', $taille - 2)
+                ->setParameter('taille_max', $taille + 2)
                 ->setParameter('id', $id)
                 ->setParameter('seuil', '1')
                 ->orderBy('u.popularite', 'DESC')
