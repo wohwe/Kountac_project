@@ -625,18 +625,27 @@ class ProduitController extends Controller
         if (!$produit) {
             return $this->redirectToRoute('homepage');
         }
+        
         $images = $em->getRepository('KountacBundle:Media_motif')->findImagesTops($produit);
+        
         $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
         $cfaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixCFA();
         $usaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixUSA();
         $livreprix = $em->getRepository('KountacBundle:Produits_2')->getPrixLivre();
         $nairaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixNaira();
         $allprix = $em->getRepository('KountacBundle:Produits_2')->getPrixAll();
+        
         $images_all = $em->getRepository('KountacBundle:Media_motif')->findAll();
         $images_autres = $em->getRepository('KountacBundle:Media_motif')->findImagesAutres($produit);
+        
         $marque = $produit->getProduit1()->getMarque();
-	    $categorie = $produit->getProduit1()->getCategorie();
+	$categorie = $produit->getProduit1()->getCategorie();
         $categorieProduits = $em->getRepository('KountacBundle:Produits_1')->getProduitsByCategorie($categorie, $id);
+        
+        $images_rest = $em->getRepository('KountacBundle:Media_motif')->findImagesBon($categorie);
+        //var_dump($images_all);die();
+        
+        
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $commentaires = $em->getRepository('CommentairesBundle:Commentaires')->commentairesProduit($id);
         $commentaire = new Commentaires();
@@ -685,12 +694,13 @@ class ProduitController extends Controller
                                                                                                 'commentaires' => $commentaires,
                                                                                                 'mannequins' => $mannequins,
                                                                                                 'images' => $images,
-            'cfaprix' => $cfaprix,
-            'europrix' => $europrix,
-            'usaprix' => $usaprix,
-            'livreprix' => $livreprix,
-            'nairaprix' => $nairaprix,
-            'allprix' => $allprix,
+                                                                                                'images_rest' => $images_rest,
+                                                                                                'cfaprix' => $cfaprix,
+                                                                                                'europrix' => $europrix,
+                                                                                                'usaprix' => $usaprix,
+                                                                                                'livreprix' => $livreprix,
+                                                                                                'nairaprix' => $nairaprix,
+                                                                                                'allprix' => $allprix,
                                                                                                 'images_all' => $images_all,
                                                                                                 'images_autres' => $images_autres,
                                                                                                 'commentaire' => $commentaire,
@@ -726,9 +736,14 @@ class ProduitController extends Controller
         $images_autres = $em->getRepository('KountacBundle:Media_motif')->findImagesAutresMannequins($produit, $image);
         $images = $em->getRepository('KountacBundle:Media_motif')->findImagesTops($produit);
         $images_all = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        
+        
         $marque = $produit->getProduit1()->getMarque();
-	    $categorie = $produit->getProduit1()->getCategorie();
+	$categorie = $produit->getProduit1()->getCategorie();
         $categorieProduits = $em->getRepository('KountacBundle:Produits_1')->getProduitsByCategorie($categorie, $id);
+        // Portion ajoutée
+        $images_rest = $em->getRepository('KountacBundle:Media_motif')->findImagesBon($categorie);
+        
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $commentaires = $em->getRepository('CommentairesBundle:Commentaires')->commentairesProduit($id);
         $commentaire = new Commentaires();
@@ -778,13 +793,14 @@ class ProduitController extends Controller
                                                                                                 'commentaires' => $commentaires,
                                                                                                 'mannequins' => $mannequins,
                                                                                                 'images' => $images,
-            'cfaprix' => $cfaprix,
-            'europrix' => $europrix,
-            'usaprix' => $usaprix,
-            'livreprix' => $livreprix,
-            'nairaprix' => $nairaprix,
-            'allprix' => $allprix,
+                                                                                                'cfaprix' => $cfaprix,
+                                                                                                'europrix' => $europrix,
+                                                                                                'usaprix' => $usaprix,
+                                                                                                'livreprix' => $livreprix,
+                                                                                                'nairaprix' => $nairaprix,
+                                                                                                'allprix' => $allprix,
                                                                                                 'image' => $image,
+                                                                                                'images_rest' => $images_rest,
                                                                                                 'images_all' => $images_all,
                                                                                                 'images_autres' => $images_autres,
                                                                                                 'commentaire' => $commentaire,
@@ -1051,9 +1067,9 @@ class ProduitController extends Controller
             $produitsRecherche = $em->getRepository('KountacBundle:Produits_2')->recherche($form['recherche']->getData());
             $produits  = $this->get('knp_paginator')->paginate($produitsRecherche,$this->get('request')->query->get('page', 1),20);
             $mot = $form['recherche']->getData();
-        } else {
-            throw $this->createNotFoundException('La page n\'exixte pas');
-        }
+        } //else {
+           // throw $this->createNotFoundException('La page n\'exixte pas');
+        //}
         
         $session = $this->getRequest()->getSession();
         $session->set('recherche', '1');

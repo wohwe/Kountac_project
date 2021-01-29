@@ -23,6 +23,23 @@ class Media_motifRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
     
+    // Function to address the display pb at the single product section
+    
+    public function findImagesBon($categorie) 
+    {
+        $qb = $this->createQueryBuilder('images')
+                ->select('images')
+                ->leftJoin('images.produit_2', 'p2')
+                ->addSelect('p2')
+                ->leftJoin('p2.produit_1', 'p1')
+                ->addSelect('p1')
+                ->where('p1.categorie = :categorie')
+                ->andWhere('images.top = 0')
+                ->orderBy('images.id', 'DESC')
+                ->setParameter('categorie', $categorie)
+            ;
+        return $qb->getQuery()->getResult();
+    }
     
     public function findImagesAutres($produit) 
     {
