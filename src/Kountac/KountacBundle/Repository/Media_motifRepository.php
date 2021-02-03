@@ -12,6 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class Media_motifRepository extends EntityRepository
 {
+    
+    public function getImagesWithPath1() 
+    {
+        $qb = $this->createQueryBuilder('images')
+                ->select('images')
+                ->where('images.path != :null')
+                ->setParameter('null', 'NULL')
+        ;
+        return $qb->getQuery()->getResult();
+    }
+    
     public function findByProduits2($produit_2) 
     {
         $qb = $this->createQueryBuilder('images')
@@ -59,7 +70,9 @@ class Media_motifRepository extends EntityRepository
                 ->select('images')
                 ->where('images.produit_2 = :produit')
                 ->andWhere('images.top = 0')
+                ->andWhere('images.path != :null')
                 ->orderBy('images.id', 'DESC')
+                ->setParameter('null', 'NULL')
                 ->setParameter('produit', $produit)
             ;
         return $qb->getQuery()->getResult();
@@ -103,9 +116,11 @@ class Media_motifRepository extends EntityRepository
                 ->addSelect('p1')
                 ->where('p1.marque = :marque')
                 ->andWhere('mannequin.id IN (:mannequins)')
+                ->andWhere('images.path != :null')
                 ->orderBy('mannequin.nom_mannequin', 'ASC')
                 ->setParameter('mannequins', $mannequins)
                 ->setParameter('marque', $marque_id)
+                ->setParameter('null', 'NULL')
                 
                 ;
         return $qb->getQuery()->getResult();
@@ -125,7 +140,7 @@ class Media_motifRepository extends EntityRepository
                 ->orderBy('image.id', 'DESC');
         return $qb->getQuery()->getResult();
     }
-
+    
     public function triTaillePoidsByMarque($poids_min, $poids_max, $taille_min, $taille_max, $marque_id) 
     {
         $qb = $this->createQueryBuilder('image')
@@ -141,11 +156,13 @@ class Media_motifRepository extends EntityRepository
                 ->andWhere('mannequin.poids_mannequin <= :poids_max')
                 ->andWhere('mannequin.taille_mannequin >= :taille_min')
                 ->andWhere('mannequin.taille_mannequin <= :taille_max')
+                ->andWhere('images.path != :null')
                 ->setParameter('poids_min', $poids_min)
                 ->setParameter('poids_max', $poids_max)
                 ->setParameter('taille_min', $taille_min)
                 ->setParameter('taille_max', $taille_max)
                 ->setParameter('marque', $marque_id)
+                ->setParameter('null', 'NULL')
                 ->orderBy('image.id', 'DESC');
                         
         return $qb->getQuery()->getResult();
@@ -180,7 +197,9 @@ class Media_motifRepository extends EntityRepository
                 ->leftJoin('p2.produit_1', 'p1')
                 ->addSelect('p1')
                 ->where('p1.marque = :marque')
+                ->andWhere('images.path != :null')
                 ->setParameter('marque', $marque_id)
+                ->setParameter('null', 'NULL')
                 ->orderBy('p2.id', 'DESC');
         return $qb->getQuery()->getResult();
     }

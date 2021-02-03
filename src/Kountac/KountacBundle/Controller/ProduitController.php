@@ -25,7 +25,7 @@ class ProduitController extends Controller
         $allprix = $em->getRepository('KountacBundle:Produits_2')->getPrixAll();
         $categories = $em->getRepository('KountacBundle:Categories')->getCategoriesByName();
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images = $em->getRepository('KountacBundle:Media_motif')->getImagesWithPath1();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
         $form_taillePoids = $this->createForm(new Taille_PoidsType());
@@ -281,7 +281,7 @@ class ProduitController extends Controller
         $allprix = $em->getRepository('KountacBundle:Produits_2')->getPrixAll();
         $categories = $em->getRepository('KountacBundle:Categories')->getCategoriesByName();
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images = $em->getRepository('KountacBundle:Media_motif')->getImagesWithPath1();
         $form_taillePoids = $this->createForm(new Taille_PoidsType());
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
         $produits  = $this->get('knp_paginator')->paginate($TousProduits,$this->get('request')->query->get('page', 1),20);
@@ -457,7 +457,7 @@ class ProduitController extends Controller
         $allprix = $em->getRepository('KountacBundle:Produits_2')->getPrixAll();
         $categories = $em->getRepository('KountacBundle:Categories')->getCategoriesByName();
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images = $em->getRepository('KountacBundle:Media_motif')->getImagesWithPath1();
         $form_taillePoids = $this->createForm(new Taille_PoidsType());
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
         $produits  = $this->get('knp_paginator')->paginate($TousProduits,$this->get('request')->query->get('page', 1),20);
@@ -836,7 +836,7 @@ class ProduitController extends Controller
         
         $categories = $em->getRepository('KountacBundle:Categories')->findAll();
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images = $em->getRepository('KountacBundle:Media_motif')->getImagesWithPath1();
         $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
         $cfaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixCFA();
         $usaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixUSA();
@@ -886,7 +886,7 @@ class ProduitController extends Controller
         
         $categories_enfants = $em->getRepository('KountacBundle:Categories')->find($categorie)->getChildren();
         $produitsCategorie = $em->getRepository('KountacBundle:Produits_2')->byCategorie_1($categorie, $categories_enfants);
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images = $em->getRepository('KountacBundle:Media_motif')->getImagesWithPath1();
         $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
         $cfaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixCFA();
         $usaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixUSA();
@@ -939,7 +939,7 @@ class ProduitController extends Controller
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images = $em->getRepository('KountacBundle:Media_motif')->getImagesWithPath1();
         $form_taillePoids = $this->createForm(new Taille_PoidsType());
         $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
         $cfaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixCFA();
@@ -984,7 +984,7 @@ class ProduitController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images = $em->getRepository('KountacBundle:Media_motif')->getImagesWithPath1();
         $categories = $em->getRepository('KountacBundle:Categories')->findAll();
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
@@ -1051,7 +1051,7 @@ class ProduitController extends Controller
             $form = $this->createForm(new RechercheType());
             $form->bind($this->get('request'));
             $em = $this->getDoctrine()->getManager();
-            $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+            $images = $em->getRepository('KountacBundle:Media_motif')->getImagesWithPath1();
             $categories = $em->getRepository('KountacBundle:Categories')->findAll();
             $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
             $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
@@ -1106,7 +1106,7 @@ class ProduitController extends Controller
         include 'localisation.php';
 
         $em = $this->getDoctrine()->getManager();
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images = $em->getRepository('KountacBundle:Media_motif')->getImagesWithPath1();
         $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
         $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
         $cfaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixCFA();
@@ -1136,7 +1136,7 @@ class ProduitController extends Controller
         $session = $this->getRequest()->getSession();
         include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images = $em->getRepository('KountacBundle:Media_motif')->getImagesWithPath1();
         $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
         $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
         $cfaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixCFA();
@@ -1166,7 +1166,7 @@ class ProduitController extends Controller
         $session = $this->getRequest()->getSession();
         include 'localisation.php';
         $em = $this->getDoctrine()->getManager();
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images = $em->getRepository('KountacBundle:Media_motif')->getImagesWithPath1();
         $produit = $em->getRepository('KountacBundle:Produits_2')->find($id);
         $europrix = $em->getRepository('KountacBundle:Produits_2')->getPrixEuro();
         $cfaprix = $em->getRepository('KountacBundle:Produits_2')->getPrixCFA();
@@ -1215,7 +1215,7 @@ class ProduitController extends Controller
         
         $categories = $em->getRepository('KountacBundle:Categories')->findAll();
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images = $em->getRepository('KountacBundle:Media_motif')->getImagesWithPath1();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
         $form_taillePoids = $this->createForm(new Taille_PoidsType());
@@ -1331,7 +1331,7 @@ class ProduitController extends Controller
             throw $this->createNotFoundException('La page n\'exixte pas');
         }
         $categories = $em->getRepository('KountacBundle:Categories')->findAll();
-        $images = $em->getRepository('KountacBundle:Media_motif')->findAll();
+        $images = $em->getRepository('KountacBundle:Media_motif')->getImagesWithPath1();
         $mannequins = $em->getRepository('KountacBundle:Mannequin')->findAll();
         $marques = $em->getRepository('UtilisateursBundle:Utilisateurs')->getAllMarques();
         $motifs = $em->getRepository('KountacBundle:Libelles_motif')->findAll();
