@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/Projet%20test/Kountac_project/src/Kountac/KountacBundle/Resources/config/routingProduits.yml</file>
+            <file>file:/C:/xampp/htdocs/Projet%20test/Kountac_project/src/Kountac/KountacBundle/Repository/Media_motifRepository.php</file>
+            <file>file:/C:/xampp/htdocs/Projet%20test/Kountac_project/src/Kountac/KountacBundle/Resources/views/Default/produits/cfa/all_products.html.twig</file>
+            <file>file:/C:/xampp/htdocs/Projet%20test/Kountac_project/src/Kountac/KountacBundle/Resources/views/Default/index_cfa.html.twig</file>
+            <file>file:/C:/xampp/htdocs/Projet%20test/Kountac_project/src/Kountac/KountacBundle/Repository/Produits_1Repository.php</file>
+            <file>file:/C:/xampp/htdocs/Projet%20test/Kountac_project/src/Kountac/KountacBundle/Controller/ProduitController.php</file>
+            <file>file:/C:/xampp/htdocs/Projet%20test/Kountac_project/src/Kountac/KountacBundle/Controller/MenuController.php</file>
+        </group>
     </open-files>
 </project-private>

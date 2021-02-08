@@ -1046,8 +1046,8 @@ class ProduitController extends Controller
     {
         $session = $this->getRequest()->getSession();
         include 'localisation.php';
-        if ($this->get('request')->getMethod() == 'POST')
-        {
+        //if ($this->get('request')->getMethod() == 'POST')
+        //{
             $form = $this->createForm(new RechercheType());
             $form->bind($this->get('request'));
             $em = $this->getDoctrine()->getManager();
@@ -1065,9 +1065,9 @@ class ProduitController extends Controller
             $form_taillePoids = $this->createForm(new Taille_PoidsType());                       
         
             $produitsRecherche = $em->getRepository('KountacBundle:Produits_2')->recherche($form['recherche']->getData());
-            $produits  = $this->get('knp_paginator')->paginate($produitsRecherche,$this->get('request')->query->get('page', 1),20);
+            $produits  = $this->get('knp_paginator')->paginate($produitsRecherche,$this->get('request')->query->get('page', 1),21);
             $mot = $form['recherche']->getData();
-        } //else {
+        //} //else {
            // throw $this->createNotFoundException('La page n\'exixte pas');
         //}
         
