@@ -44,6 +44,7 @@ class ProduitController extends Controller
 
                 $minPrix = str_replace(",", "", $prix[0]);
                 $maxPrix = str_replace(",", "", $prix[1]);;
+                $prix = $minPrix;
             }
             else {
                 $prix = null;
@@ -146,6 +147,7 @@ class ProduitController extends Controller
                 }
             }
             else {
+                //var_dump($minPrix); var_dump($prix); die();
                 if ($marque == null){
                     if ($taille == null){
                         if ($motif == null){
@@ -301,7 +303,8 @@ class ProduitController extends Controller
             $prix = explode(" - ",$prix);
 
             $minPrix = str_replace(",", "", $prix[0]);
-            $maxPrix = str_replace(",", "", $prix[1]);;
+            $maxPrix = str_replace(",", "", $prix[1]);
+            $prix = $minPrix ;
 
             if ($this->getRequest()->request->get('categorie') != "toutes_les_categories" ){
                 $categorieNom = $this->getRequest()->request->get('categorie');
@@ -1293,12 +1296,12 @@ class ProduitController extends Controller
                                                                                             'motifs' => $motifs,
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'images' => $images,
-            'cfaprix' => $cfaprix,
-            'europrix' => $europrix,
-            'usaprix' => $usaprix,
-            'livreprix' => $livreprix,
-            'nairaprix' => $nairaprix,
-            'allprix' => $allprix,
+                                                                                            'cfaprix' => $cfaprix,
+                                                                                            'europrix' => $europrix,
+                                                                                            'usaprix' => $usaprix,
+                                                                                            'livreprix' => $livreprix,
+                                                                                            'nairaprix' => $nairaprix,
+                                                                                            'allprix' => $allprix,
                                                                                             'mannequins' => $mannequins,
                                                                                             'form' => $form_taillePoids->createView(),
                                                                                             'euro' => $this->getRequest()->getSession()->get('euro'),
@@ -1323,9 +1326,11 @@ class ProduitController extends Controller
             $form_taillePoids->bind($this->get('request'));
             $taille = $form_taillePoids['taille']->getData();
             $poids = $form_taillePoids['poids']->getData();
-            $poids_min = $poids - 8; $poids_max = $poids + 8;
+            $poids_min = $poids - 8; 
+            $poids_max = $poids + 8;
             $taille_min = $taille - 0.08; $taille_max = $taille + 0.08;
             $images_mannequins = $em->getRepository('KountacBundle:Media_motif')->triTaillePoids($poids_min, $poids_max, $taille_min, $taille_max);
+            //var_dump($images_mannequins); die();
             $produits  = $this->get('knp_paginator')->paginate($images_mannequins,$this->get('request')->query->get('page', 1),20);
         } else {
             throw $this->createNotFoundException('La page n\'exixte pas');
@@ -1347,21 +1352,22 @@ class ProduitController extends Controller
                                                                                             'marques' => $marques,
                                                                                             'motifs' => $motifs,
                                                                                             'images' => $images,
-            'cfaprix' => $cfaprix,
-            'europrix' => $europrix,
-            'usaprix' => $usaprix,
-            'livreprix' => $livreprix,
-            'nairaprix' => $nairaprix,
-            'allprix' => $allprix,
+                                                                                            'cfaprix' => $cfaprix,
+                                                                                            'europrix' => $europrix,
+                                                                                            'usaprix' => $usaprix,
+                                                                                            'livreprix' => $livreprix,
+                                                                                            'nairaprix' => $nairaprix,
+                                                                                            'allprix' => $allprix,
                                                                                             'categories' => $categories,
                                                                                             'mannequins' => $mannequins,
                                                                                             'form' => $form_taillePoids->createView(),
-                                                                                            'all' => $this->getRequest()->getSession()->get('all'),                                                                                
-                                                                                            'euro' => $this->getRequest()->getSession()->get('euro'),
-                                                                                            'livre' => $this->getRequest()->getSession()->get('livre'),
-                                                                                            'usa' => $this->getRequest()->getSession()->get('usa'),
-                                                                                            'naira' => $this->getRequest()->getSession()->get('naira'),
-                                                                                            'cfa' => $this->getRequest()->getSession()->get('cfa'),
+                                                                                            'all' => $session->get('all'),         
+                                                                                            //'tri_taillePoids' => $session->get('tri_taillePoids'), 
+                                                                                            'euro' => $session->get('euro'),
+                                                                                            'livre' => $session->get('livre'),
+                                                                                            'usa' => $session->get('usa'),
+                                                                                            'naira' => $session->get('naira'),
+                                                                                            'cfa' => $session->get('cfa'),
                                                                                             ));
     }
     
