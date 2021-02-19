@@ -32,24 +32,24 @@ class ProduitController extends Controller
         $produits  = $this->get('knp_paginator')->paginate($TousProduits,$this->get('request')->query->get('pages', 1),21);
         $minPrix = "";
         $maxPrix = "";
-
+        
         if ($session->has('tri'))
             $session->remove('tri');
         
         if ($this->get('request')->getMethod() == 'POST')
         {
-            if ($this->getRequest()->request->get('prix') != null ){
-                $prix = $this->getRequest()->request->get('prix') ;
-                $prix = explode(" - ",$prix);
+            //if ($this->getRequest()->request->get('prix')/* != null */){ // Ici on suppose que le prix ne peut pas être null car cela signifie l'absence de produit
+            $prix = $this->getRequest()->request->get('prix') ;
+            $prix = explode(" - ",$prix);
 
-                $minPrix = str_replace(",", "", $prix[0]);
-                $maxPrix = str_replace(",", "", $prix[1]);;
-                $prix = $minPrix;
-            }
-            else {
+            $minPrix = str_replace(",", "", $prix[0]);
+            $maxPrix = str_replace(",", "", $prix[1]);;
+                //$prix = $minPrix;
+            //}
+            /*else {
                 $prix = null;
             }
-
+            */
             if ($this->getRequest()->request->get('categorie') != "toutes_les_categories" ){
                 $categorieNom = $this->getRequest()->request->get('categorie');
                 $categorie = $em->getRepository('KountacBundle:Categories')->findBy(array('id' => $categorieNom));
@@ -86,62 +86,31 @@ class ProduitController extends Controller
                 if ($marque == null){
                     if ($taille == null){
                         if ($motif == null){
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->findAll();
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T1($minPrix, $maxPrix, $devise);
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T1($minPrix, $maxPrix, $devise);
                         }else{
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T2($motif);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T3($prix, $motif); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T3($minPrix, $maxPrix, $motif, $devise); 
                         }
                     } else{
                         if ($motif == null){
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T4($taille);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T5($prix, $taille); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T5($minPrix, $maxPrix, $taille, $devise); 
                         }else{
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T6($motif, $taille);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T7($prix, $motif, $taille); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T7($minPrix, $maxPrix, $motif, $taille, $devise); 
                         }
                     }     
                 }
                 else{
                     if ($taille == null){
                         if ($motif == null){
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T8($marque);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T9($prix, $marque); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T9($minPrix, $maxPrix, $marque, $devise); 
+                            
                         }else{
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T10($motif, $marque);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T11($prix, $motif, $marque); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T11($minPrix, $maxPrix, $motif, $marque, $devise); 
                         }
                     } else{
                         if ($motif == null){
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T12($taille, $marque);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T13($prix, $taille, $marque); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T13($minPrix, $maxPrix, $taille, $marque, $devise); 
                         }else{
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T14($motif, $taille, $marque);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T15($prix, $motif, $taille, $marque); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T15($minPrix, $maxPrix, $motif, $taille, $marque, $devise); 
                         }
                     }
                 }
@@ -151,62 +120,30 @@ class ProduitController extends Controller
                 if ($marque == null){
                     if ($taille == null){
                         if ($motif == null){
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T16($categorie);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T17($prix, $categorie); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T17($minPrix, $maxPrix, $categorie, $devise); 
                         }else{
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T18($motif, $categorie);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T19($prix, $motif, $categorie); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T19($minPrix, $maxPrix, $motif, $categorie, $devise); 
                         }
                     } else{
                         if ($motif == null){
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T20($taille, $categorie);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T21($prix, $taille, $categorie); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T21($minPrix, $maxPrix, $taille, $categorie, $devise); 
                         }else{
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T22($motif, $taille, $categorie);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T23($prix, $motif, $taille, $categorie); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T23($minPrix, $maxPrix, $motif, $taille, $categorie, $devise); 
                         }
                     }     
                 }
                 else{
                     if ($taille == null){
                         if ($motif == null){
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T24($marque, $categorie);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T25($prix, $marque, $categorie); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T25($minPrix, $maxPrix, $marque, $categorie, $devise); 
                         }else{
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T26($motif, $marque, $categorie);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T27($prix, $motif, $marque, $categorie); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T27($minPrix, $maxPrix, $motif, $marque, $categorie, $devise); 
                         }
                     } else{
                         if ($motif == null){
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T28($taille, $marque, $categorie);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T29($prix, $taille, $marque, $categorie); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T29($minPrix, $maxPrix, $taille, $marque, $categorie, $devise); 
                         }else{
-                            if ($prix == null){
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri_T30($motif, $taille, $marque, $categorie);
-                            }else{
-                                $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri($prix, $motif, $taille, $marque, $categorie); 
-                            }
+                            $ProduitsTries = $em->getRepository('KountacBundle:Produits_2')->getProductByTri($minPrix, $maxPrix, $motif, $taille, $marque, $categorie, $devise); 
                         }
                     }
                 }
