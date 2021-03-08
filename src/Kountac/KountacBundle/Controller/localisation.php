@@ -135,28 +135,11 @@ if($pays == "France")
 
 } else if($pays == "")
 {
-    $devise = "cfa";
-    $session->set('cfa', '1');
+    // $devise = "cfa";
+    // $session->set('cfa', '1');
 
-    if ($session->has('euro'))
-        $session->remove('euro');
-    
-    if ($session->has('livre'))
-        $session->remove('livre');
-    
-    if ($session->has('all'))
-        $session->remove('all');
-    
-    if ($session->has('usa'))
-        $session->remove('usa');
-    
-    if ($session->has('naira'))
-        $session->remove('naira');
-        
-    // $session->set('euro', '1');
-
-    // if ($session->has('cfa'))
-    //     $session->remove('cfa');
+    // if ($session->has('euro'))
+    //     $session->remove('euro');
     
     // if ($session->has('livre'))
     //     $session->remove('livre');
@@ -169,6 +152,24 @@ if($pays == "France")
     
     // if ($session->has('naira'))
     //     $session->remove('naira');
+        
+    $devise = "euro";
+    $session->set('euro', '1');
+
+    if ($session->has('cfa'))
+        $session->remove('cfa');
+    
+    if ($session->has('livre'))
+        $session->remove('livre');
+    
+    if ($session->has('all'))
+        $session->remove('all');
+    
+    if ($session->has('usa'))
+        $session->remove('usa');
+    
+    if ($session->has('naira'))
+        $session->remove('naira');
 
 }else
 {
