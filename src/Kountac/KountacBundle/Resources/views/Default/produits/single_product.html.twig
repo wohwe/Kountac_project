@@ -381,14 +381,14 @@
                                                         {% if produit_autre.europrix and produit != produit_autre %}
                                                         {% set prixReduction = 0 %}
                                                         {% set prixReduction = produit.europrix - (produit.europrix * produit.reduction/100) %}
-
+                                                        <!-- Début Portion de Code à PB -->
+                                                        {% for image in images_rest %}
+                                                        {% if image.produit2 == produit_autre %}
                                                         <div class="product-item">
                                                             <div class="item-inner">
                                                                 <div class="product-thumb has-hover-img">
                                                                     <figure> 
                                                                         <center> 
-                                                                            {% for image in images_all %}
-                                                                                {% if image.produit2 == produit_autre and image.top == 0 %}
                                                                                 <a href="{{ path('product', {'id' : produit_autre.id}) }}">
                                                                                     <img src="{{ image.AssetPath|imagine_filter('resizeThumb') }}" alt="">
                                                                                 </a>
@@ -402,8 +402,7 @@
                                                                                     <img src="{{ image.AssetPath3|imagine_filter('resizeThumb') }}" alt="">
                                                                                 </a>
                                                                                 {% endif %}
-                                                                                {% endif %}
-                                                                            {% endfor %}
+                                                                                
                                                                         </center>
                                                                     </figure>
                                                                     <div class="pr-info-area animated animate4">
@@ -421,10 +420,10 @@
                                                                         <div class="item-content">
                                                                             <div class="item-price">
                                                                                 {% if produit_autre.reduction == 0 %}
-                                                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ produit_autre.europrix|number_format(2) }} €</span> </span> </div>
+                                                                                    <div class="price-box"> <span class="regular-price"> <span class="price">{{ prixReduction|number_format(2) }} €</span> </span> </div>
                                                                                 {% else %}
                                                                                     <div class="price-box">
-                                                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ prixReduction|number_format(2) }} €</span> </p>
+                                                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">{{ produit_autre.europrix|number_format(2) }} €</span> </p>
                                                                                         <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">{{ produit_autre.europrix|number_format(2) }} €</span> </p>
                                                                                     </div>
                                                                                 {% endif %}
@@ -452,6 +451,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                                                {% endif %}
+                                                                            {% endfor %}
                                                         {% endif %}
                                                     {% endfor %}  
                                                 {% endfor %} 
@@ -464,17 +465,16 @@
                     </div>
                 </div>
             {% endif %}
-        </div>
-    {% endif %}
-    {% elseif cfa|length != 0 %}
-        {% include 'KountacBundle:Default:produits/cfa/single_product.html.twig' %}
-    {% elseif livre|length != 0 %}
-        {% include 'KountacBundle:Default:produits/livre/single_product.html.twig' %}
-    {% elseif usa|length != 0 %}
-        {% include 'KountacBundle:Default:produits/usa/single_product.html.twig' %}
-    {% elseif naira|length != 0 %}
-        {% include 'KountacBundle:Default:produits/naira/single_product.html.twig' %}
-    {% elseif all|length != 0 %}
-        {% include 'KountacBundle:Default:produits/all/single_product.html.twig' %}
-    {% endif %}
-{% endblock %}
+        {% endif %}
+        {% elseif cfa|length != 0 %}
+            {% include 'KountacBundle:Default:produits/cfa/single_product.html.twig' %}
+        {% elseif livre|length != 0 %}
+            {% include 'KountacBundle:Default:produits/livre/single_product.html.twig' %}
+        {% elseif usa|length != 0 %}
+            {% include 'KountacBundle:Default:produits/usa/single_product.html.twig' %}
+        {% elseif naira|length != 0 %}
+            {% include 'KountacBundle:Default:produits/naira/single_product.html.twig' %}
+        {% elseif all|length != 0 %}
+            {% include 'KountacBundle:Default:produits/all/single_product.html.twig' %}
+        {% endif %}
+    {% endblock %}
