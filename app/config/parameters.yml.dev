@@ -5,8 +5,8 @@ parameters:
     database_user: root
     database_name: kountacffauser3
     database_password: MotDePasse@1
-    mailer_transport: smtp
-    mailer_host: kountac.fr
-    mailer_user: contact@kountac.fr
-    mailer_password: 'contact@kountac@#'
+    mailer_transport: gmail
+    mailer_host: smtp.gmail.com
+    mailer_user: bychrisme@gmail.com
+    mailer_password: MotDePasse@1
     secret: ThisTokenIsNotSoSecretChangeIt
